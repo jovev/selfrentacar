@@ -10,3 +10,6 @@ imena = {"Vucic": "Radmila",
          "Markovic": "Ilija",
          "Nikolic": "Marko"}
 print(imena["Markovic"])
+
+print(round(abs(float(input("Ceo realan broj: ")))))
+
