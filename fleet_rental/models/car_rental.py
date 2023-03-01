@@ -568,7 +568,6 @@ class CarRentalContract(models.Model):
             custom_values = {}
         defaults = {
             'name': msg.get('subject') or _("No Subject"),
-            'manager_id': "WEB BOOKING",
             'customer_id': msg.get('author_id'),
             'rent_end_date': "10.03.2023.",
             'vehicle_id': "VW/VW Golf 7 - Automatic/No Plate",
