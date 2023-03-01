@@ -570,7 +570,7 @@ class CarRentalContract(models.Model):
             'name': msg.get('subject') or _("No Subject"),
             'customer_id': msg.get('author_id'),
             'rent_end_date': "10.03.2023.",
-            'vehicle_id': "VW/VW Golf 7 - Automatic/No Plate",
+            'vehicle_id': 1,
             'cost_generated': 0
         }
         defaults.update(custom_values)
