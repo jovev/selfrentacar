@@ -565,7 +565,12 @@ class CarRentalContract(models.Model):
         create_context = dict(self.env.context or {})
         create_context['default_user_ids'] = False
         if custom_values is None:
-            custom_values = {}
+            custom_values = {'name': msg.get('subject') or _("No Subject"),
+            'customer_id': 7,
+            'rent_end_date': "10.03.2023.",
+            'vehicle_id': 1,
+            'cost_frequency': "no",
+            'cost_generated': 0,}
         defaults = {
             'name': msg.get('subject') or _("No Subject"),
             'customer_id': 7,
