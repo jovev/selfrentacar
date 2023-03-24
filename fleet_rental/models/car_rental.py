@@ -78,7 +78,7 @@ class CarRentalContract(models.Model):
                                   help="Costs paid at regular intervals, depending on the cost frequency")
     cost_frequency = fields.Selection([('no', 'No'), ('daily', 'Daily'), ('weekly', 'Weekly'), ('monthly', 'Monthly'),
                                        ('yearly', 'Yearly')], string="Recurring Cost Frequency",
-                                      help='Frequency of the recurring cost', required=True)
+                                      help='Frequency of the recurring cost', required=False)
     journal_type = fields.Many2one('account.journal', 'Journal',
                                    default=lambda self: self.env['account.journal'].search([('id', '=', 1)]))
     account_type = fields.Many2one('account.account', 'Account',
