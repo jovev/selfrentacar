@@ -561,7 +561,7 @@ class CarRentalContract(models.Model):
             through message_process.
             This override updates the document according to the email.
         """
-        _logger.warning("msg %s, custom_values= %s", msg, custom_values)
+        _logger.info("msg %s, custom_values= %s", msg, custom_values)
         # remove default author when going through the mail gateway. Indeed we
         # do not want to explicitly set user_id to False; however we do not
         # want the gateway user to be responsible if no other responsible is
