@@ -568,7 +568,7 @@ class CarRentalContract(models.Model):
             custom_values = {}
         defaults = {
             'name': msg.get('subject') or _("No Subject"),
-            'customer_id': msg.get('author_id'),
+            'customer_id': 7,
             'rent_end_date': "10.03.2023.",
             'vehicle_id': 1,
             'cost_generated': 0,
