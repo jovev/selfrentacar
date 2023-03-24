@@ -573,7 +573,6 @@ class CarRentalContract(models.Model):
             'vehicle_id': 1,
             'cost_frequency': "no",
             'cost_generated': 0,
-            'cost_frequency': 0,
 
         }
         defaults.update(custom_values)
