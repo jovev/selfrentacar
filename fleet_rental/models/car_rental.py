@@ -561,11 +561,12 @@ class CarRentalContract(models.Model):
             through message_process.
             This override updates the document according to the email.
         """
-        _logger.info("msg %s, custom_values= %s", msg, custom_values)
+        _logger.INFO("msg %s, custom_values= %s", msg, custom_values)
         # remove default author when going through the mail gateway. Indeed we
         # do not want to explicitly set user_id to False; however we do not
         # want the gateway user to be responsible if no other responsible is
         # found.
+        _logger.info('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! self= %s, msg %s, custom_values= %s', self, msg, custom_values)
         create_context = dict(self.env.context or {})
         create_context['default_user_ids'] = False
         if custom_values is None:
