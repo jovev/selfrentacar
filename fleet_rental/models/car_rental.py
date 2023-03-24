@@ -571,6 +571,7 @@ class CarRentalContract(models.Model):
             'customer_id': 7,
             'rent_end_date': "10.03.2023.",
             'vehicle_id': 1,
+            'cost_frequency': "no",
             'cost_generated': 0,
             'cost_frequency': 0,
 
