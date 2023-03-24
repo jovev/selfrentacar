@@ -568,7 +568,7 @@ class CarRentalContract(models.Model):
         # found.
         _logger.info('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! self= %s, msg %s, custom_values= %s', self, msg, custom_values)
         create_context = dict(self.env.context or {})
-        create_context['default_user_ids'] = False
+        create_context['default_user_ids'] = False1
         if custom_values is None:
             custom_values = {'name': msg.get('subject') or _("No Subject"),
             'customer_id': 7,
