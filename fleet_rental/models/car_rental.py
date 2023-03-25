@@ -23,7 +23,10 @@
 from datetime import datetime, date, timedelta
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError, Warning, ValidationError
+import logging
 
+
+_logger = logging.getLogger(__name__)
 
 class CarRentalContract(models.Model):
     _name = 'car.rental.contract'
@@ -75,7 +78,7 @@ class CarRentalContract(models.Model):
                                   help="Costs paid at regular intervals, depending on the cost frequency")
     cost_frequency = fields.Selection([('no', 'No'), ('daily', 'Daily'), ('weekly', 'Weekly'), ('monthly', 'Monthly'),
                                        ('yearly', 'Yearly')], string="Recurring Cost Frequency",
-                                      help='Frequency of the recurring cost', required=True)
+                                      help='Frequency of the recurring cost', required=False)
     journal_type = fields.Many2one('account.journal', 'Journal',
                                    default=lambda self: self.env['account.journal'].search([('id', '=', 1)]))
     account_type = fields.Many2one('account.account', 'Account',
@@ -558,21 +561,28 @@ class CarRentalContract(models.Model):
             through message_process.
             This override updates the document according to the email.
         """
+        #_logger.INFO("msg %s, custom_values= %s", msg, custom_values)
         # remove default author when going through the mail gateway. Indeed we
         # do not want to explicitly set user_id to False; however we do not
         # want the gateway user to be responsible if no other responsible is
         # found.
+        _logger.info('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! self= %s, msg %s, custom_values= %s', self, msg, custom_values)
         create_context = dict(self.env.context or {})
         create_context['default_user_ids'] = False
         if custom_values is None:
-            custom_values = {}
-        defaults = {
-            'name': msg.get('subject') or _("No Subject"),
-            'customer_id': msg.get('author_id'),
+            custom_values = {'name': msg.get('subject') or _("No Subject"),
+            'customer_id': 7,
             'rent_end_date': "10.03.2023.",
             'vehicle_id': 1,
+            'cost_frequency': "no",
+            'cost_generated': 0,}
+        defaults = {
+            'name': msg.get('subject') or _("No Subject"),
+            'customer_id': 7,
+            'rent_end_date': "10.03.2023.",
+            'vehicle_id': 1,
+            'cost_frequency': "no",
             'cost_generated': 0,
-            'cost_frequency': 0,
 
         }
         defaults.update(custom_values)
