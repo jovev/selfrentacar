@@ -530,7 +530,8 @@ def check_permissions(func):
         # Set user's context
         user_context = request.env(request.cr, request.session.uid)['res.users'].context_get().copy()
         user_context['uid'] = request.session.uid
-        request.session.context = request.context = user_context
+        request.session.context = request.update_context = user_context
+
         
         # The code, following the decorator
         return func(self, *args, **kwargs)
