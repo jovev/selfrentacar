@@ -574,8 +574,8 @@ class CarRentalContract(models.Model):
             'cost': 1.0,
             'customer_id': 7,
             'first_payment': 1.0,
-            'rent_end_date': "10.03.2023.",
-            'rent_start_date': "9.03.2023.",
+            'rent_end_date': "2023-03-10",
+            'rent_start_date': "2023-03-09",
             'vehicle_id': 1,
            }
         defaults = {
@@ -583,8 +583,8 @@ class CarRentalContract(models.Model):
              'cost': 1.0,
             'customer_id': 7,
             'first_payment': 1.0,
-            'rent_end_date': "10.03.2023.",
-            'rent_start_date': "9.03.2023.",
+            'rent_end_date': "2023-03-10",
+            'rent_start_date': "2023-03-09",
             'vehicle_id': 1,
 
         }
