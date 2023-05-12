@@ -571,18 +571,21 @@ class CarRentalContract(models.Model):
         create_context['default_user_ids'] = False
         if custom_values is None:
             custom_values = {'name': msg.get('subject') or _("No Subject"),
+            'cost': 1.0,
             'customer_id': 7,
+            'first_payment': 1.0,
             'rent_end_date': "10.03.2023.",
+            'rent_start_date': "9.03.2023.",
             'vehicle_id': 1,
-            'cost_frequency': "no",
-            'cost_generated': 0,}
+           }
         defaults = {
             'name': msg.get('subject') or _("No Subject"),
+             'cost': 1.0,
             'customer_id': 7,
+            'first_payment': 1.0,
             'rent_end_date': "10.03.2023.",
+            'rent_start_date': "9.03.2023.",
             'vehicle_id': 1,
-            'cost_frequency': "no",
-            'cost_generated': 0,
 
         }
         defaults.update(custom_values)
