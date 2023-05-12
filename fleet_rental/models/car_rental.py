@@ -27,6 +27,101 @@ import logging
 
 
 _logger = logging.getLogger(__name__)
+class CarRentalReservation(models.Model):
+    _name = 'car.rental.reservation'
+    _description = 'Fleet Rental Management Reservation'
+    _inherit = 'mail.thread'
+    # customer details
+    customer_name = fields.fields.Char(required=True, string='Customer', help="Customer")
+    reservation_code = fields.Char(string="Reservation Code", copy=False)
+    date_of_birth = fields.Char(string="Date of Birth")
+    street_address = fields.Char(string="Street Address")
+    city = fields.Char(string="City")
+    flight_number = fields.Char(string="Flight number")
+    city = fields.Char(string="City")
+    country = fields.Char(string="Country")
+    email = fields.Char(string="Email")
+    additional_comments = fields.Text(string="Additional Comments")
+  # Polja vezana za neposredno rentiranje
+    rent_from = fields.Char(string="Rent From")
+    return_location = fields.Char(string="Return_location")
+    rent_start_date = fields.Datetime(string="Rent Start Date", required=True, help="Start date of rent", track_visibility='onchange')
+    rent_end_date = fields.Datetime(string="Rent End Date", required=True, help="End date of contract", track_visibility='onchange')
+    selected_cars = fields.Char(string="Selected Cars")     # Ovo je u stvari spisak vozila u odredjenoj kategoriji
+    grand_ptice = fields.Char(string="Total price for car rent and options")
+
+    def message_new(self, msg, custom_values=None):
+        """ Overrides mail_thread message_new that is called by the mailgateway
+            through message_process.
+            This override updates the document according to the email.
+        """
+        # _logger.INFO("msg %s, custom_values= %s", msg, custom_values)
+        # remove default author when going through the mail gateway. Indeed we
+        # do not want to explicitly set user_id to False; however we do not
+        # want the gateway user to be responsible if no other responsible is
+        # found.
+        _logger.info('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! self= %s, msg %s, custom_values= %s', self, msg, custom_values)
+        # Ova polja treba napuniti iz sadrzaja emaila.
+        create_context = dict(self.env.context or {})
+        create_context['default_user_ids'] = False
+        customer_name = "Ime i przime kupca"
+        reservation_code = "R000000000"
+        date_of_birth = "1900-01-01"
+        city = "Belgrade"
+        country="Serbia"
+        additional_comments = "No additional comments"
+        rent_from = "Belgrade"
+        return_location = "Belgrade"
+        rent_start_date = "Belgrade",
+        rent_end_date = "1023-01-02"
+        selected_cars = "VW Golf 7-Automatic, Wagon-New Car, Station Wagon, New Renault Megan - Automatic- Vagon"
+        grand_ptice = "1.0"
+        if custom_values is None:
+            custom_values = {'name': msg.get('subject') or _("No Subject"),
+                             'customer_name': customer_name,
+                             'reservation_code':reservation_code,
+                             'date_of_birth': date_of_birth,
+                             'city': city,
+                             'country': country,
+                             'additional_comments': additional_comments,
+                             'rent_from': rent_from,
+                             'return_location': return_location,
+                             'rent_start_date': rent_start_date,
+                             'rent_end_date': rent_end_date,
+                             'selected_cars': selected_cars,
+                             'grand_ptice': grand_ptice,
+                             }
+        defaults = {
+            'name': msg.get('subject') or _("No Subject"),
+                             'customer_name': "Ime i przime kupca",
+                             'reservation_code': "R000000000",
+                             'date_of_birth': "1900-01-01",
+                             'city': "Belgrade",
+                             'country': "Serbia",
+                             'additional_comments': "No additional comments",
+                             'rent_from': "Belgrade",
+                             'return_location': "Belgrade",
+                             'rent_start_date': "2023-01-01",
+                             'rent_end_date': "2023-01-02",
+                             'selected_cars': "VW Golf 7-Automatic, Wagon-New Car, Station Wagon, New Renault Megan - Automatic- Vagon",
+                             'grand_ptice': "1.0",
+        }
+        defaults.update(custom_values)
+
+        rent = super(CarRentalContract, self.with_context(create_context)).message_new(msg, custom_values=defaults)
+        #     email_list = rent.email_split(msg)
+        #     partner_ids = [p.id for p in self.env['mail.thread']._mail_find_partner_from_emails(email_list, records=rent,
+        #                                                                                        force_create=False) if p]
+        #    rent.message_subscribe(partner_ids)
+        return rent
+class CarRentalReservationOptions(models.Model):
+    _name = 'car.rental.reservation.options'
+    _description = 'Fleet Rental Management Reservation options'
+    option = fields.Char(string="Service option")
+    price = fields.Char(string="Price for option")
+    total_price = fields.Char(string="Total Price for option")
+
+
 
 class CarRentalContract(models.Model):
     _name = 'car.rental.contract'
@@ -590,12 +685,12 @@ class CarRentalContract(models.Model):
         }
         defaults.update(custom_values)
 
-        # rent = super(CarRentalContract, self.with_context(create_context)).message_new(msg, custom_values=defaults)
+        rent = super(CarRentalContract, self.with_context(create_context)).message_new(msg, custom_values=defaults)
         #     email_list = rent.email_split(msg)
         #     partner_ids = [p.id for p in self.env['mail.thread']._mail_find_partner_from_emails(email_list, records=rent,
         #                                                                                        force_create=False) if p]
         #    rent.message_subscribe(partner_ids)
-        return
+        return rent
 
 
 class FleetRentalLine(models.Model):
