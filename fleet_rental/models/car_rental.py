@@ -49,6 +49,10 @@ class CarRentalReservation(models.Model):
     rent_end_date = fields.Datetime(string="Rent End Date", required=True, help="End date of contract", track_visibility='onchange')
     selected_cars = fields.Char(string="Selected Cars")     # Ovo je u stvari spisak vozila u odredjenoj kategoriji
     grand_ptice = fields.Char(string="Total price for car rent and options")
+    state = fields.Selection(
+        [('draft', 'Draft'), ('reserved', 'Reserved'), ('running', 'Running'), ('cancel', 'Cancel'),
+         ('checking', 'Checking'), ('invoice', 'Invoice'), ('done', 'Done')], string="State",
+        default="draft", copy=False, track_visibility='onchange')
 
     def message_new(self, msg, custom_values=None):
         """ Overrides mail_thread message_new that is called by the mailgateway
