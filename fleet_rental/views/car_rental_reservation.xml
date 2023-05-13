@@ -69,7 +69,7 @@
                             <button name='action_view_invoice' class="oe_stat_button" type="object" icon="fa-money">
                                 <field string="Invoice" name="invoice_count" widget="statinfo" />
                             </button>
-                        </div>  
+                        </div>
                         <field name="image" widget='image' class="oe_avatar"/>
                         <div class="oe_title">
                             <h1>
@@ -170,7 +170,7 @@
                             </page>
                         </notebook>    -->
                         <group>
-                          <field name="notes"/>
+                          <field name="additional_comments"/>
                         </group>
                     </sheet>
                     <div class="oe_chatter">
