@@ -15,7 +15,7 @@
     <data>
     <!--    <record id="cron_scheduler_for_fleet" model="ir.cron">
           <field name="name">Fleet scheduler</field>
-          <field name="model_id" ref="fleet_rental.model_car_rental_contract"/>
+          <field name="model_id" ref="fleet_rental.model_car_rental_reservation"/>
           <field name="state">code</field>
           <field name="code">model.fleet_scheduler()</field>
           <field name="active" eval="True"/>
@@ -25,7 +25,7 @@
           <field name="numbercall">-1</field>
           <field name="doall" eval="False"/>
         </record>    -->
-
+<!--
         <record model="ir.ui.view" id="rental_fleet_vehicle_inherit_form_view">
             <field name="name">fleet.vehicle.form.inherit.view</field>
             <field name="model">fleet.vehicle</field>
@@ -39,11 +39,11 @@
                     <field name="color"/>
                 </field>
             </field>
-        </record>
-<!--
-        <record id="car_rental_contract_form_view" model="ir.ui.view">
-            <field name="name">car.contract.result.form</field>
-            <field name="model">car.rental.contract</field>
+        </record>  -->
+
+        <record id="car_rental_reservation_form_view" model="ir.ui.view">
+            <field name="name">car.reservation.result.form</field>
+            <field name="model">car.rental.reservation</field>
             <field name="type">form</field>
             <field name="arch" type="xml">
                 <form string="car_result">
@@ -77,19 +77,18 @@
                             </h1>
                         </div>
                         <group>
-                            <separator string="Contract Details " colspan="4" />
+                            <separator string="Request Details " colspan="4" />
                             <group>
-                                <field name="customer_id"  string="Customer" attrs="{'readonly': [('state','!=','draft')]}"/>
+                                <field name="reservation_code"  string="Reservation No" attrs="{'readonly': [('state','!=','draft')]}"/>
+                                <field name="customer_name"  string="Customer" attrs="{'readonly': [('state','!=','draft')]}"/>
                                 <field name="rent_start_date" attrs="{'readonly': [('state','!=','draft')]}"/>
                                 <field name="rent_end_date" attrs="{'readonly': [('state','!=','draft')]}"/>
-                                <field name="vehicle_id" domain="[('rental_check_availability','=',True),
-                                ('state_id.name','!=','Inactive')]"
-                                   options="{'no_create': True}"/>
-                                <field name="journal_type" invisible="1"/>
-                                <field name="check_verify" invisible="1" />
-                                <field name="sales_person" attrs="{'readonly': [('state','!=','draft')]}"/>
+                                <field name="selected_cars" />
+                                <field name="rent_from"/>
+                                <field name="return_location"/>
+                                <field name="grand_ptice" attrs="{'readonly': [('state','!=','draft')]}"/>
                             </group>
-                            <group>
+     <!--                       <group>
                                 <field name="car_brand"/>
                                 <field name="car_color"/>
                                 <field name="first_invoice_created" invisible="1"/>
@@ -112,8 +111,8 @@
                                                        'required': [('cost_frequency','not in',[None,False,'no'])]}"/>
                                     </div>
                             </group>
-                        </group>
-                        <notebook>
+                        </group>  ->
+    <!--                    <notebook>
                             <page string="Recurring Invoices" attrs="{'invisible': [('cost_frequency','in',[None,False,'no'])]}">
                                 <field name="recurring_line" mode="tree">
                                     <tree string="Fleet Reccurring Lines"
@@ -169,7 +168,7 @@
                                             class="oe_subtotal_footer oe_right oe_highlight"/>
                                 </div>
                             </page>
-                        </notebook>
+                        </notebook>    -->
                         <group>
                           <field name="notes"/>
                         </group>
@@ -181,7 +180,7 @@
                 </form>
             </field>
         </record>
--->
+
         <record model="ir.ui.view" id="car_reservation_tree_view">
             <field name="name">car_reservation_tree_view.tree</field>
             <field name="model">car.rental.reservation</field>
@@ -208,8 +207,8 @@
 
     <!--    <menuitem name="Fleet Rental" id="fleet.menu_root" sequence="115" groups="fleet.fleet_group_user"
                   web_icon="fleet,static/description/icon.png"/>  -->
-        <menuitem id="menu_car_reservation" sequence="1" name="Rental Management Reservation" parent="fleet.menu_root"/>
-        <menuitem id="menu_car_rental_reservation" parent="menu_car_reservation" name="Rental Reservations"
+        <menuitem id="menu_car_reservation" sequence="1" name="Web Reservation" parent="fleet.menu_root"/>
+        <menuitem id="menu_car_rental_reservation" parent="menu_car_reservation" name="Rental Requests"
                   action="action_car_rental_reservation" sequence="1"/>
     </data>
 </odoo>
