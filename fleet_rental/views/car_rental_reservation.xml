@@ -190,10 +190,8 @@
                 <tree string="car_reservation_result" decoration-info="state == 'draft'">
                     <field name="customer_name"/>
                     <field name="reservation_code" string="Customer"/>
-			        <field name="vehicle_id"/>
-                    <field name="cost"/>
-                    <field name="car_brand"/>
-					<field name="car_color"/>
+			        <field name="selected_cars"/>
+                    <field name="grand_ptice"/>
                     <field name="rent_start_date"/>
                     <field name="rent_end_date"/>
                     <field name="rent_from"/>
