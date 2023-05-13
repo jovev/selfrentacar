@@ -187,7 +187,7 @@
             <field name="model">car.rental.reservation</field>
             <field name="type">tree</field>
             <field name="arch" type="xml">
-                <tree string="car_reservation_result" decoration-info="state == 'draft'">
+                <tree string="car_reservation_result">
                     <field name="customer_name"/>
                     <field name="reservation_code" string="Customer"/>
 			        <field name="selected_cars"/>
