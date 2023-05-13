@@ -27,9 +27,9 @@
     'description': "Module Helps You To Manage Rental Contracts, Odoo16, Odoo 16, Fleet, Rental, Rent, Vehicle management",
     'category': "Industries",
     'live_test_url': 'https://youtu.be/chN-n7nB3Ac',
-    'author': 'Cybrosys Techno Solutions',
-    'company': 'Cybrosys Techno Solutions',
-    'website': "https://www.cybrosys.com",
+    'author': 'Irvas Int,Cybrosys Techno Solutions',
+    'company': 'IRVAS International doo',
+    'website': "https://www.irvas.rs",
     'depends': ['base', 'account', 'fleet', 'mail'],
     'data': [
         'data/fleet_rental_data.xml',
@@ -38,6 +38,7 @@
         'views/car_rental_view.xml',
         'views/checklist_view.xml',
         'views/car_tools_view.xml',
+        'views/car_rental_reservation.xml',
         'reports/rental_report.xml'
     ],
     'demo': [
