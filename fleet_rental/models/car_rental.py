@@ -112,7 +112,7 @@ class CarRentalReservation(models.Model):
         }
         defaults.update(custom_values)
 
-        rent = super(CarRentalContract, self.with_context(create_context)).message_new(msg, custom_values=defaults)
+        rent = super(CarRentalReservation, self.with_context(create_context)).message_new(msg, custom_values=defaults)
         #     email_list = rent.email_split(msg)
         #     partner_ids = [p.id for p in self.env['mail.thread']._mail_find_partner_from_emails(email_list, records=rent,
         #                                                                                        force_create=False) if p]
