@@ -77,8 +77,8 @@ class CarRentalReservation(models.Model):
         additional_comments = "No additional comments"
         rent_from = "Belgrade"
         return_location = "Belgrade"
-        rent_start_date = "Belgrade",
-        rent_end_date = "1023-01-02"
+        rent_start_date = "2023-01-01"
+        rent_end_date = "2023-01-02"
         selected_cars = "VW Golf 7-Automatic, Wagon-New Car, Station Wagon, New Renault Megan - Automatic- Vagon"
         grand_ptice = "1.0"
         if custom_values is None:
