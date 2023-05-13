@@ -32,6 +32,7 @@ class CarRentalReservation(models.Model):
     _description = 'Fleet Rental Management Reservation'
     _inherit = 'mail.thread'
     # customer details
+    name = fields.Char(string="Name", default="Draft Reservation", readonly=True, copy=False)
     customer_name = fields.Char(required=True, string='Customer', help="Customer")
     reservation_code = fields.Char(string="Reservation Code", copy=False)
     date_of_birth = fields.Char(string="Date of Birth")
