@@ -46,8 +46,8 @@
             <field name="model">car.rental.reservation</field>
             <field name="type">form</field>
             <field name="arch" type="xml">
-                <form string="car_result">
-                    <header>
+                <form string="car_web_reservation">
+                <!--    <header>
                         <button name="action_confirm" string="Confirm" type="object"
                                 attrs="{'invisible': [('state', '!=', 'draft')]}" class="oe_highlight"/>
                         <button name="action_run" string="Run" type="object"
@@ -63,7 +63,7 @@
                         <button name="set_to_done" string="Set to Done"
                                 states="invoice" type="object" class="oe_highlight"/>
                         <field name="state" widget="statusbar" statusbar_visible="draft,running,done"/>
-                    </header>
+                    </header>  -->
                     <sheet>
                         <div class="oe_button_box" name="buttons">
                             <button name='action_view_invoice' class="oe_stat_button" type="object" icon="fa-money">
