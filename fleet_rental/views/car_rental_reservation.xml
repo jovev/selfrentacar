@@ -65,11 +65,11 @@
                         <field name="state" widget="statusbar" statusbar_visible="draft,running,done"/>
                     </header>  -->
                     <sheet>
-                        <div class="oe_button_box" name="buttons">
+                <!--        <div class="oe_button_box" name="buttons">
                             <button name='action_view_invoice' class="oe_stat_button" type="object" icon="fa-money">
                                 <field string="Invoice" name="invoice_count" widget="statinfo" />
                             </button>
-                        </div>
+                        </div>  -->
                         <field name="image" widget='image' class="oe_avatar"/>
                         <div class="oe_title">
                             <h1>
