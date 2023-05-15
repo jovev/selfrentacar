@@ -112,63 +112,17 @@
                                     </div>
                             </group> -->
                         </group>
-    <!--                    <notebook>
-                            <page string="Recurring Invoices" attrs="{'invisible': [('cost_frequency','in',[None,False,'no'])]}">
-                                <field name="recurring_line" mode="tree">
-                                    <tree string="Fleet Reccurring Lines"
-                                          colors="#0b7a35:payment_info=='paid';#f20b07:payment_info!='paid'">
-                                        <field name="date_today"/>
-                                        <field name="date_due"/>
-                                        <field name="name"/>
-                                        <field name="account_info"/>
-                                        <field name="recurring_amount"/>
-                                        <field name="payment_info"/>
-                                        <field name="invoice_ref"/>
-                                    </tree>
-                                </field>
-                            </page>
-                            <page string="Checklist">
-                                <group>
-                                    <group>
-                                        <field name="attachment_ids" widget="many2many_binary" class="oe_inline"/>
-                                    </group>
-                                    <group>
-                                        <field name="damage_cost" attrs="{'invisible': [('state','!=','checking')]}"/>
-                                    </group>
-                                </group>
-                                <field name="checklist_line">
-                                    <tree string="Fleet Checklist Lines" editable="bottom">
-                                        <field name="name"/>
-                                        <field name="checklist_active"/>
-                                        <field name="checklist_number" invisible="True"/>
+                        <notebook>
+                            <page string="Rental Options" attrs="{'invisible': [('cost_frequency','in',[None,False,'no'])]}">
+                                <field name="rental_options" mode="tree">
+                                    <tree string="Rental Options Lines">
+                                        <field name="options"/>
                                         <field name="price"/>
+                                        <field name="total_price"/>
                                     </tree>
-                                    <form>
-                                        <sheet>
-                                            <group>
-                                                <field name="name"/>
-                                                <field name="checklist_active" invisible="1"/>
-                                                <field name="checklist_number" invisible="1"/>
-                                            </group>
-                                        </sheet>
-                                    </form>
                                 </field>
-                                <div>
-                                    <group class="oe_subtotal_footer oe_right">
-                                        <field name="total"/>
-                                        <field name="tools_missing_cost"/>
-                                        <field name="damage_cost_sub"/>
-                                        <field name="total_cost" class="oe_subtotal_footer_separator"/>
-                                    </group>
-                                </div>
-                                <div style="float: right;margin-left: 78%;margin-bottom: 36px;">
-                                    <button name="action_verify" string="Verify" type="object"
-                                            style="width: 100px !important;height: 40px;"
-                                            attrs="{'invisible': [('state', '!=', 'checking')]}"
-                                            class="oe_subtotal_footer oe_right oe_highlight"/>
-                                </div>
                             </page>
-                        </notebook>    -->
+                        </notebook>
                         <group>
                           <field name="additional_comments"/>
                         </group>

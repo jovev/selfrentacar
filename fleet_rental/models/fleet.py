@@ -49,3 +49,13 @@ class EmployeeFleet(models.Model):
 
     _sql_constraints = [('vin_sn_unique', 'unique (vin_sn)', "Chassis Number already exists !"),
                         ('license_plate_unique', 'unique (license_plate)', "License plate already exists !")]
+
+    x_bazna_lokacija = fields.Many2one('stock.location', string = 'Base Location')
+    x_trenutna_lokacija = fields.Many2one('stock.location', string = 'Current Location')
+    x_godina_proizvodnje = fields.Char('Year of production')
+    x_osnov_raspolaganja = fields.Selection([('gasoline', 'Gasoline'),
+                                  ('ownership', 'vlasnistvo'),
+                                  ('rent', 'zakup'),
+                                  ('lising', 'lizing'),
+                                  ],'Osnov raspolaganja')
+    x_euro_norma = fields.Char('EURO Norm')

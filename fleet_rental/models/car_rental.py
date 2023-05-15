@@ -54,7 +54,7 @@ class CarRentalReservation(models.Model):
         [('draft', 'Draft'), ('reserved', 'Reserved'), ('running', 'Running'), ('cancel', 'Cancel'),
          ('checking', 'Checking'), ('invoice', 'Invoice'), ('done', 'Done')], string="State",
         default="draft", copy=False, track_visibility='onchange')
-
+    rental_options = fields.Many2one('car.rental.reservation.options', string = 'Rental options')
     def message_new(self, msg, custom_values=None):
         """ Overrides mail_thread message_new that is called by the mailgateway
             through message_process.
@@ -66,6 +66,8 @@ class CarRentalReservation(models.Model):
         # want the gateway user to be responsible if no other responsible is
         # found.
         _logger.info('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! self= %s, msg %s, custom_values= %s', self, msg, custom_values)
+        msg.find('Reservation code')
+
         # Ova polja treba napuniti iz sadrzaja emaila.
         create_context = dict(self.env.context or {})
         create_context['default_user_ids'] = False
@@ -81,6 +83,7 @@ class CarRentalReservation(models.Model):
         rent_end_date = "2023-01-02"
         selected_cars = "VW Golf 7-Automatic, Wagon-New Car, Station Wagon, New Renault Megan - Automatic- Vagon"
         grand_ptice = "1.0"
+
         if custom_values is None:
             custom_values = {'name': msg.get('subject') or _("No Subject"),
                              'customer_name': customer_name,

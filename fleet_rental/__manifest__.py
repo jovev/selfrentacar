@@ -30,7 +30,7 @@
     'author': 'Irvas Int,Cybrosys Techno Solutions',
     'company': 'IRVAS International doo',
     'website': "https://www.irvas.rs",
-    'depends': ['base', 'account', 'fleet', 'mail'],
+    'depends': ['base', 'account', 'fleet', 'mail','stock'],
     'data': [
         'data/fleet_rental_data.xml',
         'security/rental_security.xml',
