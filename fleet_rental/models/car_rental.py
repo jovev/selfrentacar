@@ -75,7 +75,7 @@ class CarRentalReservation(models.Model):
         _logger.info('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! self= %s, msg %s, custom_values= %s', self, msg, custom_values)
         email_body = msg['body']
         goli_tekst = remove_html(email_body)
-        _logger.info('***************  Goli tekst = %s', email_body)
+        _logger.info('***************  Goli tekst = %s', goli_tekst)
         # skidamo HTM tagove
         
 
