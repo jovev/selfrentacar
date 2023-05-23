@@ -92,8 +92,8 @@
                             <group>
                                 <field name="car_brand"/>
                                 <field name="car_color"/>
-                    <!--            <field name="x_bazna_lokacija"></field>
-                                <field name="x_trenutna_lokacija"></field>    -->
+                                <field name="x_bazna_lokacija"></field>
+                                <field name="x_trenutna_lokacija"></field>
                                 <field name="first_invoice_created" invisible="1"/>
                                 <label for="first_payment"/>
                                 <div>

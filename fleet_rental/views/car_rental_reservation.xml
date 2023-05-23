@@ -115,7 +115,7 @@
                         <notebook>
                     <!--        <page string="Rental Options" attrs="{'invisible': [('cost_frequency','in',[None,False,'no'])]}">  -->
                             <page string="Rental Options">
-                                <field name="rental_options" mode="tree">
+                                <field name="option_lines" mode="tree">
                                     <tree string="Rental Options Lines">
                                         <field name="option"/>
                                         <field name="price"/>
