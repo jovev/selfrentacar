@@ -54,7 +54,9 @@ class CarRentalReservation(models.Model):
         [('draft', 'Draft'), ('reserved', 'Reserved'), ('running', 'Running'), ('cancel', 'Cancel'),
          ('checking', 'Checking'), ('invoice', 'Invoice'), ('done', 'Done')], string="State",
         default="draft", copy=False, track_visibility='onchange')
-    rental_options = fields.Many2one('car.rental.reservation.options', string = 'Rental options')
+    options_line = fields.One2many('car.rental.reservation.options', 'rental_options', readonly=True, help="Selected Rental options",
+                                   copy=False)
+    
     def message_new(self, msg, custom_values=None):
         """ Overrides mail_thread message_new that is called by the mailgateway
             through message_process.
@@ -130,7 +132,7 @@ class CarRentalReservationOptions(models.Model):
     option = fields.Char(string="Service option")
     price = fields.Char(string="Price for option")
     total_price = fields.Char(string="Total Price for option")
-
+    rental_options = fields.Many2one('car.rental.reservation', string='Rental options')
 
 
 class CarRentalContract(models.Model):
