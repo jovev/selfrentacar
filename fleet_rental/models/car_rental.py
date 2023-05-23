@@ -84,6 +84,9 @@ class CarRentalReservation(models.Model):
         create_context['default_user_ids'] = False
         customer_name = "Ime i przime kupca"
         reservation_code = "R000000000"
+        reservation_code_start = goli_tekst.find('Reservation code') + 16
+        reservation_code_end = goli_tekst.find('Customer')
+        reservation_code = goli_tekst[reservation_code_start:reservation_code_end]
         date_of_birth = "1900-01-01"
         city = "Belgrade"
         country="Serbia"
