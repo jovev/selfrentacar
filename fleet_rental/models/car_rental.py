@@ -66,7 +66,7 @@ class CarRentalReservation(models.Model):
         # want the gateway user to be responsible if no other responsible is
         # found.
         _logger.info('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! self= %s, msg %s, custom_values= %s', self, msg, custom_values)
-        email_body = msg('body')
+        email_body = msg['body']
         _logger.info('***************  TEKO eMaik poruke = %s', email_body)
 
 
