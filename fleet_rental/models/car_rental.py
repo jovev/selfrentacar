@@ -24,9 +24,13 @@ from datetime import datetime, date, timedelta
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError, Warning, ValidationError
 import logging
-
-
+import re
+regex = re.compile(r'<[^>]+>')
 _logger = logging.getLogger(__name__)
+
+
+def remove_html(string):
+    return regex.sub('', string)
 class CarRentalReservation(models.Model):
     _name = 'car.rental.reservation'
     _description = 'Fleet Rental Management Reservation'
@@ -57,6 +61,7 @@ class CarRentalReservation(models.Model):
     option_lines = fields.One2many('car.rental.reservation.options', 'rental_options', readonly=True, help="Selected Rental options",
                                    copy=False)
 
+
     def message_new(self, msg, custom_values=None):
         """ Overrides mail_thread message_new that is called by the mailgateway
             through message_process.
@@ -69,8 +74,10 @@ class CarRentalReservation(models.Model):
         # found.
         _logger.info('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! self= %s, msg %s, custom_values= %s', self, msg, custom_values)
         email_body = msg['body']
-        _logger.info('***************  TEKO eMaik poruke = %s', email_body)
-
+        goli_tekst = remove_html(email_body)
+        _logger.info('***************  Goli tekst = %s', email_body)
+        # skidamo HTM tagove
+        
 
         # Ova polja treba napuniti iz sadrzaja emaila.
         create_context = dict(self.env.context or {})
