@@ -56,36 +56,39 @@ def pars_reservation_body(input_string):
 #
     reservation_code_start = reservation_code_end + 8
     reservation_code_end = input_string.find('Date of Birth')
-    param_dict['date_of_birth'] = input_string[reservation_code_start:reservation_code_end]
+    param_dict['customer'] = input_string[reservation_code_start:reservation_code_end]
 #
     reservation_code_start = reservation_code_end + 13
     reservation_code_end = input_string.find('Street Address')
-    param_dict['street_address'] = input_string[reservation_code_start:reservation_code_end]
+    param_dict['date_of_birth'] = input_string[reservation_code_start:reservation_code_end]
     #
     reservation_code_start = reservation_code_end + 14
     reservation_code_end = input_string.find('City')
-    param_dict['city'] = input_string[reservation_code_start:reservation_code_end]
+    param_dict['street_address'] = input_string[reservation_code_start:reservation_code_end]
     #
     reservation_code_start = reservation_code_end + 4
     reservation_code_end = input_string.find('Flight number')
-    param_dict['flight_number'] = input_string[reservation_code_start:reservation_code_end]
+    param_dict['city'] = input_string[reservation_code_start:reservation_code_end]
     #
     reservation_code_start = reservation_code_end + 13
     reservation_code_end = input_string.find('Country')
-    param_dict['country'] = input_string[reservation_code_start:reservation_code_end]
+    param_dict['flight_number'] = input_string[reservation_code_start:reservation_code_end]
     #
     reservation_code_start = reservation_code_end + 7
     reservation_code_end = input_string.find('Phone')
-    param_dict['phone'] = input_string[reservation_code_start:reservation_code_end]
+    param_dict['country'] = input_string[reservation_code_start:reservation_code_end]
     #
     reservation_code_start = reservation_code_end + 5
     reservation_code_end = input_string.find('Email')
-    param_dict['email'] = input_string[reservation_code_start:reservation_code_end]
+    param_dict['phone'] = input_string[reservation_code_start:reservation_code_end]
     #
     reservation_code_start = reservation_code_end + 5
     reservation_code_end = input_string.find('Additional Comments')
+    param_dict['email'] = input_string[reservation_code_start:reservation_code_end]
+    #
+    reservation_code_start = reservation_code_end + 19
+    reservation_code_end = input_string.find('IRVAS')
     param_dict['additional_comments'] = input_string[reservation_code_start:reservation_code_end]
-
 
     return param_dict
 class CarRentalReservation(models.Model):
