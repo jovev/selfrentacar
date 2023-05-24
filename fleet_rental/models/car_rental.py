@@ -33,22 +33,59 @@ def remove_html(string):
     return regex.sub('', string)
 
 def pars_reservation_body(input_string):
-    param_dict = {'customer_name':'Ime i przime kupca',
+    param_dict = {'customer_name': 'Ime i przime kupca',
                   'reservation_code': 'R000000000',
-                  'date_of_birth' : '1900-01-01',
-                   'city':'Belgrade',
+                  'date_of_birth': '1900-01-01',
+                  'street_address': 'Street address',
+                   'city': 'Belgrade',
+                  'flight_number': 'Enter FN',
                     'country':'Serbia',
-                    'additional_comments':'No additional comments',
-                    'rent_from':'Belgrade',
-                    'return_location':'Belgrade',
-                    'rent_start_date':'2023-01-01',
-                    'rent_end_date':'2023-01-02',
-                    'selected_cars':'car class',
-                    'grand_ptice':'1.0',
+                    'phone': '(xx)-yyyyyyy',
+                    'email': 'info@example.com',
+                    'additional_comments': 'No additional comments',
+                    'rent_from': 'Belgrade',
+                    'return_location': 'Belgrade',
+                    'rent_start_date': '2023-01-01',
+                    'rent_end_date': '2023-01-02',
+                    'selected_cars': 'car class',
+                    'grand_ptice': '1.0',
                   }
     reservation_code_start = input_string.find('Reservation code') + 16
     reservation_code_end = input_string.find('Customer')
     param_dict['reservation_code'] = input_string[reservation_code_start:reservation_code_end]
+#
+    reservation_code_start = reservation_code_end + 8
+    reservation_code_end = input_string.find('Date of Birth')
+    param_dict['date_of_birth'] = input_string[reservation_code_start:reservation_code_end]
+#
+    reservation_code_start = reservation_code_end + 13
+    reservation_code_end = input_string.find('Street Address')
+    param_dict['street_address'] = input_string[reservation_code_start:reservation_code_end]
+    #
+    reservation_code_start = reservation_code_end + 14
+    reservation_code_end = input_string.find('City')
+    param_dict['city'] = input_string[reservation_code_start:reservation_code_end]
+    #
+    reservation_code_start = reservation_code_end + 4
+    reservation_code_end = input_string.find('Flight number')
+    param_dict['flight_number'] = input_string[reservation_code_start:reservation_code_end]
+    #
+    reservation_code_start = reservation_code_end + 13
+    reservation_code_end = input_string.find('Country')
+    param_dict['country'] = input_string[reservation_code_start:reservation_code_end]
+    #
+    reservation_code_start = reservation_code_end + 7
+    reservation_code_end = input_string.find('Phone')
+    param_dict['phone'] = input_string[reservation_code_start:reservation_code_end]
+    #
+    reservation_code_start = reservation_code_end + 5
+    reservation_code_end = input_string.find('Email')
+    param_dict['email'] = input_string[reservation_code_start:reservation_code_end]
+    #
+    reservation_code_start = reservation_code_end + 5
+    reservation_code_end = input_string.find('Additional Comments')
+    param_dict['additional_comments'] = input_string[reservation_code_start:reservation_code_end]
+
 
     return param_dict
 class CarRentalReservation(models.Model):
@@ -63,8 +100,8 @@ class CarRentalReservation(models.Model):
     street_address = fields.Char(string="Street Address")
     city = fields.Char(string="City")
     flight_number = fields.Char(string="Flight number")
-    city = fields.Char(string="City")
     country = fields.Char(string="Country")
+    phone = fields.Char(string="Country")
     email = fields.Char(string="Email")
     additional_comments = fields.Text(string="Additional Comments")
   # Polja vezana za neposredno rentiranje
@@ -112,7 +149,10 @@ class CarRentalReservation(models.Model):
                              'reservation_code':reserv_parameters['reservation_code'],
                              'date_of_birth': reserv_parameters['date_of_birth'],
                              'city': reserv_parameters['city'],
+                             'flight_number': reserv_parameters['flight_number'],
                              'country': reserv_parameters['country'],
+                             'phone': reserv_parameters['phone'],
+                             'email': reserv_parameters['email'],
                              'additional_comments': reserv_parameters['additional_comments'],
                              'rent_from': reserv_parameters['rent_from'],
                              'return_location': reserv_parameters['return_location'],
@@ -128,6 +168,9 @@ class CarRentalReservation(models.Model):
                              'date_of_birth': "1900-01-01",
                              'city': "Belgrade",
                              'country': "Serbia",
+                             'flight_number': "Enter FN",
+                             'phone': "063461420",
+                             'email': "info@example.com",
                              'additional_comments': "No additional comments",
                              'rent_from': "Belgrade",
                              'return_location': "Belgrade",
