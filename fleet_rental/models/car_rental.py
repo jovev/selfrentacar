@@ -31,6 +31,26 @@ _logger = logging.getLogger(__name__)
 
 def remove_html(string):
     return regex.sub('', string)
+
+def pars_reservation_body(input_string):
+    param_dict = {'customer_name':'Ime i przime kupca',
+                  'reservation_code': 'R000000000',
+                  'date_of_birth' : '1900-01-01',
+                   'city':'Belgrade',
+                    'country':'Serbia',
+                    'additional_comments':'No additional comments',
+                    'rent_from':'Belgrade',
+                    'return_location':'Belgrade',
+                    'rent_start_date':'2023-01-01',
+                    'rent_end_date':'2023-01-02',
+                    'selected_cars':'car class',
+                    'grand_ptice':'1.0',
+                  }
+    reservation_code_start = input_string.find('Reservation code') + 16
+    reservation_code_end = input_string.find('Customer')
+    param_dict['reservation_code'] = input_string[reservation_code_start:reservation_code_end]
+
+    return param_dict
 class CarRentalReservation(models.Model):
     _name = 'car.rental.reservation'
     _description = 'Fleet Rental Management Reservation'
@@ -74,44 +94,32 @@ class CarRentalReservation(models.Model):
         # found.
         _logger.info('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! self= %s, msg %s, custom_values= %s', self, msg, custom_values)
         email_body = msg['body']
-        goli_tekst = remove_html(email_body)
-        _logger.info('***************  Goli tekst = %s', goli_tekst)
         # skidamo HTM tagove
+        clear_tekst = remove_html(email_body)[98:]
+        _logger.info('***************  Goli tekst = %s', clear_tekst)
+        # Parsiramo body emaila
+        reserv_parameters = pars_reservation_body(clear_tekst)
         
 
         # Ova polja treba napuniti iz sadrzaja emaila.
         create_context = dict(self.env.context or {})
         create_context['default_user_ids'] = False
-        customer_name = "Ime i przime kupca"
-        reservation_code = "R000000000"
-        reservation_code_start = goli_tekst.find('Reservation code') + 16
-        reservation_code_end = goli_tekst.find('Customer')
-        reservation_code = goli_tekst[reservation_code_start:reservation_code_end]
-        date_of_birth = "1900-01-01"
-        city = "Belgrade"
-        country="Serbia"
-        additional_comments = "No additional comments"
-        rent_from = "Belgrade"
-        return_location = "Belgrade"
-        rent_start_date = "2023-01-01"
-        rent_end_date = "2023-01-02"
-        selected_cars = "VW Golf 7-Automatic, Wagon-New Car, Station Wagon, New Renault Megan - Automatic- Vagon"
-        grand_ptice = "1.0"
+
 
         if custom_values is None:
             custom_values = {'name': msg.get('subject') or _("No Subject"),
-                             'customer_name': customer_name,
-                             'reservation_code':reservation_code,
-                             'date_of_birth': date_of_birth,
-                             'city': city,
-                             'country': country,
-                             'additional_comments': additional_comments,
-                             'rent_from': rent_from,
-                             'return_location': return_location,
-                             'rent_start_date': rent_start_date,
-                             'rent_end_date': rent_end_date,
-                             'selected_cars': selected_cars,
-                             'grand_ptice': grand_ptice,
+                             'customer_name': reserv_parameters['customer_name'],
+                             'reservation_code':reserv_parameters['reservation_code'],
+                             'date_of_birth': reserv_parameters['date_of_birth'],
+                             'city': reserv_parameters['city'],
+                             'country': reserv_parameters['country'],
+                             'additional_comments': reserv_parameters['additional_comments'],
+                             'rent_from': reserv_parameters['rent_from'],
+                             'return_location': reserv_parameters['return_location'],
+                             'rent_start_date': reserv_parameters['rent_start_date'],
+                             'rent_end_date': reserv_parameters['rent_end_date'],
+                             'selected_cars': reserv_parameters['selected_cars'],
+                             'grand_ptice': reserv_parameters['grand_ptice'],
                              }
         defaults = {
             'name': msg.get('subject') or _("No Subject"),
