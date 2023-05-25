@@ -190,6 +190,19 @@ class CarRentalReservation(models.Model):
         #                                                                                        force_create=False) if p]
         #    rent.message_subscribe(partner_ids)
         return rent
+
+    def action_confirm(self):
+        if self.rent_end_date < self.rent_start_date:
+            raise ValidationError("Please select the valid end date.")
+
+
+        self.state = "checking"
+        raise ValidationError("Kreiranje nije jos zavrseno . Ovo je samo test akcije")
+
+    def action_cancel(self):
+        self.state = "cancel"
+
+
 class CarRentalReservationOptions(models.Model):
     _name = 'car.rental.reservation.options'
     _description = 'Fleet Rental Management Reservation options'
