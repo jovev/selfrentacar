@@ -197,7 +197,23 @@ class CarRentalReservation(models.Model):
 
 
         self.state = "checking"
-        raise ValidationError("Kreiranje nije jos zavrseno . Ovo je samo test akcije")
+
+        values = {
+                         'customer_id.id': 15,
+                         'rent_start_date': self.rent_start_date,
+                         'rent_end_date': self.rent_end_date,
+                         'reservation_code': self.reservation_code,
+                         'notes': self.additional_comments,
+                         'rent_from': self.rent_from,
+                         'return_location': self.return_location,
+                         'selected_cars_class': self.selected_cars_class,
+                         'total': self.grand_ptice,
+                        'state':'draft'
+                         }
+        self.env['car.rental.contract'].create(values)
+
+
+    #    raise ValidationError("Kreiranje nije jos zavrseno . Ovo je samo test akcije")
 
     def action_cancel(self):
         self.state = "cancel"
@@ -294,6 +310,10 @@ class CarRentalContract(models.Model):
     check_verify = fields.Boolean(compute='check_action_verify', copy=False)
     sales_person = fields.Many2one('res.users', string='Sales Person', default=lambda self: self.env.uid,
                                    track_visibility='always')
+    selected_cars_class = fields.Many2one('fleet.vehicle.model.category', string='Car Category')
+    rent_from = fields.Many2one('stock.location', string='Start location')
+    return_location = fields.Many2one('stock.location', string='Return location')
+    reservation_code = fields.Char(string="Reservation Code", copy=False)
 
     def action_run(self):
         self.state = 'running'
