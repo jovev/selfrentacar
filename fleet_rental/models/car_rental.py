@@ -208,7 +208,8 @@ class CarRentalReservation(models.Model):
                          'return_location': '17' ,
                      #    'selected_cars_class': self.selected_cars,
                          'total': self.grand_ptice,
-                        'state':'draft'
+                        'state':'draft',
+                        'cost':'0.0',
                          }
         self.env['car.rental.contract'].create(values)
 
@@ -264,7 +265,7 @@ class CarRentalContract(models.Model):
                                 related='vehicle_id.model_id.brand_id', store=True, readonly=True)
     car_color = fields.Char(string="Fleet Color", size=50, related='vehicle_id.color', store=True, copy=False,
                             default='#FFFFFF', readonly=True)
-    cost = fields.Float(string="Rent Cost", help="This fields is to determine the cost of rent", required=True)
+    cost = fields.Float(string="Rent Cost", help="This fields is to determine the cost of rent", required=False)
     rent_start_date = fields.Date(string="Rent Start Date", required=True, default=str(date.today()),
                                   help="Start date of contract", track_visibility='onchange')
     rent_end_date = fields.Date(string="Rent End Date", required=True, help="End date of contract",
