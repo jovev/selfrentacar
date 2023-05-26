@@ -199,7 +199,7 @@ class CarRentalReservation(models.Model):
         self.state = "checking"
 
         values = {
-                         'customer_id': 'Dafina Jakšić',
+                         'customer_id': '15',
                          'rent_start_date': self.rent_start_date,
                          'rent_end_date': self.rent_end_date,
                          'reservation_code': self.reservation_code,
