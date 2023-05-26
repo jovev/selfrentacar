@@ -262,8 +262,17 @@ class CarRentalContract(models.Model):
                                  readonly=True,
                                  states={'draft': [('readonly', False)]}
                                  )
+
+    driver_id1 = Many2one('res.partner', string="Driver 1")
+    driver1_passport_no = fields.Char(string="Passport No", related='driver_id1.ref')
+    driver1_driver_licence_no = fields.Char(string="Licence No", related='driver_id2.d_id')
+    driver_id2 = Many2one('res.partner', string="Driver 2", )
+    driver2_passport_no = fields.Char(string="Passport No", related='driver_id2.ref')
+    driver2_driver_licence_no = fields.Char(string="Licence No", related='driver_id2.d_id')
+    licence_palete = fields.Char(string="Licence Palete", related='vehicle_id.licence_palete')
     car_brand = fields.Many2one('fleet.vehicle.model.brand', string="Fleet Brand", size=50,
                                 related='vehicle_id.model_id.brand_id', store=True, readonly=True)
+
     car_color = fields.Char(string="Fleet Color", size=50, related='vehicle_id.color', store=True, copy=False,
                             default='#FFFFFF', readonly=True)
     cost = fields.Float(string="Rent Cost", help="This fields is to determine the cost of rent", required=False)
@@ -316,6 +325,8 @@ class CarRentalContract(models.Model):
     rent_from = fields.Many2one('stock.location', string='Start location')
     return_location = fields.Many2one('stock.location', string='Return location')
     reservation_code = fields.Char(string="Reservation Code", copy=False)
+    allow_crossborder = fields.Boolean(string="Cross Border")
+    amount_pay_deposit = fields.Float(string="Amount pay deposit", copy=False)
 
     def action_run(self):
         self.state = 'running'
