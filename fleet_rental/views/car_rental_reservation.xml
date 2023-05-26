@@ -48,11 +48,9 @@
             <field name="arch" type="xml">
                 <form string="car_web_reservation">
                     <header>
-                       <button name="action_confirm" string="Confirm" type="object"
+                     <!--   <button name="action_confirm" string="Confirm" type="object"
                                 attrs="{'invisible': [('state', '!=', 'draft')]}" class="oe_highlight"/>
-                       <button name="action_cancel" string="Cancel" type="object"
-                                attrs="{'invisible': [('state', 'not in', ('draft', 'reserved'))]}" class="oe_highlight"/>
-                <!--        <button name="action_run" string="Run" type="object"
+                        <button name="action_run" string="Run" type="object"
                                 attrs="{'invisible': [('state', '!=', 'reserved')]}" class="oe_highlight"/>
                         <button name="action_cancel" string="Cancel" type="object"
                                 attrs="{'invisible': [('state', 'not in', ('draft', 'reserved'))]}" class="oe_highlight"/>
@@ -79,20 +77,43 @@
                             </h1>
                         </div> -->
                         <group>
-                            <separator string="Request Details " colspan="4" />
+                            <separator string="Request Details " colspan="4"/>
                             <group>
-                                <field name="reservation_code"  string="Reservation No" attrs="{'readonly': [('state','!=','draft')]}"/>
-                                <field name="customer_name"  string="Customer" attrs="{'readonly': [('state','!=','draft')]}"/>
-                                <field name="date_of_birth"  string="Date of Birth" attrs="{'readonly': [('state','!=','draft')]}"/>
-                                <field name="date_of_birth"  string="Customer" attrs="{'readonly': [('state','!=','draft')]}"/>
-                                <field name="city"  string="City" attrs="{'readonly': [('state','!=','draft')]}"/>
-                                <field name="rent_start_date" attrs="{'readonly': [('state','!=','draft')]}"/>
-                                <field name="rent_end_date" attrs="{'readonly': [('state','!=','draft')]}"/>
-                                <field name="selected_cars" />
+                                <field name="reservation_code" string="Reservation No" attrs="{'readonly': [('state','!=','draft')]}"/>
+                                <field name="customer_name" string="Customer" attrs="{'readonly': [('state','!=','draft')]}"/>
+                                <field name="date_of_birth"/>
+								<field name="street_address"/>
+								<field name="city"/>
+								<field name="flight_number"/>
+                                <field name="phone"/>
+                                <field name="email"/>
+                                <field name="additional_comments"/>
+							</group>
+						</group>
+						
+						<separator string="Rental Details " colspan="4"/>
+						<!-- 2 kolone-->
+						<group col="2">
+							<group>
                                 <field name="rent_from"/>
+							</group>
+							<group>
                                 <field name="return_location"/>
+							</group>
+							<group>
+                                <field name="rent_start_date" attrs="{'readonly': [('state','!=','draft')]}"/>
+							</group>
+							<group>
+                                <field name="rent_end_date" attrs="{'readonly': [('state','!=','draft')]}"/>
+							</group>
+							<group>
+                                <field name="selected_cars"/>
+							</group>
+							
+							<group>
                                 <field name="grand_ptice" attrs="{'readonly': [('state','!=','draft')]}"/>
-                            </group>
+							</group>
+                            
      <!--                       <group>
                                 <field name="car_brand"/>
                                 <field name="car_color"/>
@@ -120,6 +141,7 @@
                         <notebook>
                     <!--        <page string="Rental Options" attrs="{'invisible': [('cost_frequency','in',[None,False,'no'])]}">  -->
                             <page string="Rental Options">
+							
                                 <field name="option_lines" mode="tree">
                                     <tree string="Rental Options Lines">
                                         <field name="option"/>
@@ -127,11 +149,12 @@
                                         <field name="total_price"/>
                                     </tree>
                                 </field>
+						
                             </page>
                         </notebook>
-                        <group>
+                        <!--<group>
                           <field name="additional_comments"/>
-                        </group>
+                        </group>-->
                     </sheet>
                     <div class="oe_chatter">
                         <field name="message_follower_ids" widget="mail_followers"/>
