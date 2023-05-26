@@ -206,7 +206,7 @@ class CarRentalReservation(models.Model):
                          'notes': self.additional_comments,
                          'rent_from': self.rent_from,
                          'return_location': self.return_location,
-                         'selected_cars_class': self.selected_cars_class,
+                     #    'selected_cars_class': self.selected_cars,
                          'total': self.grand_ptice,
                         'state':'draft'
                          }
