@@ -210,6 +210,7 @@ class CarRentalReservation(models.Model):
                          'total': self.grand_ptice,
                         'state':'draft',
                         'cost':'0.0',
+                        'first_payment':'0.0',
                          }
         self.env['car.rental.contract'].create(values)
 
