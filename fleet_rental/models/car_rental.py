@@ -269,7 +269,7 @@ class CarRentalContract(models.Model):
     driver_id2 = fields.Many2one('res.partner', string="Driver 2", )
     driver2_passport_no = fields.Char(string="Passport No", related='driver_id2.ref')
     driver2_driver_licence_no = fields.Char(string="Licence No", related='driver_id2.d_id')
-    plate = fields.Char(string="Vehicle Plate", related='vehicle_id.vehicle_plate')
+    plate = fields.Char(string="Vehicle Plate", related='vehicle_id.license_plate')
     car_brand = fields.Many2one('fleet.vehicle.model.brand', string="Fleet Brand", size=50,
                                 related='vehicle_id.model_id.brand_id', store=True, readonly=True)
 
