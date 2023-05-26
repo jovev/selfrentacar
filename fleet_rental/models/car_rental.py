@@ -256,7 +256,7 @@ class CarRentalContract(models.Model):
     reserved_fleet_id = fields.Many2one('rental.fleet.reserved', invisible=True, copy=False)
     name = fields.Char(string="Name", default="Draft Contract", readonly=True, copy=False)
     customer_id = fields.Many2one('res.partner', required=True, string='Customer', help="Customer")
-    vehicle_id = fields.Many2one('fleet.vehicle', string="Vehicle", required=True, help="Vehicle",
+    vehicle_id = fields.Many2one('fleet.vehicle', string="Vehicle", required=False, help="Vehicle",
                                  readonly=True,
                                  states={'draft': [('readonly', False)]}
                                  )
