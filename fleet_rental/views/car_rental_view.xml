@@ -66,28 +66,34 @@
                     </header>
                     <sheet>
                         <div class="oe_button_box" name="buttons">
-                            <button name='action_view_invoice' class="oe_stat_button" type="object" icon="fa-money">
-                                <field string="Invoice" name="invoice_count" widget="statinfo" />
+                            <button name="action_view_invoice" class="oe_stat_button" type="object" icon="fa-money">
+                                <field string="Invoice" name="invoice_count" widget="statinfo"/>
                             </button>
                         </div>
-                        <field name="image" widget='image' class="oe_avatar"/>
+                        <field name="image" widget="image" class="oe_avatar"/>
                         <div class="oe_title">
                             <h1>
                                 <field name="name"/>
                             </h1>
                         </div>
                         <group>
-                            <separator string="Contract Details " colspan="4" />
+                            <separator string="Contract Details " colspan="4"/>
                             <!-- LEVA KOLONA -->
 							<group>
                                 <field name="customer_id" string="Customer" attrs="{'readonly': [('state','!=','draft')]}"/>
+
+                                 <field name="driver_id1" domain="[('is_driver','=',True)]"/>
+                                 <field name="driver1_passport_no"/>
+								                 <field name="driver1_driver_licence_no"/>
+
                                 <field name="vehicle_id" domain="[('rental_check_availability','=',True),                                 ('state_id.name','!=','Inactive')]" options="{'no_create': True}"/>
-								<field name="rent_from"/>
-								<field name="return_location"/>
-                                
+								                <field name="rent_from"/>
+
+								                <field name="return_location"/>
+
                                 <field name="journal_type" invisible="1"/>
                                 <field name="check_verify" invisible="1"/>
-								
+
 								<label for="first_payment"/>
                                 <div>
                                     <field name="first_payment" class="oe_inline" attrs="{'readonly': ['|', ('state','not in',('draft', 'running')),                                                 ('first_invoice_created','=',True)]}"/>
@@ -98,14 +104,18 @@
                             </group>
 							<!-- DESNA KOLONA -->
                             <group>
-								<field name="car_color"/>
-                                <field name="car_brand"/>
-								<field name="rent_start_date" attrs="{'readonly': [('state','!=','draft')]}"/>
+								                <field name="reservation_code"/>
+
+                                <field name="driver_id2" domain="[('is_driver','=',True)]"/>
+                                 <field name="driver2_passport_no"/>
+								                 <field name="driver2_driver_licence_no"/>
+								                 <field name="plate"/>
+								                <field name="rent_start_date" attrs="{'readonly': [('state','!=','draft')]}"/>
                                 <field name="rent_end_date" attrs="{'readonly': [('state','!=','draft')]}"/>
                        <!--     <field name="x_bazna_lokacija"></field>
                                 <field name="x_trenutna_lokacija"></field>    -->
                                 <field name="first_invoice_created" invisible="1"/>
-                                
+
                                 <field name="cost" invisible="0"/>
                                 <label for="cost_generated"/>
                                     <div>
@@ -118,8 +128,7 @@
                         <notebook>
                             <page string="Recurring Invoices" attrs="{'invisible': [('cost_frequency','in',[None,False,'no'])]}">
                                 <field name="recurring_line" mode="tree">
-                                    <tree string="Fleet Reccurring Lines"
-                                          colors="#0b7a35:payment_info=='paid';#f20b07:payment_info!='paid'">
+                                    <tree string="Fleet Reccurring Lines" colors="#0b7a35:payment_info=='paid';#f20b07:payment_info!='paid'">
                                         <field name="date_today"/>
                                         <field name="date_due"/>
                                         <field name="name"/>
@@ -154,6 +163,25 @@
                                                 <field name="checklist_number" invisible="1"/>
                                             </group>
                                         </sheet>
+                                    </form>
+                                </field>
+                                <div>
+                                    <group class="oe_subtotal_footer oe_right">
+                                        <field name="total"/>
+                                        <field name="tools_missing_cost"/>
+                                        <field name="damage_cost_sub"/>
+                                        <field name="total_cost" class="oe_subtotal_footer_separator"/>
+                                    </group>
+                                </div>
+                                <div style="float: right;margin-left: 78%;margin-bottom: 36px;">
+                                    <button name="action_verify" string="Verify" type="object" style="width: 100px !important;height: 40px;" attrs="{'invisible': [('state', '!=', 'checking')]}" class="oe_subtotal_footer oe_right oe_highlight"/>
+                                </div>
+                            </page>
+                        </notebook>
+                        <group>
+                          <field name="notes"/>
+                        </group>
+                    </sheet>
                                     </form>
                                 </field>
                                 <div>
