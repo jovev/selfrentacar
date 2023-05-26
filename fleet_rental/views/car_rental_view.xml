@@ -78,40 +78,39 @@
                         </div>
                         <group>
                             <separator string="Contract Details " colspan="4" />
-                            <group>
-                                <field name="customer_id"  string="Customer" attrs="{'readonly': [('state','!=','draft')]}"/>
-                                <field name="rent_start_date" attrs="{'readonly': [('state','!=','draft')]}"/>
-                                <field name="rent_end_date" attrs="{'readonly': [('state','!=','draft')]}"/>
-                                <field name="vehicle_id" domain="[('rental_check_availability','=',True),
-                                ('state_id.name','!=','Inactive')]"
-                                   options="{'no_create': True}"/>
+                            <!-- LEVA KOLONA -->
+							<group>
+                                <field name="customer_id" string="Customer" attrs="{'readonly': [('state','!=','draft')]}"/>
+                                <field name="vehicle_id" domain="[('rental_check_availability','=',True),                                 ('state_id.name','!=','Inactive')]" options="{'no_create': True}"/>
+								<field name="rent_from"/>
+								<field name="return_location"/>
+                                
                                 <field name="journal_type" invisible="1"/>
-                                <field name="check_verify" invisible="1" />
-                                <field name="sales_person" attrs="{'readonly': [('state','!=','draft')]}"/>
-                            </group>
-                            <group>
-                                <field name="car_brand"/>
-                                <field name="car_color"/>
-                       <!--         <field name="x_bazna_lokacija"></field>
-                                <field name="x_trenutna_lokacija"></field>    -->
-                                <field name="first_invoice_created" invisible="1"/>
-                                <label for="first_payment"/>
+                                <field name="check_verify" invisible="1"/>
+								
+								<label for="first_payment"/>
                                 <div>
-                                    <field name="first_payment" class="oe_inline"
-                                         attrs="{'readonly': ['|', ('state','not in',('draft', 'running')),
-                                                ('first_invoice_created','=',True)]}"/>
+                                    <field name="first_payment" class="oe_inline" attrs="{'readonly': ['|', ('state','not in',('draft', 'running')),                                                 ('first_invoice_created','=',True)]}"/>
                                     <field name="first_payment_inv" style="width:142px;" readonly="1"/>
                                 </div>
                                 <field name="account_type" invisible="1"/>
-                                <field name="cost" invisible="1"/>
+                                <field name="sales_person" attrs="{'readonly': [('state','!=','draft')]}"/>
+                            </group>
+							<!-- DESNA KOLONA -->
+                            <group>
+								<field name="car_color"/>
+                                <field name="car_brand"/>
+								<field name="rent_start_date" attrs="{'readonly': [('state','!=','draft')]}"/>
+                                <field name="rent_end_date" attrs="{'readonly': [('state','!=','draft')]}"/>
+                       <!--     <field name="x_bazna_lokacija"></field>
+                                <field name="x_trenutna_lokacija"></field>    -->
+                                <field name="first_invoice_created" invisible="1"/>
+                                
+                                <field name="cost" invisible="0"/>
                                 <label for="cost_generated"/>
                                     <div>
-                                        <field name="cost_frequency" class="oe_inline"
-                                               attrs="{'readonly': [('state','!=','draft')]}"/>
-                                        <field name="cost_generated" style="width:142px;"
-                                               attrs="{'invisible': [('cost_frequency','=','no')],
-                                                       'readonly': [('state','!=','draft')],
-                                                       'required': [('cost_frequency','not in',[None,False,'no'])]}"/>
+                                        <field name="cost_frequency" class="oe_inline" attrs="{'readonly': [('state','!=','draft')]}"/>
+                                        <field name="cost_generated" style="width:142px;" attrs="{'invisible': [('cost_frequency','=','no')],                                                        'readonly': [('state','!=','draft')],                                                        'required': [('cost_frequency','not in',[None,False,'no'])]}"/>
 
                                     </div>
                             </group>
