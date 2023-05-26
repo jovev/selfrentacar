@@ -204,8 +204,8 @@ class CarRentalReservation(models.Model):
                          'rent_end_date': self.rent_end_date,
                          'reservation_code': self.reservation_code,
                          'notes': self.additional_comments,
-                         'rent_from': self.rent_from,
-                         'return_location': self.return_location,
+                         'rent_from': '18',
+                         'return_location': '17' ,
                      #    'selected_cars_class': self.selected_cars,
                          'total': self.grand_ptice,
                         'state':'draft'
