@@ -203,7 +203,7 @@ class CarRentalReservation(models.Model):
             values = {
                 'name': self.customer_name,
                 'email': self.email,
-                'individual': '1',
+                'is_company': '0',
                 'street': self.street_address,
                 'city': self.city,
             }
