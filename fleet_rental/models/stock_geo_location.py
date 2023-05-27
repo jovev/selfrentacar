@@ -20,7 +20,7 @@
 #
 #############################################################################
 
-from odoo import models, fields
+from odoo import api, fields, models, tools
 
 
 class StockGeoLocation(models.Model):
