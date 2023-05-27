@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 #############################################################################
 #
-#    Cybrosys Technologies Pvt. Ltd.
+#    Irvas International d.0.0
 #
-#    Copyright (C) 2021-TODAY Cybrosys Technologies(<https://www.cybrosys.com>).
+#    Copyright (C) 2021-TODAY Irvas(<https://www.irvas.rs>).
 #    Author: Cybrosys Technogies @cybrosys(odoo@cybrosys.com)
 #
 #    You can modify it under the terms of the GNU AFFERO
@@ -20,6 +20,12 @@
 #
 #############################################################################
 
-from . import car_rental
-from . import fleet
-from . import stock_geo_location
+from odoo import models, fields
+
+
+class StockGeoLocation(models.Model):
+    _inherit = "stock.location"
+
+    location_latitude = fields.Float(string="Location Latitude")
+    location_longitude = fields.Float(string="Location Longitude")
+    parking_location = fields.Boolean(string = "os Parking Location")
