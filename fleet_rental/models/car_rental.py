@@ -195,7 +195,7 @@ class CarRentalReservation(models.Model):
         if self.rent_end_date < self.rent_start_date:
             raise ValidationError("Please select the valid end date.")
 
-        start_locations = self.env['stock.location'].search([('name'==self.rent_from)])
+        start_locations = self.env['stock.location'].search([('name','=',self.rent_from)])
         if start_locations:
             for start_location in start_locations:
                 location_start_id = start_location.id
