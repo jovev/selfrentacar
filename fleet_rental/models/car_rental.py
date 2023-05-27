@@ -104,7 +104,7 @@ class CarRentalReservation(models.Model):
     city = fields.Char(string="City")
     flight_number = fields.Char(string="Flight number")
     country = fields.Char(string="Country")
-    phone = fields.Char(string="Country")
+    phone = fields.Char(string="Phone")
     email = fields.Char(string="Email")
     additional_comments = fields.Text(string="Additional Comments")
   # Polja vezana za neposredno rentiranje
@@ -203,6 +203,7 @@ class CarRentalReservation(models.Model):
             values = {
                 'name': self.customer_name,
                 'email': self.email,
+                'phone': self.phone,
                 'is_company': '0',
                 'street': self.street_address,
                 'city': self.city,

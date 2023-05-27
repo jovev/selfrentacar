@@ -48,8 +48,9 @@
             <field name="arch" type="xml">
                 <form string="car_web_reservation">
                     <header>
-                     <!--   <button name="action_confirm" string="Confirm" type="object"
+                        <button name="action_confirm" string="Confirm" type="object"
                                 attrs="{'invisible': [('state', '!=', 'draft')]}" class="oe_highlight"/>
+                    <!--
                         <button name="action_run" string="Run" type="object"
                                 attrs="{'invisible': [('state', '!=', 'reserved')]}" class="oe_highlight"/>
                         <button name="action_cancel" string="Cancel" type="object"
