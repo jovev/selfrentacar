@@ -211,7 +211,7 @@ class CarRentalReservation(models.Model):
                          'notes': self.additional_comments,
                          'rent_from': location_start_id,
                          'return_location': '17' ,
-                         'selected_cars_class': self.selected_cars,
+                         'selected_cars_class': '7',
                          'total': self.grand_price,
                         'state':'draft',
                         'cost':self.grand_price,
