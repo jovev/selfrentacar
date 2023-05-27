@@ -195,23 +195,51 @@ class CarRentalReservation(models.Model):
         if self.rent_end_date < self.rent_start_date:
             raise ValidationError("Please select the valid end date.")
 
+        customers = self.env['res.partner'].search([('email', '=', self.email)])
+        if customers:
+            for customer in customers:
+                customer_name = customer.name
+        else:   # Znaci, korisnik ne postoji , idemo u proces kreiranja novog korisnika u respartner
+            values = {
+                'name': self.customer_name,
+                'email': self.email,
+                'individual': '1',
+                'street': self.street_address,
+                'city': self.city,
+            }
+            customer_id = self.env['res.partner'].create(values)
+
         start_locations = self.env['stock.location'].search([('name','=',self.rent_from)])
         if start_locations:
             for start_location in start_locations:
                 location_start_id = start_location.id
-            else:
-                location_start_id = '18'
+        else:
+            location_start_id = '18'
+
+        end_locations = self.env['stock.location'].search([('name', '=', self.return_location)])
+        if end_locations:
+            for end_location in end_locations:
+                location_end_id = end_location.id
+        else:
+            location_end_id = '18'
         self.state = "checking"
 
+        car_categories = self.env['fleet.vehicle.model.category'].search([('name', '=', self.selected_cars)])
+        if car_categories:
+            for car_category in car_categories:
+                car_category_id = car_category.id
+        else:
+            car_category_id = '1'
+
         values = {
-                         'customer_id': '15',
+                         'customer_id': customer_id,
                          'rent_start_date': self.rent_start_date,
                          'rent_end_date': self.rent_end_date,
                          'reservation_code': self.reservation_code,
                          'notes': self.additional_comments,
                          'rent_from': location_start_id,
-                         'return_location': '17' ,
-                         'selected_cars_class': '7',
+                         'return_location': location_end_id ,
+                         'selected_cars_class': car_category_id,
                          'total': self.grand_price,
                         'state':'draft',
                         'cost':self.grand_price,
