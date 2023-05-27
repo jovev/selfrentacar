@@ -48,7 +48,7 @@ def pars_reservation_body(input_string):
                     'rent_start_date': '2023-01-01',
                     'rent_end_date': '2023-01-02',
                     'selected_cars': 'car class',
-                    'grand_ptice': '1.0',
+                    'grand_price': '1.0',
                   }
     reservation_code_start = input_string.find('Reservation code') + 16
     reservation_code_end = input_string.find('Customer')
@@ -113,7 +113,7 @@ class CarRentalReservation(models.Model):
     rent_start_date = fields.Datetime(string="Rent Start Date", required=True, help="Start date of rent", track_visibility='onchange')
     rent_end_date = fields.Datetime(string="Rent End Date", required=True, help="End date of contract", track_visibility='onchange')
     selected_cars = fields.Char(string="Selected Cars")     # Ovo je u stvari spisak vozila u odredjenoj kategoriji
-    grand_ptice = fields.Char(string="Total price for car rent and options")
+    grand_price = fields.Char(string="Total price for car rent and options")
     state = fields.Selection(
         [('draft', 'Draft'), ('reserved', 'Reserved'), ('running', 'Running'), ('cancel', 'Cancel'),
          ('checking', 'Checking'), ('invoice', 'Invoice'), ('done', 'Done')], string="State",
@@ -162,7 +162,7 @@ class CarRentalReservation(models.Model):
                              'rent_start_date': reserv_parameters['rent_start_date'],
                              'rent_end_date': reserv_parameters['rent_end_date'],
                              'selected_cars': reserv_parameters['selected_cars'],
-                             'grand_ptice': reserv_parameters['grand_ptice'],
+                             'grand_price': reserv_parameters['grand_price'],
                              }
         defaults = {
             'name': msg.get('subject') or _("No Subject"),
@@ -180,7 +180,7 @@ class CarRentalReservation(models.Model):
                              'rent_start_date': "2023-01-01",
                              'rent_end_date': "2023-01-02",
                              'selected_cars': "VW Golf 7-Automatic, Wagon-New Car, Station Wagon, New Renault Megan - Automatic- Vagon",
-                             'grand_ptice': "1.0",
+                             'grand_price': "1.0",
         }
         defaults.update(custom_values)
 
@@ -195,7 +195,12 @@ class CarRentalReservation(models.Model):
         if self.rent_end_date < self.rent_start_date:
             raise ValidationError("Please select the valid end date.")
 
-
+        start_locations = self.env['stock.location'].search([('name'==self.rent_from)])
+        if start_locations:
+            for start_location in start_locations:
+                location_start_id = start_location.id
+            else:
+                location_start_id = '18'
         self.state = "checking"
 
         values = {
@@ -204,12 +209,12 @@ class CarRentalReservation(models.Model):
                          'rent_end_date': self.rent_end_date,
                          'reservation_code': self.reservation_code,
                          'notes': self.additional_comments,
-                         'rent_from': '18',
+                         'rent_from': location_start_id,
                          'return_location': '17' ,
-                     #    'selected_cars_class': self.selected_cars,
-                         'total': self.grand_ptice,
+                         'selected_cars_class': self.selected_cars,
+                         'total': self.grand_price,
                         'state':'draft',
-                        'cost':'0.0',
+                        'cost':self.grand_price,
                         'first_payment':'0.0',
                          }
         self.env['car.rental.contract'].create(values)
