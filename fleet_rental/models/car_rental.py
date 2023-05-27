@@ -232,7 +232,7 @@ class CarRentalReservation(models.Model):
             car_category_id = '1'
 
         values = {
-                         'customer_id': customer_id,
+                         'customer_id': customer_id.id,
                          'rent_start_date': self.rent_start_date,
                          'rent_end_date': self.rent_end_date,
                          'reservation_code': self.reservation_code,
