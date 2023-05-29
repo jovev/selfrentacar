@@ -3,10 +3,10 @@
 
     <data>
         <record id="view_report_rental_contract" model="ir.actions.report">
-            <field name="name">report.car.rental.contract</field>
+            <field name="name">Ugovor o najmu</field>
             <field name="model">car.rental.contract</field>
             <field name="report_type">qweb-pdf</field>
-            <field name="report_name">Ugovor o najmu</field>
+            <field name="report_name">fleet_rental.report_rental_contract</field>
             <field name="report_file">fleet_rental.report_rental_contract</field>
             <field name="binding_model_id" ref="model_car_rental_contract"/>
             <field name="binding_type">report</field>
