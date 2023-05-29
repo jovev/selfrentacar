@@ -21,9 +21,9 @@ UGOVOR O NAJMU VOZILA
                         </thead>
                         <tbody>
                             <tr>
-
                                     <td>
                                        user
+                                    </td>
                                     <td class="text-right" style="white-space: text-nowrap;">
                                         blank
                                     </td>
@@ -33,7 +33,6 @@ UGOVOR O NAJMU VOZILA
                                     <td class="text-right" style="white-space: text-nowrap;">
                                      driver license   
                                     </td>
-                                </t>
                             </tr>
                         </tbody>
                     </table>
