@@ -6,8 +6,8 @@
             <field name="name">report.fleet.rental.contract</field>
             <field name="model">report.fleet.rental.contract</field>
             <field name="report_type">qweb-pdf</field>
-            <field name="report_name">fleet_rental.rental_contract</field>
-            <field name="report_file">fleet_rental.rental_contract</field>
+            <field name="report_name">fleet_rental.report_rental_contract</field>
+            <field name="report_file">fleet_rental.report_rental_contract</field>
         </record>
     </data>
 
