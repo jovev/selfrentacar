@@ -40,9 +40,9 @@
         'views/car_tools_view.xml',
         'views/car_rental_reservation.xml',
         'views/stock_geo_location.xml',
-        'reports/rental_report.xml'
-        'reports/rental_contract_report.xml'
-        'reports/report_rental_contract.xml'
+        'reports/rental_report.xml',
+        'reports/rental_contract_report.xml',
+        'reports/report_rental_contract.xml',
     ],
     'demo': [
     ],
