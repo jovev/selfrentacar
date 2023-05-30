@@ -85,7 +85,7 @@
                                  <field name="driver_id1" domain="[('is_driver','=',True)]"/>
                                  <field name="driver1_passport_no"/>
 								                 <field name="driver1_driver_licence_no"/>
-
+                                <field name="web_car_request"/>
                                 <field name="vehicle_id" domain="[('rental_check_availability','=',True),                                 ('state_id.name','!=','Inactive')]" options="{'no_create': True}"/>
 								                <field name="rent_from"/>
 

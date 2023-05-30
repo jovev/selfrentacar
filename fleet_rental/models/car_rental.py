@@ -240,7 +240,7 @@ class CarRentalReservation(models.Model):
                          'notes': self.additional_comments,
                          'rent_from': location_start_id,
                          'return_location': location_end_id ,
-                         'selected_cars_class': car_category_id,
+                         'web_car_request': self.web_car_request,
                          'total': self.grand_price,
                         'state':'draft',
                         'cost':self.grand_price,
@@ -292,6 +292,7 @@ class CarRentalContract(models.Model):
     reserved_fleet_id = fields.Many2one('rental.fleet.reserved', invisible=True, copy=False)
     name = fields.Char(string="Name", default="Draft Contract", readonly=True, copy=False)
     customer_id = fields.Many2one('res.partner', required=True, string='Customer', help="Customer")
+    web_car_request = fields.Char(string="Required car model, class, ..")
     vehicle_id = fields.Many2one('fleet.vehicle', string="Vehicle", required=False, help="Vehicle",
                                  readonly=True,
                                  states={'draft': [('readonly', False)]}
@@ -356,6 +357,7 @@ class CarRentalContract(models.Model):
     sales_person = fields.Many2one('res.users', string='Sales Person', default=lambda self: self.env.uid,
                                    track_visibility='always')
     selected_cars_class = fields.Many2one('fleet.vehicle.model.category', string='Car Category')
+
     rent_from = fields.Many2one('stock.location', string='Start location')
     return_location = fields.Many2one('stock.location', string='Return location')
     reservation_code = fields.Char(string="Reservation Code", copy=False)
