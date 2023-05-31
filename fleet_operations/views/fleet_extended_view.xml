@@ -386,8 +386,8 @@
                 <field
                     name="tag_ids"
                     widget="many2many_tags"
-                    required="1"
-                    options="{'color_field': 'color', 'no_create_edit': True}"
+                    required="0"
+                    options="{'color_field': 'color', 'no_create_edit': False}"
                 />
                 <field name="released_date" string="Released Date" />
                 <field name="reg_id" readonly="1" />
