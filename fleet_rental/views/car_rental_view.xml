@@ -117,6 +117,7 @@
                                 <field name="first_invoice_created" invisible="1"/>
 
                                 <field name="cost" invisible="0"/>
+                                <field name="allow_crossborder" invisible="0"/>
                                 <label for="cost_generated"/>
                                     <div>
                                         <field name="cost_frequency" class="oe_inline" attrs="{'readonly': [('state','!=','draft')]}"/>
@@ -180,10 +181,10 @@
                             <page string="Consumed fuel">
                                 <group>
                                     <group>
-                                        <field name="pickup_fuel" />
+                                        <field name="pickup_fuel" widget="radio" />
                                     </group>
                                     <group>
-                                        <field name="dropoff_fuel" />
+                                        <field name="dropoff_fuel" widget="radio" />
                                     </group>
                                 </group>
 
