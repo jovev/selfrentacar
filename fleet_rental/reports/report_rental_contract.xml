@@ -216,11 +216,11 @@ td {
 							  <td style="vertical-align:bottom">6. Dodatni troškovi / Additional costs</td>
 							</tr>
 							<tr>
-							  <td colspan="3" style="border:1px solid">&amp;nbsp;</td>
-							  <td>&amp;nbsp;</td>
 							  <td style="border:1px solid"><span t-field="o.pickup_fuel"/></td>
 							  <td style="border:1px solid">&amp;nbsp;</td>
 							  <td style="border:1px solid"><span t-field="o.dropoff_fuel"/></td>
+							  <td>&amp;nbsp;</td>
+							  <td colspan="3" style="border:1px solid">&amp;nbsp;</td>
 							  <td>&amp;nbsp;</td>
 							  <td style="border:1px solid">&amp;nbsp;</td>
 							</tr>
