@@ -177,6 +177,17 @@
                                     <button name="action_verify" string="Verify" type="object" style="width: 100px !important;height: 40px;" attrs="{'invisible': [('state', '!=', 'checking')]}" class="oe_subtotal_footer oe_right oe_highlight"/>
                                 </div>
                             </page>
+                            <page string="Consumed fuel">
+                                <group>
+                                    <group>
+                                        <field name="pickup_fuel" />
+                                    </group>
+                                    <group>
+                                        <field name="dropoff_fuel" />
+                                    </group>
+                                </group>
+
+                            </page>
                         </notebook>
                         <group>
                           <field name="notes"/>

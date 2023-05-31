@@ -363,6 +363,12 @@ class CarRentalContract(models.Model):
     reservation_code = fields.Char(string="Reservation Code", copy=False)
     allow_crossborder = fields.Boolean(string="Cross Border")
     amount_pay_deposit = fields.Float(string="Amount pay deposit", copy=False)
+    pickup_fuel = fields.Selection([('e', 'Empty'), ('14', '1/4'), ('12', '1/2'), ('34', '3/d'),
+                                       ('f', 'Full')], string="Pickup fuel",
+                                      help='Feel level at pickup', required=False)
+    dropoff_fuel = fields.Selection([('e', 'Empty'), ('14', '1/4'), ('12', '1/2'), ('34', '3/d'),
+                                    ('f', 'Full')], string="Pickup fuel",
+                                   help='Feel level at dropoff', required=False)
 
     def action_run(self):
         self.state = 'running'
