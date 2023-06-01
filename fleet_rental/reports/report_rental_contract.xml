@@ -9,7 +9,7 @@
                 <t t-set="data_report_dpi" t-value="110"/>
                 <div class="page">
 <style>
-.table-borderless > tbody  > tr  > td {
+.table-borderless &gt; tbody  &gt; tr  &gt; td {
     padding: 2px;
 }
 td {
@@ -20,7 +20,7 @@ td {
 						<strong>UGOVOR O NAJMU VOZILA Cheap Car Hire</strong>
 					</h4>
 <div style="float:right;margin-bottom:20px;">No. Booking  <span t-field="o.reservation_code" style="border:1px solid; padding:10px;"/></div>
-<p style="margin-top:20px; margin-bottom: 20px;">
+<p style="margin-top:20px; margin-bottom: 10px;">
 <i>PODACI O KLIJENTU / CLIENT DATA</i>
 </p>
 
@@ -37,7 +37,7 @@ td {
                               <td colspan="3" style="border:1px solid;">&amp;nbsp;</td>
                             </tr>
                             <tr>
-                              <td colspan="5">&amp;nbsp;</td>
+                              <td>&amp;nbsp;</td><td>&amp;nbsp;</td><td>&amp;nbsp;</td><td>&amp;nbsp;</td><td>&amp;nbsp;</td>
                             </tr>
                             <tr>
                               <td>Prvi vozač / First driver</td>
@@ -54,14 +54,14 @@ td {
                               <td style="border:1px solid"><span t-field="o.driver1_driver_licence_no"/></td>
                             </tr>
                             <tr>
-                              <td colspan="5">&amp;nbsp;</td>
+                              <td>&amp;nbsp;</td><td>&amp;nbsp;</td><td>&amp;nbsp;</td><td>&amp;nbsp;</td><td>&amp;nbsp;</td>
                             </tr>
                             <tr>
                               <td>Drugi vozač / Second driver</td>
                               <td>&amp;nbsp;</td>
                               <td>Pasoš / Passport</td>
                               <td>&amp;nbsp;</td>
-                              <td >Br. VD / Driver licence</td>
+                              <td>Br. VD / Driver licence</td>
                             </tr>
                             <tr>
                               <td style="border:1px solid"><span t-field="o.driver_id2"/></td>
@@ -71,13 +71,13 @@ td {
                               <td style="border:1px solid"><span t-field="o.driver2_driver_licence_no"/></td>
                             </tr>
 							<tr>
-                              <td colspan="5">&amp;nbsp;</td>
+                              <td>&amp;nbsp;</td><td>&amp;nbsp;</td><td>&amp;nbsp;</td><td>&amp;nbsp;</td><td>&amp;nbsp;</td>
                             </tr>
 							 <tr>
                               <td colspan="5" style="border:0!important;"><i>DETALJI O NAJMU VOZILA / DETAILS OF CAR RENTAL</i></td>
                             </tr>
 							<tr>
-                              <td colspan="5">&amp;nbsp;</td>
+                              <td>&amp;nbsp;</td><td>&amp;nbsp;</td><td>&amp;nbsp;</td><td>&amp;nbsp;</td><td>&amp;nbsp;</td>
                             </tr>
 							<tr>
                               <td>Tip i marka vozila / Model of car</td>
@@ -90,7 +90,7 @@ td {
                               <td colspan="3" style="border:1px solid;"><span t-field="o.plate"/></td>
                             </tr>
 							<tr>
-                              <td colspan="5">&amp;nbsp;</td>
+                              <td>&amp;nbsp;</td><td>&amp;nbsp;</td><td>&amp;nbsp;</td><td>&amp;nbsp;</td><td>&amp;nbsp;</td>
                             </tr>
 							<tr>
                               <td>Početak  najma (mjesto) / Start of rental (place)</td>
@@ -105,7 +105,7 @@ td {
                               
                             </tr>
                             <tr>
-                              <td colspan="5">&amp;nbsp;</td>
+                              <td>&amp;nbsp;</td><td>&amp;nbsp;</td><td>&amp;nbsp;</td><td>&amp;nbsp;</td><td>&amp;nbsp;</td>
                             </tr>
                             <tr>
                               <td>Predviđeno vraćanje (mjesto) / Drop off</td>
@@ -130,14 +130,14 @@ td {
 							  <td width="300"><br/>Prelazak granice / Cross Border</td>
                             </tr>
                             <tr>
-                              <td style="border:1px solid"><span t-field="o.first_payment"/></td>
+                              <td style="border:1px solid" class="text-center"><span t-field="o.first_payment"/></td>
                               <td>&amp;nbsp;</td>
-                              <td style="border:1px solid;">&amp;nbsp;</td>
+                              <td style="border:1px solid;" class="text-center">&amp;nbsp;</td>
 							  <td>&amp;nbsp;</td>
-                              <td style="border:1px solid;"><span t-field="o.allow_crossborder"/></td>
+                              <td style="border:1px solid;" class="text-center"><span t-field="o.allow_crossborder"/></td>
                             </tr>
 							<tr>
-                              <td colspan="5">&amp;nbsp;</td>
+                              <td>&amp;nbsp;</td><td>&amp;nbsp;</td><td>&amp;nbsp;</td><td>&amp;nbsp;</td><td>&amp;nbsp;</td>
                             </tr>
 							<tr>
                               <td>Potpis kor. / Signature user</td>
@@ -172,13 +172,13 @@ td {
 							<tr>
 							  <td class="text-center">DA</td>
 							  <td class="text-center">NE</td>
-							  <td style="border:1px solid">&amp;nbsp;</td>
+							  <td style="border:1px solid" class="text-center">&amp;nbsp;</td>
 							  <td>&amp;nbsp;</td>
 							</tr>	
 						</tbody>
                     </table>
-			<p style="margin-top:20px; margin-bottom: 20px;">
-				<i>KONAČAN OBRAČUN NAJMA VOZILA / DROP OFF </i> Datum i vrijeme / Date and Time <span t-field="o.write_date"/>  ________m.p.
+			<p style="margin-top:20px; margin-bottom: 10px;">
+				<u><i>KONAČAN OBRAČUN NAJMA VOZILA / DROP OFF: </i> Datum i vrijeme / Date and Time <span t-field="o.write_date"/>  __________m.p.</u>
 			</p>
 
 					<table width="840" class="table table-borderless">
@@ -195,70 +195,68 @@ td {
 							  <td width="200"><br/>5. <strong>TOTAL</strong> 1 x ( 2 + 3 ) + 4</td>
                             </tr>
 							<tr>
-							  <td style="border:1px solid">&amp;nbsp;</td>
+							  <td style="border:1px solid" class="text-center">&amp;nbsp;</td>
 							  <td>&amp;nbsp;</td>
-							  <td style="border:1px solid">&amp;nbsp;</td>
+							  <td style="border:1px solid" class="text-center">&amp;nbsp;</td>
 							  <td>&amp;nbsp;</td>
-							  <td style="border:1px solid">&amp;nbsp;</td>
+							  <td style="border:1px solid" class="text-center">&amp;nbsp;</td>
 							  <td>&amp;nbsp;</td>
-							  <td style="border:1px solid">&amp;nbsp;</td>
+							  <td style="border:1px solid" class="text-center">&amp;nbsp;</td>
 							  <td>&amp;nbsp;</td>
-							  <td style="border:1px solid">&amp;nbsp;</td>
+							  <td style="border:1px solid" class="text-center">&amp;nbsp;</td>
 							</tr>
 							<tr>
-                              <td colspan="9">&amp;nbsp;</td>
+                              <td>&amp;nbsp;</td><td>&amp;nbsp;</td><td>&amp;nbsp;</td><td>&amp;nbsp;</td><td>&amp;nbsp;</td><td>&amp;nbsp;</td><td>&amp;nbsp;</td><td>&amp;nbsp;</td><td>&amp;nbsp;</td>
                             </tr>
 							<tr>
-							  <td colspan="3" style="vertical-align:bottom">Gorivo / Fuel</td>
+							  <td colspan="3" class="text-center" style="vertical-align:bottom">Gorivo / Fuel</td>
 							  <td>&amp;nbsp;</td>
 							  <td colspan="3" class="text-center" style="vertical-align:bottom">Casco insurance</td>
 							  <td>&amp;nbsp;</td>
 							  <td style="vertical-align:bottom">6. Dodatni troškovi / Additional costs</td>
 							</tr>
 							<tr>
-							  <td style="border:1px solid"><span t-field="o.pickup_fuel"/></td>
-							  <td style="border:1px solid">&amp;nbsp;</td>
-							  <td style="border:1px solid"><span t-field="o.dropoff_fuel"/></td>
+							  <td style="border:1px solid" class="text-center"><span t-field="o.pickup_fuel"/></td>
+							  <td style="border:1px solid" class="text-center">&amp;nbsp;</td>
+							  <td style="border:1px solid" class="text-center"><span t-field="o.dropoff_fuel"/></td>
 							  <td>&amp;nbsp;</td>
 							  <td colspan="3" style="border:1px solid">&amp;nbsp;</td>
 							  <td>&amp;nbsp;</td>
-							  <td style="border:1px solid">&amp;nbsp;</td>
+							  <td style="border:1px solid" class="text-center">&amp;nbsp;</td>
 							</tr>
 							<tr>
 							  <td>(pick-up)</td>
 							  <td>&amp;nbsp;</td>
 							  <td>(drop-off)</td>
 							  <td>&amp;nbsp;</td>
-							  <td style="border:1px solid">&amp;nbsp;</td>
-							  <td style="border:1px solid">&amp;nbsp;</td>
-							  <td style="border:1px solid">&amp;nbsp;</td>
+							  <td style="border:1px solid" class="text-center">&amp;nbsp;</td>
+							  <td style="border:1px solid" class="text-center">&amp;nbsp;</td>
+							  <td style="border:1px solid" class="text-center">&amp;nbsp;</td>
 							  <td>&amp;nbsp;</td>
-							  <td style="border:1px solid">&amp;nbsp;</td>
+							  <td style="border:1px solid" class="text-center">&amp;nbsp;</td>
 							</tr>
+							<td>&amp;nbsp;</td><td>&amp;nbsp;</td><td>&amp;nbsp;</td><td>&amp;nbsp;</td><td>&amp;nbsp;</td><td>&amp;nbsp;</td><td>&amp;nbsp;</td><td>&amp;nbsp;</td><td>&amp;nbsp;</td>
 							<tr>
-                              <td colspan="9">&amp;nbsp;</td>
-                            </tr>
-							<tr>
-							  <td style="vertical-align:bottom">Litar</td>
-							  <td style="vertical-align:bottom">Cijena/price</td>
-							  <td style="vertical-align:bottom">Total</td>
+							  <td style="vertical-align:bottom" class="text-center">Litar</td>
+							  <td style="vertical-align:bottom" class="text-center">Cijena/price</td>
+							  <td style="vertical-align:bottom" class="text-center">Total</td>
 							  <td>&amp;nbsp;</td>
-							  <td style="vertical-align:bottom">Got/Cash</td>
-							  <td style="vertical-align:bottom">Ž.r.</td>
-							  <td style="vertical-align:bottom">Cr.card</td>
+							  <td style="vertical-align:bottom" class="text-center">Got/Cash</td>
+							  <td style="vertical-align:bottom" class="text-center">Ž.r.</td>
+							  <td style="vertical-align:bottom" class="text-center">Cr.card</td>
 							  <td>&amp;nbsp;</td>
 							  <td style="vertical-align:bottom">Iznos za naplatu/Amount due (5+6)</td>
 							</tr>
 							<tr>
-							  <td style="border:1px solid">&amp;nbsp;</td>
-							  <td style="border:1px solid">&amp;nbsp;</td>
-							  <td style="border:1px solid">&amp;nbsp;</td>
+							  <td style="border:1px solid" class="text-center">&amp;nbsp;</td>
+							  <td style="border:1px solid" class="text-center">&amp;nbsp;</td>
+							  <td style="border:1px solid" class="text-center">&amp;nbsp;</td>
 							  <td>&amp;nbsp;</td>
-							  <td style="border:1px solid">&amp;nbsp;</td>
-							  <td style="border:1px solid">&amp;nbsp;</td>
-							  <td style="border:1px solid">&amp;nbsp;</td>
+							  <td style="border:1px solid" class="text-center">&amp;nbsp;</td>
+							  <td style="border:1px solid" class="text-center">&amp;nbsp;</td>
+							  <td style="border:1px solid" class="text-center">&amp;nbsp;</td>
 							  <td>&amp;nbsp;</td>
-							  <td style="border:1px solid">&amp;nbsp;</td>
+							  <td style="border:1px solid" class="text-center">&amp;nbsp;</td>
 							</tr>
 						</tbody>
                     </table>
