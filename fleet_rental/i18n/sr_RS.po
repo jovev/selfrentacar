@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-02-07 11:30+0000\n"
-"PO-Revision-Date: 2023-02-07 15:10+0100\n"
+"POT-Creation-Date: 2023-06-01 14:02+0000\n"
+"PO-Revision-Date: 2023-06-01 16:30+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sr_RS\n"
@@ -15,12 +15,80 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: Poedit 3.3.1\n"
 
 #. module: fleet_rental
 #: model:ir.model.fields,field_description:fleet_rental.field_car_rental_contract__invoice_count
 msgid "# Invoice"
 msgstr "# Faktura"
+
+#. module: fleet_rental
+#: model_terms:ir.ui.view,arch_db:fleet_rental.report_rental_contract
+msgid "&amp;nbsp;"
+msgstr ""
+
+#. module: fleet_rental
+#: model_terms:ir.ui.view,arch_db:fleet_rental.report_rental_contract
+msgid "(drop-off)"
+msgstr ""
+
+#. module: fleet_rental
+#: model_terms:ir.ui.view,arch_db:fleet_rental.report_rental_contract
+msgid "(pick-up)"
+msgstr ""
+
+#. module: fleet_rental
+#: model_terms:ir.ui.view,arch_db:fleet_rental.report_rental_contract
+msgid "1. Broj dana / Number of days"
+msgstr ""
+
+#. module: fleet_rental
+#: model:ir.model.fields.selection,name:fleet_rental.selection__car_rental_contract__dropoff_fuel__12
+#: model:ir.model.fields.selection,name:fleet_rental.selection__car_rental_contract__pickup_fuel__12
+msgid "1/2"
+msgstr ""
+
+#. module: fleet_rental
+#: model:ir.model.fields.selection,name:fleet_rental.selection__car_rental_contract__dropoff_fuel__14
+#: model:ir.model.fields.selection,name:fleet_rental.selection__car_rental_contract__pickup_fuel__14
+msgid "1/4"
+msgstr ""
+
+#. module: fleet_rental
+#: model_terms:ir.ui.view,arch_db:fleet_rental.report_rental_contract
+msgid "2. Cijena po danu /<br/> Price per day"
+msgstr ""
+
+#. module: fleet_rental
+#: model_terms:ir.ui.view,arch_db:fleet_rental.report_rental_contract
+msgid "3. Cijena za kasko /<br/> Price casco"
+msgstr ""
+
+#. module: fleet_rental
+#: model:ir.model.fields.selection,name:fleet_rental.selection__car_rental_contract__dropoff_fuel__34
+#: model:ir.model.fields.selection,name:fleet_rental.selection__car_rental_contract__pickup_fuel__34
+msgid "3/d"
+msgstr ""
+
+#. module: fleet_rental
+#: model_terms:ir.ui.view,arch_db:fleet_rental.report_rental_contract
+msgid "4. Troškovi goriva /<br/> Fuel costs"
+msgstr ""
+
+#. module: fleet_rental
+#: model_terms:ir.ui.view,arch_db:fleet_rental.report_rental_contract
+msgid "6. Dodatni troškovi / Additional costs"
+msgstr ""
+
+#. module: fleet_rental
+#: model_terms:ir.ui.view,arch_db:fleet_rental.report_rental_contract
+msgid "<br/>5. <strong>TOTAL</strong> 1 x ( 2 + 3 ) + 4"
+msgstr ""
+
+#. module: fleet_rental
+#: model_terms:ir.ui.view,arch_db:fleet_rental.report_rental_contract
+msgid "<br/>Prelazak granice / Cross Border"
+msgstr ""
 
 #. module: fleet_rental
 #. odoo-python
@@ -75,6 +143,28 @@ msgstr ""
 "><tr><td> Odgovorno lice<td/><td> %s, %s<td/><tr/><table/>"
 
 #. module: fleet_rental
+#: model_terms:ir.ui.view,arch_db:fleet_rental.report_rental_contract
+msgid "<i>DETALJI O NAJMU VOZILA / DETAILS OF CAR RENTAL</i>"
+msgstr ""
+
+#. module: fleet_rental
+#: model_terms:ir.ui.view,arch_db:fleet_rental.report_rental_contract
+msgid ""
+"<i>KONAČAN OBRAČUN NAJMA VOZILA / DROP OFF: </i> Datum i vrijeme / Date and "
+"Time"
+msgstr ""
+
+#. module: fleet_rental
+#: model_terms:ir.ui.view,arch_db:fleet_rental.report_rental_contract
+msgid "<i>PODACI O KLIJENTU / CLIENT DATA</i>"
+msgstr ""
+
+#. module: fleet_rental
+#: model_terms:ir.ui.view,arch_db:fleet_rental.report_rental_contract
+msgid "<strong>UGOVOR O NAJMU VOZILA Cheap Car Hire</strong>"
+msgstr ""
+
+#. module: fleet_rental
 #: model:ir.actions.act_window,name:fleet_rental.action_fleet_car_tools
 #: model:ir.ui.menu,name:fleet_rental.menu_car_tools
 #: model_terms:ir.ui.view,arch_db:fleet_rental.car_rental_contract_tools_form_view
@@ -90,6 +180,7 @@ msgstr "Konto"
 
 #. module: fleet_rental
 #: model:ir.model.fields,field_description:fleet_rental.field_car_rental_contract__message_needaction
+#: model:ir.model.fields,field_description:fleet_rental.field_car_rental_reservation__message_needaction
 msgid "Action Needed"
 msgstr "Potrebna akcija"
 
@@ -99,12 +190,23 @@ msgid "Active"
 msgstr "Aktivno"
 
 #. module: fleet_rental
+#: model:ir.model.fields,field_description:fleet_rental.field_car_rental_reservation__additional_comments
+msgid "Additional Comments"
+msgstr "Dodatni komentari"
+
+#. module: fleet_rental
 #: model:ir.model.fields,field_description:fleet_rental.field_fleet_rental_line__recurring_amount
 msgid "Amount"
 msgstr "Iznos"
 
 #. module: fleet_rental
+#: model:ir.model.fields,field_description:fleet_rental.field_car_rental_contract__amount_pay_deposit
+msgid "Amount pay deposit"
+msgstr ""
+
+#. module: fleet_rental
 #: model:ir.model.fields,field_description:fleet_rental.field_car_rental_contract__message_attachment_count
+#: model:ir.model.fields,field_description:fleet_rental.field_car_rental_reservation__message_attachment_count
 msgid "Attachment Count"
 msgstr "Broj priloga"
 
@@ -119,7 +221,28 @@ msgid "Available"
 msgstr "Dostupno"
 
 #. module: fleet_rental
+#: model:ir.model.fields,field_description:fleet_rental.field_fleet_vehicle__x_bazna_lokacija
+msgid "Base Location"
+msgstr "Osnovna lokacija"
+
+#. module: fleet_rental
+#: model_terms:ir.ui.view,arch_db:fleet_rental.report_rental_contract
+msgid "Br. VD / Driver licence"
+msgstr ""
+
+#. module: fleet_rental
+#: model_terms:ir.ui.view,arch_db:fleet_rental.report_rental_contract
+msgid "Br. dana / No. of days"
+msgstr ""
+
+#. module: fleet_rental
+#: model:ir.model.fields,help:fleet_rental.field_car_rental_contract__car_brand
+msgid "Brand of the vehicle"
+msgstr "Marka vozila"
+
+#. module: fleet_rental
 #: model:ir.model.fields.selection,name:fleet_rental.selection__car_rental_contract__state__cancel
+#: model:ir.model.fields.selection,name:fleet_rental.selection__car_rental_reservation__state__cancel
 #: model:ir.model.fields.selection,name:fleet_rental.selection__report_fleet_rental__state__cancel
 #: model_terms:ir.ui.view,arch_db:fleet_rental.car_rental_contract_form_view
 msgid "Cancel"
@@ -131,14 +254,29 @@ msgid "Car Brand"
 msgstr "Marka automobila"
 
 #. module: fleet_rental
+#: model:ir.model.fields,field_description:fleet_rental.field_car_rental_contract__selected_cars_class
+msgid "Car Category"
+msgstr "Kategorija automobila"
+
+#. module: fleet_rental
 #: model:ir.model.fields,field_description:fleet_rental.field_report_fleet_rental__car_color
 msgid "Car Color"
 msgstr "Boja automobila"
 
 #. module: fleet_rental
+#: model_terms:ir.ui.view,arch_db:fleet_rental.report_rental_contract
+msgid "Casco insurance"
+msgstr ""
+
+#. module: fleet_rental
 #: model:ir.model.constraint,message:fleet_rental.constraint_fleet_vehicle_vin_sn_unique
 msgid "Chassis Number already exists !"
 msgstr "Broj šasije već postoji!"
+
+#. module: fleet_rental
+#: model_terms:ir.ui.view,arch_db:fleet_rental.report_rental_contract
+msgid "Cheap Car Hire - Agent"
+msgstr ""
 
 #. module: fleet_rental
 #: model:ir.model.fields,field_description:fleet_rental.field_car_rental_contract__check_verify
@@ -147,6 +285,7 @@ msgstr "Proveri"
 
 #. module: fleet_rental
 #: model:ir.model.fields.selection,name:fleet_rental.selection__car_rental_contract__state__checking
+#: model:ir.model.fields.selection,name:fleet_rental.selection__car_rental_reservation__state__checking
 #: model:ir.model.fields.selection,name:fleet_rental.selection__report_fleet_rental__state__checking
 msgid "Checking"
 msgstr "Provera"
@@ -166,6 +305,21 @@ msgid "Checklist Number"
 msgstr "Broj kontrolne liste"
 
 #. module: fleet_rental
+#: model_terms:ir.ui.view,arch_db:fleet_rental.report_rental_contract
+msgid "Cijena/price"
+msgstr ""
+
+#. module: fleet_rental
+#: model:ir.model.fields,field_description:fleet_rental.field_car_rental_reservation__city
+msgid "City"
+msgstr "Grad"
+
+#. module: fleet_rental
+#: model:ir.model.fields,field_description:fleet_rental.field_stock_location__city_id
+msgid "City ID"
+msgstr ""
+
+#. module: fleet_rental
 #: model:ir.model.fields,field_description:fleet_rental.field_fleet_vehicle__color
 msgid "Color"
 msgstr "Boja"
@@ -178,6 +332,7 @@ msgstr "Boja vozila"
 
 #. module: fleet_rental
 #: model_terms:ir.ui.view,arch_db:fleet_rental.car_rental_contract_form_view
+#: model_terms:ir.ui.view,arch_db:fleet_rental.car_rental_reservation_form_view
 msgid "Confirm"
 msgstr "Potvrdi"
 
@@ -187,6 +342,11 @@ msgstr "Potvrdi"
 #, python-format
 msgid "Confirmed: %s - %s"
 msgstr "Potvrđeno: %s - %s"
+
+#. module: fleet_rental
+#: model_terms:ir.ui.view,arch_db:fleet_rental.car_rental_contract_form_view
+msgid "Consumed fuel"
+msgstr "Utrošeno gorivo"
 
 #. module: fleet_rental
 #: model_terms:ir.ui.view,arch_db:fleet_rental.car_rental_contract_checklist_form_view
@@ -207,6 +367,16 @@ msgstr ""
 "učestalosti troškova"
 
 #. module: fleet_rental
+#: model:ir.model.fields,field_description:fleet_rental.field_car_rental_reservation__country
+msgid "Country"
+msgstr "Država"
+
+#. module: fleet_rental
+#: model_terms:ir.ui.view,arch_db:fleet_rental.report_rental_contract
+msgid "Cr.card"
+msgstr "Kred. kartica"
+
+#. module: fleet_rental
 #: model_terms:ir.ui.view,arch_db:fleet_rental.car_rental_contract_form_view
 msgid "Create Invoice"
 msgstr "Kreiraj fakturu"
@@ -219,6 +389,8 @@ msgstr "Kreiraj fakturu"
 #. module: fleet_rental
 #: model:ir.model.fields,field_description:fleet_rental.field_car_rental_checklist__create_uid
 #: model:ir.model.fields,field_description:fleet_rental.field_car_rental_contract__create_uid
+#: model:ir.model.fields,field_description:fleet_rental.field_car_rental_reservation__create_uid
+#: model:ir.model.fields,field_description:fleet_rental.field_car_rental_reservation_options__create_uid
 #: model:ir.model.fields,field_description:fleet_rental.field_car_tools__create_uid
 #: model:ir.model.fields,field_description:fleet_rental.field_fleet_rental_line__create_uid
 #: model:ir.model.fields,field_description:fleet_rental.field_rental_fleet_reserved__create_uid
@@ -228,6 +400,8 @@ msgstr "Kreirao"
 #. module: fleet_rental
 #: model:ir.model.fields,field_description:fleet_rental.field_car_rental_checklist__create_date
 #: model:ir.model.fields,field_description:fleet_rental.field_car_rental_contract__create_date
+#: model:ir.model.fields,field_description:fleet_rental.field_car_rental_reservation__create_date
+#: model:ir.model.fields,field_description:fleet_rental.field_car_rental_reservation_options__create_date
 #: model:ir.model.fields,field_description:fleet_rental.field_car_tools__create_date
 #: model:ir.model.fields,field_description:fleet_rental.field_fleet_rental_line__create_date
 #: model:ir.model.fields,field_description:fleet_rental.field_rental_fleet_reserved__create_date
@@ -235,15 +409,34 @@ msgid "Created on"
 msgstr "Kreirano"
 
 #. module: fleet_rental
+#: model:ir.model.fields,field_description:fleet_rental.field_car_rental_contract__allow_crossborder
+msgid "Cross Border"
+msgstr "Prelazak granice"
+
+#. module: fleet_rental
+#: model:ir.model.fields,field_description:fleet_rental.field_fleet_vehicle__x_trenutna_lokacija
+msgid "Current Location"
+msgstr ""
+
+#. module: fleet_rental
 #: model:ir.model.fields,field_description:fleet_rental.field_car_rental_contract__customer_id
+#: model:ir.model.fields,field_description:fleet_rental.field_car_rental_reservation__customer_name
 #: model:ir.model.fields,field_description:fleet_rental.field_rental_fleet_reserved__customer_id
 #: model:ir.model.fields,field_description:fleet_rental.field_report_fleet_rental__customer_id
 #: model:ir.model.fields,help:fleet_rental.field_car_rental_contract__customer_id
+#: model:ir.model.fields,help:fleet_rental.field_car_rental_reservation__customer_name
 #: model_terms:ir.ui.view,arch_db:fleet_rental.car_contract_tree_view
 #: model_terms:ir.ui.view,arch_db:fleet_rental.car_rental_contract_checklist_form_view
 #: model_terms:ir.ui.view,arch_db:fleet_rental.car_rental_contract_form_view
+#: model_terms:ir.ui.view,arch_db:fleet_rental.car_rental_reservation_form_view
+#: model_terms:ir.ui.view,arch_db:fleet_rental.car_reservation_tree_view
 msgid "Customer"
 msgstr "Kupac"
+
+#. module: fleet_rental
+#: model_terms:ir.ui.view,arch_db:fleet_rental.report_rental_contract
+msgid "DA"
+msgstr ""
 
 #. module: fleet_rental
 #: model:ir.model.fields.selection,name:fleet_rental.selection__car_rental_contract__cost_frequency__daily
@@ -269,6 +462,16 @@ msgid "Date"
 msgstr "Datum"
 
 #. module: fleet_rental
+#: model:ir.model.fields,field_description:fleet_rental.field_car_rental_reservation__date_of_birth
+msgid "Date of Birth"
+msgstr "Datum rođenja"
+
+#. module: fleet_rental
+#: model_terms:ir.ui.view,arch_db:fleet_rental.report_rental_contract
+msgid "Datum i vrijeme / Date and Time"
+msgstr ""
+
+#. module: fleet_rental
 #: model:ir.model.fields,field_description:fleet_rental.field_fleet_rental_line__name
 msgid "Description"
 msgstr "Opis"
@@ -286,6 +489,8 @@ msgstr "Dizel"
 #. module: fleet_rental
 #: model:ir.model.fields,field_description:fleet_rental.field_car_rental_checklist__display_name
 #: model:ir.model.fields,field_description:fleet_rental.field_car_rental_contract__display_name
+#: model:ir.model.fields,field_description:fleet_rental.field_car_rental_reservation__display_name
+#: model:ir.model.fields,field_description:fleet_rental.field_car_rental_reservation_options__display_name
 #: model:ir.model.fields,field_description:fleet_rental.field_car_tools__display_name
 #: model:ir.model.fields,field_description:fleet_rental.field_fleet_rental_line__display_name
 #: model:ir.model.fields,field_description:fleet_rental.field_rental_fleet_reserved__display_name
@@ -295,15 +500,37 @@ msgstr "Naziv za prikaz"
 
 #. module: fleet_rental
 #: model:ir.model.fields.selection,name:fleet_rental.selection__car_rental_contract__state__done
+#: model:ir.model.fields.selection,name:fleet_rental.selection__car_rental_reservation__state__done
 #: model:ir.model.fields.selection,name:fleet_rental.selection__report_fleet_rental__state__done
 msgid "Done"
 msgstr "Završeno"
 
 #. module: fleet_rental
 #: model:ir.model.fields.selection,name:fleet_rental.selection__car_rental_contract__state__draft
+#: model:ir.model.fields.selection,name:fleet_rental.selection__car_rental_reservation__state__draft
 #: model:ir.model.fields.selection,name:fleet_rental.selection__report_fleet_rental__state__draft
 msgid "Draft"
 msgstr "U nacrtu"
+
+#. module: fleet_rental
+#: model:ir.model.fields,field_description:fleet_rental.field_car_rental_contract__driver_id1
+msgid "Driver 1"
+msgstr "Vozač 1"
+
+#. module: fleet_rental
+#: model:ir.model.fields,field_description:fleet_rental.field_car_rental_contract__driver_id2
+msgid "Driver 2"
+msgstr "Vozač 2"
+
+#. module: fleet_rental
+#: model_terms:ir.ui.view,arch_db:fleet_rental.report_rental_contract
+msgid "Drugi vozač / Second driver"
+msgstr ""
+
+#. module: fleet_rental
+#: model_terms:ir.ui.view,arch_db:fleet_rental.report_rental_contract
+msgid "Država / Country"
+msgstr ""
 
 #. module: fleet_rental
 #: model:ir.model.fields,field_description:fleet_rental.field_fleet_rental_line__date_due
@@ -311,12 +538,29 @@ msgid "Due Date"
 msgstr "Datum dospeća"
 
 #. module: fleet_rental
+#: model:ir.model.fields,field_description:fleet_rental.field_fleet_vehicle__x_euro_norma
+msgid "EURO Norm"
+msgstr ""
+
+#. module: fleet_rental
 #: model:ir.model.fields.selection,name:fleet_rental.selection__fleet_vehicle__fuel_type__electric
 msgid "Electric"
 msgstr "Električno"
 
 #. module: fleet_rental
+#: model:ir.model.fields,field_description:fleet_rental.field_car_rental_reservation__email
+msgid "Email"
+msgstr ""
+
+#. module: fleet_rental
+#: model:ir.model.fields.selection,name:fleet_rental.selection__car_rental_contract__dropoff_fuel__e
+#: model:ir.model.fields.selection,name:fleet_rental.selection__car_rental_contract__pickup_fuel__e
+msgid "Empty"
+msgstr "Prazan"
+
+#. module: fleet_rental
 #: model:ir.model.fields,help:fleet_rental.field_car_rental_contract__rent_end_date
+#: model:ir.model.fields,help:fleet_rental.field_car_rental_reservation__rent_end_date
 msgid "End date of contract"
 msgstr "Završni datum ugovora"
 
@@ -325,6 +569,16 @@ msgstr "Završni datum ugovora"
 msgid "Facilities/Accessories, That should verify when closing the contract."
 msgstr ""
 "Objekti/pribor, koji bi trebalo da se proveri prilikom zaključenja ugovora."
+
+#. module: fleet_rental
+#: model:ir.model.fields,help:fleet_rental.field_car_rental_contract__dropoff_fuel
+msgid "Feel level at dropoff"
+msgstr ""
+
+#. module: fleet_rental
+#: model:ir.model.fields,help:fleet_rental.field_car_rental_contract__pickup_fuel
+msgid "Feel level at pickup"
+msgstr ""
 
 #. module: fleet_rental
 #: model:ir.model.fields,field_description:fleet_rental.field_car_rental_contract__first_invoice_created
@@ -376,6 +630,16 @@ msgid "Fleet Rental Management"
 msgstr "Upravljanje iznajmljivanjem voznog parka"
 
 #. module: fleet_rental
+#: model:ir.model,name:fleet_rental.model_car_rental_reservation
+msgid "Fleet Rental Management Reservation"
+msgstr ""
+
+#. module: fleet_rental
+#: model:ir.model,name:fleet_rental.model_car_rental_reservation_options
+msgid "Fleet Rental Management Reservation options"
+msgstr ""
+
+#. module: fleet_rental
 #: model:product.template,name:fleet_rental.fleet_service_product
 msgid "Fleet Rental Service"
 msgstr "Usluga iznajmljivanja voznog parka"
@@ -387,12 +651,19 @@ msgid "Fleet scheduler"
 msgstr "Planer voznog parka"
 
 #. module: fleet_rental
+#: model:ir.model.fields,field_description:fleet_rental.field_car_rental_reservation__flight_number
+msgid "Flight number"
+msgstr ""
+
+#. module: fleet_rental
 #: model:ir.model.fields,field_description:fleet_rental.field_car_rental_contract__message_follower_ids
+#: model:ir.model.fields,field_description:fleet_rental.field_car_rental_reservation__message_follower_ids
 msgid "Followers"
 msgstr "Pratioci"
 
 #. module: fleet_rental
 #: model:ir.model.fields,field_description:fleet_rental.field_car_rental_contract__message_partner_ids
+#: model:ir.model.fields,field_description:fleet_rental.field_car_rental_reservation__message_partner_ids
 msgid "Followers (Partners)"
 msgstr "Pratioci (Partneri)"
 
@@ -417,12 +688,30 @@ msgid "Fuel Used by the vehicle"
 msgstr "Gorivo koje vozilo koristi"
 
 #. module: fleet_rental
+#: model:ir.model.fields.selection,name:fleet_rental.selection__car_rental_contract__dropoff_fuel__f
+#: model:ir.model.fields.selection,name:fleet_rental.selection__car_rental_contract__pickup_fuel__f
+msgid "Full"
+msgstr "Pun"
+
+#. module: fleet_rental
 #: model:ir.model.fields.selection,name:fleet_rental.selection__fleet_vehicle__fuel_type__gasoline
+#: model:ir.model.fields.selection,name:fleet_rental.selection__fleet_vehicle__x_osnov_raspolaganja__gasoline
 msgid "Gasoline"
 msgstr "Benzin"
 
 #. module: fleet_rental
+#: model_terms:ir.ui.view,arch_db:fleet_rental.report_rental_contract
+msgid "Gorivo / Fuel"
+msgstr ""
+
+#. module: fleet_rental
+#: model_terms:ir.ui.view,arch_db:fleet_rental.report_rental_contract
+msgid "Got/Cash"
+msgstr ""
+
+#. module: fleet_rental
 #: model:ir.model.fields,field_description:fleet_rental.field_car_rental_contract__has_message
+#: model:ir.model.fields,field_description:fleet_rental.field_car_rental_reservation__has_message
 msgid "Has Message"
 msgstr "Ima poruku"
 
@@ -434,6 +723,8 @@ msgstr "Hibridno"
 #. module: fleet_rental
 #: model:ir.model.fields,field_description:fleet_rental.field_car_rental_checklist__id
 #: model:ir.model.fields,field_description:fleet_rental.field_car_rental_contract__id
+#: model:ir.model.fields,field_description:fleet_rental.field_car_rental_reservation__id
+#: model:ir.model.fields,field_description:fleet_rental.field_car_rental_reservation_options__id
 #: model:ir.model.fields,field_description:fleet_rental.field_car_tools__id
 #: model:ir.model.fields,field_description:fleet_rental.field_fleet_rental_line__id
 #: model:ir.model.fields,field_description:fleet_rental.field_rental_fleet_reserved__id
@@ -443,12 +734,15 @@ msgstr ""
 
 #. module: fleet_rental
 #: model:ir.model.fields,help:fleet_rental.field_car_rental_contract__message_needaction
+#: model:ir.model.fields,help:fleet_rental.field_car_rental_reservation__message_needaction
 msgid "If checked, new messages require your attention."
 msgstr "Ako je označeno, nove poruke zahtevaju vašu pažnju."
 
 #. module: fleet_rental
 #: model:ir.model.fields,help:fleet_rental.field_car_rental_contract__message_has_error
 #: model:ir.model.fields,help:fleet_rental.field_car_rental_contract__message_has_sms_error
+#: model:ir.model.fields,help:fleet_rental.field_car_rental_reservation__message_has_error
+#: model:ir.model.fields,help:fleet_rental.field_car_rental_reservation__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
 msgstr "Ako je označeno, neke poruke imaju grešku u isporuci."
 
@@ -473,9 +767,15 @@ msgid "Inactive"
 msgstr "Neaktivno"
 
 #. module: fleet_rental
+#: model:ir.model,name:fleet_rental.model_stock_location
+msgid "Inventory Locations"
+msgstr ""
+
+#. module: fleet_rental
 #. odoo-python
 #: code:addons/fleet_rental/models/car_rental.py:0
 #: model:ir.model.fields.selection,name:fleet_rental.selection__car_rental_contract__state__invoice
+#: model:ir.model.fields.selection,name:fleet_rental.selection__car_rental_reservation__state__invoice
 #: model_terms:ir.ui.view,arch_db:fleet_rental.car_rental_contract_form_view
 #, python-format
 msgid "Invoice"
@@ -493,8 +793,19 @@ msgstr "Oznaka fakture"
 
 #. module: fleet_rental
 #: model:ir.model.fields,field_description:fleet_rental.field_car_rental_contract__message_is_follower
+#: model:ir.model.fields,field_description:fleet_rental.field_car_rental_reservation__message_is_follower
 msgid "Is Follower"
 msgstr "Je pratioc"
+
+#. module: fleet_rental
+#: model_terms:ir.ui.view,arch_db:fleet_rental.report_rental_contract
+msgid "Iznos uplaćenog depozita /<br/> Amount pay deposit"
+msgstr ""
+
+#. module: fleet_rental
+#: model_terms:ir.ui.view,arch_db:fleet_rental.report_rental_contract
+msgid "Iznos za naplatu/Amount due (5+6)"
+msgstr ""
 
 #. module: fleet_rental
 #: model:ir.model.fields,field_description:fleet_rental.field_car_rental_contract__journal_type
@@ -502,8 +813,15 @@ msgid "Journal"
 msgstr "Dnevnik"
 
 #. module: fleet_rental
+#: model_terms:ir.ui.view,arch_db:fleet_rental.report_rental_contract
+msgid "Korisnik / User"
+msgstr ""
+
+#. module: fleet_rental
 #: model:ir.model.fields,field_description:fleet_rental.field_car_rental_checklist____last_update
 #: model:ir.model.fields,field_description:fleet_rental.field_car_rental_contract____last_update
+#: model:ir.model.fields,field_description:fleet_rental.field_car_rental_reservation____last_update
+#: model:ir.model.fields,field_description:fleet_rental.field_car_rental_reservation_options____last_update
 #: model:ir.model.fields,field_description:fleet_rental.field_car_tools____last_update
 #: model:ir.model.fields,field_description:fleet_rental.field_fleet_rental_line____last_update
 #: model:ir.model.fields,field_description:fleet_rental.field_rental_fleet_reserved____last_update
@@ -514,6 +832,8 @@ msgstr "Zadnja promena"
 #. module: fleet_rental
 #: model:ir.model.fields,field_description:fleet_rental.field_car_rental_checklist__write_uid
 #: model:ir.model.fields,field_description:fleet_rental.field_car_rental_contract__write_uid
+#: model:ir.model.fields,field_description:fleet_rental.field_car_rental_reservation__write_uid
+#: model:ir.model.fields,field_description:fleet_rental.field_car_rental_reservation_options__write_uid
 #: model:ir.model.fields,field_description:fleet_rental.field_car_tools__write_uid
 #: model:ir.model.fields,field_description:fleet_rental.field_fleet_rental_line__write_uid
 #: model:ir.model.fields,field_description:fleet_rental.field_rental_fleet_reserved__write_uid
@@ -523,6 +843,8 @@ msgstr "Zadnji ažurirao"
 #. module: fleet_rental
 #: model:ir.model.fields,field_description:fleet_rental.field_car_rental_checklist__write_date
 #: model:ir.model.fields,field_description:fleet_rental.field_car_rental_contract__write_date
+#: model:ir.model.fields,field_description:fleet_rental.field_car_rental_reservation__write_date
+#: model:ir.model.fields,field_description:fleet_rental.field_car_rental_reservation_options__write_date
 #: model:ir.model.fields,field_description:fleet_rental.field_car_tools__write_date
 #: model:ir.model.fields,field_description:fleet_rental.field_fleet_rental_line__write_date
 #: model:ir.model.fields,field_description:fleet_rental.field_rental_fleet_reserved__write_date
@@ -530,22 +852,53 @@ msgid "Last Updated on"
 msgstr "Zadnje ažuriranje"
 
 #. module: fleet_rental
+#: model:ir.model.fields,field_description:fleet_rental.field_car_rental_contract__driver1_driver_licence_no
+#: model:ir.model.fields,field_description:fleet_rental.field_car_rental_contract__driver2_driver_licence_no
+msgid "Licence No"
+msgstr "Broj vozačke dozvole"
+
+#. module: fleet_rental
 #: model:ir.model.constraint,message:fleet_rental.constraint_fleet_vehicle_license_plate_unique
 msgid "License plate already exists !"
 msgstr "Registrska tablica već postoji!"
 
 #. module: fleet_rental
+#: model:ir.model.fields,help:fleet_rental.field_car_rental_contract__plate
+msgid ""
+"License plate number of the vehicle.                                (ie: "
+"plate number for a vehicle)"
+msgstr ""
+
+#. module: fleet_rental
+#: model_terms:ir.ui.view,arch_db:fleet_rental.report_rental_contract
+msgid "Litar"
+msgstr ""
+
+#. module: fleet_rental
+#: model:ir.model.fields,field_description:fleet_rental.field_stock_location__location_latitude
+msgid "Location Latitude"
+msgstr ""
+
+#. module: fleet_rental
+#: model:ir.model.fields,field_description:fleet_rental.field_stock_location__location_longitude
+msgid "Location Longitude"
+msgstr ""
+
+#. module: fleet_rental
 #: model:ir.model.fields,field_description:fleet_rental.field_car_rental_contract__message_main_attachment_id
+#: model:ir.model.fields,field_description:fleet_rental.field_car_rental_reservation__message_main_attachment_id
 msgid "Main Attachment"
 msgstr "Glavni prilog"
 
 #. module: fleet_rental
 #: model:ir.model.fields,field_description:fleet_rental.field_car_rental_contract__message_has_error
+#: model:ir.model.fields,field_description:fleet_rental.field_car_rental_reservation__message_has_error
 msgid "Message Delivery error"
 msgstr "Greška u isporuci poruke"
 
 #. module: fleet_rental
 #: model:ir.model.fields,field_description:fleet_rental.field_car_rental_contract__message_ids
+#: model:ir.model.fields,field_description:fleet_rental.field_car_rental_reservation__message_ids
 msgid "Messages"
 msgstr "Poruke"
 
@@ -561,8 +914,14 @@ msgid "Monthly"
 msgstr "Mesečno"
 
 #. module: fleet_rental
+#: model_terms:ir.ui.view,arch_db:fleet_rental.report_rental_contract
+msgid "NE"
+msgstr ""
+
+#. module: fleet_rental
 #: model:ir.model.fields,field_description:fleet_rental.field_car_rental_checklist__name
 #: model:ir.model.fields,field_description:fleet_rental.field_car_rental_contract__name
+#: model:ir.model.fields,field_description:fleet_rental.field_car_rental_reservation__name
 #: model:ir.model.fields,field_description:fleet_rental.field_car_tools__name
 #: model:ir.model.fields,field_description:fleet_rental.field_report_fleet_rental__name
 msgid "Name"
@@ -575,24 +934,61 @@ msgid "No"
 msgstr "Broj"
 
 #. module: fleet_rental
+#. odoo-python
+#: code:addons/fleet_rental/models/car_rental.py:0
+#, python-format
+msgid "No Subject"
+msgstr ""
+
+#. module: fleet_rental
+#: model_terms:ir.ui.view,arch_db:fleet_rental.report_rental_contract
+msgid "No. Booking"
+msgstr ""
+
+#. module: fleet_rental
 #: model:ir.model.fields,field_description:fleet_rental.field_car_rental_contract__message_needaction_counter
+#: model:ir.model.fields,field_description:fleet_rental.field_car_rental_reservation__message_needaction_counter
 msgid "Number of Actions"
 msgstr "Broj akcija"
 
 #. module: fleet_rental
 #: model:ir.model.fields,field_description:fleet_rental.field_car_rental_contract__message_has_error_counter
+#: model:ir.model.fields,field_description:fleet_rental.field_car_rental_reservation__message_has_error_counter
 msgid "Number of errors"
 msgstr "Broj grešaka"
 
 #. module: fleet_rental
 #: model:ir.model.fields,help:fleet_rental.field_car_rental_contract__message_needaction_counter
+#: model:ir.model.fields,help:fleet_rental.field_car_rental_reservation__message_needaction_counter
 msgid "Number of messages which requires an action"
 msgstr "Broj poruka koje zahtevaju akciju"
 
 #. module: fleet_rental
 #: model:ir.model.fields,help:fleet_rental.field_car_rental_contract__message_has_error_counter
+#: model:ir.model.fields,help:fleet_rental.field_car_rental_reservation__message_has_error_counter
 msgid "Number of messages with delivery error"
 msgstr "Broj poruka sa greškom u isporuci"
+
+#. module: fleet_rental
+#: model:ir.model.fields,field_description:fleet_rental.field_car_rental_reservation__option_lines
+msgid "Option Lines"
+msgstr "Opcioni redovi"
+
+#. module: fleet_rental
+#: model:ir.model.fields,field_description:fleet_rental.field_fleet_vehicle__x_osnov_raspolaganja
+msgid "Osnov raspolaganja"
+msgstr ""
+
+#. module: fleet_rental
+#: model_terms:ir.ui.view,arch_db:fleet_rental.report_rental_contract
+msgid "Pasoš / Passport"
+msgstr ""
+
+#. module: fleet_rental
+#: model:ir.model.fields,field_description:fleet_rental.field_car_rental_contract__driver1_passport_no
+#: model:ir.model.fields,field_description:fleet_rental.field_car_rental_contract__driver2_passport_no
+msgid "Passport No"
+msgstr "Broj pasoša"
 
 #. module: fleet_rental
 #. odoo-python
@@ -612,6 +1008,21 @@ msgid "Petrol"
 msgstr "Benzin"
 
 #. module: fleet_rental
+#: model:ir.model.fields,field_description:fleet_rental.field_car_rental_reservation__phone
+msgid "Phone"
+msgstr "Telefon"
+
+#. module: fleet_rental
+#: model:ir.model.fields,field_description:fleet_rental.field_car_rental_contract__pickup_fuel
+msgid "Pick-up fuel"
+msgstr "Rezervoar na početku"
+
+#. module: fleet_rental
+#: model:ir.model.fields,field_description:fleet_rental.field_car_rental_contract__dropoff_fuel
+msgid "Drop-off fuel"
+msgstr "Rezervoar pri vraćanju"
+
+#. module: fleet_rental
 #. odoo-python
 #: code:addons/fleet_rental/models/car_rental.py:0
 #, python-format
@@ -619,10 +1030,52 @@ msgid "Please define income account for this product: \"%s\" (id:%d)."
 msgstr "Definišite račun prihoda za ovaj proizvod: \"%s\" (id:%d)."
 
 #. module: fleet_rental
+#: model_terms:ir.ui.view,arch_db:fleet_rental.report_rental_contract
+msgid "Potpis kor. / Signature user"
+msgstr ""
+
+#. module: fleet_rental
+#: model_terms:ir.ui.view,arch_db:fleet_rental.report_rental_contract
+msgid "Povraćaj depozita / <br/> Deposit return"
+msgstr ""
+
+#. module: fleet_rental
+#: model_terms:ir.ui.view,arch_db:fleet_rental.report_rental_contract
+msgid "Početak  najma (mjesto) / Start of rental (place)"
+msgstr ""
+
+#. module: fleet_rental
+#: model_terms:ir.ui.view,arch_db:fleet_rental.report_rental_contract
+msgid "Predviđeno vraćanje (mjesto) / Drop off"
+msgstr ""
+
+#. module: fleet_rental
 #: model:ir.model.fields,field_description:fleet_rental.field_car_rental_checklist__price
 #: model:ir.model.fields,field_description:fleet_rental.field_car_tools__price
 msgid "Price"
-msgstr "Cena"
+msgstr "Cijena"
+
+#. module: fleet_rental
+#: model:ir.model.fields,field_description:fleet_rental.field_car_rental_reservation_options__price
+msgid "Price for option"
+msgstr ""
+
+#. module: fleet_rental
+#: model_terms:ir.ui.view,arch_db:fleet_rental.report_rental_contract
+msgid "Produžetak najma / Continue rental"
+msgstr ""
+
+#. module: fleet_rental
+#: model_terms:ir.ui.view,arch_db:fleet_rental.report_rental_contract
+msgid ""
+"Pročitajte uslove  najma na sledećim stranama / Read the rental terms on "
+"the following pages"
+msgstr ""
+
+#. module: fleet_rental
+#: model_terms:ir.ui.view,arch_db:fleet_rental.report_rental_contract
+msgid "Prvi vozač / First driver"
+msgstr ""
 
 #. module: fleet_rental
 #: model:ir.model.fields,field_description:fleet_rental.field_car_rental_contract__cost_generated
@@ -647,6 +1100,11 @@ msgid "Recurring Line"
 msgstr "Ponavljajuća linija"
 
 #. module: fleet_rental
+#: model_terms:ir.ui.view,arch_db:fleet_rental.report_rental_contract
+msgid "Registracijska oznaka vozila / Register plate"
+msgstr ""
+
+#. module: fleet_rental
 #: model:fleet.vehicle.state,name:fleet_rental.vehicle_state_rent
 msgid "Rent"
 msgstr "Iznajmi"
@@ -655,19 +1113,31 @@ msgstr "Iznajmi"
 #: model:ir.model.fields,field_description:fleet_rental.field_car_rental_contract__cost
 #: model:ir.model.fields,field_description:fleet_rental.field_report_fleet_rental__cost
 msgid "Rent Cost"
-msgstr "Cena iznajmljivanja"
+msgstr "Cijena iznajmljivanja"
 
 #. module: fleet_rental
 #: model:ir.model.fields,field_description:fleet_rental.field_car_rental_contract__rent_end_date
+#: model:ir.model.fields,field_description:fleet_rental.field_car_rental_reservation__rent_end_date
 #: model:ir.model.fields,field_description:fleet_rental.field_report_fleet_rental__rent_end_date
 msgid "Rent End Date"
 msgstr "Završni datum najma"
 
 #. module: fleet_rental
+#: model:ir.model.fields,field_description:fleet_rental.field_car_rental_reservation__rent_from
+msgid "Rent From"
+msgstr ""
+
+#. module: fleet_rental
 #: model:ir.model.fields,field_description:fleet_rental.field_car_rental_contract__rent_start_date
+#: model:ir.model.fields,field_description:fleet_rental.field_car_rental_reservation__rent_start_date
 #: model:ir.model.fields,field_description:fleet_rental.field_report_fleet_rental__rent_start_date
 msgid "Rent Start Date"
 msgstr "Početni datum najma"
+
+#. module: fleet_rental
+#: model:ir.actions.act_window,name:fleet_rental.action_car_rental_reservation
+msgid "Rental Car Reservations"
+msgstr ""
 
 #. module: fleet_rental
 #: model:ir.model.fields,field_description:fleet_rental.field_fleet_vehicle__rental_check_availability
@@ -681,6 +1151,11 @@ msgid "Rental Contract"
 msgstr "Ugovor o iznajmljivanju"
 
 #. module: fleet_rental
+#: model_terms:ir.ui.view,arch_db:fleet_rental.car_rental_reservation_form_view
+msgid "Rental Details"
+msgstr "Detalji iznajmljivanja"
+
+#. module: fleet_rental
 #: model:ir.ui.menu,name:fleet_rental.menu_car_parent
 msgid "Rental Management"
 msgstr "Upravljanje iznajmljivanjem"
@@ -691,9 +1166,29 @@ msgid "Rental Number"
 msgstr "Broj za iznajmljivanje"
 
 #. module: fleet_rental
+#: model_terms:ir.ui.view,arch_db:fleet_rental.car_rental_reservation_form_view
+msgid "Rental Options"
+msgstr "Opcije iznajmljivanja"
+
+#. module: fleet_rental
+#: model_terms:ir.ui.view,arch_db:fleet_rental.car_rental_reservation_form_view
+msgid "Rental Options Lines"
+msgstr ""
+
+#. module: fleet_rental
+#: model:ir.ui.menu,name:fleet_rental.menu_car_rental_reservation
+msgid "Rental Requests"
+msgstr "Zahtjevi za iznajmljivanje"
+
+#. module: fleet_rental
 #: model:res.groups,name:fleet_rental.rental_group_user
 msgid "Rental User"
 msgstr "Korisnik iznajmljivanja"
+
+#. module: fleet_rental
+#: model:ir.model.fields,field_description:fleet_rental.field_car_rental_reservation_options__rental_options
+msgid "Rental options"
+msgstr ""
 
 #. module: fleet_rental
 #: model_terms:ir.ui.view,arch_db:fleet_rental.car_rental_contract_checklist_tree_view
@@ -701,7 +1196,29 @@ msgid "Renter"
 msgstr "Iznajmljivač"
 
 #. module: fleet_rental
+#: model_terms:ir.ui.view,arch_db:fleet_rental.car_rental_reservation_form_view
+msgid "Request Details"
+msgstr ""
+
+#. module: fleet_rental
+#: model:ir.model.fields,field_description:fleet_rental.field_car_rental_contract__web_car_request
+msgid "Required car model, class, .."
+msgstr "Model, klasa,... traženog automobila"
+
+#. module: fleet_rental
+#: model:ir.model.fields,field_description:fleet_rental.field_car_rental_contract__reservation_code
+#: model:ir.model.fields,field_description:fleet_rental.field_car_rental_reservation__reservation_code
+msgid "Reservation Code"
+msgstr "Šifra rezervacije"
+
+#. module: fleet_rental
+#: model_terms:ir.ui.view,arch_db:fleet_rental.car_rental_reservation_form_view
+msgid "Reservation No"
+msgstr "Broj rezervacije"
+
+#. module: fleet_rental
 #: model:ir.model.fields.selection,name:fleet_rental.selection__car_rental_contract__state__reserved
+#: model:ir.model.fields.selection,name:fleet_rental.selection__car_rental_reservation__state__reserved
 msgid "Reserved"
 msgstr "Rezervisano"
 
@@ -732,18 +1249,30 @@ msgid "Reserved Time"
 msgstr "Rezervisano vreme"
 
 #. module: fleet_rental
+#: model:ir.model.fields,field_description:fleet_rental.field_car_rental_contract__return_location
+msgid "Return location"
+msgstr "Lokacija vraćanja"
+
+#. module: fleet_rental
+#: model:ir.model.fields,field_description:fleet_rental.field_car_rental_reservation__return_location
+msgid "Return_location"
+msgstr ""
+
+#. module: fleet_rental
 #: model_terms:ir.ui.view,arch_db:fleet_rental.car_rental_contract_form_view
 msgid "Run"
 msgstr "Pokreni"
 
 #. module: fleet_rental
 #: model:ir.model.fields.selection,name:fleet_rental.selection__car_rental_contract__state__running
+#: model:ir.model.fields.selection,name:fleet_rental.selection__car_rental_reservation__state__running
 #: model:ir.model.fields.selection,name:fleet_rental.selection__report_fleet_rental__state__running
 msgid "Running"
 msgstr "Pokrenut"
 
 #. module: fleet_rental
 #: model:ir.model.fields,field_description:fleet_rental.field_car_rental_contract__message_has_sms_error
+#: model:ir.model.fields,field_description:fleet_rental.field_car_rental_reservation__message_has_sms_error
 msgid "SMS Delivery error"
 msgstr "Greška o isporuci SMS-a"
 
@@ -751,6 +1280,21 @@ msgstr "Greška o isporuci SMS-a"
 #: model:ir.model.fields,field_description:fleet_rental.field_car_rental_contract__sales_person
 msgid "Sales Person"
 msgstr "Prodavac"
+
+#. module: fleet_rental
+#: model:ir.model.fields,field_description:fleet_rental.field_car_rental_reservation__selected_cars
+msgid "Selected Cars"
+msgstr "Izabrani automobili"
+
+#. module: fleet_rental
+#: model:ir.model.fields,help:fleet_rental.field_car_rental_reservation__option_lines
+msgid "Selected Rental options"
+msgstr "Izabrane opcije iznajmljivanja"
+
+#. module: fleet_rental
+#: model:ir.model.fields,field_description:fleet_rental.field_car_rental_reservation_options__option
+msgid "Service option"
+msgstr ""
 
 #. module: fleet_rental
 #: model_terms:ir.ui.view,arch_db:fleet_rental.car_rental_contract_form_view
@@ -768,10 +1312,32 @@ msgid "Start date of contract"
 msgstr "Početni datum ugovora"
 
 #. module: fleet_rental
+#: model:ir.model.fields,help:fleet_rental.field_car_rental_reservation__rent_start_date
+msgid "Start date of rent"
+msgstr "Početni datum najma"
+
+#. module: fleet_rental
+#: model:ir.model.fields,field_description:fleet_rental.field_car_rental_contract__rent_from
+msgid "Start location"
+msgstr "Početak najma (mjesto)"
+
+#. module: fleet_rental
 #: model:ir.model.fields,field_description:fleet_rental.field_car_rental_contract__state
+#: model:ir.model.fields,field_description:fleet_rental.field_car_rental_reservation__state
 #: model:ir.model.fields,field_description:fleet_rental.field_report_fleet_rental__state
 msgid "State"
 msgstr "Stanje"
+
+#. module: fleet_rental
+#: model:ir.model.fields,field_description:fleet_rental.field_car_rental_reservation__street_address
+msgid "Street Address"
+msgstr "Adresa"
+
+#. module: fleet_rental
+#: model:ir.model.fields,field_description:fleet_rental.field_stock_location__street_name
+#: model:ir.model.fields,field_description:fleet_rental.field_stock_location__street_number
+msgid "Street Name"
+msgstr ""
 
 #. module: fleet_rental
 #: model:ir.model.fields,help:fleet_rental.field_car_rental_contract__cost
@@ -792,12 +1358,18 @@ msgstr ""
 "voznog parka."
 
 #. module: fleet_rental
+#: model_terms:ir.ui.view,arch_db:fleet_rental.report_rental_contract
+msgid "Tip i marka vozila / Model of car"
+msgstr ""
+
+#. module: fleet_rental
 #: model:ir.model.fields,field_description:fleet_rental.field_report_fleet_rental__tools_missing_cost
 msgid "Tools missing cost"
-msgstr "Cena alata koji nedostaje"
+msgstr "Cijena alata koji nedostaje"
 
 #. module: fleet_rental
 #: model:ir.model.fields,field_description:fleet_rental.field_car_rental_contract__total_cost
+#: model_terms:ir.ui.view,arch_db:fleet_rental.report_rental_contract
 msgid "Total"
 msgstr "Ukupno"
 
@@ -807,9 +1379,19 @@ msgid "Total (Accessories/Tools)"
 msgstr "Ukupno (Pribor/Alati)"
 
 #. module: fleet_rental
+#: model:ir.model.fields,field_description:fleet_rental.field_car_rental_reservation_options__total_price
+msgid "Total Price for option"
+msgstr ""
+
+#. module: fleet_rental
 #: model:ir.model.fields,field_description:fleet_rental.field_report_fleet_rental__total_cost
 msgid "Total cost"
 msgstr "Ukupni troškovi"
+
+#. module: fleet_rental
+#: model:ir.model.fields,field_description:fleet_rental.field_car_rental_reservation__grand_price
+msgid "Total price for car rent and options"
+msgstr ""
 
 #. module: fleet_rental
 #: model:ir.model.fields,field_description:fleet_rental.field_report_fleet_rental__total
@@ -826,6 +1408,11 @@ msgstr ""
 "periodičnih plaćanja"
 
 #. module: fleet_rental
+#: model:ir.actions.report,name:fleet_rental.view_report_rental_contract
+msgid "Ugovor o najmu"
+msgstr ""
+
+#. module: fleet_rental
 #: model:ir.model,name:fleet_rental.model_fleet_vehicle
 #: model:ir.model.fields,field_description:fleet_rental.field_car_rental_contract__vehicle_id
 #: model:ir.model.fields,field_description:fleet_rental.field_report_fleet_rental__vehicle_id
@@ -835,17 +1422,29 @@ msgid "Vehicle"
 msgstr "Vozilo"
 
 #. module: fleet_rental
+#: model:ir.model.fields,field_description:fleet_rental.field_car_rental_contract__plate
+msgid "Vehicle Plate"
+msgstr "Reg. tablica vozila"
+
+#. module: fleet_rental
 #: model_terms:ir.ui.view,arch_db:fleet_rental.car_rental_contract_form_view
 msgid "Verify"
 msgstr "Verifikuj"
 
 #. module: fleet_rental
+#: model:ir.ui.menu,name:fleet_rental.menu_car_reservation
+msgid "Web Reservation"
+msgstr ""
+
+#. module: fleet_rental
 #: model:ir.model.fields,field_description:fleet_rental.field_car_rental_contract__website_message_ids
+#: model:ir.model.fields,field_description:fleet_rental.field_car_rental_reservation__website_message_ids
 msgid "Website Messages"
 msgstr "Poruke sa website-a"
 
 #. module: fleet_rental
 #: model:ir.model.fields,help:fleet_rental.field_car_rental_contract__website_message_ids
+#: model:ir.model.fields,help:fleet_rental.field_car_rental_reservation__website_message_ids
 msgid "Website communication history"
 msgstr "Istorija komunikacije na website-u"
 
@@ -856,10 +1455,20 @@ msgid "Weekly"
 msgstr "Nedeljno"
 
 #. module: fleet_rental
+#: model:ir.model.fields,field_description:fleet_rental.field_fleet_vehicle__x_godina_proizvodnje
+msgid "Year of production"
+msgstr "Godina proizvodnje"
+
+#. module: fleet_rental
 #: model:ir.model.fields.selection,name:fleet_rental.selection__car_rental_contract__cost_frequency__yearly
 #: model:ir.model.fields.selection,name:fleet_rental.selection__report_fleet_rental__cost_frequency__yearly
 msgid "Yearly"
 msgstr "Godišnje"
+
+#. module: fleet_rental
+#: model_terms:ir.ui.view,arch_db:fleet_rental.report_rental_contract
+msgid "__________m.p."
+msgstr ""
 
 #. module: fleet_rental
 #: model:ir.model,name:fleet_rental.model_car_rental_checklist
@@ -887,11 +1496,46 @@ msgid "car_contract_result2"
 msgstr ""
 
 #. module: fleet_rental
+#: model_terms:ir.ui.view,arch_db:fleet_rental.car_reservation_tree_view
+msgid "car_reservation_result"
+msgstr ""
+
+#. module: fleet_rental
 #: model_terms:ir.ui.view,arch_db:fleet_rental.car_rental_contract_form_view
 msgid "car_result"
 msgstr ""
 
 #. module: fleet_rental
+#: model_terms:ir.ui.view,arch_db:fleet_rental.car_rental_reservation_form_view
+msgid "car_web_reservation"
+msgstr ""
+
+#. module: fleet_rental
 #: model:ir.model,name:fleet_rental.model_fleet_rental_line
 msgid "fleet.rental.line"
+msgstr ""
+
+#. module: fleet_rental
+#: model:ir.model.fields,field_description:fleet_rental.field_stock_location__parking_location
+msgid "is Parking Location"
+msgstr ""
+
+#. module: fleet_rental
+#: model:ir.model.fields.selection,name:fleet_rental.selection__fleet_vehicle__x_osnov_raspolaganja__lising
+msgid "lizing"
+msgstr ""
+
+#. module: fleet_rental
+#: model:ir.model.fields.selection,name:fleet_rental.selection__fleet_vehicle__x_osnov_raspolaganja__ownership
+msgid "vlasnistvo"
+msgstr ""
+
+#. module: fleet_rental
+#: model:ir.model.fields.selection,name:fleet_rental.selection__fleet_vehicle__x_osnov_raspolaganja__rent
+msgid "zakup"
+msgstr ""
+
+#. module: fleet_rental
+#: model_terms:ir.ui.view,arch_db:fleet_rental.report_rental_contract
+msgid "Ž.r."
 msgstr ""
