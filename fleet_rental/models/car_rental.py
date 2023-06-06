@@ -44,9 +44,11 @@ def pars_html_table(data):
         #    print (columns)
         if (columns != []):
             kolona1 = columns[0].text.strip()
+            _logger.info('****PARS HTML-TABLE ********** kolona1 = %s', kolona1)
     #        print(kolona1)
             kolona2 = columns[1].text.strip()
     #        print(kolona2)
+            _logger.info('****PARS HTML-TABLE ********** kolona2 = %s', kolona2)
             my_dic[kolona1] = kolona2
     #        df = pd.concat([df, pd.DataFrame([kolona1, kolona2])], ignore_index=True)
 
