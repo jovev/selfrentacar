@@ -25,12 +25,33 @@ from odoo import models, fields, api, _
 from odoo.exceptions import UserError, Warning, ValidationError
 import logging
 import re
+from bs4 import BeautifulSoup
 regex = re.compile(r'<[^>]+>')
 _logger = logging.getLogger(__name__)
 
 
 def remove_html(string):
     return regex.sub('', string)
+def pars_html_table(data):
+    soup = BeautifulSoup(data, 'html.parser')
+    table = soup.find_all('table')[0]  # Grab the first table
+    my_dic = {}
+
+    # Collecting Ddata
+    for row in table.find_all('tr'):
+        # Find all data for each column
+        columns = row.find_all('td')
+        #    print (columns)
+        if (columns != []):
+            kolona1 = columns[0].text.strip()
+    #        print(kolona1)
+            kolona2 = columns[1].text.strip()
+    #        print(kolona2)
+            my_dic[kolona1] = kolona2
+    #        df = pd.concat([df, pd.DataFrame([kolona1, kolona2])], ignore_index=True)
+
+    print(my_dic.items())
+    return my_dic
 
 def pars_reservation_body(input_string):
     param_dict = {'customer_name': 'Ime i przime kupca',
@@ -135,11 +156,11 @@ class CarRentalReservation(models.Model):
         _logger.info('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! self= %s, msg %s, custom_values= %s', self, msg, custom_values)
         email_body = msg['body']
         # skidamo HTM tagove
-        clear_tekst = remove_html(email_body)[98:]
-        _logger.info('***************  Goli tekst = %s', clear_tekst)
+        #clear_tekst = remove_html(email_body)[98:]
+        #_logger.info('***************  Goli tekst = %s', clear_tekst)
         # Parsiramo body emaila
-        reserv_parameters = pars_reservation_body(clear_tekst)
-        
+        #reserv_parameters = pars_reservation_body(clear_tekst)
+        reserv_parameters=pars_html_table(email_body)
 
         # Ova polja treba napuniti iz sadrzaja emaila.
         create_context = dict(self.env.context or {})
@@ -148,21 +169,21 @@ class CarRentalReservation(models.Model):
 
         if custom_values is None:
             custom_values = {'name': msg.get('subject') or _("No Subject"),
-                             'customer_name': reserv_parameters['customer_name'],
-                             'reservation_code':reserv_parameters['reservation_code'],
-                             'date_of_birth': reserv_parameters['date_of_birth'],
-                             'city': reserv_parameters['city'],
-                             'flight_number': reserv_parameters['flight_number'],
-                             'country': reserv_parameters['country'],
-                             'phone': reserv_parameters['phone'],
-                             'email': reserv_parameters['email'],
-                             'additional_comments': reserv_parameters['additional_comments'],
-                             'rent_from': reserv_parameters['rent_from'],
-                             'return_location': reserv_parameters['return_location'],
-                             'rent_start_date': reserv_parameters['rent_start_date'],
-                             'rent_end_date': reserv_parameters['rent_end_date'],
-                             'selected_cars': reserv_parameters['selected_cars'],
-                             'grand_price': reserv_parameters['grand_price'],
+                             'customer_name': reserv_parameters['Customer'],
+                             'reservation_code':reserv_parameters['Reservation code'],
+                             'date_of_birth': reserv_parameters['Date of Birth'],
+                             'city': reserv_parameters['City'],
+                             'flight_number': reserv_parameters['Flight number'],
+                             'country': reserv_parameters['Country'],
+                             'phone': reserv_parameters['Phone'],
+            #                 'email': reserv_parameters['email'],
+                             'additional_comments': reserv_parameters['Additional Comments'],
+            #                 'rent_from': reserv_parameters['rent_from'],
+            #                 'return_location': reserv_parameters['return_location'],
+            #                 'rent_start_date': reserv_parameters['rent_start_date'],
+            #                 'rent_end_date': reserv_parameters['rent_end_date'],
+            #                 'selected_cars': reserv_parameters['selected_cars'],
+            #                 'grand_price': reserv_parameters['grand_price'],
                              }
         defaults = {
             'name': msg.get('subject') or _("No Subject"),
