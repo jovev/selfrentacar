@@ -8,8 +8,8 @@ r = requests.post(
     'http://localhost:8069/api/auth/get_tokens',
     headers = {'Content-Type': 'text/html; charset=utf-8'},
     data = json.dumps({
-        'username': 'admin',
-        'password': 'admin',
+        'username': 'odoo@irvas.rs',
+        'password': 'irvasadm',
     }),
     #verify = False      # for TLS/SSL connection
 )
