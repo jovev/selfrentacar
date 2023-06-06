@@ -34,7 +34,7 @@ def remove_html(string):
     return regex.sub('', string)
 def pars_html_table(data):
     soup = BeautifulSoup(data, 'html.parser')
-    table = soup.find_all('table')[0]  # Grab the first table
+    table = soup.find_all('table')[1]  # Grab the first table
     my_dic = {}
 
     # Collecting Ddata
