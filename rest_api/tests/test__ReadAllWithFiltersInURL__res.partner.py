@@ -17,7 +17,7 @@ print r.text
 access_token = r.json()['access_token']
 
 
-print '\n 2. res.partner - Read all (with filters in URL):'
+print ('\n 2. res.partner - Read all (with filters in URL):')
 r = requests.get(
     "http://localhost:8069/api/res.partner?filters=[('name','like','ompany'),('id','!=',50)]",
     headers = {
@@ -26,4 +26,4 @@ r = requests.get(
     },
     #verify = False      # for TLS/SSL connection
 )
-print r.text
+print (r.text)
