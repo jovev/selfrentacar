@@ -86,8 +86,9 @@
 								<field name="street_address"/>
 								<field name="city"/>
 								<field name="flight_number"/>
+                                <field name="country"/>
                                 <field name="phone"/>
-                                <field name="email"/>
+                                <field name="cemail"/>
                                 <field name="additional_comments"/>
 							</group>
 						</group>
