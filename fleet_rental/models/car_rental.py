@@ -47,7 +47,7 @@ def pars_html_table(data):
             kolona1 = columns[0].text.strip()
             _logger.info('****PARS HTML-TABLE ********** kolona1 = %s', kolona1)
     #        print(kolona1)
-            if kolona1 == "Customer Details":
+            if kolona1 == "Customer Details" or kolona1 == "Detalji o korisniku":
                 kolona2 = "BLANK"
             else:
                 kolona2 = columns[1].text.strip()
