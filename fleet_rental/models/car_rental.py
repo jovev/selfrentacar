@@ -237,7 +237,7 @@ class CarRentalReservation(models.Model):
         else:   # Znaci, korisnik ne postoji , idemo u proces kreiranja novog korisnika u respartner
             values = {
                 'name': self.customer_name,
-                'email': self.email,
+                'email': self.cemail,
                 'phone': self.phone,
                 'is_company': '0',
                 'street': self.street_address,
