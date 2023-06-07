@@ -54,7 +54,7 @@ def pars_html_table(data):
     #        print(kolona2)
             _logger.info('****PARS HTML-TABLE ********** kolona2 = %s', kolona2)
         #    my_dic[kolona1] = kolona2
-            my_dic[t1_col_name(row_no)] = kolona2
+            my_dic[t1_col_name[row_no]] = kolona2
     #        df = pd.concat([df, pd.DataFrame([kolona1, kolona2])], ignore_index=True)
             row_no = row_no + 1
     print(my_dic.items())
