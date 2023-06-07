@@ -35,6 +35,7 @@ def remove_html(string):
 def pars_html_table(data):
     soup = BeautifulSoup(data, 'html.parser')
     table = soup.find_all('table')[0]  # Grab the first table
+    _logger.info('****PARS HTML-TABLE ********** selektovana = %s', table)
     my_dic = {}
     t1_col_name = ['Customer Details','Reservation code', 'Customer', 'Date of Birth', 'Street Address', 'City', 'Flight number','Country', 'Phone', 'Email', 'Additional Comments' ]
     # Collecting Ddata
@@ -57,7 +58,7 @@ def pars_html_table(data):
             my_dic[t1_col_name[row_no]] = kolona2
     #        df = pd.concat([df, pd.DataFrame([kolona1, kolona2])], ignore_index=True)
             row_no = row_no + 1
-    print(my_dic.items())
+ #   print(my_dic.items())
     return my_dic
 
 def pars_reservation_body(input_string):
@@ -160,7 +161,7 @@ class CarRentalReservation(models.Model):
         # do not want to explicitly set user_id to False; however we do not
         # want the gateway user to be responsible if no other responsible is
         # found.
-        _logger.info('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! self= %s, msg %s, custom_values= %s', self, msg, custom_values)
+        #_logger.info('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! self= %s, msg %s, custom_values= %s', self, msg, custom_values)
         email_body = msg['body']
         # skidamo HTM tagove
         #clear_tekst = remove_html(email_body)[98:]
@@ -168,6 +169,8 @@ class CarRentalReservation(models.Model):
         # Parsiramo body emaila
         #reserv_parameters = pars_reservation_body(clear_tekst)
         reserv_parameters=pars_html_table(email_body)
+
+        _logger.info('***************  Goli Posle Parsiranja = %s', reserv_parameters)
 
         # stomer = reserv_parameters['Customer'] or erv_parameters['Customer']
 
@@ -181,6 +184,7 @@ class CarRentalReservation(models.Model):
                              'customer_name': reserv_parameters['Customer'],
                              'reservation_code':reserv_parameters['Reservation code'],
                              'date_of_birth': reserv_parameters['Date of Birth'],
+                             'street_address': reserv_parameters['Street Address'],
                              'city': reserv_parameters['City'],
                              'flight_number': reserv_parameters['Flight number'],
                              'country': reserv_parameters['Country'],
