@@ -231,6 +231,10 @@ class CarRentalReservation(models.Model):
             raise ValidationError("Please select the valid end date.")
 
         customers = self.env['res.partner'].search([('email', '=', self.cemail)])
+        countries = self.env['res.country'].search([('name', '=', self.country)])
+        country_id=""
+        for country in countries:
+          country_id = country.id
         if customers:
             for customer in customers:
                 customer_name = customer.name
@@ -242,6 +246,7 @@ class CarRentalReservation(models.Model):
                 'is_company': '0',
                 'street': self.street_address,
                 'city': self.city,
+                'country_id': country_id,
             }
             customer_id = self.env['res.partner'].create(values)
 
