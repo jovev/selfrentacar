@@ -169,7 +169,7 @@ class CarRentalReservation(models.Model):
         #reserv_parameters = pars_reservation_body(clear_tekst)
         reserv_parameters=pars_html_table(email_body)
 
-        Customer = reserv_parameters['Customer'] or erv_parameters['Customer']
+        # stomer = reserv_parameters['Customer'] or erv_parameters['Customer']
 
         # Ova polja treba napuniti iz sadrzaja emaila.
         create_context = dict(self.env.context or {})
@@ -200,8 +200,8 @@ class CarRentalReservation(models.Model):
                              'reservation_code': "R000000000",
                              'date_of_birth': "1900-01-01",
                              'city': "Belgrade",
-                             'country': "Serbia",
                              'flight_number': "Enter FN",
+                             'country': "Serbia",
                              'phone': "063461420",
                              'email': "info@example.com",
                              'additional_comments': "No additional comments",
@@ -213,6 +213,7 @@ class CarRentalReservation(models.Model):
                              'grand_price': "1.0",
         }
         defaults.update(custom_values)
+        _logger.info('!!!!!!! DEFAULTS Pre upisa ubazu= %s   Custom value =%', defaults, custom_values)
 
         rent = super(CarRentalReservation, self.with_context(create_context)).message_new(msg, custom_values=defaults)
         #     email_list = rent.email_split(msg)
