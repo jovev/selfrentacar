@@ -134,7 +134,7 @@ class CarRentalReservation(models.Model):
     flight_number = fields.Char(string="Flight number")
     country = fields.Char(string="Country")
     phone = fields.Char(string="Phone")
-    email = fields.Char(string="Email")
+    cemail = fields.Char(string="Email")   #customer email
     additional_comments = fields.Text(string="Additional Comments")
   # Polja vezana za neposredno rentiranje
     rent_from = fields.Char(string="Rent From")
@@ -189,7 +189,7 @@ class CarRentalReservation(models.Model):
                              'flight_number': reserv_parameters['Flight number'],
                              'country': reserv_parameters['Country'],
                              'phone': reserv_parameters['Phone'],
-                             'email': reserv_parameters['Email'],
+                             'cemail': reserv_parameters['Email'],
                              'additional_comments': reserv_parameters['Additional Comments'],
             #                 'rent_from': reserv_parameters['rent_from'],
             #                 'return_location': reserv_parameters['return_location'],
@@ -207,7 +207,7 @@ class CarRentalReservation(models.Model):
                              'flight_number': "Enter FN",
                              'country': "Serbia",
                              'phone': "063461420",
-                             'email': "info@example.com",
+                             'cemail': "info@example.com",
                              'additional_comments': "No additional comments",
                              'rent_from': "Belgrade",
                              'return_location': "Belgrade",
@@ -217,7 +217,7 @@ class CarRentalReservation(models.Model):
                              'grand_price': "1.0",
         }
         defaults.update(custom_values)
-        _logger.info('!!!!!!! DEFAULTS Pre upisa ubazu= %s   Custom value =%', defaults, custom_values)
+        _logger.info('!!!!!!! DEFAULTS Pre upisa ubazu= %s   Custom value =%s', defaults, custom_values)
 
         rent = super(CarRentalReservation, self.with_context(create_context)).message_new(msg, custom_values=defaults)
         #     email_list = rent.email_split(msg)
