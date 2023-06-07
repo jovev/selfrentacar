@@ -36,8 +36,9 @@ def pars_html_table(data):
     soup = BeautifulSoup(data, 'html.parser')
     table = soup.find_all('table')[0]  # Grab the first table
     my_dic = {}
-
+    t1_col_name = ['Customer Details','Reservation code', 'Customer', 'Date of Birth', 'Street Address', 'City', 'Flight number','Country', 'Phone', 'Email', 'Additional Comments' ]
     # Collecting Ddata
+    row_no = 0
     for row in table.find_all('tr'):
         # Find all data for each column
         columns = row.find_all('td')
@@ -52,9 +53,10 @@ def pars_html_table(data):
                 kolona2 = columns[1].text.strip()
     #        print(kolona2)
             _logger.info('****PARS HTML-TABLE ********** kolona2 = %s', kolona2)
-            my_dic[kolona1] = kolona2
+        #    my_dic[kolona1] = kolona2
+            my_dic[t1_col_name(row_no)] = kolona2
     #        df = pd.concat([df, pd.DataFrame([kolona1, kolona2])], ignore_index=True)
-
+            row_no = row_no + 1
     print(my_dic.items())
     return my_dic
 
@@ -167,6 +169,8 @@ class CarRentalReservation(models.Model):
         #reserv_parameters = pars_reservation_body(clear_tekst)
         reserv_parameters=pars_html_table(email_body)
 
+        Customer = reserv_parameters['Customer'] or erv_parameters['Customer']
+
         # Ova polja treba napuniti iz sadrzaja emaila.
         create_context = dict(self.env.context or {})
         create_context['default_user_ids'] = False
@@ -181,7 +185,7 @@ class CarRentalReservation(models.Model):
                              'flight_number': reserv_parameters['Flight number'],
                              'country': reserv_parameters['Country'],
                              'phone': reserv_parameters['Phone'],
-            #                 'email': reserv_parameters['email'],
+                             'email': reserv_parameters['Email'],
                              'additional_comments': reserv_parameters['Additional Comments'],
             #                 'rent_from': reserv_parameters['rent_from'],
             #                 'return_location': reserv_parameters['return_location'],
@@ -393,7 +397,7 @@ class CarRentalContract(models.Model):
                                        ('f', 'Full')], string="Pickup fuel",
                                       help='Feel level at pickup', required=False)
     dropoff_fuel = fields.Selection([('e', 'Empty'), ('14', '1/4'), ('12', '1/2'), ('34', '3/d'),
-                                    ('f', 'Full')], string="Pickup fuel",
+                                    ('f', 'Full')], string="Dropoff fuel",
                                    help='Feel level at dropoff', required=False)
 
     def action_run(self):
