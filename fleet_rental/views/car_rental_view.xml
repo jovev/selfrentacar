@@ -48,23 +48,27 @@
             <field name="arch" type="xml">
                 <form string="car_result">
                     <header>
-                        <button name="action_confirm" string="Confirm" type="object"
-                                attrs="{'invisible': [('state', '!=', 'draft')]}" class="oe_highlight"/>
-                        <button name="action_run" string="Run" type="object"
-                                attrs="{'invisible': [('state', '!=', 'reserved')]}" class="oe_highlight"/>
-                        <button name="action_cancel" string="Cancel" type="object"
-                                attrs="{'invisible': [('state', 'not in', ('draft', 'reserved'))]}" class="oe_highlight"/>
-                        <button name="action_invoice_create" string="Create Invoice"
-                                attrs="{'invisible': ['|',('state', '!=', 'running'),
-                                ('first_invoice_created','=',True)]}" type="object" class="oe_highlight"/>
-                        <button name="force_checking" string="Force Checking"
-                                attrs="{'invisible': ['|',('state','!=','running'),
-                                ('first_invoice_created','=',False)]}" type="object" class="oe_highlight"/>
-                        <button name="set_to_done" string="Set to Done"
-                                states="invoice" type="object" class="oe_highlight"/>
+                        <button name="action_confirm" string="Confirm" type="object" attrs="{'invisible': [('state', '!=', 'draft')]}" class="oe_highlight"/>
+                        <button name="action_run" string="Run" type="object" attrs="{'invisible': [('state', '!=', 'reserved')]}" class="oe_highlight"/>
+                        <button name="action_cancel" string="Cancel" type="object" attrs="{'invisible': [('state', 'not in', ('draft', 'reserved'))]}" class="oe_highlight"/>
+                        <button name="action_invoice_create" string="Create Invoice" attrs="{'invisible': ['|',('state', '!=', 'running'),                                 ('first_invoice_created','=',True)]}" type="object" class="oe_highlight"/>
+                        <button name="force_checking" string="Force Checking" attrs="{'invisible': ['|',('state','!=','running'),                                 ('first_invoice_created','=',False)]}" type="object" class="oe_highlight"/>
+                        <button name="set_to_done" string="Set to Done" states="invoice" type="object" class="oe_highlight"/>
                         <field name="state" widget="statusbar" statusbar_visible="draft,running,done"/>
                     </header>
                     <sheet>
+<style>
+@media (max-width: 768px){
+.mobilni {
+    display: none;
+}
+}
+@media (min-width: 768px){
+.desktop {
+    display: none;
+}
+}
+</style>
                         <div class="oe_button_box" name="buttons">
                             <button name="action_view_invoice" class="oe_stat_button" type="object" icon="fa-money">
                                 <field string="Invoice" name="invoice_count" widget="statinfo"/>
@@ -76,24 +80,21 @@
                                 <field name="name"/>
                             </h1>
                         </div>
-                        <group>
+						<!--DETALJI UGOVORA - DESKTOP-->
+                        <group class="mobilni">
                             <separator string="Contract Details " colspan="4"/>
                             <!-- LEVA KOLONA -->
 							<group>
                                 <field name="customer_id" string="Customer" attrs="{'readonly': [('state','!=','draft')]}"/>
-
-                                 <field name="driver_id1" domain="[('is_driver','=',True)]"/>
-                                 <field name="driver1_passport_no"/>
-								                 <field name="driver1_driver_licence_no"/>
+                                <field name="driver_id1" domain="[('is_driver','=',True)]"/>
+                                <field name="driver1_passport_no"/>
+								<field name="driver1_driver_licence_no"/>
                                 <field name="web_car_request"/>
                                 <field name="vehicle_id" domain="[('rental_check_availability','=',True),                                 ('state_id.name','!=','Inactive')]" options="{'no_create': True}"/>
-								                <field name="rent_from"/>
-
-								                <field name="return_location"/>
-
+								<field name="rent_from"/>
+								<field name="return_location"/>
                                 <field name="journal_type" invisible="1"/>
                                 <field name="check_verify" invisible="1"/>
-
 								<label for="first_payment"/>
                                 <div>
                                     <field name="first_payment" class="oe_inline" attrs="{'readonly': ['|', ('state','not in',('draft', 'running')),                                                 ('first_invoice_created','=',True)]}"/>
@@ -104,28 +105,45 @@
                             </group>
 							<!-- DESNA KOLONA -->
                             <group>
-								                <field name="reservation_code"/>
-
+								<field name="reservation_code"/>
                                 <field name="driver_id2" domain="[('is_driver','=',True)]"/>
-                                 <field name="driver2_passport_no"/>
-								                 <field name="driver2_driver_licence_no"/>
-								                 <field name="plate"/>
-								                <field name="rent_start_date" attrs="{'readonly': [('state','!=','draft')]}"/>
+                                <field name="driver2_passport_no"/>
+								<field name="driver2_driver_licence_no"/>
+								<field name="plate"/>
+								<field name="rent_start_date" attrs="{'readonly': [('state','!=','draft')]}"/>
                                 <field name="rent_end_date" attrs="{'readonly': [('state','!=','draft')]}"/>
                        <!--     <field name="x_bazna_lokacija"></field>
                                 <field name="x_trenutna_lokacija"></field>    -->
                                 <field name="first_invoice_created" invisible="1"/>
-
                                 <field name="cost" invisible="0"/>
                                 <field name="allow_crossborder" invisible="0"/>
                                 <label for="cost_generated"/>
                                     <div>
                                         <field name="cost_frequency" class="oe_inline" attrs="{'readonly': [('state','!=','draft')]}"/>
                                         <field name="cost_generated" style="width:142px;" attrs="{'invisible': [('cost_frequency','=','no')],                                                        'readonly': [('state','!=','draft')],                                                        'required': [('cost_frequency','not in',[None,False,'no'])]}"/>
-
                                     </div>
                             </group>
                         </group>
+						<!--KRAJ DETALJI UGOVORA - DESKTOP-->
+						
+						<!--DETALJI UGOVORA - MOBILNI-->
+                        <group class="desktop">
+							<group>
+                                <field name="customer_id" string="Customer" attrs="{'readonly': [('state','!=','draft')]}"/>
+								<field name="reservation_code"/>
+                                <field name="driver_id1" domain="[('is_driver','=',True)]"/>
+                                <field name="driver1_passport_no"/>
+								<field name="driver1_driver_licence_no"/>
+								<field name="driver_id2" domain="[('is_driver','=',True)]"/>
+                                <field name="driver2_passport_no"/>
+								<field name="driver2_driver_licence_no"/>
+								<field name="return_location"/>
+								<field name="plate"/>
+								<field name="rent_start_date" attrs="{'readonly': [('state','!=','draft')]}"/>
+                            </group>
+                        </group>
+						<!--KRAJ DETALJI UGOVORA - MOBILNI-->
+
                         <notebook>
                             <page string="Recurring Invoices" attrs="{'invisible': [('cost_frequency','in',[None,False,'no'])]}">
                                 <field name="recurring_line" mode="tree">
@@ -181,13 +199,12 @@
                             <page string="Consumed fuel">
                                 <group>
                                     <group>
-                                        <field name="pickup_fuel" widget="radio" />
+                                        <field name="pickup_fuel" widget="radio"/>
                                     </group>
                                     <group>
-                                        <field name="dropoff_fuel" widget="radio" />
+                                        <field name="dropoff_fuel" widget="radio"/>
                                     </group>
                                 </group>
-
                             </page>
                         </notebook>
                         <group>
