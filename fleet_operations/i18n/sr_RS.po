@@ -1,0 +1,4774 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* fleet_operations
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-05-23 07:28+0000\n"
+"PO-Revision-Date: 2023-06-06 14:57+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: sr_RS\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"X-Generator: Poedit 3.3.1\n"
+
+#. module: fleet_operations
+#: model:ir.model.fields.selection,name:fleet_operations.selection__fleet_vehicle_log_services__main_type__non-vehicle
+msgid " Non-Vehicle"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_stock_picking__work_order_reopen_id
+msgid " Work Order"
+msgstr " Radni nalog"
+
+#. module: fleet_operations
+#: model:ir.actions.report,print_report_name:fleet_operations.action_report_repair_line_summary
+msgid "'Repair Line Summary'"
+msgstr "'Sažetak linije popravke'"
+
+#. module: fleet_operations
+#: model:ir.actions.report,print_report_name:fleet_operations.action_report_vehicle_change_history
+msgid "'Vehicle Change History'"
+msgstr "'Istorijat promene vozila'"
+
+#. module: fleet_operations
+#: model:ir.actions.report,print_report_name:fleet_operations.write_off_report_qweb
+msgid "'Write-Off'"
+msgstr "'Otpis'"
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.vehicle_change_history_qweb
+msgid "<b>Battery History</b>"
+msgstr "<b>Istorijat akumulatora</b>"
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.vehicle_change_history_qweb
+msgid "<b>Color History</b>"
+msgstr "<b>Istorijat boje</b>"
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.vehicle_change_history_qweb
+msgid "<b>Engine History</b>"
+msgstr "<b>Istorijat motora</b>"
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.vehicle_change_history_qweb
+msgid "<b>Tire History</b>"
+msgstr "<b>Istorijat guma</b>"
+
+#. module: fleet_operations
+#: model:mail.template,body_html:fleet_operations.fleet_email_template
+msgid ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"                <p style=\"margin: 0px; padding: 0px; font-size: 13px;\">\n"
+"                    Dear<t t-out=\"object.driver_id.name or ''\"/>,\n"
+"                    <br/>\n"
+"                    <br/>\n"
+"                    We understand that you might have a busy schedule and we "
+"would like to kindly set a reminder for\n"
+"                    you.\n"
+"                </p>\n"
+"                <p>\n"
+"                    We have would like to remind you that your vehicle\n"
+"                    <b>\n"
+"                        <t t-out=\"object.name or ''\"/>\n"
+"                    </b>\n"
+"                    service falls due on<t t-out=\"object.next_service_date or "
+"''\"/>.\n"
+"                    <br/>\n"
+"                    Thank you.\n"
+"                </p>\n"
+"            </div>\n"
+"        "
+msgstr ""
+"<div stile=\"margin: 0pk; padding: 0pk;\">\n"
+" <p stile=\"margin: 0pk; padding: 0pk; font-size: 13pk;\">\n"
+" Poštovani<t t-out=\"object.driver_id.name or ''\"/>,\n"
+" <br/>\n"
+" <br/>\n"
+" Razumemo da možda imate zauzet raspored i želeli bismo da vas pošaljemo "
+"podsetnik.\n"
+" </p>\n"
+" <p>\n"
+" Želimo da vas podsetimo da je servisiranje vašeg vozila\n"
+" <b>\n"
+" <t t-out=\"ime.objekta ili ''\"/>\n"
+" </b>\n"
+" zakazano za do<t t-out=\"object.nekt_service_date ili ''\"/>.\n"
+" <br/>\n"
+" Hvala vam.\n"
+" </p>\n"
+" </div>\n"
+" "
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.write_off_qweb
+msgid "<span style=\"font-size:12px;font-weight: bold;\">General Accident </span>"
+msgstr "<span style=\"font-size:12px;font-weight: bold;\">Opšta nesreća</span>"
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.write_off_qweb
+msgid "<span style=\"font-size:12px;font-weight: bold;\">Insurgent Attack </span>"
+msgstr "<span style=\"font-size:12px;font-weight: bold;\">Buntovni napad </span>"
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.write_off_qweb
+msgid "<span style=\"font-size:14px;font-weight: bold;\">Estimated Cost :</span>"
+msgstr ""
+"<span style=\"font-size:14px;font-weight: bold;\">Procenjeni troškovi :</span>"
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.write_off_qweb
+msgid ""
+"<span style=\"font-size:14px;font-weight: bold;\">Please indicate Major Damage "
+"Information : </span>"
+msgstr ""
+"<span style=\"font-size:14px;font-weight: bold;\">Navedite informacije o "
+"glavnoj šteti:</span>"
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.write_off_qweb
+msgid ""
+"<span style=\"font-size:14px;font-weight: bold;\">Required Repairs :</span>"
+msgstr ""
+"<span style=\"font-size:14px;font-weight: bold;\">Potrebne popravke:</span>"
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.write_off_qweb
+msgid "<span>Cause of Damage :</span>"
+msgstr "<span>Uzrok oštećenja:</span>"
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.write_off_qweb
+msgid "<span>Color :</span>"
+msgstr "<span>Boja:</span>"
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.write_off_qweb
+msgid "<span>Contact No. :</span>"
+msgstr "<span>Kontakt br.:</span>"
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.write_off_qweb
+msgid "<span>Date :</span>"
+msgstr "<span>Datum</span>"
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.write_off_qweb
+msgid "<span>Driver :</span>"
+msgstr "<span>Vozač: </span>"
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.write_off_qweb
+msgid "<span>Kilometers</span>"
+msgstr "<span>Kilometara</span>"
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.write_off_qweb
+msgid "<span>Police Information : </span>"
+msgstr "<span>Javne informacije: </span>"
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.write_off_qweb
+msgid "<span>Registration State :</span>"
+msgstr "<span>Status registracije :</span>"
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.write_off_qweb
+msgid "<span>Service Order No. :</span>"
+msgstr "<span>Br. naloga za servisiranje</span>"
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.write_off_qweb
+msgid "<span>Site Location :</span>"
+msgstr "<span>Lokacija :</span>"
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.write_off_qweb
+msgid "<span>Total Amount :</span>"
+msgstr "<span>Ukupan iznos:</span>"
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.write_off_qweb
+msgid "<span>Type :</span>"
+msgstr "<span>Tip:</span>"
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.write_off_qweb
+msgid "<span>VIN No. :</span>"
+msgstr "<span>Broj šasije:</span>"
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.write_off_qweb
+msgid "<span>Vehicle Information : </span>"
+msgstr "<span>Informacija o vozilu:</span>"
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.write_off_qweb
+msgid "<span>Vehicle No. :</span>"
+msgstr "<span>Broj vozila:</span>"
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.write_off_qweb
+msgid "<span>WRITE-OFF REPORT</span>"
+msgstr "<span>IZVEŠTA O OTPISU</span>"
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.write_off_qweb
+msgid "<span>Write-Off:</span>"
+msgstr "<span>oTPIS:</span>"
+
+#. module: fleet_operations
+#: model:repair.type,name:fleet_operations.nds_repair_type03
+msgid "AC Gas"
+msgstr ""
+
+#. module: fleet_operations
+#: model:repair.type,name:fleet_operations.nds_repair_type02
+msgid "AC Repair"
+msgstr "AC popravka"
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle__description
+msgid "About Vehicle"
+msgstr "Vozilo"
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle__active
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_model_form_extended
+msgid "Active"
+msgstr "Aktivno"
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_log_services_view_inherit
+msgid "Additional Details"
+msgstr "Dodatni detalji"
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_wittenoff_search
+msgid "All Write off vehicles"
+msgstr "Sva otpisana vozila"
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle_log_services__already_closed
+msgid "Already Closed?"
+msgstr "Već zatvoreno?"
+
+#. module: fleet_operations
+#: model:vehicle.type,name:fleet_operations.vehicle_type_ambulance_1
+msgid "Ambulance"
+msgstr "Sanitet"
+
+#. module: fleet_operations
+#: model:ir.model.fields.selection,name:fleet_operations.selection__update_pending_repair_history__state__confirm
+#: model_terms:ir.ui.view,arch_db:fleet_operations.update_pending_reapir_history_search_view
+msgid "Applied"
+msgstr "Primenjeno"
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_update_pending_repair_history__user_id
+#: model_terms:ir.ui.view,arch_db:fleet_operations.update_pending_reapir_history_search_view
+msgid "Applied By"
+msgstr "Primenjeno"
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.update_pending_reapir_history_form_view
+msgid "Applied Pending"
+msgstr "Primena na čekanju"
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.update_pending_reapir_history_form_view
+msgid "Apply"
+msgstr "Primeni"
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_wittenoff_form_view
+msgid "Are you sure you want to close this write off?"
+msgstr "Da li zaista želiš da zatvoriš ovaj otpis?"
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_wittenoff_form_view
+msgid "Are you sure you want to confirm this write off?"
+msgstr "Da li zaista želiš da potvrdiš ovaj otpis?"
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_log_services_view_inherit
+msgid "Are you sure you want to open this work order?"
+msgstr "Da li zaista želiš da otvoriš ovaj radni nalog?"
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_wittenoff_form_view
+msgid "Are you sure you want to set Draft this write off?"
+msgstr "Da li zaista želiš da staviš ovaj otpis u Nacrt?"
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_wittenoff_form_view
+msgid "Assignment"
+msgstr "Dodeljivanje"
+
+#. module: fleet_operations
+#: model:ir.model,name:fleet_operations.model_ir_attachment
+#: model:ir.model.fields,field_description:fleet_operations.field_ir_attachment__attachment_id
+msgid "Attachment"
+msgstr "Prilog"
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_ir_attachment__attachment_id_2
+msgid "Attachment Id 2"
+msgstr "Prilog 2"
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle__sale_purchase_attach_ids
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle_log_services__wrk_attach_ids
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_log_services_view_inherit
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_model_form_extended
+msgid "Attachments"
+msgstr "Prilozi"
+
+#. module: fleet_operations
+#: model:color.color,name:fleet_operations.color_black_2
+msgid "BLACK"
+msgstr "CRNA"
+
+#. module: fleet_operations
+#: model:color.color,name:fleet_operations.color_blue_9
+msgid "BLUE"
+msgstr "PLAVA"
+
+#. module: fleet_operations
+#: model:color.color,name:fleet_operations.color_brown_13
+msgid "BROWN"
+msgstr "BRAON"
+
+#. module: fleet_operations
+#. odoo-python
+#: code:addons/fleet_operations/wizard/update_history.py:0
+#, python-format
+msgid "Battery Change Date Should Be Greater Than New Battery Issuance Date."
+msgstr ""
+"Datum promene akumulatora treba da bude veći od datuma izdavanja novog "
+"akumulatora."
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_model_form_extended
+msgid "Battery Detail"
+msgstr "Detalji akumulatora"
+
+#. module: fleet_operations
+#: model:ir.model.fields.selection,name:fleet_operations.selection__vehicle_change_history__report_type__battery_history
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_model_form_extended
+msgid "Battery History"
+msgstr "Istorijat akumulatora"
+
+#. module: fleet_operations
+#: model:ir.model,name:fleet_operations.model_battery_history
+msgid "Battery History for Vehicle"
+msgstr "Istorija akumulatora vozila"
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle__battery_issuance_date
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_model_form_extended
+msgid "Battery Issuance Date"
+msgstr "Datum izdavanja akumulatora"
+
+#. module: fleet_operations
+#. odoo-python
+#: code:addons/fleet_operations/models/fleet_extended.py:0
+#, python-format
+msgid "Battery Issuance Date Should Be Greater Than Registration Date."
+msgstr "Datum izdavanja akumulatora treba da bude veći od datuma registracije."
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle__battery_srno
+msgid "Battery S/N"
+msgstr "Ser. br. akumulatora"
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle__battery_size
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_model_form_extended
+msgid "Battery Size"
+msgstr "Veličina akumulatora"
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle__battery_history_ids
+msgid "Battrey History"
+msgstr "Istorijat akumulatora"
+
+#. module: fleet_operations
+#: model:repair.type,name:fleet_operations.nds_repair_type04
+msgid "Beyond Economical Repair"
+msgstr "Izvan ekonomične popravke"
+
+#. module: fleet_operations
+#: model:repair.type,name:fleet_operations.nds_repair_type06
+msgid "Body Repaint"
+msgstr "Farbanje karoserije"
+
+#. module: fleet_operations
+#: model:repair.type,name:fleet_operations.nds_repair_type05
+msgid "Body Repair"
+msgstr "Popravka karoserije"
+
+#. module: fleet_operations
+#: model:ir.model.fields.selection,name:fleet_operations.selection__fleet_service_type__category__both
+msgid "Both"
+msgstr "Oba"
+
+#. module: fleet_operations
+#: model:ir.model,name:fleet_operations.model_fleet_vehicle_model_brand
+#: model:ir.model.fields,help:fleet_operations.field_fleet_vehicle_model__brand_id
+msgid "Brand of the vehicle"
+msgstr "Marka vozila"
+
+#. module: fleet_operations
+#: model:repair.type,name:fleet_operations.nds_repair_type07
+msgid "Break System"
+msgstr "Kočioni sistem"
+
+#. module: fleet_operations
+#: model:vehicle.type,name:fleet_operations.vehicle_type_bus_2
+msgid "Bus"
+msgstr "Autobus"
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle__buyer_id
+msgid "Buyer"
+msgstr "Kupac"
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_pending_applied_history__user_id
+#: model:ir.model.fields,field_description:fleet_operations.field_pending_repair_type__user_id
+msgid "By"
+msgstr "Od"
+
+#. module: fleet_operations
+#: model:damage.types,name:fleet_operations.damage_type_07
+msgid "CHASSIS"
+msgstr "ŠASIJA"
+
+#. module: fleet_operations
+#: model:ir.model.fields.selection,name:fleet_operations.selection__fleet_vehicle_log_services__state__cancel
+#: model_terms:ir.ui.view,arch_db:fleet_operations.excel_sg_leave_summary_report_wiz
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_print
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_wittenoff_form_view
+#: model_terms:ir.ui.view,arch_db:fleet_operations.pending_repair_confirm_form_view
+#: model_terms:ir.ui.view,arch_db:fleet_operations.recieved_part_wizard_form
+#: model_terms:ir.ui.view,arch_db:fleet_operations.update_battery_info_form_view
+#: model_terms:ir.ui.view,arch_db:fleet_operations.update_color_info_form_view
+#: model_terms:ir.ui.view,arch_db:fleet_operations.update_engine_info_form_view
+#: model_terms:ir.ui.view,arch_db:fleet_operations.update_tire_info_form_view
+#: model_terms:ir.ui.view,arch_db:fleet_operations.update_vin_info_form_view
+#: model_terms:ir.ui.view,arch_db:fleet_operations.view_repair_line_summary_wiz
+#: model_terms:ir.ui.view,arch_db:fleet_operations.view_update_next_service_view
+#: model_terms:ir.ui.view,arch_db:fleet_operations.view_vehicle_change_history_wiz
+#: model_terms:ir.ui.view,arch_db:fleet_operations.view_writeoff_cancel_reason_wizard
+#: model_terms:ir.ui.view,arch_db:fleet_operations.wo_report_form_view
+msgid "Cancel"
+msgstr "Otkaži"
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_wittenoff_form_view
+msgid "Cancel By"
+msgstr "Otkazao"
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_wittenoff_form_view
+msgid "Cancel Date"
+msgstr "Datum odustajanja"
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_wittenoff__cancel_note
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_wittenoff_form_view
+msgid "Cancel Note"
+msgstr "Beleška o odustajanju"
+
+#. module: fleet_operations
+#: model:ir.model.fields.selection,name:fleet_operations.selection__fleet_wittenoff__state__cancel
+msgid "Cancelled"
+msgstr "Otkazano"
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_wittenoff__cancel_by_id
+msgid "Cancelled By"
+msgstr "Otkazao"
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_model_form_extended
+msgid "Capacity"
+msgstr "Kapacitet"
+
+#. module: fleet_operations
+#: model:vehicle.type,name:fleet_operations.vehicle_type_car_5
+msgid "Car"
+msgstr "Auto"
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_service_type__category
+#: model:ir.model.fields,field_description:fleet_operations.field_pending_applied_history__categ_id
+#: model:ir.model.fields,field_description:fleet_operations.field_pending_repair_type__categ_id
+#: model:ir.model.fields,field_description:fleet_operations.field_service_repair_line__categ_id
+msgid "Category"
+msgstr "Kategorija"
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_wittenoff__note_for_cause_damage
+msgid "Cause of Damage"
+msgstr "Uzrok oštećenja"
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_battery_history__changed_date
+#: model:ir.model.fields,field_description:fleet_operations.field_color_history__changed_date
+#: model:ir.model.fields,field_description:fleet_operations.field_engine_history__changed_date
+#: model:ir.model.fields,field_description:fleet_operations.field_tire_history__changed_date
+#: model:ir.model.fields,field_description:fleet_operations.field_update_battery_info__changed_date
+#: model:ir.model.fields,field_description:fleet_operations.field_update_color_info__changed_date
+#: model:ir.model.fields,field_description:fleet_operations.field_update_engine_info__changed_date
+#: model:ir.model.fields,field_description:fleet_operations.field_update_tire_info__changed_date
+#: model:ir.model.fields,field_description:fleet_operations.field_update_vin_info__changed_date
+#: model:ir.model.fields,field_description:fleet_operations.field_vin_history__changed_date
+#: model_terms:ir.ui.view,arch_db:fleet_operations.vehicle_change_history_qweb
+msgid "Change Date"
+msgstr "Datum promene"
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_search_view_inherit_operations
+msgid "Chassis Number"
+msgstr "Broj šasije"
+
+#. module: fleet_operations
+#: model:ir.ui.menu,name:fleet_operations.work_order_advance_search_sub_menu
+msgid "Check Service Status"
+msgstr "Proveri status servisa"
+
+#. module: fleet_operations
+#: model:ir.actions.act_window,name:fleet_operations.fleet_work_order_advance_search_act
+msgid "Check Services Status"
+msgstr "Proveri status servisa"
+
+#. module: fleet_operations
+#: model:ir.model.fields,help:fleet_operations.field_fleet_service_type__category
+msgid ""
+"Choose wheter the                                                 service refer "
+"to contracts,                                                 vehicle services "
+"or both"
+msgstr ""
+"Izaberite da li se                                                  usluga "
+"odnosi na ugovore,                                                 servis "
+"vozila ili oboje"
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_excel_fleet_report__file
+#: model:ir.model.fields,field_description:fleet_operations.field_stock_picking_xls_report__file
+#: model:ir.model.fields,field_description:fleet_operations.field_work_order_reports__file
+msgid "Click On Download Link To Download Xls File"
+msgstr "Klikni na link za preuzimanje da preuzmeš XLs fajl"
+
+#. module: fleet_operations
+#: model_terms:ir.actions.act_window,help:fleet_operations.fleet_vehicle_witten_off_act
+msgid "Click to create a new write off entry."
+msgstr "Klikni da kreiraš novi unos za otpis."
+
+#. module: fleet_operations
+#: model:ir.model.fields.selection,name:fleet_operations.selection__fleet_work_order_search__state__done
+msgid "Close"
+msgstr "Zatvori"
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle_log_services__closed_by
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_log_services_view_inherit
+msgid "Closed By"
+msgstr "Zatvorio"
+
+#. module: fleet_operations
+#: model:ir.model.fields,help:fleet_operations.field_fleet_vehicle_log_services__date_close
+msgid "Closing Date of Work Order"
+msgstr "Završni datum radnog naloga"
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_color_color__code
+#: model:ir.model.fields,field_description:fleet_operations.field_damage_types__code
+#: model:ir.model.fields,field_description:fleet_operations.field_vehicle_department__code
+#: model:ir.model.fields,field_description:fleet_operations.field_vehicle_divison__code
+#: model:ir.model.fields,field_description:fleet_operations.field_vehicle_location__code
+#: model:ir.model.fields,field_description:fleet_operations.field_vehicle_type__code
+#: model_terms:ir.ui.view,arch_db:fleet_operations.damage_type_form_view
+#: model_terms:ir.ui.view,arch_db:fleet_operations.damage_type_tree_view
+msgid "Code"
+msgstr "Kod"
+
+#. module: fleet_operations
+#: model:ir.actions.act_window,name:fleet_operations.color_color_act
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle_advance_search__vehical_color_id
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_wittenoff__color_id
+#: model:ir.ui.menu,name:fleet_operations.color_color_menu
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_search_view_inherit_operations
+msgid "Color"
+msgstr "Boja"
+
+#. module: fleet_operations
+#. odoo-python
+#: code:addons/fleet_operations/wizard/update_history.py:0
+#, python-format
+msgid "Color Change Date Should Be Greater Than Vehicle Registration Date."
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle__color_history_ids
+#: model:ir.model.fields.selection,name:fleet_operations.selection__vehicle_change_history__report_type__color_history
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_model_form_extended
+msgid "Color History"
+msgstr "Istorijat boje"
+
+#. module: fleet_operations
+#: model:ir.model,name:fleet_operations.model_color_history
+msgid "Color History for Vehicle"
+msgstr "Istorijat boje za vozilo"
+
+#. module: fleet_operations
+#: model:ir.model,name:fleet_operations.model_color_color
+msgid "Colors"
+msgstr "Boje"
+
+#. module: fleet_operations
+#: model:ir.model,name:fleet_operations.model_res_company
+msgid "Companies"
+msgstr "Kompanije"
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_res_company__name
+msgid "Company Name"
+msgstr "Naziv kompanije"
+
+#. module: fleet_operations
+#: model:ir.model.fields.selection,name:fleet_operations.selection__pending_applied_history__state__complete
+#: model:ir.model.fields.selection,name:fleet_operations.selection__pending_repair_type__state__complete
+msgid "Complete"
+msgstr "Završi"
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_service_repair_line__date_complete
+msgid "Complete Date"
+msgstr "Datum završetka"
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_service_repair_line__complete
+#: model:ir.model.fields.selection,name:fleet_operations.selection__fleet_vehicle__state__complete
+#: model:ir.model.fields.selection,name:fleet_operations.selection__fleet_vehicle_advance_search__state__complete
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_search_view_inherit_operations
+msgid "Completed"
+msgstr "Završeno"
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_log_services_view_inherit
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_wittenoff_form_view
+#: model_terms:ir.ui.view,arch_db:fleet_operations.pending_repair_confirm_form_view
+msgid "Confirm"
+msgstr "Potvrdi"
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.continue_pending_repair_form_view
+#: model_terms:ir.ui.view,arch_db:fleet_operations.pending_repair_confirm_form_view
+msgid "Confirm WO Forcefully"
+msgstr ""
+
+#. module: fleet_operations
+#. odoo-python
+#: code:addons/fleet_operations/models/fleet_service.py:0
+#, python-format
+msgid ""
+"Confirm work order can only when vehicle status is in Inspection or Released!"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields.selection,name:fleet_operations.selection__fleet_wittenoff__state__confirm
+msgid "Confirmed"
+msgstr "Potvrđeno"
+
+#. module: fleet_operations
+#: model:ir.model,name:fleet_operations.model_res_partner
+msgid "Contact"
+msgstr "Kontakt"
+
+#. module: fleet_operations
+#: model:ir.model,name:fleet_operations.model_report_fleet_operations_contact_team_trip_ticket_xls
+msgid "Contact Team Trip Ticket Report"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields.selection,name:fleet_operations.selection__fleet_service_type__category__contract
+msgid "Contract"
+msgstr "Ugovor"
+
+#. module: fleet_operations
+#: model:repair.type,name:fleet_operations.nds_repair_type08
+msgid "Cooling System"
+msgstr "Sistem hlađenja"
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_service_task__total_type
+msgid "Cost"
+msgstr "Cijena"
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_wittenoff__cost_esitmation
+msgid "Cost Estimation"
+msgstr "Procena troškova"
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_log_services_view_inherit
+msgid "Create Invoice"
+msgstr "Kreiraj fakturu"
+
+#. module: fleet_operations
+#: model_terms:ir.actions.act_window,help:fleet_operations.action_fleet_service_out_invoice_view
+#: model_terms:ir.actions.act_window,help:fleet_operations.action_fleet_service_out_refund_invoice_view
+msgid "Create a customer invoice"
+msgstr "Kreiraj fakturu kupca"
+
+#. module: fleet_operations
+#: model_terms:ir.actions.act_window,help:fleet_operations.action_fleet_service_out_invoice_view
+#: model_terms:ir.actions.act_window,help:fleet_operations.action_fleet_service_out_refund_invoice_view
+msgid ""
+"Create invoices, register payments and keep track of the discussions with your "
+"customers."
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_battery_history__create_uid
+#: model:ir.model.fields,field_description:fleet_operations.field_color_color__create_uid
+#: model:ir.model.fields,field_description:fleet_operations.field_color_history__create_uid
+#: model:ir.model.fields,field_description:fleet_operations.field_continue_pending_repair__create_uid
+#: model:ir.model.fields,field_description:fleet_operations.field_damage_types__create_uid
+#: model:ir.model.fields,field_description:fleet_operations.field_engine_history__create_uid
+#: model:ir.model.fields,field_description:fleet_operations.field_excel_fleet_report__create_uid
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle_advance_search__create_uid
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_wittenoff__create_uid
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_work_order_search__create_uid
+#: model:ir.model.fields,field_description:fleet_operations.field_insurance_type__create_uid
+#: model:ir.model.fields,field_description:fleet_operations.field_next_increment_number__create_uid
+#: model:ir.model.fields,field_description:fleet_operations.field_next_service_days__create_uid
+#: model:ir.model.fields,field_description:fleet_operations.field_pending_applied_history__create_uid
+#: model:ir.model.fields,field_description:fleet_operations.field_pending_repair_confirm__create_uid
+#: model:ir.model.fields,field_description:fleet_operations.field_pending_repair_type__create_uid
+#: model:ir.model.fields,field_description:fleet_operations.field_print_fleet_history__create_uid
+#: model:ir.model.fields,field_description:fleet_operations.field_repair_line_summary__create_uid
+#: model:ir.model.fields,field_description:fleet_operations.field_repair_type__create_uid
+#: model:ir.model.fields,field_description:fleet_operations.field_report_heading__create_uid
+#: model:ir.model.fields,field_description:fleet_operations.field_service_category__create_uid
+#: model:ir.model.fields,field_description:fleet_operations.field_service_repair_line__create_uid
+#: model:ir.model.fields,field_description:fleet_operations.field_service_task__create_uid
+#: model:ir.model.fields,field_description:fleet_operations.field_stock_picking_xls_report__create_uid
+#: model:ir.model.fields,field_description:fleet_operations.field_task_line__create_uid
+#: model:ir.model.fields,field_description:fleet_operations.field_tire_history__create_uid
+#: model:ir.model.fields,field_description:fleet_operations.field_trip_encoded_history__create_uid
+#: model:ir.model.fields,field_description:fleet_operations.field_trip_encoded_history_temp__create_uid
+#: model:ir.model.fields,field_description:fleet_operations.field_update_battery_info__create_uid
+#: model:ir.model.fields,field_description:fleet_operations.field_update_color_info__create_uid
+#: model:ir.model.fields,field_description:fleet_operations.field_update_engine_info__create_uid
+#: model:ir.model.fields,field_description:fleet_operations.field_update_next_service_config__create_uid
+#: model:ir.model.fields,field_description:fleet_operations.field_update_pending_repair_history__create_uid
+#: model:ir.model.fields,field_description:fleet_operations.field_update_tire_info__create_uid
+#: model:ir.model.fields,field_description:fleet_operations.field_update_vin_info__create_uid
+#: model:ir.model.fields,field_description:fleet_operations.field_vehicle_change_history__create_uid
+#: model:ir.model.fields,field_description:fleet_operations.field_vehicle_department__create_uid
+#: model:ir.model.fields,field_description:fleet_operations.field_vehicle_divison__create_uid
+#: model:ir.model.fields,field_description:fleet_operations.field_vehicle_location__create_uid
+#: model:ir.model.fields,field_description:fleet_operations.field_vehicle_type__create_uid
+#: model:ir.model.fields,field_description:fleet_operations.field_vehicle_unique_sequence__create_uid
+#: model:ir.model.fields,field_description:fleet_operations.field_vin_history__create_uid
+#: model:ir.model.fields,field_description:fleet_operations.field_work_order_reports__create_uid
+#: model:ir.model.fields,field_description:fleet_operations.field_workorder_parts_history_details__create_uid
+#: model:ir.model.fields,field_description:fleet_operations.field_writeoff_cancel_reason__create_uid
+msgid "Created by"
+msgstr "Kreirao"
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_battery_history__create_date
+#: model:ir.model.fields,field_description:fleet_operations.field_color_color__create_date
+#: model:ir.model.fields,field_description:fleet_operations.field_color_history__create_date
+#: model:ir.model.fields,field_description:fleet_operations.field_continue_pending_repair__create_date
+#: model:ir.model.fields,field_description:fleet_operations.field_damage_types__create_date
+#: model:ir.model.fields,field_description:fleet_operations.field_engine_history__create_date
+#: model:ir.model.fields,field_description:fleet_operations.field_excel_fleet_report__create_date
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle_advance_search__create_date
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_wittenoff__create_date
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_work_order_search__create_date
+#: model:ir.model.fields,field_description:fleet_operations.field_insurance_type__create_date
+#: model:ir.model.fields,field_description:fleet_operations.field_next_increment_number__create_date
+#: model:ir.model.fields,field_description:fleet_operations.field_next_service_days__create_date
+#: model:ir.model.fields,field_description:fleet_operations.field_pending_applied_history__create_date
+#: model:ir.model.fields,field_description:fleet_operations.field_pending_repair_confirm__create_date
+#: model:ir.model.fields,field_description:fleet_operations.field_pending_repair_type__create_date
+#: model:ir.model.fields,field_description:fleet_operations.field_print_fleet_history__create_date
+#: model:ir.model.fields,field_description:fleet_operations.field_repair_line_summary__create_date
+#: model:ir.model.fields,field_description:fleet_operations.field_repair_type__create_date
+#: model:ir.model.fields,field_description:fleet_operations.field_report_heading__create_date
+#: model:ir.model.fields,field_description:fleet_operations.field_service_category__create_date
+#: model:ir.model.fields,field_description:fleet_operations.field_service_repair_line__create_date
+#: model:ir.model.fields,field_description:fleet_operations.field_service_task__create_date
+#: model:ir.model.fields,field_description:fleet_operations.field_stock_picking_xls_report__create_date
+#: model:ir.model.fields,field_description:fleet_operations.field_task_line__create_date
+#: model:ir.model.fields,field_description:fleet_operations.field_tire_history__create_date
+#: model:ir.model.fields,field_description:fleet_operations.field_trip_encoded_history__create_date
+#: model:ir.model.fields,field_description:fleet_operations.field_trip_encoded_history_temp__create_date
+#: model:ir.model.fields,field_description:fleet_operations.field_update_battery_info__create_date
+#: model:ir.model.fields,field_description:fleet_operations.field_update_color_info__create_date
+#: model:ir.model.fields,field_description:fleet_operations.field_update_engine_info__create_date
+#: model:ir.model.fields,field_description:fleet_operations.field_update_next_service_config__create_date
+#: model:ir.model.fields,field_description:fleet_operations.field_update_pending_repair_history__create_date
+#: model:ir.model.fields,field_description:fleet_operations.field_update_tire_info__create_date
+#: model:ir.model.fields,field_description:fleet_operations.field_update_vin_info__create_date
+#: model:ir.model.fields,field_description:fleet_operations.field_vehicle_change_history__create_date
+#: model:ir.model.fields,field_description:fleet_operations.field_vehicle_department__create_date
+#: model:ir.model.fields,field_description:fleet_operations.field_vehicle_divison__create_date
+#: model:ir.model.fields,field_description:fleet_operations.field_vehicle_location__create_date
+#: model:ir.model.fields,field_description:fleet_operations.field_vehicle_type__create_date
+#: model:ir.model.fields,field_description:fleet_operations.field_vehicle_unique_sequence__create_date
+#: model:ir.model.fields,field_description:fleet_operations.field_vin_history__create_date
+#: model:ir.model.fields,field_description:fleet_operations.field_work_order_reports__create_date
+#: model:ir.model.fields,field_description:fleet_operations.field_workorder_parts_history_details__create_date
+#: model:ir.model.fields,field_description:fleet_operations.field_writeoff_cancel_reason__create_date
+msgid "Created on"
+msgstr "Kreirano"
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_wittenoff__currency_id
+msgid "Currency"
+msgstr "Valuta"
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle__resale_value
+msgid "Current value"
+msgstr "Tekuća vrednost"
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle__cylinders
+msgid "Cylinders"
+msgstr "Cilinderi"
+
+#. module: fleet_operations
+#: model:color.color,name:fleet_operations.color_dark_green_12
+msgid "DARK GREEN"
+msgstr "TAMNO ZELENA"
+
+#. module: fleet_operations
+#: model:color.color,name:fleet_operations.color_dark_red_3
+msgid "DARK RED"
+msgstr "TAMNO CRVENA"
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.repair_line_summary_qweb
+msgid "DATE"
+msgstr "DATUM"
+
+#. module: fleet_operations
+#: model:ir.model,name:fleet_operations.model_report_fleet_operations_daily_parts_issuance_wizard_xls
+msgid "Daily Parts Insurance"
+msgstr "Dnevno osiguranje dijelova"
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_wittenoff__damage_type_ids
+msgid "Damage Type"
+msgstr "Tip oštećenja"
+
+#. module: fleet_operations
+#: model:ir.actions.act_window,name:fleet_operations.damage_type_action
+#: model:ir.model,name:fleet_operations.model_damage_types
+#: model:ir.ui.menu,name:fleet_operations.damage_type_menu
+#: model_terms:ir.ui.view,arch_db:fleet_operations.damage_type_form_view
+msgid "Damage Types"
+msgstr "Tipovi oštećenja"
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_wittenoff_form_view
+msgid "Damages and Repair"
+msgstr "Oštećenja i popravka"
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle_odometer__date
+msgid "Date"
+msgstr "Datum"
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_wittenoff__date_cancel
+msgid "Date Cancelled"
+msgstr "Datum otkazan"
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle_log_services__date_close
+msgid "Date Close"
+msgstr "Datum zatvaranja"
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_repair_line_summary__date_from
+#: model:ir.model.fields,field_description:fleet_operations.field_vehicle_change_history__date_from
+#: model_terms:ir.ui.view,arch_db:fleet_operations.view_repair_line_summary_wiz
+#: model_terms:ir.ui.view,arch_db:fleet_operations.view_vehicle_change_history_wiz
+msgid "Date From"
+msgstr "Datum od"
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle__date_sold
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_model_form_extended
+msgid "Date Sold"
+msgstr "Datum prodaje"
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_repair_line_summary__date_to
+#: model:ir.model.fields,field_description:fleet_operations.field_vehicle_change_history__date_to
+#: model_terms:ir.ui.view,arch_db:fleet_operations.view_repair_line_summary_wiz
+#: model_terms:ir.ui.view,arch_db:fleet_operations.view_vehicle_change_history_wiz
+msgid "Date To"
+msgstr "Datum do"
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_task_line__date_issued
+msgid "Date issued"
+msgstr "Datum izdavanja"
+
+#. module: fleet_operations
+#: model:ir.model.fields,help:fleet_operations.field_fleet_vehicle_log_services__date_complete
+#: model:ir.model.fields,help:fleet_operations.field_service_repair_line__date_complete
+msgid "Date when the service is completed"
+msgstr "Datum završetka usluge"
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_next_service_days__days
+#: model:ir.model.fields,field_description:fleet_operations.field_update_next_service_config__days
+#: model_terms:ir.ui.view,arch_db:fleet_operations.next_service_days_form
+#: model_terms:ir.ui.view,arch_db:fleet_operations.next_service_days_tree
+#: model_terms:ir.ui.view,arch_db:fleet_operations.view_update_next_service_view
+msgid "Days"
+msgstr "Dani"
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle__dealer_id
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_model_form_extended
+msgid "Dealer"
+msgstr "Trgovac"
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle__payment_deduction
+msgid "Deduction"
+msgstr "Odbitak"
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle_log_services__delivery_id
+msgid "Delivery Reference"
+msgstr "Oznaka isporuke"
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle_log_services__deposit_receive
+msgid "Deposit Received?"
+msgstr "Depozit primljen?"
+
+#. module: fleet_operations
+#. odoo-python
+#: code:addons/fleet_operations/models/fleet_service.py:0
+#, python-format
+msgid ""
+"Deposit Return invoice is already Pending\n"
+"Please proceed that deposit invoice first"
+msgstr ""
+
+#. module: fleet_operations
+#. odoo-python
+#: code:addons/fleet_operations/models/fleet_service.py:0
+#, python-format
+msgid ""
+"Deposit invoice is already Pending\n"
+"Please proceed that deposit invoice first"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle__monthly_deprication
+msgid "Deprication(Monthly)"
+msgstr ""
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.vehicle_change_history_qweb
+msgid "Description"
+msgstr "Opis"
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_model_form_extended
+msgid "Dimensions"
+msgstr "Dimenzije"
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_model_form_extended
+msgid "Dimensions And Capacity"
+msgstr "Dimenzije i kapacitet"
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_battery_history__display_name
+#: model:ir.model.fields,field_description:fleet_operations.field_color_color__display_name
+#: model:ir.model.fields,field_description:fleet_operations.field_color_history__display_name
+#: model:ir.model.fields,field_description:fleet_operations.field_continue_pending_repair__display_name
+#: model:ir.model.fields,field_description:fleet_operations.field_damage_types__display_name
+#: model:ir.model.fields,field_description:fleet_operations.field_engine_history__display_name
+#: model:ir.model.fields,field_description:fleet_operations.field_excel_fleet_report__display_name
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle_advance_search__display_name
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_wittenoff__display_name
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_work_order_search__display_name
+#: model:ir.model.fields,field_description:fleet_operations.field_insurance_type__display_name
+#: model:ir.model.fields,field_description:fleet_operations.field_next_increment_number__display_name
+#: model:ir.model.fields,field_description:fleet_operations.field_next_service_days__display_name
+#: model:ir.model.fields,field_description:fleet_operations.field_pending_applied_history__display_name
+#: model:ir.model.fields,field_description:fleet_operations.field_pending_repair_confirm__display_name
+#: model:ir.model.fields,field_description:fleet_operations.field_pending_repair_type__display_name
+#: model:ir.model.fields,field_description:fleet_operations.field_print_fleet_history__display_name
+#: model:ir.model.fields,field_description:fleet_operations.field_repair_line_summary__display_name
+#: model:ir.model.fields,field_description:fleet_operations.field_repair_type__display_name
+#: model:ir.model.fields,field_description:fleet_operations.field_report_heading__display_name
+#: model:ir.model.fields,field_description:fleet_operations.field_service_category__display_name
+#: model:ir.model.fields,field_description:fleet_operations.field_service_repair_line__display_name
+#: model:ir.model.fields,field_description:fleet_operations.field_service_task__display_name
+#: model:ir.model.fields,field_description:fleet_operations.field_stock_picking_xls_report__display_name
+#: model:ir.model.fields,field_description:fleet_operations.field_task_line__display_name
+#: model:ir.model.fields,field_description:fleet_operations.field_tire_history__display_name
+#: model:ir.model.fields,field_description:fleet_operations.field_trip_encoded_history__display_name
+#: model:ir.model.fields,field_description:fleet_operations.field_trip_encoded_history_temp__display_name
+#: model:ir.model.fields,field_description:fleet_operations.field_update_battery_info__display_name
+#: model:ir.model.fields,field_description:fleet_operations.field_update_color_info__display_name
+#: model:ir.model.fields,field_description:fleet_operations.field_update_engine_info__display_name
+#: model:ir.model.fields,field_description:fleet_operations.field_update_next_service_config__display_name
+#: model:ir.model.fields,field_description:fleet_operations.field_update_pending_repair_history__display_name
+#: model:ir.model.fields,field_description:fleet_operations.field_update_tire_info__display_name
+#: model:ir.model.fields,field_description:fleet_operations.field_update_vin_info__display_name
+#: model:ir.model.fields,field_description:fleet_operations.field_vehicle_change_history__display_name
+#: model:ir.model.fields,field_description:fleet_operations.field_vehicle_department__display_name
+#: model:ir.model.fields,field_description:fleet_operations.field_vehicle_divison__display_name
+#: model:ir.model.fields,field_description:fleet_operations.field_vehicle_location__display_name
+#: model:ir.model.fields,field_description:fleet_operations.field_vehicle_type__display_name
+#: model:ir.model.fields,field_description:fleet_operations.field_vehicle_unique_sequence__display_name
+#: model:ir.model.fields,field_description:fleet_operations.field_vin_history__display_name
+#: model:ir.model.fields,field_description:fleet_operations.field_work_order_reports__display_name
+#: model:ir.model.fields,field_description:fleet_operations.field_workorder_parts_history_details__display_name
+#: model:ir.model.fields,field_description:fleet_operations.field_writeoff_cancel_reason__display_name
+msgid "Display Name"
+msgstr "Ime za prikaz"
+
+#. module: fleet_operations
+#: model:ir.actions.act_window,name:fleet_operations.vehical_divison_act
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle__vehical_division_id
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle_advance_search__division_id
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle_log_services__vehical_division_id
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_wittenoff__division_id
+msgid "Division"
+msgstr ""
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.pending_repair_confirm_form_view
+msgid ""
+"Do you Forcefully want to close the WO because there is some repair types which "
+"are selected for repair but not completed"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_report_heading__document_no
+msgid "Document No."
+msgstr "Broj dokumenta"
+
+#. module: fleet_operations
+#: model:ir.model.fields.selection,name:fleet_operations.selection__fleet_vehicle_log_services__state__done
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_log_services_view_inherit
+#: model_terms:ir.ui.view,arch_db:fleet_operations.view_update_next_service_view
+msgid "Done"
+msgstr "Završeno"
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.recieved_part_wizard_form
+#: model_terms:ir.ui.view,arch_db:fleet_operations.wo_report_form_view
+msgid "Download"
+msgstr "Preuzmi"
+
+#. module: fleet_operations
+#: model:ir.model.fields.selection,name:fleet_operations.selection__fleet_vehicle__state__inspection
+#: model:ir.model.fields.selection,name:fleet_operations.selection__fleet_wittenoff__state__draft
+#: model:ir.model.fields.selection,name:fleet_operations.selection__fleet_work_order_search__state__draft
+msgid "Draft"
+msgstr "Nacrt"
+
+#. module: fleet_operations
+#: model:repair.type,name:fleet_operations.nds_repair_type09
+msgid "Drive Train"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle__driver_id
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_wittenoff__driver_id
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_log_services_view_inherit
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_search_view_inherit_operations
+msgid "Driver"
+msgstr "Vozač"
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_search_view_inherit_operations
+msgid "Driver Contact"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle__driver_contact_no
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_wittenoff__contact_no
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_model_form_extended
+msgid "Driver Contact Number"
+msgstr "Kontakt tel. vozača"
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle__driver_identification_no
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle_advance_search__driver_identification_no
+msgid "Driver ID"
+msgstr "ID vozača"
+
+#. module: fleet_operations
+#: model:ir.model.fields,help:fleet_operations.field_fleet_vehicle__driver_id
+#: model:ir.model.fields,help:fleet_operations.field_fleet_vehicle_log_services__purchaser_id
+msgid "Driver address of the vehicle"
+msgstr ""
+
+#. module: fleet_operations
+#. odoo-python
+#: code:addons/fleet_operations/models/fleet_extended.py:0
+#, python-format
+msgid "Driver can be allocated to one vehicle only!"
+msgstr ""
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_model_form_extended
+msgid "Drivers History"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle__due_odometer_unit
+msgid "Due Odometer Units"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_trip_encoded_history__dummy_encoded_qty
+msgid "Dummy Encoded Qty"
+msgstr ""
+
+#. module: fleet_operations
+#: model:repair.type,name:fleet_operations.nds_repair_type10
+msgid "Electrical System"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_trip_encoded_history__encoded_qty
+#: model:ir.model.fields,field_description:fleet_operations.field_workorder_parts_history_details__used_qty
+msgid "Encoded Qty"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle__end_date_insurance
+msgid "End Date"
+msgstr "Završni datum"
+
+#. module: fleet_operations
+#. odoo-python
+#: code:addons/fleet_operations/wizard/update_history.py:0
+#, python-format
+msgid "Engine Change Date Should Be Greater Than Vehicle Registration Date."
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle__engine_history_ids
+#: model:ir.model.fields.selection,name:fleet_operations.selection__vehicle_change_history__report_type__engine_history
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_model_form_extended
+msgid "Engine History"
+msgstr "Istorijat motora"
+
+#. module: fleet_operations
+#: model:ir.model,name:fleet_operations.model_engine_history
+msgid "Engine History for Vehicle"
+msgstr ""
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_model_form_extended
+msgid "Engine Model"
+msgstr "Model motora"
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle__engine_no
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle_advance_search__engine_no
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_model_form_extended
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_search_view_inherit_operations
+msgid "Engine No"
+msgstr "Broj motora"
+
+#. module: fleet_operations
+#: model:repair.type,name:fleet_operations.nds_repair_type11
+msgid "Engine Overhaul"
+msgstr ""
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_model_form_extended
+msgid "Engine Parameters"
+msgstr ""
+
+#. module: fleet_operations
+#: model:repair.type,name:fleet_operations.nds_repair_type12
+msgid "Engine Repair"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle__engine_size
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_model_form_extended
+msgid "Engine Size"
+msgstr ""
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_model_form_extended
+msgid "Engine Specifications"
+msgstr "Specifikacije motora"
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_model_form_extended
+msgid "Equipment Detail"
+msgstr ""
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_log_services_view_inherit
+msgid "Estimated Date"
+msgstr ""
+
+#. module: fleet_operations
+#. odoo-python
+#: code:addons/fleet_operations/models/fleet_service.py:0
+#, python-format
+msgid "Estimated Date Should Be Greater Than Issue Date."
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle_log_services__etic
+msgid "Estimated Time"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,help:fleet_operations.field_fleet_vehicle_log_services__etic
+msgid "Estimated Time In Completion"
+msgstr ""
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.excel_sg_leave_summary_report_wiz
+msgid "Excel Export"
+msgstr ""
+
+#. module: fleet_operations
+#: model:repair.type,name:fleet_operations.nds_repair_type13
+msgid "Exhaust System"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle__expence_acc_id
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_model_form_extended
+msgid "Expense Account"
+msgstr "Konto troškova"
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_wittenoff_form_view
+msgid "Expense To Repair"
+msgstr ""
+
+#. module: fleet_operations
+#. odoo-python
+#: code:addons/fleet_operations/models/fleet_extended.py:0
+#, python-format
+msgid "Expense to repair cost should not be negative!"
+msgstr ""
+
+#. module: fleet_operations
+#: model:mail.template,name:fleet_operations.fleet_email_template
+msgid "Expired service: Send by email"
+msgstr ""
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_wittenoff_form_view
+msgid "Extra Note.."
+msgstr ""
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_model_form_extended
+msgid "Features"
+msgstr ""
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_search_view_inherit_operations
+msgid "Filter By Main Type ..."
+msgstr ""
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_search_view_inherit_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.update_pending_reapir_history_search_view
+msgid "Filter By Status ..."
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle__fleet_attach_ids
+msgid "Fleet Attachments"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields.selection,name:fleet_operations.selection__print_fleet_history__sel_report__complete_stage
+msgid "Fleet Complete Stage"
+msgstr ""
+
+#. module: fleet_operations
+#. odoo-python
+#: code:addons/fleet_operations/report/fleet_history.py:0
+#, python-format
+msgid "Fleet Complete Stage Report"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.actions.act_window,name:fleet_operations.action_res_partner_driver
+#: model:ir.ui.menu,name:fleet_operations.fleet_driver_menu
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_driver_search_view
+msgid "Fleet Driver"
+msgstr "Vozač voznog parka"
+
+#. module: fleet_operations
+#: model:ir.model,name:fleet_operations.model_excel_fleet_report
+msgid "Fleet Excel Report"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields.selection,name:fleet_operations.selection__print_fleet_history__sel_report__history
+msgid "Fleet History"
+msgstr ""
+
+#. module: fleet_operations
+#. odoo-python
+#: code:addons/fleet_operations/report/fleet_history.py:0
+#, python-format
+msgid "Fleet History Report"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model,name:fleet_operations.model_report_fleet_operations_fleet_history_work_order_xls
+msgid "Fleet History Work Order"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle__fleet_id
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_wittenoff__fleet_id
+msgid "Fleet ID"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields.selection,name:fleet_operations.selection__print_fleet_history__sel_report__listing
+msgid "Fleet Listing"
+msgstr ""
+
+#. module: fleet_operations
+#. odoo-python
+#: code:addons/fleet_operations/report/fleet_history.py:0
+#: model:ir.model,name:fleet_operations.model_report_fleet_operations_fleet_summary_xls
+#, python-format
+msgid "Fleet Listing Report"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model,name:fleet_operations.model_report_fleet_operations_outstanding_wo_xls
+msgid "Fleet Outstanding Workorder Report"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model,name:fleet_operations.model_report_fleet_operations_fleet_pending_repairs_xls
+msgid "Fleet Pending Repair Report"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields.selection,name:fleet_operations.selection__print_fleet_history__sel_report__pending_repair_summary
+msgid "Fleet Pending Repair Summary"
+msgstr ""
+
+#. module: fleet_operations
+#. odoo-python
+#: code:addons/fleet_operations/report/fleet_history.py:0
+#, python-format
+msgid "Fleet Pending Repair Summary Report"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields.selection,name:fleet_operations.selection__print_fleet_history__sel_report__pending_repairs
+msgid "Fleet Pending Repairs"
+msgstr ""
+
+#. module: fleet_operations
+#. odoo-python
+#: code:addons/fleet_operations/report/fleet_history.py:0
+#, python-format
+msgid "Fleet Pending Repairs Report"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model,name:fleet_operations.model_report_fleet_operations_fleet_pending_xls
+msgid "Fleet Pending Report"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model,name:fleet_operations.model_fleet_service_type
+msgid "Fleet Service Type"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.actions.server,name:fleet_operations.fleet_mail_service_ir_actions_server
+#: model:ir.cron,cron_name:fleet_operations.fleet_mail_service
+msgid "Fleet Vehicle Service Reminder."
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model,name:fleet_operations.model_report_fleet_operations_fleet_wait_collection_xls
+msgid "Fleet Waiting Collection Report"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model,name:fleet_operations.model_fleet_work_order_search
+msgid "Fleet Work order Search"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model,name:fleet_operations.model_report_fleet_operations_workorder_summary_xls
+msgid "Fleet WorkOrder Reports"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.actions.act_window,name:fleet_operations.action_print_fleet_history
+msgid "Fleet xlsx Report"
+msgstr "xlsx izveštaj voznog parka"
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_model_form_extended
+msgid "Fluids"
+msgstr "Tečnost"
+
+#. module: fleet_operations
+#. odoo-python
+#: code:addons/fleet_operations/report/repair_line_summary.py:0
+#, python-format
+msgid ""
+"Form content is missing,                                 this report cannot be "
+"printed."
+msgstr ""
+
+#. module: fleet_operations
+#. odoo-python
+#: code:addons/fleet_operations/report/vehicle_change_history.py:0
+#, python-format
+msgid ""
+"Form content is missing,                     this report cannot be printed."
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle_log_services__from_migration
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_log_services_view_inherit
+msgid "From Migration"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle__front_tire_pressure
+msgid "Front Tire Pressure"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle__front_tire_size
+msgid "Front Tire Size"
+msgstr ""
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_model_form_extended
+msgid "Fuel"
+msgstr "Gorivo"
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle__fuel_capacity
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_model_form_extended
+msgid "Fuel Capacity"
+msgstr "Kapacitet rezervoara"
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle__fuel_qty
+msgid "Fuel Quality"
+msgstr "Kvalitet goriva"
+
+#. module: fleet_operations
+#: model:repair.type,name:fleet_operations.nds_repair_type14
+msgid "Fuel System"
+msgstr ""
+
+#. module: fleet_operations
+#: model:color.color,name:fleet_operations.color_gold_7
+msgid "GOLD"
+msgstr ""
+
+#. module: fleet_operations
+#: model:color.color,name:fleet_operations.color_gray_8
+msgid "GRAY"
+msgstr ""
+
+#. module: fleet_operations
+#: model:color.color,name:fleet_operations.color_green_10
+msgid "GREEN"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields.selection,name:fleet_operations.selection__fleet_wittenoff__write_off_type__general_accident
+msgid "General Accident"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model,name:fleet_operations.model_report_fleet_operations_general_parts_listing_xls
+msgid "Genral Parts Listing Reports"
+msgstr ""
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_search_view_inherit_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.update_pending_reapir_history_search_view
+msgid "Group By..."
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields.selection,name:fleet_operations.selection__fleet_vehicle_log_services__priority__high
+msgid "HIGH"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle__vehicle_height
+msgid "Height(mm)"
+msgstr "Visina(mm)"
+
+#. module: fleet_operations
+#: model:res.groups,name:fleet_operations.group_hide_menus
+msgid "Hide Menu"
+msgstr ""
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_model_form_extended
+msgid "History"
+msgstr "Istorijat"
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_battery_history__id
+#: model:ir.model.fields,field_description:fleet_operations.field_color_color__id
+#: model:ir.model.fields,field_description:fleet_operations.field_color_history__id
+#: model:ir.model.fields,field_description:fleet_operations.field_continue_pending_repair__id
+#: model:ir.model.fields,field_description:fleet_operations.field_damage_types__id
+#: model:ir.model.fields,field_description:fleet_operations.field_engine_history__id
+#: model:ir.model.fields,field_description:fleet_operations.field_excel_fleet_report__id
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle_advance_search__id
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_wittenoff__id
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_work_order_search__id
+#: model:ir.model.fields,field_description:fleet_operations.field_insurance_type__id
+#: model:ir.model.fields,field_description:fleet_operations.field_next_increment_number__id
+#: model:ir.model.fields,field_description:fleet_operations.field_next_service_days__id
+#: model:ir.model.fields,field_description:fleet_operations.field_pending_applied_history__id
+#: model:ir.model.fields,field_description:fleet_operations.field_pending_repair_confirm__id
+#: model:ir.model.fields,field_description:fleet_operations.field_pending_repair_type__id
+#: model:ir.model.fields,field_description:fleet_operations.field_print_fleet_history__id
+#: model:ir.model.fields,field_description:fleet_operations.field_repair_line_summary__id
+#: model:ir.model.fields,field_description:fleet_operations.field_repair_type__id
+#: model:ir.model.fields,field_description:fleet_operations.field_report_heading__id
+#: model:ir.model.fields,field_description:fleet_operations.field_service_category__id
+#: model:ir.model.fields,field_description:fleet_operations.field_service_repair_line__id
+#: model:ir.model.fields,field_description:fleet_operations.field_service_task__id
+#: model:ir.model.fields,field_description:fleet_operations.field_stock_picking_xls_report__id
+#: model:ir.model.fields,field_description:fleet_operations.field_task_line__id
+#: model:ir.model.fields,field_description:fleet_operations.field_tire_history__id
+#: model:ir.model.fields,field_description:fleet_operations.field_trip_encoded_history__id
+#: model:ir.model.fields,field_description:fleet_operations.field_trip_encoded_history_temp__id
+#: model:ir.model.fields,field_description:fleet_operations.field_update_battery_info__id
+#: model:ir.model.fields,field_description:fleet_operations.field_update_color_info__id
+#: model:ir.model.fields,field_description:fleet_operations.field_update_engine_info__id
+#: model:ir.model.fields,field_description:fleet_operations.field_update_next_service_config__id
+#: model:ir.model.fields,field_description:fleet_operations.field_update_pending_repair_history__id
+#: model:ir.model.fields,field_description:fleet_operations.field_update_tire_info__id
+#: model:ir.model.fields,field_description:fleet_operations.field_update_vin_info__id
+#: model:ir.model.fields,field_description:fleet_operations.field_vehicle_change_history__id
+#: model:ir.model.fields,field_description:fleet_operations.field_vehicle_department__id
+#: model:ir.model.fields,field_description:fleet_operations.field_vehicle_divison__id
+#: model:ir.model.fields,field_description:fleet_operations.field_vehicle_location__id
+#: model:ir.model.fields,field_description:fleet_operations.field_vehicle_type__id
+#: model:ir.model.fields,field_description:fleet_operations.field_vehicle_unique_sequence__id
+#: model:ir.model.fields,field_description:fleet_operations.field_vin_history__id
+#: model:ir.model.fields,field_description:fleet_operations.field_work_order_reports__id
+#: model:ir.model.fields,field_description:fleet_operations.field_workorder_parts_history_details__id
+#: model:ir.model.fields,field_description:fleet_operations.field_writeoff_cancel_reason__id
+msgid "ID"
+msgstr ""
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.view_partner_form_extended
+msgid "ID-Card"
+msgstr "ID karta"
+
+#. module: fleet_operations
+#: model:damage.types,name:fleet_operations.damage_type_03
+msgid "INTERIOR"
+msgstr ""
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_log_services_view_inherit
+msgid "Identification"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle_model__image_128
+#: model:ir.model.fields,field_description:fleet_operations.field_report_heading__image
+msgid "Image"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_report_heading__image_medium
+msgid "Image Medium"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_report_heading__image_small
+msgid "Image Small"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields.selection,name:fleet_operations.selection__pending_applied_history__state__in-complete
+msgid "In Complete"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields.selection,name:fleet_operations.selection__fleet_vehicle_advance_search__state__in_progress
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_search_view_inherit_operations
+msgid "In Progress"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields.selection,name:fleet_operations.selection__fleet_vehicle__state__in_progress
+msgid "In Service"
+msgstr "Na servisu"
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_product_product__in_active_part
+msgid "In-Active Part?"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle__income_acc_id
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_model_form_extended
+msgid "Income Account"
+msgstr "Konto prihoda"
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_service_task__maintenance_info
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_model_form_extended
+msgid "Information"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields.selection,name:fleet_operations.selection__fleet_vehicle_advance_search__state__inspection
+#: model:repair.type,name:fleet_operations.nds_repair_type01
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_search_view_inherit_operations
+msgid "Inspection"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_res_partner__insurance
+#: model:ir.model.fields,field_description:fleet_operations.field_res_users__insurance
+#: model_terms:ir.ui.view,arch_db:fleet_operations.view_partner_form_extended
+msgid "Insurance"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle__insurance_company_id
+msgid "Insurance Company"
+msgstr "Osiguravajuće društvo"
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_model_form_extended
+msgid "Insurance Terms"
+msgstr "Uslovi osiguranja"
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle__insurance_type_id
+#: model_terms:ir.ui.view,arch_db:fleet_operations.insurance_type_form
+msgid "Insurance Type"
+msgstr "Tip osiguranja"
+
+#. module: fleet_operations
+#. odoo-python
+#: code:addons/fleet_operations/models/fleet_extended.py:0
+#, python-format
+msgid "Insurance end date should be greater than start date."
+msgstr ""
+
+#. module: fleet_operations
+#. odoo-python
+#: code:addons/fleet_operations/models/fleet_extended.py:0
+#, python-format
+msgid "Insurance start date should be greater than registration date."
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields.selection,name:fleet_operations.selection__fleet_wittenoff__write_off_type__insurgent_attack
+#: model:repair.type,name:fleet_operations.nds_repair_type15
+msgid "Insurgent Attack"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle_log_services__invoice_count
+msgid "Invoice Count"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle_log_services__amount_receive
+msgid "Invoice Receive"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle_log_services__amount_return
+msgid "Invoice Return"
+msgstr ""
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_print
+msgid "Invoice Sales Order"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.actions.act_window,name:fleet_operations.action_fleet_service_out_invoice_view
+#: model:ir.actions.act_window,name:fleet_operations.action_fleet_service_out_refund_invoice_view
+msgid "Invoices"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle__is_color_set
+msgid "Is Color Set?"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_task_line__is_deliver
+msgid "Is Deliver?"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_res_partner__is_driver
+#: model:ir.model.fields,field_description:fleet_operations.field_res_users__is_driver
+#: model_terms:ir.ui.view,arch_db:fleet_operations.view_partner_form_extended
+msgid "Is Driver"
+msgstr "je Vozač"
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle__is_engine_set
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_model_form_extended
+msgid "Is Engine Set"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle__is_id_generated
+msgid "Is Id Generated?"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle_log_services__is_parts
+msgid "Is Parts Available?"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_account_bank_statement_line__is_invoice_return
+#: model:ir.model.fields,field_description:fleet_operations.field_account_move__is_invoice_return
+#: model:ir.model.fields,field_description:fleet_operations.field_account_payment__is_invoice_return
+msgid "Is Service Invoice Deposit"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_account_bank_statement_line__is_invoice_receive
+#: model:ir.model.fields,field_description:fleet_operations.field_account_move__is_invoice_receive
+#: model:ir.model.fields,field_description:fleet_operations.field_account_payment__is_invoice_receive
+msgid "Is Service Invoice Receive"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle__is_tire_issue_set
+msgid "Is Tire Issue set?"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle__is_tire_size_set
+msgid "Is Tire Size set?"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle__is_tire_srno_set
+msgid "Is Tire Srno set?"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle__is_vin_set
+msgid "Is Vin Set?"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle__is_battery_issue_set
+msgid "Is battery Issue set?"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle__is_battery_size_set
+msgid "Is battery Size set?"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle__is_battery_srno_set
+msgid "Is battery Srno set?"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_pending_applied_history__issue_date
+#: model:ir.model.fields,field_description:fleet_operations.field_pending_repair_type__issue_date
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_model_form_extended
+#: model_terms:ir.ui.view,arch_db:fleet_operations.pending_repair_type_tree_view
+#: model_terms:ir.ui.view,arch_db:fleet_operations.update_pending_reapir_history_form_view
+msgid "Issue Date"
+msgstr "Datum izdanja"
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_task_line__issued_by
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_log_services_view_inherit
+msgid "Issued By"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle_log_services__date_complete
+msgid "Issued Complete "
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_workorder_parts_history_details__used_date
+msgid "Issued Date"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_service_repair_line__issue_date
+msgid "Issued Date "
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_workorder_parts_history_details__issued_by
+msgid "Issued by"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model,name:fleet_operations.model_account_move
+msgid "Journal Entry"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields.selection,name:fleet_operations.selection__fleet_vehicle__due_odometer_unit__kilometers
+#: model:ir.model.fields.selection,name:fleet_operations.selection__fleet_vehicle__last_odometer_unit__kilometers
+#: model:ir.model.fields.selection,name:fleet_operations.selection__fleet_wittenoff__odometer_unit__kilometers
+msgid "Kilometers"
+msgstr ""
+
+#. module: fleet_operations
+#: model:damage.types,name:fleet_operations.damage_type_01
+msgid "LEFT HAND FRONT"
+msgstr ""
+
+#. module: fleet_operations
+#: model:damage.types,name:fleet_operations.damage_type_05
+msgid "LEFT HAND FRONT SUSPENSION"
+msgstr ""
+
+#. module: fleet_operations
+#: model:damage.types,name:fleet_operations.damage_type_02
+msgid "LEFT HAND MIDDLE"
+msgstr ""
+
+#. module: fleet_operations
+#: model:damage.types,name:fleet_operations.damage_type_04
+msgid "LEFT HAND REAR"
+msgstr ""
+
+#. module: fleet_operations
+#: model:damage.types,name:fleet_operations.damage_type_06
+msgid "LEFT HAND REAR SUSPENSION"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields.selection,name:fleet_operations.selection__fleet_vehicle_log_services__priority__low
+msgid "LOW"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_battery_history____last_update
+#: model:ir.model.fields,field_description:fleet_operations.field_color_color____last_update
+#: model:ir.model.fields,field_description:fleet_operations.field_color_history____last_update
+#: model:ir.model.fields,field_description:fleet_operations.field_continue_pending_repair____last_update
+#: model:ir.model.fields,field_description:fleet_operations.field_damage_types____last_update
+#: model:ir.model.fields,field_description:fleet_operations.field_engine_history____last_update
+#: model:ir.model.fields,field_description:fleet_operations.field_excel_fleet_report____last_update
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle_advance_search____last_update
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_wittenoff____last_update
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_work_order_search____last_update
+#: model:ir.model.fields,field_description:fleet_operations.field_insurance_type____last_update
+#: model:ir.model.fields,field_description:fleet_operations.field_next_increment_number____last_update
+#: model:ir.model.fields,field_description:fleet_operations.field_next_service_days____last_update
+#: model:ir.model.fields,field_description:fleet_operations.field_pending_applied_history____last_update
+#: model:ir.model.fields,field_description:fleet_operations.field_pending_repair_confirm____last_update
+#: model:ir.model.fields,field_description:fleet_operations.field_pending_repair_type____last_update
+#: model:ir.model.fields,field_description:fleet_operations.field_print_fleet_history____last_update
+#: model:ir.model.fields,field_description:fleet_operations.field_repair_line_summary____last_update
+#: model:ir.model.fields,field_description:fleet_operations.field_repair_type____last_update
+#: model:ir.model.fields,field_description:fleet_operations.field_report_heading____last_update
+#: model:ir.model.fields,field_description:fleet_operations.field_service_category____last_update
+#: model:ir.model.fields,field_description:fleet_operations.field_service_repair_line____last_update
+#: model:ir.model.fields,field_description:fleet_operations.field_service_task____last_update
+#: model:ir.model.fields,field_description:fleet_operations.field_stock_picking_xls_report____last_update
+#: model:ir.model.fields,field_description:fleet_operations.field_task_line____last_update
+#: model:ir.model.fields,field_description:fleet_operations.field_tire_history____last_update
+#: model:ir.model.fields,field_description:fleet_operations.field_trip_encoded_history____last_update
+#: model:ir.model.fields,field_description:fleet_operations.field_trip_encoded_history_temp____last_update
+#: model:ir.model.fields,field_description:fleet_operations.field_update_battery_info____last_update
+#: model:ir.model.fields,field_description:fleet_operations.field_update_color_info____last_update
+#: model:ir.model.fields,field_description:fleet_operations.field_update_engine_info____last_update
+#: model:ir.model.fields,field_description:fleet_operations.field_update_next_service_config____last_update
+#: model:ir.model.fields,field_description:fleet_operations.field_update_pending_repair_history____last_update
+#: model:ir.model.fields,field_description:fleet_operations.field_update_tire_info____last_update
+#: model:ir.model.fields,field_description:fleet_operations.field_update_vin_info____last_update
+#: model:ir.model.fields,field_description:fleet_operations.field_vehicle_change_history____last_update
+#: model:ir.model.fields,field_description:fleet_operations.field_vehicle_department____last_update
+#: model:ir.model.fields,field_description:fleet_operations.field_vehicle_divison____last_update
+#: model:ir.model.fields,field_description:fleet_operations.field_vehicle_location____last_update
+#: model:ir.model.fields,field_description:fleet_operations.field_vehicle_type____last_update
+#: model:ir.model.fields,field_description:fleet_operations.field_vehicle_unique_sequence____last_update
+#: model:ir.model.fields,field_description:fleet_operations.field_vin_history____last_update
+#: model:ir.model.fields,field_description:fleet_operations.field_work_order_reports____last_update
+#: model:ir.model.fields,field_description:fleet_operations.field_workorder_parts_history_details____last_update
+#: model:ir.model.fields,field_description:fleet_operations.field_writeoff_cancel_reason____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle__odometer
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle_log_services__odometer
+msgid "Last Odometer"
+msgstr "Poslednji odometar"
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle__last_odometer_unit
+msgid "Last Odometer Unit"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle__last_service_date
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_model_form_extended
+msgid "Last Service"
+msgstr "Poslednji servis"
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle__last_service_by_id
+msgid "Last Service By"
+msgstr "Poslednji servis vršio"
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_search_view_inherit_operations
+msgid "Last Service Date"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle_advance_search__last_service_date
+msgid "Last Service From"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle__last_odometer
+msgid "Last Service Odometer"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle_advance_search__last_service_date_to
+msgid "Last Service To"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle__last_change_status_date
+msgid "Last Status Changed Date"
+msgstr "Datum poslednje promene statusa"
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_battery_history__write_uid
+#: model:ir.model.fields,field_description:fleet_operations.field_color_color__write_uid
+#: model:ir.model.fields,field_description:fleet_operations.field_color_history__write_uid
+#: model:ir.model.fields,field_description:fleet_operations.field_continue_pending_repair__write_uid
+#: model:ir.model.fields,field_description:fleet_operations.field_damage_types__write_uid
+#: model:ir.model.fields,field_description:fleet_operations.field_engine_history__write_uid
+#: model:ir.model.fields,field_description:fleet_operations.field_excel_fleet_report__write_uid
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle_advance_search__write_uid
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_wittenoff__write_uid
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_work_order_search__write_uid
+#: model:ir.model.fields,field_description:fleet_operations.field_insurance_type__write_uid
+#: model:ir.model.fields,field_description:fleet_operations.field_next_increment_number__write_uid
+#: model:ir.model.fields,field_description:fleet_operations.field_next_service_days__write_uid
+#: model:ir.model.fields,field_description:fleet_operations.field_pending_applied_history__write_uid
+#: model:ir.model.fields,field_description:fleet_operations.field_pending_repair_confirm__write_uid
+#: model:ir.model.fields,field_description:fleet_operations.field_pending_repair_type__write_uid
+#: model:ir.model.fields,field_description:fleet_operations.field_print_fleet_history__write_uid
+#: model:ir.model.fields,field_description:fleet_operations.field_repair_line_summary__write_uid
+#: model:ir.model.fields,field_description:fleet_operations.field_repair_type__write_uid
+#: model:ir.model.fields,field_description:fleet_operations.field_report_heading__write_uid
+#: model:ir.model.fields,field_description:fleet_operations.field_service_category__write_uid
+#: model:ir.model.fields,field_description:fleet_operations.field_service_repair_line__write_uid
+#: model:ir.model.fields,field_description:fleet_operations.field_service_task__write_uid
+#: model:ir.model.fields,field_description:fleet_operations.field_stock_picking_xls_report__write_uid
+#: model:ir.model.fields,field_description:fleet_operations.field_task_line__write_uid
+#: model:ir.model.fields,field_description:fleet_operations.field_tire_history__write_uid
+#: model:ir.model.fields,field_description:fleet_operations.field_trip_encoded_history__write_uid
+#: model:ir.model.fields,field_description:fleet_operations.field_trip_encoded_history_temp__write_uid
+#: model:ir.model.fields,field_description:fleet_operations.field_update_battery_info__write_uid
+#: model:ir.model.fields,field_description:fleet_operations.field_update_color_info__write_uid
+#: model:ir.model.fields,field_description:fleet_operations.field_update_engine_info__write_uid
+#: model:ir.model.fields,field_description:fleet_operations.field_update_next_service_config__write_uid
+#: model:ir.model.fields,field_description:fleet_operations.field_update_pending_repair_history__write_uid
+#: model:ir.model.fields,field_description:fleet_operations.field_update_tire_info__write_uid
+#: model:ir.model.fields,field_description:fleet_operations.field_update_vin_info__write_uid
+#: model:ir.model.fields,field_description:fleet_operations.field_vehicle_change_history__write_uid
+#: model:ir.model.fields,field_description:fleet_operations.field_vehicle_department__write_uid
+#: model:ir.model.fields,field_description:fleet_operations.field_vehicle_divison__write_uid
+#: model:ir.model.fields,field_description:fleet_operations.field_vehicle_location__write_uid
+#: model:ir.model.fields,field_description:fleet_operations.field_vehicle_type__write_uid
+#: model:ir.model.fields,field_description:fleet_operations.field_vehicle_unique_sequence__write_uid
+#: model:ir.model.fields,field_description:fleet_operations.field_vin_history__write_uid
+#: model:ir.model.fields,field_description:fleet_operations.field_work_order_reports__write_uid
+#: model:ir.model.fields,field_description:fleet_operations.field_workorder_parts_history_details__write_uid
+#: model:ir.model.fields,field_description:fleet_operations.field_writeoff_cancel_reason__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_battery_history__write_date
+#: model:ir.model.fields,field_description:fleet_operations.field_color_color__write_date
+#: model:ir.model.fields,field_description:fleet_operations.field_color_history__write_date
+#: model:ir.model.fields,field_description:fleet_operations.field_continue_pending_repair__write_date
+#: model:ir.model.fields,field_description:fleet_operations.field_damage_types__write_date
+#: model:ir.model.fields,field_description:fleet_operations.field_engine_history__write_date
+#: model:ir.model.fields,field_description:fleet_operations.field_excel_fleet_report__write_date
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle_advance_search__write_date
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_wittenoff__write_date
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_work_order_search__write_date
+#: model:ir.model.fields,field_description:fleet_operations.field_insurance_type__write_date
+#: model:ir.model.fields,field_description:fleet_operations.field_next_increment_number__write_date
+#: model:ir.model.fields,field_description:fleet_operations.field_next_service_days__write_date
+#: model:ir.model.fields,field_description:fleet_operations.field_pending_applied_history__write_date
+#: model:ir.model.fields,field_description:fleet_operations.field_pending_repair_confirm__write_date
+#: model:ir.model.fields,field_description:fleet_operations.field_pending_repair_type__write_date
+#: model:ir.model.fields,field_description:fleet_operations.field_print_fleet_history__write_date
+#: model:ir.model.fields,field_description:fleet_operations.field_repair_line_summary__write_date
+#: model:ir.model.fields,field_description:fleet_operations.field_repair_type__write_date
+#: model:ir.model.fields,field_description:fleet_operations.field_report_heading__write_date
+#: model:ir.model.fields,field_description:fleet_operations.field_service_category__write_date
+#: model:ir.model.fields,field_description:fleet_operations.field_service_repair_line__write_date
+#: model:ir.model.fields,field_description:fleet_operations.field_service_task__write_date
+#: model:ir.model.fields,field_description:fleet_operations.field_stock_picking_xls_report__write_date
+#: model:ir.model.fields,field_description:fleet_operations.field_task_line__write_date
+#: model:ir.model.fields,field_description:fleet_operations.field_tire_history__write_date
+#: model:ir.model.fields,field_description:fleet_operations.field_trip_encoded_history__write_date
+#: model:ir.model.fields,field_description:fleet_operations.field_trip_encoded_history_temp__write_date
+#: model:ir.model.fields,field_description:fleet_operations.field_update_battery_info__write_date
+#: model:ir.model.fields,field_description:fleet_operations.field_update_color_info__write_date
+#: model:ir.model.fields,field_description:fleet_operations.field_update_engine_info__write_date
+#: model:ir.model.fields,field_description:fleet_operations.field_update_next_service_config__write_date
+#: model:ir.model.fields,field_description:fleet_operations.field_update_pending_repair_history__write_date
+#: model:ir.model.fields,field_description:fleet_operations.field_update_tire_info__write_date
+#: model:ir.model.fields,field_description:fleet_operations.field_update_vin_info__write_date
+#: model:ir.model.fields,field_description:fleet_operations.field_vehicle_change_history__write_date
+#: model:ir.model.fields,field_description:fleet_operations.field_vehicle_department__write_date
+#: model:ir.model.fields,field_description:fleet_operations.field_vehicle_divison__write_date
+#: model:ir.model.fields,field_description:fleet_operations.field_vehicle_location__write_date
+#: model:ir.model.fields,field_description:fleet_operations.field_vehicle_type__write_date
+#: model:ir.model.fields,field_description:fleet_operations.field_vehicle_unique_sequence__write_date
+#: model:ir.model.fields,field_description:fleet_operations.field_vin_history__write_date
+#: model:ir.model.fields,field_description:fleet_operations.field_work_order_reports__write_date
+#: model:ir.model.fields,field_description:fleet_operations.field_workorder_parts_history_details__write_date
+#: model:ir.model.fields,field_description:fleet_operations.field_writeoff_cancel_reason__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle__vehicle_length
+msgid "Length(mm)"
+msgstr "Dužina(mm)"
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle__license_plate
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_model_form_extended
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_wittenoff_search
+msgid "License Plate"
+msgstr "Reg. tablica"
+
+#. module: fleet_operations
+#: model:ir.model.fields,help:fleet_operations.field_fleet_vehicle__license_plate
+msgid ""
+"License plate number of the vehicle.                                (ie: plate "
+"number for a vehicle)"
+msgstr ""
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_search_view_inherit_operations
+msgid "List of Released Vehicle"
+msgstr ""
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.update_pending_reapir_history_search_view
+msgid "List of applied pending history"
+msgstr ""
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_search_view_inherit_operations
+msgid "List of completed service vehicle"
+msgstr ""
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.update_pending_reapir_history_search_view
+msgid "List of new pending history"
+msgstr ""
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_search_view_inherit_operations
+msgid "List of pending service vehicle"
+msgstr ""
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_search_view_inherit_operations
+msgid "List of vehicle those are in inspection"
+msgstr ""
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_search_view_inherit_operations
+msgid "List of vehicle those are in onrent"
+msgstr ""
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_search_view_inherit_operations
+msgid "List of vehicle those are in workshop for service"
+msgstr ""
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_search_view_inherit_operations
+msgid "List of vehicle those are write-off"
+msgstr ""
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_search_view_inherit_operations
+msgid "List of vehicle with non-vehcile type"
+msgstr ""
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_search_view_inherit_operations
+msgid "List of vehicle with non-write off"
+msgstr ""
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_search_view_inherit_operations
+msgid "List of vehicle with vehicle type"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_wittenoff__location_id
+msgid "Location"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle_log_services__wrk_location_id
+#: model:ir.model.fields,field_description:fleet_operations.field_vehicle_unique_sequence__vehicle_location_id
+msgid "Location "
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.constraint,message:fleet_operations.constraint_vehicle_unique_sequence_location_make_name_uniq
+msgid ""
+"Location, Make and Sequence all should be                 unique for unique "
+"sequence!"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle_log_services__note
+msgid "Log Notes"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle__main_type
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle_log_services__main_type
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_search_view_inherit_operations
+msgid "Main Type"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_service_task__main_id
+msgid "Maintanace Reference"
+msgstr ""
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_log_services_view_inherit
+msgid "Maintenance"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model,name:fleet_operations.model_service_task
+msgid "Maintenance of the Task "
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle__f_brand_id
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle_advance_search__make_id
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle_log_services__f_brand_id
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle_model__brand_id
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle_model_brand__name
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle_odometer__make
+#: model:ir.model.fields,field_description:fleet_operations.field_vehicle_unique_sequence__make_id
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_odometer_search_view
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_search_view_inherit_operations
+msgid "Make"
+msgstr "Proizvođač"
+
+#. module: fleet_operations
+#: model:ir.model.fields,help:fleet_operations.field_report_heading__image_medium
+msgid ""
+"Medium-sized image of the Report.                                  It is "
+"automatically resized as a 128x128px                                 image, "
+"with aspect ratio preserved, only when the image exceeds one of "
+"those                                  sizes. Use this field in form views "
+"or                                  some kanban views."
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle__mileage
+msgid "Mileage(K/H)"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields.selection,name:fleet_operations.selection__fleet_vehicle__due_odometer_unit__miles
+#: model:ir.model.fields.selection,name:fleet_operations.selection__fleet_vehicle__last_odometer_unit__miles
+#: model:ir.model.fields.selection,name:fleet_operations.selection__fleet_wittenoff__odometer_unit__miles
+msgid "Miles"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle_advance_search__model_id
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle_odometer__model
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_odometer_search_view
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_search_view_inherit_operations
+msgid "Model"
+msgstr ""
+
+#. module: fleet_operations
+#. odoo-python
+#: code:addons/fleet_operations/models/fleet_extended.py:0
+#, python-format
+msgid "Model Brand with this name already exists!"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle__model_no
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_model_form_extended
+msgid "Model No"
+msgstr "Model br."
+
+#. module: fleet_operations
+#. odoo-python
+#: code:addons/fleet_operations/models/fleet_extended.py:0
+#, python-format
+msgid "Model is not selected for this vehicle!"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle_model__name
+msgid "Model name"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model,name:fleet_operations.model_fleet_vehicle_model
+msgid "Model of a vehicle"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.constraint,message:fleet_operations.constraint_fleet_vehicle_model_model_brand_name_uniq
+msgid "Model with this brand Name and Make is already exist!"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model,name:fleet_operations.model_report_fleet_operations_most_used_parts_xls
+msgid "Most Used Parts Report"
+msgstr ""
+
+#. module: fleet_operations
+#: model:vehicle.type,name:fleet_operations.vehicle_type_motorbike_3
+msgid "Motorbike"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle__multi_images
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_wittenoff__multi_images
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_model_form_extended
+msgid "Multi Images"
+msgstr "Više fotografija"
+
+#. module: fleet_operations
+#: model:ir.model.fields.selection,name:fleet_operations.selection__fleet_vehicle_log_services__priority__normal
+msgid "NORMAL"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_color_color__name
+#: model:ir.model.fields,field_description:fleet_operations.field_damage_types__name
+#: model:ir.model.fields,field_description:fleet_operations.field_excel_fleet_report__name
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle__name
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle_odometer__name
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_wittenoff__name
+#: model:ir.model.fields,field_description:fleet_operations.field_insurance_type__name
+#: model:ir.model.fields,field_description:fleet_operations.field_next_increment_number__name
+#: model:ir.model.fields,field_description:fleet_operations.field_next_service_days__name
+#: model:ir.model.fields,field_description:fleet_operations.field_stock_picking_xls_report__name
+#: model:ir.model.fields,field_description:fleet_operations.field_vehicle_department__name
+#: model:ir.model.fields,field_description:fleet_operations.field_vehicle_divison__name
+#: model:ir.model.fields,field_description:fleet_operations.field_vehicle_location__name
+#: model:ir.model.fields,field_description:fleet_operations.field_vehicle_type__name
+#: model:ir.model.fields,field_description:fleet_operations.field_vehicle_unique_sequence__name
+#: model:ir.model.fields,field_description:fleet_operations.field_work_order_reports__name
+#: model_terms:ir.ui.view,arch_db:fleet_operations.color_color_tree
+#: model_terms:ir.ui.view,arch_db:fleet_operations.damage_type_form_view
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_unique_vehicle_sequence_tree_view
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_model_form_extended
+#: model_terms:ir.ui.view,arch_db:fleet_operations.next_increment_number_form_view
+#: model_terms:ir.ui.view,arch_db:fleet_operations.next_increment_number_tree_view
+#: model_terms:ir.ui.view,arch_db:fleet_operations.next_service_days_form
+#: model_terms:ir.ui.view,arch_db:fleet_operations.next_service_days_tree
+#: model_terms:ir.ui.view,arch_db:fleet_operations.report_heading_tree
+#: model_terms:ir.ui.view,arch_db:fleet_operations.vehical_divison_tree
+#: model_terms:ir.ui.view,arch_db:fleet_operations.vehicle_type_form
+#: model_terms:ir.ui.view,arch_db:fleet_operations.vehicle_type_tree
+msgid "Name"
+msgstr "Naziv"
+
+#. module: fleet_operations
+#: model:ir.model,name:fleet_operations.model_report_fleet_operations_need_to_order_parts_xls
+msgid "Need to Order Parts Report"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields.selection,name:fleet_operations.selection__fleet_vehicle_log_services__state__draft
+#: model:ir.model.fields.selection,name:fleet_operations.selection__update_pending_repair_history__state__draft
+#: model_terms:ir.ui.view,arch_db:fleet_operations.update_pending_reapir_history_search_view
+msgid "New"
+msgstr ""
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.vehicle_change_history_qweb
+msgid ""
+"New\n"
+"                                Battery Size"
+msgstr ""
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.vehicle_change_history_qweb
+msgid ""
+"New\n"
+"                                Tire Size"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_battery_history__new_battery_issue_date
+#: model:ir.model.fields,field_description:fleet_operations.field_update_battery_info__new_battery_issue_date
+msgid "New Battery Issuance Date"
+msgstr ""
+
+#. module: fleet_operations
+#. odoo-python
+#: code:addons/fleet_operations/wizard/update_history.py:0
+#, python-format
+msgid ""
+"New Battery Issuance Date Should Be Greater Than Previous Battery Issuance Date."
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_update_battery_info__new_battery_sn
+msgid "New Battery S/N"
+msgstr "Ser. br. novog akumulatora"
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_battery_history__new_battery_sn
+msgid "New Battery Serial"
+msgstr "Ser. br. novog akumulatora"
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_battery_history__new_battery_size
+#: model:ir.model.fields,field_description:fleet_operations.field_update_battery_info__new_battery_size
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_model_form_extended
+#: model_terms:ir.ui.view,arch_db:fleet_operations.update_battery_info_form_view
+msgid "New Battery Size"
+msgstr "Veličina novog akumulatora"
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_color_history__current_color_id
+#: model:ir.model.fields,field_description:fleet_operations.field_update_color_info__current_color_id
+msgid "New Color"
+msgstr "Nova boja"
+
+#. module: fleet_operations
+#: model:ir.model.fields,help:fleet_operations.field_workorder_parts_history_details__new_encode_qty
+msgid "New Encoded Qty"
+msgstr ""
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.vehicle_change_history_qweb
+msgid "New Engine #"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_engine_history__new_engine_no
+#: model:ir.model.fields,field_description:fleet_operations.field_update_engine_info__new_engine_no
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_model_form_extended
+#: model_terms:ir.ui.view,arch_db:fleet_operations.update_engine_info_form_view
+msgid "New Engine No"
+msgstr "Br. novog motora"
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_tire_history__new_tire_issue_date
+#: model:ir.model.fields,field_description:fleet_operations.field_update_tire_info__new_tire_issue_date
+msgid "New Tire Issuance Date"
+msgstr ""
+
+#. module: fleet_operations
+#. odoo-python
+#: code:addons/fleet_operations/wizard/update_history.py:0
+#, python-format
+msgid "New Tire Issuance Date Should Be Greater Than Previous Tire Issuance Date."
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_update_tire_info__new_tire_sn
+msgid "New Tire S/N"
+msgstr "Ser. br. novih guma"
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_tire_history__new_tire_sn
+msgid "New Tire Serial"
+msgstr "Ser. br. novih guma"
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_tire_history__new_tire_size
+#: model:ir.model.fields,field_description:fleet_operations.field_update_tire_info__new_tire_size
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_model_form_extended
+#: model_terms:ir.ui.view,arch_db:fleet_operations.update_tire_info_form_view
+msgid "New Tire Size"
+msgstr "Veličina novih guma"
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_update_vin_info__new_vin_no
+#: model:ir.model.fields,field_description:fleet_operations.field_vin_history__new_vin_no
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_model_form_extended
+#: model_terms:ir.ui.view,arch_db:fleet_operations.update_vin_info_form_view
+msgid "New Vin No"
+msgstr ""
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.vehicle_change_history_qweb
+msgid "New color"
+msgstr ""
+
+#. module: fleet_operations
+#. odoo-python
+#: code:addons/fleet_operations/models/fleet_service.py:0
+#, python-format
+msgid ""
+"New work order can only be generated either vehicle status is in Inspection or "
+"Released!"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model,name:fleet_operations.model_next_increment_number
+msgid "Next Increment Number"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle__increment_odometer
+msgid "Next Increment Odometer"
+msgstr ""
+
+#. module: fleet_operations
+#. odoo-python
+#: code:addons/fleet_operations/wizard/pending_repair_confirm.py:0
+#, python-format
+msgid ""
+"Next Increment Odometer is not set for %s please set it from configuration!"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle_log_services__next_service_odometer
+msgid "Next Odometer Value"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle__next_service_date
+msgid "Next Service"
+msgstr "Sledeći servis"
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle_log_services__next_service_date
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_log_services_view_inherit
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_search_view_inherit_operations
+msgid "Next Service Date"
+msgstr ""
+
+#. module: fleet_operations
+#. odoo-python
+#: code:addons/fleet_operations/report/fleet_history.py:0
+#, python-format
+msgid "Next Service Date Report"
+msgstr ""
+
+#. module: fleet_operations
+#. odoo-python
+#: code:addons/fleet_operations/models/fleet_service.py:0
+#, python-format
+msgid "Next Service Day"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.actions.act_window,name:fleet_operations.next_service_days_act
+#: model:ir.ui.menu,name:fleet_operations.next_service_days
+#: model_terms:ir.ui.view,arch_db:fleet_operations.next_service_days_form
+msgid "Next Service Days"
+msgstr ""
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_model_form_extended
+msgid "Next Service Due"
+msgstr "Sledeći servis"
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle_advance_search__next_service_date
+msgid "Next Service From"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle__due_odometer
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_log_services_view_inherit
+msgid "Next Service Odometer"
+msgstr "Odometar sledećeg servisa"
+
+#. module: fleet_operations
+#. odoo-python
+#: code:addons/fleet_operations/report/fleet_history.py:0
+#, python-format
+msgid "Next Service Odometer Repairs Report"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle_advance_search__next_service_date_to
+msgid "Next Service To"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model,name:fleet_operations.model_report_fleet_operations_next_services_by_date_xls
+#: model:ir.model.fields.selection,name:fleet_operations.selection__print_fleet_history__sel_report__nex_ser_date
+msgid "Next Service by Date"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model,name:fleet_operations.model_report_fleet_operations_next_services_by_odometer_xls
+#: model:ir.model.fields.selection,name:fleet_operations.selection__print_fleet_history__sel_report__nex_ser_odometer
+msgid "Next Service by Odometer"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model,name:fleet_operations.model_next_service_days
+msgid "Next Service days"
+msgstr ""
+
+#. module: fleet_operations
+#. odoo-python
+#: code:addons/fleet_operations/wizard/pending_repair_confirm.py:0
+#, python-format
+msgid ""
+"Next service days is not configured for %s please set it from configuration!"
+msgstr ""
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.vehicle_change_history_qweb
+msgid "No"
+msgstr ""
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_model_form_extended
+msgid "No of Cylinders"
+msgstr "Broj cilindera"
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_model_form_extended
+msgid "No of Doors"
+msgstr "Broj vrata"
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.repair_line_summary_qweb
+#: model_terms:ir.ui.view,arch_db:fleet_operations.vehicle_change_history_qweb
+msgid "No."
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields.selection,name:fleet_operations.selection__fleet_vehicle__main_type__non-vehicle
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_search_view_inherit_operations
+msgid "Non-Vehicle"
+msgstr ""
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_search_view_inherit_operations
+msgid "Non-Write-Off"
+msgstr "Nije otpis"
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_wittenoff__note
+#: model:ir.model.fields,field_description:fleet_operations.field_update_pending_repair_history__note
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_model_form_extended
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_wittenoff_form_view
+#: model_terms:ir.ui.view,arch_db:fleet_operations.update_pending_reapir_history_form_view
+#: model_terms:ir.ui.view,arch_db:fleet_operations.update_pending_reapir_history_tree_view
+msgid "Note"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_battery_history__note
+#: model:ir.model.fields,field_description:fleet_operations.field_color_history__note
+#: model:ir.model.fields,field_description:fleet_operations.field_engine_history__note
+#: model:ir.model.fields,field_description:fleet_operations.field_tire_history__note
+#: model:ir.model.fields,field_description:fleet_operations.field_update_battery_info__note
+#: model:ir.model.fields,field_description:fleet_operations.field_update_color_info__note
+#: model:ir.model.fields,field_description:fleet_operations.field_update_engine_info__note
+#: model:ir.model.fields,field_description:fleet_operations.field_update_tire_info__note
+#: model:ir.model.fields,field_description:fleet_operations.field_update_vin_info__note
+#: model:ir.model.fields,field_description:fleet_operations.field_vin_history__note
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_log_services_view_inherit
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_model_form_extended
+#: model_terms:ir.ui.view,arch_db:fleet_operations.update_battery_info_form_view
+#: model_terms:ir.ui.view,arch_db:fleet_operations.update_color_info_form_view
+#: model_terms:ir.ui.view,arch_db:fleet_operations.update_engine_info_form_view
+#: model_terms:ir.ui.view,arch_db:fleet_operations.update_tire_info_form_view
+#: model_terms:ir.ui.view,arch_db:fleet_operations.update_vin_info_form_view
+msgid "Notes"
+msgstr "Napomene"
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.view_writeoff_cancel_reason_wizard
+msgid "OK"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_wittenoff__odometer
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_model_form_extended
+msgid "Odometer"
+msgstr "Odometar"
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle__odometer_check
+msgid "Odometer Change"
+msgstr ""
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_log_services_view_inherit
+msgid "Odometer Details"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.actions.act_window,name:fleet_operations.next_increment_number_tree_act
+#: model:ir.model.fields,field_description:fleet_operations.field_next_increment_number__number
+#: model:ir.model.fields,field_description:fleet_operations.field_update_next_service_config__number
+#: model:ir.ui.menu,name:fleet_operations.odometer_increment_menu
+msgid "Odometer Increment"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_wittenoff__odometer_unit
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_wittenoff_form_view
+msgid "Odometer Unit"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle_odometer__value
+msgid "Odometer Value"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model,name:fleet_operations.model_fleet_vehicle_odometer
+msgid "Odometer log for a vehicle"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,help:fleet_operations.field_fleet_vehicle__odometer
+#: model:ir.model.fields,help:fleet_operations.field_fleet_vehicle_log_services__odometer
+msgid ""
+"Odometer measure of the vehicle at the                                 moment "
+"of this log"
+msgstr ""
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_model_form_extended
+msgid "Oil"
+msgstr "Ulje"
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle__oil_capacity
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_model_form_extended
+msgid "Oil Capacity"
+msgstr "Kapacitet ulja"
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle__oil_name
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_model_form_extended
+msgid "Oil Name"
+msgstr "Naziv ulja"
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.continue_pending_repair_form_view
+msgid "Okay"
+msgstr ""
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.vehicle_change_history_qweb
+msgid ""
+"Old\n"
+"                                Battery Size"
+msgstr ""
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.vehicle_change_history_qweb
+msgid ""
+"Old\n"
+"                                Tire Size"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle_log_services__old_parts_incoming_ship_ids
+msgid "Old Returned"
+msgstr ""
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.vehicle_change_history_qweb
+msgid "Old Vehicle Color"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields.selection,name:fleet_operations.selection__fleet_vehicle__state__contract
+msgid "On Contract"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields.selection,name:fleet_operations.selection__fleet_vehicle__state__rent
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_search_view_inherit_operations
+msgid "On Rent"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields.selection,name:fleet_operations.selection__fleet_vehicle_log_services__state__confirm
+#: model:ir.model.fields.selection,name:fleet_operations.selection__fleet_work_order_search__state__confirm
+msgid "Open"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle_log_services__date_open
+msgid "Open Date"
+msgstr ""
+
+#. module: fleet_operations
+#: model_terms:ir.actions.act_window,help:fleet_operations.fleet_vehicle_witten_off_act
+msgid ""
+"OpenERP helps you keeping track of all the write off done\n"
+"            on your vehicle. Write off can be of many type: general accident\n"
+"            insurgent accident etc."
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_stock_move__type
+msgid "Operation Type"
+msgstr ""
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_wittenoff_form_view
+msgid "Other Note"
+msgstr ""
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_model_form_extended
+msgid "Other Properties"
+msgstr "Ostale karakteristike"
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle_log_services__out_going_ids
+msgid "Out Going"
+msgstr ""
+
+#. module: fleet_operations
+#: model:color.color,name:fleet_operations.color_purple_11
+msgid "PURPLE"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_task_line__product_id
+msgid "Part"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_trip_encoded_history__part_name
+#: model:ir.model.fields,field_description:fleet_operations.field_workorder_parts_history_details__name
+msgid "Part Name"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_trip_encoded_history__product_id
+#: model:ir.model.fields,field_description:fleet_operations.field_trip_encoded_history_temp__product_id
+#: model:ir.model.fields,field_description:fleet_operations.field_workorder_parts_history_details__product_id
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_log_services_view_inherit
+msgid "Part No"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle_log_services__parts_ids
+msgid "Parts"
+msgstr ""
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_log_services_view_inherit
+msgid "Parts Used"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle__payment
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_model_form_extended
+msgid "Payment"
+msgstr "Plaćanje"
+
+#. module: fleet_operations
+#: model:ir.model.fields.selection,name:fleet_operations.selection__pending_repair_type__state__in-complete
+msgid "Pending"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_update_pending_repair_history__pending_reapir_history_ids
+msgid "Pending Applied History"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model,name:fleet_operations.model_pending_repair_confirm
+msgid "Pending Repair Confirm"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model,name:fleet_operations.model_pending_repair_type
+msgid "Pending Repair Type"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle__pending_repair_type_ids
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_model_form_extended
+msgid "Pending Repair Types"
+msgstr "Vrste popravki na čekanju"
+
+#. module: fleet_operations
+#: model:ir.model,name:fleet_operations.model_pending_applied_history
+msgid "Pending applied History"
+msgstr ""
+
+#. module: fleet_operations
+#. odoo-python
+#: code:addons/fleet_operations/models/fleet_service.py:0
+#, python-format
+msgid "Please configure Driver from vehicle or in a service order!!"
+msgstr ""
+
+#. module: fleet_operations
+#. odoo-python
+#: code:addons/fleet_operations/models/fleet_service.py:0
+#: code:addons/fleet_operations/wizard/pending_repair_confirm.py:0
+#, python-format
+msgid "Please set the current Odometer of vehicle in work order!"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle__policy_number
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_model_form_extended
+msgid "Policy Number"
+msgstr "Broj polise"
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_wittenoff_form_view
+msgid "Preventive Cause Notes"
+msgstr ""
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_wittenoff_form_view
+msgid "Preventive Note.."
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_battery_history__previous_battery_issue_date
+#: model:ir.model.fields,field_description:fleet_operations.field_update_battery_info__previous_battery_issue_date
+msgid "Previous Battery Issuance Date"
+msgstr "Datum izdavanja prethodnog akumulatora"
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_update_battery_info__previous_battery_sn
+msgid "Previous Battery S/N"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_battery_history__previous_battery_sn
+msgid "Previous Battery Serial"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_battery_history__previous_battery_size
+#: model:ir.model.fields,field_description:fleet_operations.field_update_battery_info__previous_battery_size
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_model_form_extended
+#: model_terms:ir.ui.view,arch_db:fleet_operations.update_battery_info_form_view
+msgid "Previous Battery Size"
+msgstr "Veličina prethodnog akumulatora"
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_color_history__previous_color_id
+#: model:ir.model.fields,field_description:fleet_operations.field_update_color_info__previous_color_id
+msgid "Previous Color"
+msgstr "Prethodna boja"
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_engine_history__previous_engine_no
+#: model:ir.model.fields,field_description:fleet_operations.field_update_engine_info__previous_engine_no
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_model_form_extended
+#: model_terms:ir.ui.view,arch_db:fleet_operations.update_color_info_form_view
+msgid "Previous Engine No"
+msgstr "Br. prethodnog motora"
+
+#. module: fleet_operations
+#. odoo-python
+#: code:addons/fleet_operations/models/fleet_service.py:0
+#, python-format
+msgid "Previous Repair Types"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_tire_history__previous_tire_issue_date
+#: model:ir.model.fields,field_description:fleet_operations.field_update_tire_info__previous_tire_issue_date
+msgid "Previous Tire Issuance Date"
+msgstr "Datum izdavanja prethodnih guma"
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_update_tire_info__previous_tire_sn
+msgid "Previous Tire S/N"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_tire_history__previous_tire_sn
+msgid "Previous Tire Serial"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_tire_history__previous_tire_size
+#: model:ir.model.fields,field_description:fleet_operations.field_update_tire_info__previous_tire_size
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_model_form_extended
+#: model_terms:ir.ui.view,arch_db:fleet_operations.update_tire_info_form_view
+msgid "Previous Tire Size"
+msgstr "Veličina prethodnih guma"
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_update_vin_info__previous_vin_no
+#: model:ir.model.fields,field_description:fleet_operations.field_vin_history__previous_vin_no
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_model_form_extended
+#: model_terms:ir.ui.view,arch_db:fleet_operations.update_vin_info_form_view
+msgid "Previous Vin No"
+msgstr ""
+
+#. module: fleet_operations
+#. odoo-python
+#: code:addons/fleet_operations/models/fleet_service.py:0
+#, python-format
+msgid ""
+"Previous work order is not complete, complete that work order first than you "
+"can confirm this work order!"
+msgstr ""
+
+#. module: fleet_operations
+#. odoo-python
+#: code:addons/fleet_operations/models/fleet_service.py:0
+#, python-format
+msgid ""
+"Previous work order is not complete,Please complete that work order first than "
+"you can create new work order!"
+msgstr ""
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_print
+#: model_terms:ir.ui.view,arch_db:fleet_operations.recieved_part_wizard_form
+#: model_terms:ir.ui.view,arch_db:fleet_operations.view_repair_line_summary_wiz
+#: model_terms:ir.ui.view,arch_db:fleet_operations.view_vehicle_change_history_wiz
+#: model_terms:ir.ui.view,arch_db:fleet_operations.wo_report_form_view
+msgid "Print"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model,name:fleet_operations.model_print_fleet_history
+msgid "Print fleet History"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_service_task__product_ids
+msgid "Product"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model,name:fleet_operations.model_product_product
+msgid "Product Variant"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle_advance_search__vehicle_location_id
+msgid "Province"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle_log_services__purchaser_id
+msgid "Purchaser"
+msgstr ""
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_log_services_view_inherit
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_model_form_extended
+msgid "Put an internal note..."
+msgstr "Napiši internu napomenu..."
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_workorder_parts_history_details__wo_encoded_qty
+msgid "Qty"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_trip_encoded_history__available_qty
+#: model:ir.model.fields,field_description:fleet_operations.field_workorder_parts_history_details__new_encode_qty
+msgid "Qty for Encoding"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_task_line__qty_hand
+msgid "Qty on Hand"
+msgstr ""
+
+#. module: fleet_operations
+#. odoo-python
+#: code:addons/fleet_operations/models/fleet_service.py:0
+#, python-format
+msgid "Quantity Available must be greater than zero!"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,help:fleet_operations.field_task_line__qty_hand
+msgid "Quantity on Hand"
+msgstr ""
+
+#. module: fleet_operations
+#: model:color.color,name:fleet_operations.color_red_1
+msgid "RED"
+msgstr ""
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.repair_line_summary_qweb
+msgid "REPAIR TYPE"
+msgstr "Vrsta popravke"
+
+#. module: fleet_operations
+#: model:damage.types,name:fleet_operations.damage_type_08
+msgid "RIGHT HAND FRONT"
+msgstr ""
+
+#. module: fleet_operations
+#: model:damage.types,name:fleet_operations.damage_type_10
+msgid "RIGHT HAND REAR"
+msgstr ""
+
+#. module: fleet_operations
+#: model:damage.types,name:fleet_operations.damage_type_12
+msgid "RIGHT HAND REAR SUSPENSION"
+msgstr ""
+
+#. module: fleet_operations
+#: model:damage.types,name:fleet_operations.damage_type_09
+msgid "ROOF PANEL"
+msgstr ""
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_log_services_view_inherit
+msgid "Re-Open"
+msgstr ""
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_log_services_view_inherit
+msgid "Re-Opened From"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle__rear_tire_pressure
+msgid "Rear Tire Pressure"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle__rear_tire_size
+msgid "Rear Tire Size"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_writeoff_cancel_reason__reason
+#: model_terms:ir.ui.view,arch_db:fleet_operations.view_writeoff_cancel_reason_wizard
+msgid "Reason"
+msgstr ""
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.view_writeoff_cancel_reason_wizard
+msgid "Reason To Cancel"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_stock_move__issued_received_by_id
+#: model:ir.model.fields,field_description:fleet_operations.field_stock_picking__received_by_id
+msgid "Received By"
+msgstr ""
+
+#. module: fleet_operations
+#. odoo-python
+#: code:addons/fleet_operations/report/parts_received.py:0
+#, python-format
+msgid "Received Parts"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model,name:fleet_operations.model_report_fleet_operations_receved_parts_xls
+msgid "Received Parts Reports"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.actions.act_window,name:fleet_operations.action_print_recived_parts
+msgid "Received Parts xlsx"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle__reg_id
+msgid "Registered By"
+msgstr "Registrovao"
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_search_view_inherit_operations
+msgid "Registered Date"
+msgstr ""
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_model_form_extended
+msgid "Registration Date"
+msgstr "Datum registracije"
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle_advance_search__acquisition_date
+msgid "Registration From"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle__vehicle_location_id
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle_log_services__vechical_location_id
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_wittenoff__province_id
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_log_services_view_inherit
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_model_form_extended
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_search_view_inherit_operations
+msgid "Registration State"
+msgstr "Država registrovanja"
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle_advance_search__acquisition_date_to
+msgid "Registration To"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields.selection,name:fleet_operations.selection__fleet_vehicle__state__released
+#: model:ir.model.fields.selection,name:fleet_operations.selection__fleet_vehicle_advance_search__state__released
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_model_form_extended
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_search_view_inherit_operations
+msgid "Released"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle__released_date
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_model_form_extended
+msgid "Released Date"
+msgstr "Datum izdavanja"
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle_advance_search__release_date_from
+msgid "Released From"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle_advance_search__release_date_to
+msgid "Released To"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle_log_services__reopen_return_incoming_ship_ids
+msgid "Reopen Returned"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.actions.act_window,name:fleet_operations.action_repair_line_summary
+#: model:ir.actions.report,name:fleet_operations.action_report_repair_line_summary
+#: model:ir.model,name:fleet_operations.model_repair_line_summary
+#: model:ir.ui.menu,name:fleet_operations.repair_line_summary_menu
+#: model_terms:ir.ui.view,arch_db:fleet_operations.view_repair_line_summary_wiz
+msgid "Repair Line Summary"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model,name:fleet_operations.model_report_fleet_operations_repair_line_summary_qweb
+msgid "Repair Line Summary Report"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle_log_services__repair_line_ids
+msgid "Repair Lines"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.actions.act_window,name:fleet_operations.fleet_repair_type_tree_act
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_service_type__repair_type_ids
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_wittenoff__repair_type_ids
+#: model:ir.model.fields,field_description:fleet_operations.field_pending_applied_history__repair_type_id
+#: model:ir.model.fields,field_description:fleet_operations.field_pending_repair_type__repair_type_id
+#: model:ir.model.fields,field_description:fleet_operations.field_repair_type__name
+#: model:ir.model.fields,field_description:fleet_operations.field_service_repair_line__repair_type_id
+#: model:ir.ui.menu,name:fleet_operations.fleet_repair_type_menu
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_repair_type_form_view
+msgid "Repair Type"
+msgstr ""
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_service_types_form
+msgid "Repair Types"
+msgstr ""
+
+#. module: fleet_operations
+#. odoo-python
+#: code:addons/fleet_operations/models/fleet_service.py:0
+#, python-format
+msgid "Repair type with this name already exists!"
+msgstr ""
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_log_services_view_inherit
+msgid "Repairs"
+msgstr ""
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_search_view_inherit_operations
+msgid "Repairs Pending"
+msgstr ""
+
+#. module: fleet_operations
+#. odoo-python
+#: code:addons/fleet_operations/models/fleet_service.py:0
+#, python-format
+msgid "Repairs target completion date should be less than estimated date."
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_wittenoff__report_date
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_wittenoff_form_view
+msgid "Report Date"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.actions.act_window,name:fleet_operations.report_heading_act
+#: model:ir.model,name:fleet_operations.model_report_heading
+#: model_terms:ir.ui.view,arch_db:fleet_operations.report_heading_form
+msgid "Report Heading"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_vehicle_change_history__report_type
+#: model_terms:ir.ui.view,arch_db:fleet_operations.view_vehicle_change_history_wiz
+msgid "Report Type"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle_log_services__return_inv_count
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_log_services_view_inherit
+msgid "Return Invoice"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_report_heading__revision_no
+msgid "Rev. No."
+msgstr ""
+
+#. module: fleet_operations
+#: model:repair.type,name:fleet_operations.nds_repair_type16
+msgid "Road Wheel and Tire"
+msgstr ""
+
+#. module: fleet_operations
+#: model:repair.type,name:fleet_operations.nds_repair_type17
+msgid "Routine Service and Inspection"
+msgstr ""
+
+#. module: fleet_operations
+#: model:color.color,name:fleet_operations.color_silver_4
+msgid "SILVER"
+msgstr ""
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_model_form_extended
+msgid "Sales & Purchases"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle__salvage_value
+msgid "Salvage Value"
+msgstr ""
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_work_order_advance_search_form_view
+msgid "Search"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_print_fleet_history__sel_report
+#: model:ir.model.fields,field_description:fleet_operations.field_work_order_reports__select_report
+msgid "Select Report"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_vehicle_unique_sequence__sequence_id
+msgid "Sequence"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle_log_services__source_service_id
+#: model:ir.model.fields,field_description:fleet_operations.field_service_repair_line__service_id
+#: model:ir.model.fields.selection,name:fleet_operations.selection__fleet_service_type__category__service
+msgid "Service"
+msgstr "Servis"
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_log_services_view_inherit
+msgid "Service Amount"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.actions.act_window,name:fleet_operations.service_category_tree_act
+#: model:ir.model.fields,field_description:fleet_operations.field_service_category__name
+msgid "Service Category"
+msgstr ""
+
+#. module: fleet_operations
+#. odoo-python
+#: code:addons/fleet_operations/models/fleet_service.py:0
+#, python-format
+msgid "Service Category with this name already exists!"
+msgstr ""
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_log_services_view_inherit
+msgid "Service Close Date"
+msgstr ""
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_model_form_extended
+msgid "Service Details"
+msgstr "Detalji servisiranja"
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle_log_services__service_invoice_id
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_log_services_view_inherit
+msgid "Service Invoice"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle__work_order_ids
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_work_order_search__work_order_id
+#: model:ir.model.fields,field_description:fleet_operations.field_trip_encoded_history_temp__work_order_id
+#: model_terms:ir.ui.view,arch_db:fleet_operations.vehicle_change_history_qweb
+msgid "Service Order"
+msgstr ""
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.vehicle_change_history_qweb
+msgid "Service Order Closed Date"
+msgstr ""
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_log_services_view_inherit
+msgid "Service Order Details"
+msgstr ""
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.vehicle_change_history_qweb
+msgid "Service Order No"
+msgstr ""
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_log_services_view_inherit
+msgid "Service Order#"
+msgstr ""
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_log_services_view_inherit
+msgid "Service Priority"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle_log_services__service_ref_invoice_id
+msgid "Service Refund Invoice"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model,name:fleet_operations.model_service_repair_line
+msgid "Service Repair Line"
+msgstr ""
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_log_services_view_inherit
+msgid "Service Report On"
+msgstr ""
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_log_services_view_inherit
+msgid "Service Start Date"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle_log_services__task_ids
+msgid "Service Task"
+msgstr ""
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_log_services_view_inherit
+msgid "Service Type"
+msgstr ""
+
+#. module: fleet_operations
+#. odoo-python
+#: code:addons/fleet_operations/models/fleet_service.py:0
+#, python-format
+msgid "Service amount value must be positive!"
+msgstr ""
+
+#. module: fleet_operations
+#. odoo-python
+#: code:addons/fleet_operations/models/fleet_service.py:0
+#, python-format
+msgid "Service type with this name already exists!"
+msgstr ""
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_service_types_form
+msgid "Service types"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.actions.act_window,name:fleet_operations.fleet_vehicle_log_services_form_action
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_model_form_extended
+msgid "Services"
+msgstr "Servisiranja"
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_log_services_view_inherit
+msgid "Services Details"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.actions.act_window,name:fleet_operations.fleet_vehicle_work_order
+msgid "Services Report"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.ui.menu,name:fleet_operations.fleet_work_order_report_menu
+msgid "Services Search"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model,name:fleet_operations.model_fleet_vehicle_log_services
+msgid "Services for vehicles"
+msgstr ""
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_wittenoff_form_view
+msgid "Set to Draft"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,help:fleet_operations.field_report_heading__image_small
+msgid ""
+"Small-sized image of the Report.                                 It is "
+"automatically resized as a 64x64px image,                                 with "
+"aspect ratio preserved. Use this field anywhere a "
+"small                                 image is required."
+msgstr ""
+
+#. module: fleet_operations
+#. odoo-python
+#: code:addons/fleet_operations/models/fleet_extended.py:0
+#, python-format
+msgid "Sold Date Should Be Greater Than Registration Date."
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle__start_date_insurance
+msgid "Start Date"
+msgstr "Početni datum"
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_wittenoff__state
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_wittenoff_form_view
+msgid "State"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle_advance_search__state
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle_log_services__state
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_work_order_search__state
+#: model:ir.model.fields,field_description:fleet_operations.field_pending_applied_history__state
+#: model:ir.model.fields,field_description:fleet_operations.field_pending_repair_type__state
+#: model:ir.model.fields,field_description:fleet_operations.field_update_pending_repair_history__state
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_search_view_inherit_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.update_pending_reapir_history_search_view
+msgid "Status"
+msgstr ""
+
+#. module: fleet_operations
+#: model:repair.type,name:fleet_operations.nds_repair_type18
+msgid "Steering System"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model,name:fleet_operations.model_report_fleet_operations_stock_adjustment_xls
+msgid "Stock Adjustment Report"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model,name:fleet_operations.model_stock_move
+msgid "Stock Move"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model,name:fleet_operations.model_stock_picking_xls_report
+msgid "Stock Picking XLSX reports"
+msgstr ""
+
+#. module: fleet_operations
+#: model:repair.type,name:fleet_operations.nds_repair_type19
+msgid "Suspension System"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,help:fleet_operations.field_fleet_vehicle__fleet_id
+#: model:ir.model.fields,help:fleet_operations.field_fleet_vehicle_log_services__wono_id
+#: model:ir.model.fields,help:fleet_operations.field_fleet_wittenoff__fleet_id
+#: model:ir.model.fields,help:fleet_operations.field_res_users__usersql_id
+msgid "Take this field for data migration"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_service_repair_line__target_date
+msgid "Target Completion"
+msgstr ""
+
+#. module: fleet_operations
+#. odoo-python
+#: code:addons/fleet_operations/models/fleet_service.py:0
+#, python-format
+msgid "Target Completion Date Should Be Greater Than Issue Date."
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model,name:fleet_operations.model_task_line
+msgid "Task Line"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle_log_services__wo_tax_amount
+msgid "Tax"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle_log_services__maintenance_team_id
+msgid "Team"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle_log_services__team_id
+msgid "Teams"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_update_engine_info__temp_bool
+msgid ""
+"Temp Bool for making                                     previous color readonly"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_update_battery_info__temp_bool
+msgid ""
+"Temp Bool for making previous                                              "
+"Battery info readonly"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_update_vin_info__temp_bool
+msgid ""
+"Temp Bool for making previous                                 color readonly"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_update_color_info__temp_bool
+msgid ""
+"Temp Bool for making previous                                color readonly"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_update_tire_info__temp_bool
+msgid "Temp Bool for making previous Tire info readonly"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,help:fleet_operations.field_workorder_parts_history_details__vehicle_make
+msgid "The Make of the Vehicle"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,help:fleet_operations.field_workorder_parts_history_details__name
+msgid "The Part Name"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,help:fleet_operations.field_trip_encoded_history__product_id
+#: model:ir.model.fields,help:fleet_operations.field_trip_encoded_history_temp__product_id
+#: model:ir.model.fields,help:fleet_operations.field_workorder_parts_history_details__product_id
+msgid "The Part Number"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,help:fleet_operations.field_trip_encoded_history__encoded_qty
+msgid ""
+"The Quantity that is used in                                         in "
+"Workorder"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,help:fleet_operations.field_trip_encoded_history__used_qty
+msgid ""
+"The Quantity that is used in in                                     Contact "
+"Team Trip"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,help:fleet_operations.field_workorder_parts_history_details__used_qty
+msgid "The Quantity that is used in in Work order"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,help:fleet_operations.field_trip_encoded_history_temp__used_qty
+msgid "The Quantity that is used in in Workorder"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,help:fleet_operations.field_workorder_parts_history_details__wo_encoded_qty
+msgid "The Quantity which is                                   available to use"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,help:fleet_operations.field_trip_encoded_history__available_qty
+msgid "The Quantity which is available to use"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,help:fleet_operations.field_fleet_wittenoff__currency_id
+msgid "The optional other currency if it is a multi-currency entry."
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,help:fleet_operations.field_workorder_parts_history_details__issued_by
+msgid "The user who would issue the parts"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.constraint,message:fleet_operations.constraint_fleet_vehicle_fmp_unique
+msgid "The vehicle is already exist with this Vehicle ID!"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.constraint,message:fleet_operations.constraint_fleet_vehicle_vehilce_unique
+msgid "The vehicle is already exist with this vin no.!"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,help:fleet_operations.field_workorder_parts_history_details__wo_id
+msgid "The work order for which the part was used"
+msgstr ""
+
+#. module: fleet_operations
+#. odoo-python
+#: code:addons/fleet_operations/models/fleet_service.py:0
+#, python-format
+msgid "There is no data for repair type, add repair type from configuration!"
+msgstr ""
+
+#. module: fleet_operations
+#. odoo-python
+#: code:addons/fleet_operations/models/fleet_extended.py:0
+#, python-format
+msgid "This color already exist"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.constraint,message:fleet_operations.constraint_vehicle_divison_vehicle.divison_uniq
+msgid "This divison is already exist!"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,help:fleet_operations.field_report_heading__image
+msgid ""
+"This field holds the image used as image                             for the "
+"Report , limited to 1024x1024px."
+msgstr ""
+
+#. module: fleet_operations
+#. odoo-python
+#: code:addons/fleet_operations/models/fleet_extended.py:0
+#, python-format
+msgid "This vehicle is already in write-off state!"
+msgstr ""
+
+#. module: fleet_operations
+#. odoo-python
+#: code:addons/fleet_operations/wizard/update_history.py:0
+#, python-format
+msgid "Tire Change Date Should Be Greater Than New Tire Issuance Date."
+msgstr ""
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_model_form_extended
+msgid "Tire Detail"
+msgstr "Detalji guma"
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle__tire_history_ids
+#: model:ir.model.fields.selection,name:fleet_operations.selection__vehicle_change_history__report_type__tire_history
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_model_form_extended
+msgid "Tire History"
+msgstr "Istorijat guma"
+
+#. module: fleet_operations
+#: model:ir.model,name:fleet_operations.model_tire_history
+msgid "Tire History for Vehicle"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle__tire_issuance_date
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_model_form_extended
+msgid "Tire Issuance Date"
+msgstr "Datum izdavanja guma"
+
+#. module: fleet_operations
+#. odoo-python
+#: code:addons/fleet_operations/models/fleet_extended.py:0
+#, python-format
+msgid ""
+"Tire Issuance Date And Battery Issuance Date Should Be Greater Than "
+"Registration Date."
+msgstr ""
+
+#. module: fleet_operations
+#. odoo-python
+#: code:addons/fleet_operations/models/fleet_extended.py:0
+#, python-format
+msgid "Tire Issuance Date Should Be Greater Than Registration Date."
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle__tire_srno
+msgid "Tire S/N"
+msgstr "Ser. br. guma"
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle__tire_size
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_model_form_extended
+msgid "Tire Size"
+msgstr "Veličina guma"
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_report_heading__name
+msgid "Title"
+msgstr ""
+
+#. module: fleet_operations
+#: model:mail.template,subject:fleet_operations.fleet_email_template
+msgid "Today your vehicle service"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_task_line__total
+msgid "Total Cost"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle_log_services__total_parts_line
+msgid "Total Parts"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle_log_services__sub_total
+msgid "Total Parts Amount"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle_log_services__service_amount
+msgid "Total Service Amount"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model,name:fleet_operations.model_stock_picking
+msgid "Transfer"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle__transfer_date
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_model_form_extended
+msgid "Transfer Date"
+msgstr ""
+
+#. module: fleet_operations
+#. odoo-python
+#: code:addons/fleet_operations/models/fleet_extended.py:0
+#, python-format
+msgid "Transfer Date Should Be Greater Than Sold Date."
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model,name:fleet_operations.model_trip_encoded_history
+msgid "Trip History"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model,name:fleet_operations.model_trip_encoded_history_temp
+msgid "Trip History Temparery"
+msgstr ""
+
+#. module: fleet_operations
+#: model:vehicle.type,name:fleet_operations.vehicle_type_truck_4
+msgid "Truck"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_service_task__type
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_maintain_task_tree
+msgid "Type"
+msgstr ""
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.vehicle_change_history_qweb
+msgid "Type of Vehicle"
+msgstr ""
+
+#. module: fleet_operations
+#: model:damage.types,name:fleet_operations.damage_type_13
+msgid "UNDER BONNET"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_task_line__product_uom
+msgid "UOM"
+msgstr ""
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_unique_vehicle_sequence_form_view
+msgid "Unique Vehicle Sequence"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle_odometer__unit
+msgid "Unit"
+msgstr "Jedinica"
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_task_line__price_unit
+msgid "Unit Cost"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,help:fleet_operations.field_fleet_vehicle__due_odometer_unit
+#: model:ir.model.fields,help:fleet_operations.field_fleet_vehicle__last_odometer_unit
+#: model:ir.model.fields,help:fleet_operations.field_fleet_wittenoff__odometer_unit
+msgid "Unit of the odometer "
+msgstr ""
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.update_battery_info_form_view
+#: model_terms:ir.ui.view,arch_db:fleet_operations.update_color_info_form_view
+#: model_terms:ir.ui.view,arch_db:fleet_operations.update_engine_info_form_view
+#: model_terms:ir.ui.view,arch_db:fleet_operations.update_tire_info_form_view
+#: model_terms:ir.ui.view,arch_db:fleet_operations.update_vin_info_form_view
+msgid "Update"
+msgstr ""
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_model_form_extended
+msgid "Update Battery"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model,name:fleet_operations.model_update_battery_info
+#: model_terms:ir.ui.view,arch_db:fleet_operations.update_battery_info_form_view
+msgid "Update Battery Info"
+msgstr ""
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_model_form_extended
+msgid "Update Color"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model,name:fleet_operations.model_update_color_info
+#: model_terms:ir.ui.view,arch_db:fleet_operations.update_color_info_form_view
+msgid "Update Color Info"
+msgstr ""
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_model_form_extended
+msgid "Update Engine"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model,name:fleet_operations.model_update_engine_info
+#: model_terms:ir.ui.view,arch_db:fleet_operations.update_engine_info_form_view
+msgid "Update Engine Info"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.actions.act_window,name:fleet_operations.action_update_next_service_day
+#: model_terms:ir.ui.view,arch_db:fleet_operations.view_update_next_service_view
+msgid "Update Next Service Day"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model,name:fleet_operations.model_update_next_service_config
+msgid "Update Next Service configuration"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_pending_applied_history__updated_pending_id
+msgid "Update Pending"
+msgstr ""
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.update_pending_reapir_history_form_view
+#: model_terms:ir.ui.view,arch_db:fleet_operations.update_pending_reapir_history_search_view
+msgid "Update Pending History"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model,name:fleet_operations.model_update_pending_repair_history
+msgid "Update Pending Repair History"
+msgstr ""
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_model_form_extended
+msgid "Update Tire"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model,name:fleet_operations.model_update_tire_info
+#: model_terms:ir.ui.view,arch_db:fleet_operations.update_tire_info_form_view
+msgid "Update Tire Info"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model,name:fleet_operations.model_update_vin_info
+#: model_terms:ir.ui.view,arch_db:fleet_operations.update_vin_info_form_view
+msgid "Update Vin Info"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle__updated_by
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_model_form_extended
+msgid "Updated By"
+msgstr "Ažurirao"
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle__updated_date
+msgid "Updated date"
+msgstr "Datum ažuriranja"
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_task_line__qty
+msgid "Used"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_trip_encoded_history__used_qty
+#: model:ir.model.fields,field_description:fleet_operations.field_trip_encoded_history_temp__used_qty
+msgid "Used Qty"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model,name:fleet_operations.model_res_users
+msgid "User"
+msgstr ""
+
+#. module: fleet_operations
+#. odoo-python
+#: code:addons/fleet_operations/wizard/vehicle_change_history.py:0
+#, python-format
+msgid ""
+"User Error!\n"
+" 'Please select criteria to create Vehicle Change History Report!"
+msgstr ""
+
+#. module: fleet_operations
+#. odoo-python
+#: code:addons/fleet_operations/wizard/vehicle_change_history.py:0
+#, python-format
+msgid ""
+"User Error!\n"
+" Date To' must be greater than 'Date From'!"
+msgstr ""
+
+#. module: fleet_operations
+#. odoo-python
+#: code:addons/fleet_operations/wizard/repair_line_summary.py:0
+#, python-format
+msgid ""
+"User Error!\n"
+"'Date To' must be greater than 'Date From' !"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_res_users__usersql_id
+msgid "User ID"
+msgstr ""
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.repair_line_summary_qweb
+msgid "VEHICLE NAME"
+msgstr ""
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.repair_line_summary_qweb
+msgid "VEHICLE REPAIR HISTORY"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle__vechical_type_id
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle_advance_search__vechical_type_id
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle_log_services__vechical_type_id
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_search_view_inherit_operations
+msgid "Vechical Type"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_wittenoff__vehicle_plate
+msgid "Vechicle Plate No."
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model,name:fleet_operations.model_fleet_vehicle
+#: model:ir.model.fields,field_description:fleet_operations.field_battery_history__vehicle_id
+#: model:ir.model.fields,field_description:fleet_operations.field_color_history__vehicle_id
+#: model:ir.model.fields,field_description:fleet_operations.field_engine_history__vehicle_id
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle_odometer__vehicle_id
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_wittenoff__vehicle_id
+#: model:ir.model.fields,field_description:fleet_operations.field_next_increment_number__vehicle_id
+#: model:ir.model.fields,field_description:fleet_operations.field_next_service_days__vehicle_id
+#: model:ir.model.fields,field_description:fleet_operations.field_pending_applied_history__vehicle_rep_type_id
+#: model:ir.model.fields,field_description:fleet_operations.field_pending_repair_type__vehicle_rep_type_id
+#: model:ir.model.fields,field_description:fleet_operations.field_tire_history__vehicle_id
+#: model:ir.model.fields,field_description:fleet_operations.field_update_battery_info__vehicle_id
+#: model:ir.model.fields,field_description:fleet_operations.field_update_color_info__vehicle_id
+#: model:ir.model.fields,field_description:fleet_operations.field_update_engine_info__vehicle_id
+#: model:ir.model.fields,field_description:fleet_operations.field_update_next_service_config__vehicle_id
+#: model:ir.model.fields,field_description:fleet_operations.field_update_pending_repair_history__fmp_id
+#: model:ir.model.fields,field_description:fleet_operations.field_update_tire_info__vehicle_id
+#: model:ir.model.fields,field_description:fleet_operations.field_update_vin_info__vehicle_id
+#: model:ir.model.fields,field_description:fleet_operations.field_vin_history__vehicle_id
+#: model:ir.model.fields,field_description:fleet_operations.field_work_order_reports__vehicle_ids
+#: model:ir.model.fields.selection,name:fleet_operations.selection__fleet_vehicle__main_type__vehicle
+#: model:ir.model.fields.selection,name:fleet_operations.selection__fleet_vehicle_log_services__main_type__vehicle
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_search_view_inherit_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_wittenoff_search
+#: model_terms:ir.ui.view,arch_db:fleet_operations.next_increment_number_search_view
+#: model_terms:ir.ui.view,arch_db:fleet_operations.next_service_days_search
+#: model_terms:ir.ui.view,arch_db:fleet_operations.wo_report_form_view
+msgid "Vehicle"
+msgstr "Vozilo"
+
+#. module: fleet_operations
+#: model:ir.model,name:fleet_operations.model_fleet_vehicle_advance_search
+msgid "Vehicle Advance Search"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.actions.act_window,name:fleet_operations.action_vehicle_change_history
+#: model:ir.actions.report,name:fleet_operations.action_report_vehicle_change_history
+#: model:ir.model,name:fleet_operations.model_vehicle_change_history
+#: model:ir.ui.menu,name:fleet_operations.vehicle_change_history_menu
+#: model_terms:ir.ui.view,arch_db:fleet_operations.view_vehicle_change_history_wiz
+msgid "Vehicle Change History"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model,name:fleet_operations.model_report_fleet_operations_vehicle_change_history_qweb
+msgid "Vehicle Change History Report"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle__vehical_color_id
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_wittenoff_form_view
+msgid "Vehicle Color"
+msgstr "Boja vozila"
+
+#. module: fleet_operations
+#: model:ir.model,name:fleet_operations.model_continue_pending_repair
+msgid "Vehicle Continue Pending Repair"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model,name:fleet_operations.model_vehicle_department
+msgid "Vehicle Department"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model,name:fleet_operations.model_vehicle_divison
+msgid "Vehicle Division"
+msgstr ""
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_wittenoff_form_view
+msgid "Vehicle Driver"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle_advance_search__fmp_id
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle_log_services__fmp_id
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_wittenoff__vehicle_fmp_id
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_work_order_search__fmp_id
+#: model:ir.model.fields,field_description:fleet_operations.field_update_pending_repair_history__vehicle_id
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_wittenoff_search
+#: model_terms:ir.ui.view,arch_db:fleet_operations.update_pending_reapir_history_search_view
+msgid "Vehicle ID"
+msgstr "Oznaka vozila"
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle__fmp_id_editable
+msgid "Vehicle ID Editable?"
+msgstr ""
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_wittenoff_form_view
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_wittenoff_tree_view
+#: model_terms:ir.ui.view,arch_db:fleet_operations.next_increment_number_form_view
+#: model_terms:ir.ui.view,arch_db:fleet_operations.next_increment_number_search_view
+#: model_terms:ir.ui.view,arch_db:fleet_operations.next_increment_number_tree_view
+#: model_terms:ir.ui.view,arch_db:fleet_operations.next_service_days_form
+#: model_terms:ir.ui.view,arch_db:fleet_operations.next_service_days_search
+#: model_terms:ir.ui.view,arch_db:fleet_operations.next_service_days_tree
+#: model_terms:ir.ui.view,arch_db:fleet_operations.view_fleet_odometer_tree
+#: model_terms:ir.ui.view,arch_db:fleet_operations.view_update_next_service_view
+msgid "Vehicle Id"
+msgstr ""
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_model_form_extended
+msgid "Vehicle Images"
+msgstr "Fotografije vozila"
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_wittenoff_form_view
+msgid "Vehicle Information"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model,name:fleet_operations.model_insurance_type
+msgid "Vehicle Insurance Type"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model,name:fleet_operations.model_vehicle_location
+msgid "Vehicle Location"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_product_product__vehicle_make_id
+#: model:ir.model.fields,field_description:fleet_operations.field_workorder_parts_history_details__vehicle_make
+msgid "Vehicle Make"
+msgstr ""
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_wittenoff_form_view
+msgid "Vehicle Odometer"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle__vehicle_owner
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_model_form_extended
+msgid "Vehicle Owner"
+msgstr "Vlasnik vozila"
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_update_pending_repair_history__pending_reapir_ids
+msgid "Vehicle Pending History"
+msgstr ""
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.update_pending_reapir_history_form_view
+msgid "Vehicle Pending Repairs"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model,name:fleet_operations.model_repair_type
+msgid "Vehicle Repair Type"
+msgstr ""
+
+#. module: fleet_operations
+#: model:repair.type,name:fleet_operations.nds_repair_type20
+msgid "Vehicle Roll Over"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_account_bank_statement_line__vehicle_service_id
+#: model:ir.model.fields,field_description:fleet_operations.field_account_move__vehicle_service_id
+#: model:ir.model.fields,field_description:fleet_operations.field_account_payment__vehicle_service_id
+msgid "Vehicle Service"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model,name:fleet_operations.model_service_category
+msgid "Vehicle Service Category"
+msgstr ""
+
+#. module: fleet_operations
+#. odoo-python
+#: code:addons/fleet_operations/models/fleet_service.py:0
+#, python-format
+msgid ""
+"Vehicle Service amount is greater than Zero So, Without Service Invoice you can "
+"not done the Service !!Please Generate Service Invoice first !!"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields.selection,name:fleet_operations.selection__work_order_reports__select_report__wo_month_sum_rep
+msgid "Vehicle Services Monthly Summary Report"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle__state
+msgid "Vehicle State"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.actions.act_window,name:fleet_operations.vehicle_type_act
+#: model:ir.model,name:fleet_operations.model_vehicle_type
+#: model:ir.ui.menu,name:fleet_operations.vehicle_type
+#: model_terms:ir.ui.view,arch_db:fleet_operations.vehicle_type_form
+msgid "Vehicle Type"
+msgstr "Tip vozila"
+
+#. module: fleet_operations
+#: model:ir.actions.act_window,name:fleet_operations.fleet_unique_vehicle_sequence_tree_act
+#: model:ir.model,name:fleet_operations.model_vehicle_unique_sequence
+msgid "Vehicle Unique Sequence"
+msgstr ""
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_wittenoff_form_view
+msgid "Vehicle Witten-off"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_task_line__fleet_service_id
+msgid "Vehicle Work Order"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model,name:fleet_operations.model_writeoff_cancel_reason
+msgid "Vehicle Write-off Cancel Reason"
+msgstr ""
+
+#. module: fleet_operations
+#. odoo-python
+#: code:addons/fleet_operations/models/fleet_extended.py:0
+#, python-format
+msgid "Vehicle status will only set to released if it is in completed state."
+msgstr ""
+
+#. module: fleet_operations
+#. odoo-python
+#: code:addons/fleet_operations/models/fleet_extended.py:0
+#, python-format
+msgid "Vehicle type with this name already exists!"
+msgstr ""
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_print
+msgid ""
+"Vehicle xlsx Report.<br/>\n"
+"                    Select Option and print xlsx report for that"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_vehicle_change_history__fleet_id
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_model_form_extended
+msgid "Vehicle-ID"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.actions.act_window,name:fleet_operations.fleet_vehicle_witten_off_act
+#: model:ir.ui.menu,name:fleet_operations.vehicle_written_off_menu_id
+msgid "Vehicles Write-off"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model,name:fleet_operations.model_vin_history
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle__vin_history_ids
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_model_form_extended
+msgid "Vin History"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle_advance_search__vin_no
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_wittenoff__vin_no
+msgid "Vin No"
+msgstr ""
+
+#. module: fleet_operations
+#: model:color.color,name:fleet_operations.color_white_6
+msgid "WHITE"
+msgstr ""
+
+#. module: fleet_operations
+#. odoo-python
+#: code:addons/fleet_operations/models/fleet_service.py:0
+#, python-format
+msgid "WO Close Forcefully"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle_log_services__wono_id
+msgid "WONo"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle_log_services__warehouse_id
+#: model:ir.model.fields,field_description:fleet_operations.field_stock_picking__stock_warehouse_id
+msgid "Warehouse"
+msgstr ""
+
+#. module: fleet_operations
+#. odoo-python
+#: code:addons/fleet_operations/report/most_used_parts.py:0
+#, python-format
+msgid ""
+"Warning! \n"
+"                    No parts were used in selected date."
+msgstr ""
+
+#. module: fleet_operations
+#. odoo-python
+#: code:addons/fleet_operations/report/workorder_monthly_summary_report.py:0
+#, python-format
+msgid ""
+"Warning! \n"
+"                No data Available for selected work order."
+msgstr ""
+
+#. module: fleet_operations
+#. odoo-python
+#: code:addons/fleet_operations/report/repair_line_summary.py:0
+#, python-format
+msgid "Warning! No Work order found between the selected date !!"
+msgstr ""
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.continue_pending_repair_form_view
+msgid ""
+"Warning!! There is some previous repairs are remains to be repair for this "
+"vehicle"
+msgstr ""
+
+#. module: fleet_operations
+#. odoo-python
+#: code:addons/fleet_operations/models/fleet_extended.py:0
+#, python-format
+msgid "Warranty Period Should Be Greater Than Registration Date."
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle__warranty_period
+msgid "Warranty Upto"
+msgstr "Garancija do"
+
+#. module: fleet_operations
+#: model:ir.model.fields,help:fleet_operations.field_fleet_vehicle_log_services__date_open
+msgid ""
+"When Work Order                                         will confirm this date "
+"will be set."
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle__vehicle_width
+msgid "Width(mm)"
+msgstr "Širina(mm)"
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle__left_wiper_blade
+msgid "Wiper Blade(L)"
+msgstr "Metlica brisača (L)"
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle__right_wiper_blade
+msgid "Wiper Blade(R)"
+msgstr "Metlica brisača (D)"
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle__rr_wiper_blade
+msgid "Wiper Blade(RR)"
+msgstr "Metlica brisača (Z)"
+
+#. module: fleet_operations
+#: model:ir.model,name:fleet_operations.model_fleet_wittenoff
+msgid "Wittenoff Vehicles"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_ir_attachment__wo_attachment_id
+msgid "Wo Attachment"
+msgstr ""
+
+#. module: fleet_operations
+#. odoo-python
+#: code:addons/fleet_operations/models/fleet_service.py:0
+#: model:ir.model.fields,field_description:fleet_operations.field_battery_history__workorder_id
+#: model:ir.model.fields,field_description:fleet_operations.field_color_history__workorder_id
+#: model:ir.model.fields,field_description:fleet_operations.field_engine_history__workorder_id
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle_log_services__name
+#: model:ir.model.fields,field_description:fleet_operations.field_stock_picking__work_order_old_id
+#: model:ir.model.fields,field_description:fleet_operations.field_tire_history__workorder_id
+#: model:ir.model.fields,field_description:fleet_operations.field_update_battery_info__workorder_id
+#: model:ir.model.fields,field_description:fleet_operations.field_update_color_info__workorder_id
+#: model:ir.model.fields,field_description:fleet_operations.field_update_engine_info__workorder_id
+#: model:ir.model.fields,field_description:fleet_operations.field_update_tire_info__workorder_id
+#: model:ir.model.fields,field_description:fleet_operations.field_vin_history__workorder_id
+#: model_terms:ir.ui.view,arch_db:fleet_operations.update_vin_info_form_view
+#, python-format
+msgid "Work Order"
+msgstr "Radni nalog"
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_stock_picking__work_order_out_id
+msgid "Work Order "
+msgstr "Radni nalog"
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_pending_applied_history__name
+#: model:ir.model.fields,field_description:fleet_operations.field_pending_repair_type__name
+msgid "Work Order #"
+msgstr "Radni nalog broj"
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_work_order_advance_search_form_view
+msgid "Work Order Advance Search"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle__work_order_close
+msgid "Work Order Close"
+msgstr ""
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.vehicle_change_history_qweb
+msgid "Work Order Closed Date"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model,name:fleet_operations.model_report_fleet_operations_workorder_monthly_summary_xls
+msgid "Work Order Monthly Summary Report"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model,name:fleet_operations.model_report_fleet_operations_wo_over_daysxls
+msgid "Work Order Over 10 Days Report"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model,name:fleet_operations.model_workorder_parts_history_details
+msgid "Work Order Parts History"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model,name:fleet_operations.model_work_order_reports
+msgid "Work Order Reports"
+msgstr ""
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_model_form_extended
+msgid "Work Orders"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle_log_services__priority
+msgid "Work Priority"
+msgstr ""
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_log_services_view_inherit
+msgid "Work Shop"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_workorder_parts_history_details__wo_id
+msgid "Work order"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_update_vin_info__workorder_id
+msgid "Workorder"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.actions.act_window,name:fleet_operations.action_writeoff_cancel_reason_wizard
+msgid "Write Off Cancel Reason Wizard"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model,name:fleet_operations.model_report_fleet_operations_write_off_qweb
+msgid "Write Off Vehicle Report"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.actions.report,name:fleet_operations.write_off_report_qweb
+#: model:ir.model.fields.selection,name:fleet_operations.selection__fleet_vehicle__state__write-off
+#: model:ir.model.fields.selection,name:fleet_operations.selection__fleet_vehicle_advance_search__state__write-off
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_search_view_inherit_operations
+msgid "Write-Off"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.actions.act_window,name:fleet_operations.fleet_vehicle_write_off_form_action
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_model_form_extended
+msgid "Write-off"
+msgstr ""
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_wittenoff_form_view
+msgid "Write-off Pictures"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_fleet_wittenoff__write_off_type
+msgid "Write-off Type"
+msgstr ""
+
+#. module: fleet_operations
+#: model:color.color,name:fleet_operations.color_yellow_5
+msgid "YELLOW"
+msgstr ""
+
+#. module: fleet_operations
+#. odoo-python
+#: code:addons/fleet_operations/models/fleet_service.py:0
+#, python-format
+msgid ""
+"You can\t enter parts issue either open work order date or in between open work "
+"order date and current date!"
+msgstr ""
+
+#. module: fleet_operations
+#. odoo-python
+#: code:addons/fleet_operations/models/fleet_extended.py:0
+#, python-format
+msgid ""
+"You can not add more than one next service days configuration for same "
+"vehicle.!!!"
+msgstr ""
+
+#. module: fleet_operations
+#. odoo-python
+#: code:addons/fleet_operations/models/fleet_extended.py:0
+#, python-format
+msgid ""
+"You can not add more than one odometer increment configuration for same "
+"vehicle.!!!"
+msgstr ""
+
+#. module: fleet_operations
+#. odoo-python
+#: code:addons/fleet_operations/models/fleet_extended.py:0
+#, python-format
+msgid "You can not add negative value for odometer number of vehicle!"
+msgstr ""
+
+#. module: fleet_operations
+#. odoo-python
+#: code:addons/fleet_operations/models/fleet_extended.py:0
+#, python-format
+msgid "You can not add negative value next service days!"
+msgstr ""
+
+#. module: fleet_operations
+#. odoo-python
+#: code:addons/fleet_operations/models/fleet_service.py:0
+#, python-format
+msgid ""
+"You can not create service invoice without amount!!Please add Service amount "
+"first !!"
+msgstr ""
+
+#. module: fleet_operations
+#. odoo-python
+#: code:addons/fleet_operations/models/fleet_service.py:0
+#, python-format
+msgid "You can not have duplicate parts assigned !!!"
+msgstr ""
+
+#. module: fleet_operations
+#. odoo-python
+#: code:addons/fleet_operations/models/fleet_extended.py:0
+#, python-format
+msgid "You can't add duplicate damage types !"
+msgstr ""
+
+#. module: fleet_operations
+#. odoo-python
+#: code:addons/fleet_operations/models/fleet_service.py:0
+#, python-format
+msgid "You can't confirm this work order as vehicle is in write-off state!"
+msgstr ""
+
+#. module: fleet_operations
+#. odoo-python
+#: code:addons/fleet_operations/models/fleet_service.py:0
+#, python-format
+msgid "You can't create work order for vehicle which is already On Rent!"
+msgstr ""
+
+#. module: fleet_operations
+#. odoo-python
+#: code:addons/fleet_operations/models/fleet_service.py:0
+#, python-format
+msgid "You can't create work order for vehicle which is already write-off!"
+msgstr ""
+
+#. module: fleet_operations
+#. odoo-python
+#: code:addons/fleet_operations/models/fleet_service.py:0
+#, python-format
+msgid "You can't delete Work Order which in Confirmed or Done state!"
+msgstr ""
+
+#. module: fleet_operations
+#. odoo-python
+#: code:addons/fleet_operations/models/fleet_service.py:0
+#, python-format
+msgid "You can't delete part those already used."
+msgstr ""
+
+#. module: fleet_operations
+#. odoo-python
+#: code:addons/fleet_operations/models/fleet_extended.py:0
+#, python-format
+msgid "You can't duplicate this record because it is already write-off"
+msgstr ""
+
+#. module: fleet_operations
+#. odoo-python
+#: code:addons/fleet_operations/models/fleet_extended.py:0
+#: code:addons/fleet_operations/models/fleet_service.py:0
+#, python-format
+msgid "You can't enter odometer less than previous odometer %s !"
+msgstr ""
+
+#. module: fleet_operations
+#. odoo-python
+#: code:addons/fleet_operations/models/fleet_service.py:0
+#, python-format
+msgid "You can't enter used quantity as Zero!"
+msgstr ""
+
+#. module: fleet_operations
+#. odoo-python
+#: code:addons/fleet_operations/models/fleet_service.py:0
+#, python-format
+msgid "You can't select part which is In-Active!"
+msgstr ""
+
+#. module: fleet_operations
+#. odoo-python
+#: code:addons/fleet_operations/models/fleet_extended.py:0
+#, python-format
+msgid "You can't write-off this vehicle which is On Rent."
+msgstr ""
+
+#. module: fleet_operations
+#. odoo-python
+#: code:addons/fleet_operations/models/fleet_extended.py:0
+#, python-format
+msgid "You can't write-off this vehicle which is in Progress or Complete state!"
+msgstr ""
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.pending_repair_confirm_form_view
+#: model_terms:ir.ui.view,arch_db:fleet_operations.update_battery_info_form_view
+#: model_terms:ir.ui.view,arch_db:fleet_operations.update_color_info_form_view
+#: model_terms:ir.ui.view,arch_db:fleet_operations.update_engine_info_form_view
+#: model_terms:ir.ui.view,arch_db:fleet_operations.update_tire_info_form_view
+#: model_terms:ir.ui.view,arch_db:fleet_operations.update_vin_info_form_view
+#: model_terms:ir.ui.view,arch_db:fleet_operations.view_repair_line_summary_wiz
+#: model_terms:ir.ui.view,arch_db:fleet_operations.view_vehicle_change_history_wiz
+msgid "or"
+msgstr ""
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_model_form_extended
+msgid "set the vehicle status to released if the status is compelte."
+msgstr ""
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_model_form_extended
+msgid "show all the driver history"
+msgstr ""
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_model_form_extended
+msgid "show the odometer logs for this vehicle"
+msgstr ""
+
+#. module: fleet_operations
+#: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_model_form_extended
+msgid "show the services logs for this vehicle"
+msgstr ""
+
+#. module: fleet_operations
+#: model:ir.model.fields,field_description:fleet_operations.field_task_line__task_id
+msgid "task reference"
+msgstr ""
+
+#. module: fleet_operations
+#: model:damage.types,name:fleet_operations.damage_type_11
+msgid "​RIGHT HAND FRONT SUSPENSION"
+msgstr ""
+
+#. module: fleet_operations
+#: model:damage.types,name:fleet_operations.damage_type_14
+msgid "​TRANSMISSION"
+msgstr "MENJAČ"
