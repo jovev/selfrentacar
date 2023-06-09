@@ -3989,7 +3989,7 @@ msgstr ""
 #. module: fleet_operations
 #: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_model_form_extended
 msgid "Update Tire"
-msgstr ""
+msgstr "Ažuriraj gume"
 
 #. module: fleet_operations
 #: model:ir.model,name:fleet_operations.model_update_tire_info
