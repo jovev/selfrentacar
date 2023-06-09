@@ -459,10 +459,7 @@
                             attrs="{'readonly':[('state','in',('write-off'))]}"
                         />
                </group>
-               <group>
-					<field name="x_bazna_lokacija"/>
-                    <field name="x_trenutna_lokacija"/>
-			   </group>
+
                </div>
             </xpath>
             <xpath expr="//field[@name='odometer']" position="after">
