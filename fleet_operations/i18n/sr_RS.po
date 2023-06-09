@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-05-23 07:28+0000\n"
-"PO-Revision-Date: 2023-06-06 14:57+0200\n"
+"PO-Revision-Date: 2023-06-09 14:09+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sr_RS\n"
@@ -1211,7 +1211,7 @@ msgstr ""
 #. module: fleet_operations
 #: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_model_form_extended
 msgid "Engine Parameters"
-msgstr ""
+msgstr "Parametri motora"
 
 #. module: fleet_operations
 #: model:repair.type,name:fleet_operations.nds_repair_type12
@@ -1297,7 +1297,7 @@ msgstr ""
 #. module: fleet_operations
 #: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_model_form_extended
 msgid "Features"
-msgstr ""
+msgstr "Karakteristike"
 
 #. module: fleet_operations
 #: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_search_view_inherit_operations
@@ -2542,7 +2542,7 @@ msgstr ""
 #: model:ir.ui.menu,name:fleet_operations.next_service_days
 #: model_terms:ir.ui.view,arch_db:fleet_operations.next_service_days_form
 msgid "Next Service Days"
-msgstr ""
+msgstr "Sledeći servis"
 
 #. module: fleet_operations
 #: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_model_form_extended
@@ -2587,7 +2587,7 @@ msgstr ""
 #. module: fleet_operations
 #: model:ir.model,name:fleet_operations.model_next_service_days
 msgid "Next Service days"
-msgstr ""
+msgstr "Sledeći servis"
 
 #. module: fleet_operations
 #. odoo-python
@@ -2605,7 +2605,7 @@ msgstr ""
 #. module: fleet_operations
 #: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_model_form_extended
 msgid "No of Cylinders"
-msgstr "Broj cilindera"
+msgstr "Broj cilindara"
 
 #. module: fleet_operations
 #: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_model_form_extended
@@ -2687,7 +2687,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:fleet_operations.field_update_next_service_config__number
 #: model:ir.ui.menu,name:fleet_operations.odometer_increment_menu
 msgid "Odometer Increment"
-msgstr ""
+msgstr "Porast odometra"
 
 #. module: fleet_operations
 #: model:ir.model.fields,field_description:fleet_operations.field_fleet_wittenoff__odometer_unit
@@ -2788,6 +2788,9 @@ msgid ""
 "            on your vehicle. Write off can be of many type: general accident\n"
 "            insurgent accident etc."
 msgstr ""
+"Sistem vam pomaže da pratite sve otpise na vašem vozilu\n"
+"               Otpisi mogu biti više vrsta: opšta nezgoda,\n"
+"               nesrećan slučaj, itd."
 
 #. module: fleet_operations
 #: model:ir.model.fields,field_description:fleet_operations.field_stock_move__type
@@ -3229,7 +3232,7 @@ msgstr ""
 #: model:ir.ui.menu,name:fleet_operations.repair_line_summary_menu
 #: model_terms:ir.ui.view,arch_db:fleet_operations.view_repair_line_summary_wiz
 msgid "Repair Line Summary"
-msgstr ""
+msgstr "Rezime popravki"
 
 #. module: fleet_operations
 #: model:ir.model,name:fleet_operations.model_report_fleet_operations_repair_line_summary_qweb
@@ -3252,12 +3255,12 @@ msgstr ""
 #: model:ir.ui.menu,name:fleet_operations.fleet_repair_type_menu
 #: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_repair_type_form_view
 msgid "Repair Type"
-msgstr ""
+msgstr "Vrsta popravke"
 
 #. module: fleet_operations
 #: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_service_types_form
 msgid "Repair Types"
-msgstr ""
+msgstr "Vrste popravki"
 
 #. module: fleet_operations
 #. odoo-python
@@ -3401,7 +3404,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:fleet_operations.field_trip_encoded_history_temp__work_order_id
 #: model_terms:ir.ui.view,arch_db:fleet_operations.vehicle_change_history_qweb
 msgid "Service Order"
-msgstr ""
+msgstr "Nalog za servis"
 
 #. module: fleet_operations
 #: model_terms:ir.ui.view,arch_db:fleet_operations.vehicle_change_history_qweb
@@ -3491,12 +3494,12 @@ msgstr ""
 #. module: fleet_operations
 #: model:ir.actions.act_window,name:fleet_operations.fleet_vehicle_work_order
 msgid "Services Report"
-msgstr ""
+msgstr "Izveštaji servisiranja"
 
 #. module: fleet_operations
 #: model:ir.ui.menu,name:fleet_operations.fleet_work_order_report_menu
 msgid "Services Search"
-msgstr ""
+msgstr "Pretraga servisiranja"
 
 #. module: fleet_operations
 #: model:ir.model,name:fleet_operations.model_fleet_vehicle_log_services
@@ -3600,7 +3603,7 @@ msgstr ""
 #. module: fleet_operations
 #: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle_log_services__wo_tax_amount
 msgid "Tax"
-msgstr ""
+msgstr "Porez"
 
 #. module: fleet_operations
 #: model:ir.model.fields,field_description:fleet_operations.field_fleet_vehicle_log_services__maintenance_team_id
@@ -3875,7 +3878,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:fleet_operations.field_service_task__type
 #: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_maintain_task_tree
 msgid "Type"
-msgstr ""
+msgstr "Tip"
 
 #. module: fleet_operations
 #: model_terms:ir.ui.view,arch_db:fleet_operations.vehicle_change_history_qweb
@@ -3926,7 +3929,7 @@ msgstr ""
 #. module: fleet_operations
 #: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_model_form_extended
 msgid "Update Battery"
-msgstr ""
+msgstr "Ažuriraj akumulator"
 
 #. module: fleet_operations
 #: model:ir.model,name:fleet_operations.model_update_battery_info
@@ -3937,7 +3940,7 @@ msgstr ""
 #. module: fleet_operations
 #: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_model_form_extended
 msgid "Update Color"
-msgstr ""
+msgstr "Ažuriraj boju"
 
 #. module: fleet_operations
 #: model:ir.model,name:fleet_operations.model_update_color_info
@@ -3948,7 +3951,7 @@ msgstr ""
 #. module: fleet_operations
 #: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_model_form_extended
 msgid "Update Engine"
-msgstr ""
+msgstr "Ažuriraj motor"
 
 #. module: fleet_operations
 #: model:ir.model,name:fleet_operations.model_update_engine_info
@@ -4125,7 +4128,7 @@ msgstr ""
 #: model:ir.ui.menu,name:fleet_operations.vehicle_change_history_menu
 #: model_terms:ir.ui.view,arch_db:fleet_operations.view_vehicle_change_history_wiz
 msgid "Vehicle Change History"
-msgstr ""
+msgstr "Istorijat promene vozila"
 
 #. module: fleet_operations
 #: model:ir.model,name:fleet_operations.model_report_fleet_operations_vehicle_change_history_qweb
@@ -4186,7 +4189,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:fleet_operations.view_fleet_odometer_tree
 #: model_terms:ir.ui.view,arch_db:fleet_operations.view_update_next_service_view
 msgid "Vehicle Id"
-msgstr ""
+msgstr "Oznaka vozila"
 
 #. module: fleet_operations
 #: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_model_form_extended
@@ -4330,13 +4333,13 @@ msgstr ""
 #: model:ir.model.fields,field_description:fleet_operations.field_vehicle_change_history__fleet_id
 #: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_model_form_extended
 msgid "Vehicle-ID"
-msgstr ""
+msgstr "Vozilo"
 
 #. module: fleet_operations
 #: model:ir.actions.act_window,name:fleet_operations.fleet_vehicle_witten_off_act
 #: model:ir.ui.menu,name:fleet_operations.vehicle_written_off_menu_id
 msgid "Vehicles Write-off"
-msgstr ""
+msgstr "Otpis vozila"
 
 #. module: fleet_operations
 #: model:ir.model,name:fleet_operations.model_vin_history
@@ -4561,7 +4564,7 @@ msgstr ""
 #: model:ir.model.fields.selection,name:fleet_operations.selection__fleet_vehicle_advance_search__state__write-off
 #: model_terms:ir.ui.view,arch_db:fleet_operations.fleet_vehicle_search_view_inherit_operations
 msgid "Write-Off"
-msgstr ""
+msgstr "Otpiši"
 
 #. module: fleet_operations
 #: model:ir.actions.act_window,name:fleet_operations.fleet_vehicle_write_off_form_action
