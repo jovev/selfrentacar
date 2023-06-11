@@ -67,14 +67,16 @@ def pars_html_table(data):
     table = soup.find_all('table')[1]  # Grab the second table
     _logger.info('****PARS HTML-TABLE ********** selektovana = %s', table)
     my_dic_t2 = {}
-    t2_col_name = ['Rental Details', 'Detalji najma', 'Rent from', 'Lokacija preuzimanja', 'Pick-up Date & Time', 'Datum i vrijeme preuzimanja',
+    t2_col_name = ['Rental Details', 'Detalji najma', 'Rent from', 'Lokacija preuzimanja','Return Location', 'Lokacija vracaanja', 'Pick-up Date & Time', 'Datum i vrijeme preuzimanja',
                    'Return Date & Time','Datum i vrijeme vraćanja', 'Period', 'Selected Cars', 'Price','Cijena', 'Total', 'Rental Options','Opcije najma']
     # Collecting Ddata
     row_no = 0
+    last_col_name = "0"
     for row in table.find_all('tr'):
         # Find all data for each column
         columns = row.find_all('td')
         #    print (columns)
+        last_col_name = kolona1
         if (columns != []):
             kolona1 = columns[0].text.strip()
             _logger.info('****PARS HTML-TABLE ********** kolona1 = %s', kolona1)
@@ -84,27 +86,36 @@ def pars_html_table(data):
                 kolona3 = "BLANK"
                 continue
             if kolona1 == "Rent from" or kolona1 == "Lokacija preuzimanja":
-                kolona2 = columns[1].text.strip()
-                kolona3 = "BLANK"
-                my_dic_t2[t2_col_name[row_no]] = kolona2
+                kolona2 = columns[0].text.strip()
+                kolona3 = columns[1].text.strip()
+                my_dic_t2['Rent from'] = kolona2
+                my_dic_t2['Return location'] = kolona3
                 continue
             if kolona1 == "Pick-up Date & Time" or kolona1 == "Datum i vrijeme preuzimanja":
+                kolona1 = columns[0].text.strip()
                 kolona2 = columns[1].text.strip()
                 kolona3 = columns[2].text.strip()
-                my_dic_t2[t2_col_name[row_no]] = kolona2
-                my_dic_t2[t2_col_name[row_no + 1]] = kolona3
+                my_dic_t2['Pick-up Date & Time'] = kolona2
+                my_dic_t2['Return Date & Time'] = kolona3
+                my_dic_t2['Period'] = kolona2
                 continue
-            if kolona1 == "Selected Cars" or kolona1 == "Datum i vrijeme preuzimanja":
+            if kolona1 == "Selected Cars" or kolona1 == "Izaberi vozila":
+                kolona1 = columns[0].text.strip()
                 kolona2 = columns[1].text.strip()
                 kolona3 = columns[2].text.strip()
-                my_dic_t2[t2_col_name[row_no]] = kolona2
-                my_dic_t2[t2_col_name[row_no + 1]] = kolona3
+                my_dic_t2['Selected Cars'] = kolona1
+                my_dic_t2['Price'] = kolona2
+                my_dic_t2['Total'] = kolona3
                 continue
             if kolona1 == "Rental Options" or kolona1 == "Detalji najma":
                 kolona2 = "BLANK"
                 kolona3 = "BLANK"
                 continue
-
+            if last_col_name == "Rent from" or kolona1 == "Lokacija preuzimanja":
+                kolona1 = columns[0].text.strip()
+                kolona2 = columns[1].text.strip()
+                my_dic_t2['Rent from'] = kolona1
+                my_dic_t2['Return location'] = kolona2
             #else:
             #    kolona2 = columns[1].text.strip()
             #        print(kolona2)
