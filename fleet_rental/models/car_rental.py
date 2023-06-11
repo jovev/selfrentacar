@@ -105,8 +105,8 @@ def pars_html_table(data):
                 kolona3 = "BLANK"
                 continue
 
-            else:
-                kolona2 = columns[1].text.strip()
+            #else:
+            #    kolona2 = columns[1].text.strip()
             #        print(kolona2)
             _logger.info('****PARS HTML-TABLE ********** kolona2 = %s', kolona2)
             #    my_dic[kolona1] = kolona2
