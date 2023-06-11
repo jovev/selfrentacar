@@ -268,8 +268,8 @@ class CarRentalReservation(models.Model):
                              'additional_comments': reserv_parameters['Additional Comments'],
                              'rent_from': reserv_parameters['Rent from'],
                              'return_location': reserv_parameters['Return location'],
-            #                 'rent_start_date': reserv_parameters['rent_start_date'],
-            #                 'rent_end_date': reserv_parameters['rent_end_date'],
+                             'rent_start_date': reserv_parameters['Pick-up Date & Time'],
+                             'rent_end_date': reserv_parameters['Return Date & Time'],
             #                 'selected_cars': reserv_parameters['selected_cars'],
             #                 'grand_price': reserv_parameters['grand_price'],
                              }
