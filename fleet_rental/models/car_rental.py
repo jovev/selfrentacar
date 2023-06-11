@@ -133,7 +133,7 @@ def pars_html_table(data):
             #        df = pd.concat([df, pd.DataFrame([kolona1, kolona2])], ignore_index=True)
             row_no = row_no + 1
     #    Kraj obrade druge tabele   ###################
-    _logger.info('***************  Dictionart TABELE 2 = %s', my_dic_t2)
+    _logger.info('***************  Dictionart TABELE 2 = %s', my_dic)
     return my_dic
 
 def pars_reservation_body(input_string):
@@ -243,7 +243,7 @@ class CarRentalReservation(models.Model):
         #_logger.info('***************  Goli tekst = %s', clear_tekst)
         # Parsiramo body emaila
         #reserv_parameters = pars_reservation_body(clear_tekst)
-        reserv_parameters, =pars_html_table(email_body)
+        reserv_parameters = pars_html_table(email_body)
 
         _logger.info('***************  Goli Posle Parsiranja = %s', reserv_parameters)
 
