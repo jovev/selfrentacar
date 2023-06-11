@@ -93,8 +93,8 @@ def pars_html_table(data):
                 continue
             if kolona1 == "Pick-up Date & Time" or kolona1 == "Datum i vrijeme preuzimanja":
                 kolona1 = columns[0].text.strip()
-                kolona2 = columns[1].text.strip()
-                kolona3 = columns[2].text.strip()
+            #    kolona2 = columns[1].text.strip()
+            #    kolona3 = columns[2].text.strip()
             #    my_dic_t2['Pick-up Date & Time'] = kolona2
             #    my_dic_t2['Return Date & Time'] = kolona3
             #    my_dic_t2['Period'] = kolona2
@@ -114,8 +114,16 @@ def pars_html_table(data):
             if last_col_name == "Rent from" or last_col_name == "Lokacija preuzimanja":
                 kolona1 = columns[0].text.strip()
                 kolona2 = columns[1].text.strip()
-                my_dic_t2['Rent from'] = kolona1
-                my_dic_t2['Return location'] = kolona2
+                my_dic['Rent from'] = kolona1
+                my_dic['Return location'] = kolona2
+
+            if kolona1 == "Pick-up Date & Time" or kolona1 == "Datum i vrijeme preuzimanja":
+                kolona1 = columns[0].text.strip()
+                kolona2 = columns[1].text.strip()
+                kolona3 = columns[2].text.strip()
+                my_dic['Pick-up Date & Time'] = kolona1
+                my_dic['Return Date & Time'] = kolona2
+
             #else:
             #    kolona2 = columns[1].text.strip()
             #        print(kolona2)
@@ -235,7 +243,7 @@ class CarRentalReservation(models.Model):
         #_logger.info('***************  Goli tekst = %s', clear_tekst)
         # Parsiramo body emaila
         #reserv_parameters = pars_reservation_body(clear_tekst)
-        reserv_parameters=pars_html_table(email_body)
+        reserv_parameters, =pars_html_table(email_body)
 
         _logger.info('***************  Goli Posle Parsiranja = %s', reserv_parameters)
 
@@ -258,8 +266,8 @@ class CarRentalReservation(models.Model):
                              'phone': reserv_parameters['Phone'],
                              'cemail': reserv_parameters['Email'],
                              'additional_comments': reserv_parameters['Additional Comments'],
-            #                 'rent_from': reserv_parameters['rent_from'],
-            #                 'return_location': reserv_parameters['return_location'],
+                             'rent_from': reserv_parameters['Rent from'],
+                             'return_location': reserv_parameters['Return location'],
             #                 'rent_start_date': reserv_parameters['rent_start_date'],
             #                 'rent_end_date': reserv_parameters['rent_end_date'],
             #                 'selected_cars': reserv_parameters['selected_cars'],
