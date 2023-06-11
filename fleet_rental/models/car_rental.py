@@ -34,10 +34,15 @@ def remove_html(string):
     return regex.sub('', string)
 def pars_html_table(data):
     soup = BeautifulSoup(data, 'html.parser')
+
+ #####   Obrada prve tabele   ############################3
     table = soup.find_all('table')[0]  # Grab the first table
     _logger.info('****PARS HTML-TABLE ********** selektovana = %s', table)
     my_dic = {}
     t1_col_name = ['Customer Details','Reservation code', 'Customer', 'Date of Birth', 'Street Address', 'City', 'Flight number','Country', 'Phone', 'Email', 'Additional Comments' ]
+    t2_col_name = ['Customer Details', 'Reservation code', 'Customer', 'Date of Birth', 'Street Address', 'City',
+                   'Flight number', 'Country', 'Phone', 'Email', 'Additional Comments']
+
     # Collecting Ddata
     row_no = 0
     for row in table.find_all('tr'):
@@ -58,7 +63,58 @@ def pars_html_table(data):
             my_dic[t1_col_name[row_no]] = kolona2
     #        df = pd.concat([df, pd.DataFrame([kolona1, kolona2])], ignore_index=True)
             row_no = row_no + 1
- #   print(my_dic.items())
+ #    Kraj obrade prve tabele   ###################
+    table = soup.find_all('table')[1]  # Grab the second table
+    _logger.info('****PARS HTML-TABLE ********** selektovana = %s', table)
+    my_dic_t2 = {}
+    t2_col_name = ['Rental Details', 'Detalji najma', 'Rent from', 'Lokacija preuzimanja', 'Pick-up Date & Time', 'Datum i vrijeme preuzimanja',
+                   'Return Date & Time','Datum i vrijeme vraćanja', 'Period', 'Selected Cars', 'Price','Cijena', 'Total', 'Rental Options','Opcije najma']
+    # Collecting Ddata
+    row_no = 0
+    for row in table.find_all('tr'):
+        # Find all data for each column
+        columns = row.find_all('td')
+        #    print (columns)
+        if (columns != []):
+            kolona1 = columns[0].text.strip()
+            _logger.info('****PARS HTML-TABLE ********** kolona1 = %s', kolona1)
+            #        print(kolona1)
+            if kolona1 == "Rental Details" or kolona1 == "Detalji najma":
+                kolona2 = "BLANK"
+                kolona3 = "BLANK"
+                continue
+            if kolona1 == "Rent from" or kolona1 == "Lokacija preuzimanja":
+                kolona2 = columns[1].text.strip()
+                kolona3 = "BLANK"
+                my_dic_t2[t2_col_name[row_no]] = kolona2
+                continue
+            if kolona1 == "Pick-up Date & Time" or kolona1 == "Datum i vrijeme preuzimanja":
+                kolona2 = columns[1].text.strip()
+                kolona3 = columns[2].text.strip()
+                my_dic_t2[t2_col_name[row_no]] = kolona2
+                my_dic_t2[t2_col_name[row_no + 1]] = kolona3
+                continue
+            if kolona1 == "Selected Cars" or kolona1 == "Datum i vrijeme preuzimanja":
+                kolona2 = columns[1].text.strip()
+                kolona3 = columns[2].text.strip()
+                my_dic_t2[t2_col_name[row_no]] = kolona2
+                my_dic_t2[t2_col_name[row_no + 1]] = kolona3
+                continue
+            if kolona1 == "Rental Options" or kolona1 == "Detalji najma":
+                kolona2 = "BLANK"
+                kolona3 = "BLANK"
+                continue
+
+            else:
+                kolona2 = columns[1].text.strip()
+            #        print(kolona2)
+            _logger.info('****PARS HTML-TABLE ********** kolona2 = %s', kolona2)
+            #    my_dic[kolona1] = kolona2
+            # my_dic_t2[t1_col_name[row_no]] = kolona2
+            #        df = pd.concat([df, pd.DataFrame([kolona1, kolona2])], ignore_index=True)
+            row_no = row_no + 1
+    #    Kraj obrade druge tabele   ###################
+    _logger.info('***************  Dictionart TABELE 2 = %s', my_dic_t2)
     return my_dic
 
 def pars_reservation_body(input_string):
