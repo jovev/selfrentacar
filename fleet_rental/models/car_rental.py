@@ -88,30 +88,30 @@ def pars_html_table(data):
             if kolona1 == "Rent from" or kolona1 == "Lokacija preuzimanja":
                 kolona2 = columns[0].text.strip()
                 kolona3 = columns[1].text.strip()
-                my_dic_t2['Rent from'] = kolona2
-                my_dic_t2['Return location'] = kolona3
+            #    my_dic_t2['Rent from'] = kolona2
+            #    my_dic_t2['Return location'] = kolona3
                 continue
             if kolona1 == "Pick-up Date & Time" or kolona1 == "Datum i vrijeme preuzimanja":
                 kolona1 = columns[0].text.strip()
                 kolona2 = columns[1].text.strip()
                 kolona3 = columns[2].text.strip()
-                my_dic_t2['Pick-up Date & Time'] = kolona2
-                my_dic_t2['Return Date & Time'] = kolona3
-                my_dic_t2['Period'] = kolona2
+            #    my_dic_t2['Pick-up Date & Time'] = kolona2
+            #    my_dic_t2['Return Date & Time'] = kolona3
+            #    my_dic_t2['Period'] = kolona2
                 continue
             if kolona1 == "Selected Cars" or kolona1 == "Izaberi vozila":
                 kolona1 = columns[0].text.strip()
                 kolona2 = columns[1].text.strip()
                 kolona3 = columns[2].text.strip()
-                my_dic_t2['Selected Cars'] = kolona1
-                my_dic_t2['Price'] = kolona2
-                my_dic_t2['Total'] = kolona3
+            #    my_dic_t2['Selected Cars'] = kolona1
+            #    my_dic_t2['Price'] = kolona2
+            #    my_dic_t2['Total'] = kolona3
                 continue
             if kolona1 == "Rental Options" or kolona1 == "Detalji najma":
                 kolona2 = "BLANK"
                 kolona3 = "BLANK"
                 continue
-            if last_col_name == "Rent from" or kolona1 == "Lokacija preuzimanja":
+            if last_col_name == "Rent from" or last_col_name == "Lokacija preuzimanja":
                 kolona1 = columns[0].text.strip()
                 kolona2 = columns[1].text.strip()
                 my_dic_t2['Rent from'] = kolona1
