@@ -117,7 +117,7 @@ def pars_html_table(data):
                 my_dic['Rent from'] = kolona1
                 my_dic['Return location'] = kolona2
 
-            if kolona1 == "Pick-up Date & Time" or kolona1 == "Datum i vrijeme preuzimanja":
+            if last_col_name == "Pick-up Date & Time" or last_col_name == "Datum i vrijeme preuzimanja":
                 kolona1 = columns[0].text.strip()
                 kolona2 = columns[1].text.strip()
                 kolona3 = columns[2].text.strip()
