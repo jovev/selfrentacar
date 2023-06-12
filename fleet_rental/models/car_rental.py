@@ -360,7 +360,7 @@ class CarRentalReservation(models.Model):
         if customers:
             for customer in customers:
                 customer_name = customer.name
-                customer_id = customer.id
+                customer_id = customer
         else:   # Znaci, korisnik ne postoji , idemo u proces kreiranja novog korisnika u respartner
             values = {
                 'name': self.customer_name,
