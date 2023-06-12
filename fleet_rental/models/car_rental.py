@@ -522,8 +522,8 @@ class CarRentalContract(models.Model):
     selected_cars_class = fields.Many2one('fleet.vehicle.model.category', string='Car Category')
 
     rent_from = fields.Many2one('stock.location', string='Start location')
-    rent_from_longitude = fields.Char(string="GPS X", related='rent_from.location_longitude')
-    rent_from_longitude = fields.Char(string="GPS Y", related='rent_from.location_latitude')
+    rent_from_longitude = fields.Float(string="GPS X", related='rent_from.location_longitude')
+    rent_from_longitude = fields.Float(string="GPS Y", related='rent_from.location_latitude')
    # rent_from_key_position = fields.Char(string="Key Position", related='stock.location.location_position')
 
     return_location = fields.Many2one('stock.location', string='Return location')
