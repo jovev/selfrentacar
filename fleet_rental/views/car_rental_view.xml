@@ -92,8 +92,8 @@
                                 <field name="web_car_request"/>
                                 <field name="vehicle_id" domain="[('rental_check_availability','=',True),                                 ('state_id.name','!=','Inactive')]" options="{'no_create': True}"/>
 								<field name="rent_from"/>
-                                <field name="rent_from_longitude"/>
-                                <field name="rent_from_latitude"/>
+                         <!--       <field name="rent_from_longitude"/>
+                                <field name="rent_from_latitude"/>    -->
 
 								<field name="return_location"/>
                                 <field name="journal_type" invisible="1"/>
