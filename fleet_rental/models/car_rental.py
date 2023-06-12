@@ -39,6 +39,7 @@ def pars_html_table(data):
     table = soup.find_all('table')[0]  # Grab the first table
     _logger.info('****PARS HTML-TABLE ********** selektovana = %s', table)
     my_dic = {}
+    my_dic_opt = {}
     t1_col_name = ['Customer Details','Reservation code', 'Customer', 'Date of Birth', 'Street Address', 'City', 'Flight number','Country', 'Phone', 'Email', 'Additional Comments' ]
     t2_col_name = ['Customer Details', 'Reservation code', 'Customer', 'Date of Birth', 'Street Address', 'City',
                    'Flight number', 'Country', 'Phone', 'Email', 'Additional Comments']
@@ -108,8 +109,10 @@ def pars_html_table(data):
             #    my_dic_t2['Total'] = kolona3
                 continue
             if kolona1 == "Rental Options" or kolona1 == "Opcije najma":
+                kolona1 = columns[0].text.strip()
                 kolona2 = "BLANK"
                 kolona3 = "BLANK"
+                redni_broj_opcije = 1    # pocinemo da brojimo opcije
                 continue
 
             if last_col_name == "Rent from" or last_col_name == "Lokacija preuzimanja":
@@ -132,14 +135,18 @@ def pars_html_table(data):
                 my_dic['Selected Cars'] = kolona1
                 my_dic['Price'] = kolona2
 
-            if last_col_name == "Rental Options" or kolona1 == "Opcije najma":
+            if last_col_name == "Rental Options" or last_col_name == "Opcije najma":
                 kolona1 = columns[0].text.strip()
                 kolona2 = columns[1].text.strip()
                 kolona3 = columns[2].text.strip()
-                my_dic['Option1'] = kolona1
-                my_dic['Price1'] = kolona2
-                my_dic['Trice1'] = kolona3
+                option = "Option" + str(redni_broj_opcije)
+                price = "Price" + str(redni_broj_opcije)
+                tprice = "Tprice" + str(redni_broj_opcije)
+                my_dic_opt[option] = kolona1
+                my_dic_opt[price] = kolona2
+                my_dic_opt['tprice'] = kolona3
                 kolona1 = last_col_name
+                redni_broj_opcije = redni_broj_opcije + 1
 
 
             #else:
@@ -152,7 +159,7 @@ def pars_html_table(data):
             row_no = row_no + 1
     #    Kraj obrade druge tabele   ###################
     _logger.info('***************  Dictionart TABELE 2 = %s', my_dic)
-    return my_dic
+    return my_dic, my_dic_opt
 
 def pars_reservation_body(input_string):
     param_dict = {'customer_name': 'Ime i przime kupca',
@@ -261,9 +268,11 @@ class CarRentalReservation(models.Model):
         #_logger.info('***************  Goli tekst = %s', clear_tekst)
         # Parsiramo body emaila
         #reserv_parameters = pars_reservation_body(clear_tekst)
-        reserv_parameters = pars_html_table(email_body)
+        reserv_parameters, reserv_options = pars_html_table(email_body)
 
-        _logger.info('***************  Goli Posle Parsiranja = %s', reserv_parameters)
+        _logger.info('***************  Parametri Posle Parsiranja = %s', reserv_parameters)
+        _logger.info('***************  Opcije Posle Parsiranja = %s', reserv_options)
+
 
         # stomer = reserv_parameters['Customer'] or erv_parameters['Customer']
 
