@@ -323,7 +323,7 @@ class CarRentalReservation(models.Model):
                              'rent_end_date': "2023-01-02",
                              'selected_cars': "VW Golf 7-Automatic, Wagon-New Car, Station Wagon, New Renault Megan - Automatic- Vagon",
                              'grand_price': "1.0",
-                             'option_lines': [0, 0, 0, ({'Option': 'Baby Seat 18-36kg.', 'price': '€ 6.00', 'total_price': '€ 15.00'})],
+              #               'option_lines': [0, 0, 0, ({'Option': 'Baby Seat 18-36kg.', 'price': '€ 6.00', 'total_price': '€ 15.00'})],
 
         }
         defaults.update(custom_values)
