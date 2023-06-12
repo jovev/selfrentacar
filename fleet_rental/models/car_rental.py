@@ -304,6 +304,7 @@ class CarRentalReservation(models.Model):
                          #    'rent_end_date': reserv_parameters['Return Date & Time'],
                              'selected_cars': reserv_parameters['Selected Cars'],
                          #    'grand_price': reserv_parameters['Grand Price'],
+                             'option_lines': [reserv_options]
                              }
         defaults = {
             'name': msg.get('subject') or _("No Subject"),
@@ -322,6 +323,7 @@ class CarRentalReservation(models.Model):
                              'rent_end_date': "2023-01-02",
                              'selected_cars': "VW Golf 7-Automatic, Wagon-New Car, Station Wagon, New Renault Megan - Automatic- Vagon",
                              'grand_price': "1.0",
+                             'option_lines': [{}]
         }
         defaults.update(custom_values)
         _logger.info('!!!!!!! DEFAULTS Pre upisa ubazu= %s   Custom value =%s', defaults, custom_values)
