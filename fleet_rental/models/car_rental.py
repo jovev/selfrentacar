@@ -124,6 +124,13 @@ def pars_html_table(data):
                 my_dic['Pick-up Date & Time'] = kolona1
                 my_dic['Return Date & Time'] = kolona2
 
+            if last_col_name == "Selected Cars" or last_col_name == "Izaberi vozila":
+                kolona1 = columns[0].text.strip()
+                kolona2 = columns[1].text.strip()
+                kolona3 = columns[2].text.strip()
+                my_dic['Selected Cars'] = kolona1
+                my_dic[''] = kolona2
+
             #else:
             #    kolona2 = columns[1].text.strip()
             #        print(kolona2)
@@ -268,10 +275,10 @@ class CarRentalReservation(models.Model):
                              'additional_comments': reserv_parameters['Additional Comments'],
                              'rent_from': reserv_parameters['Rent from'],
                              'return_location': reserv_parameters['Return location'],
-                             'rent_start_date': reserv_parameters['Pick-up Date & Time'],
-                             'rent_end_date': reserv_parameters['Return Date & Time'],
-            #                 'selected_cars': reserv_parameters['selected_cars'],
-            #                 'grand_price': reserv_parameters['grand_price'],
+                         #    'rent_start_date': reserv_parameters['Pick-up Date & Time'],
+                         #    'rent_end_date': reserv_parameters['Return Date & Time'],
+                             'selected_cars': reserv_parameters['Selected Cars'],
+                         #    'grand_price': reserv_parameters['Grand Price'],
                              }
         defaults = {
             'name': msg.get('subject') or _("No Subject"),
