@@ -53,6 +53,8 @@ class EmployeeFleet(models.Model):
     x_bazna_lokacija = fields.Many2one('stock.location', string = 'Base Location')
     x_trenutna_lokacija = fields.Many2one('stock.location', string = 'Current Location')
     x_godina_proizvodnje = fields.Char('Year of production')
+    x_key_location = fields.Selection([('keybox', 'In Key Box'), ('office', 'In Office'), ('vihicle', 'In Car'), ('employee', 'Officer')])
+    x_key_position = fields.Char('Key position in KeyBox')
     x_osnov_raspolaganja = fields.Selection([('gasoline', 'Gasoline'),
                                   ('ownership', 'vlasnistvo'),
                                   ('rent', 'zakup'),
