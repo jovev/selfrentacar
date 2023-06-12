@@ -3,8 +3,8 @@
 #
 #    Cybrosys Technologies Pvt. Ltd.
 #
-#    Copyright (C) 2021-TODAY Cybrosys Technologies(<https://www.cybrosys.com>).
-#    Author: Cybrosys Technogies @cybrosys(odoo@cybrosys.com)
+#    Copyright (C) 2021-TODAY Cybrosys Technologies(<https://www.irvas.rs>).
+#    Author: Lubi @IRVAS (odoo@irvas.rs)
 #
 #    You can modify it under the terms of the GNU AFFERO
 #    GENERAL PUBLIC LICENSE (AGPL v3), Version 3.
@@ -107,10 +107,11 @@ def pars_html_table(data):
             #    my_dic_t2['Price'] = kolona2
             #    my_dic_t2['Total'] = kolona3
                 continue
-            if kolona1 == "Rental Options" or kolona1 == "Detalji najma":
+            if kolona1 == "Rental Options" or kolona1 == "Opcije najma":
                 kolona2 = "BLANK"
                 kolona3 = "BLANK"
                 continue
+
             if last_col_name == "Rent from" or last_col_name == "Lokacija preuzimanja":
                 kolona1 = columns[0].text.strip()
                 kolona2 = columns[1].text.strip()
@@ -129,7 +130,17 @@ def pars_html_table(data):
                 kolona2 = columns[1].text.strip()
                 kolona3 = columns[2].text.strip()
                 my_dic['Selected Cars'] = kolona1
-                my_dic[''] = kolona2
+                my_dic['Price'] = kolona2
+
+            if last_col_name == "Rental Options" or kolona1 == "Opcije najma":
+                kolona1 = columns[0].text.strip()
+                kolona2 = columns[1].text.strip()
+                kolona3 = columns[2].text.strip()
+                my_dic['Option1'] = kolona1
+                my_dic['Price1'] = kolona2
+                my_dic['Trice1'] = kolona3
+                kolona1 = last_col_name
+
 
             #else:
             #    kolona2 = columns[1].text.strip()
