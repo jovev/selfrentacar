@@ -29,6 +29,8 @@ class StockGeoLocation(models.Model):
     location_latitude = fields.Float(string="Location Latitude")
     location_longitude = fields.Float(string="Location Longitude")
     parking_location = fields.Boolean(string = "is Parking Location")
+    keybox_location = fields.Boolean(string = "is KeyBox Location")
+   # key_position = fields.Char(string = "Key Position")
 
     street_name = fields.Char('Street Name')
     street_number = fields.Char('Street Name')

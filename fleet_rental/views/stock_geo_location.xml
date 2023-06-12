@@ -8,6 +8,8 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='replenish_location']" position="after">
                   <field name="parking_location"/>
+                <field name="keybox_location"/>
+
 
             </xpath>
         </field>

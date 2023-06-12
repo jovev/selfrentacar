@@ -406,7 +406,7 @@ class CarRentalReservation(models.Model):
                          'web_car_request': self.selected_cars,
                          'total': self.grand_price,
                         'state':'draft',
-                        'cost':self.grand_price,
+                        'cost':self.rent_price,
                         'first_payment':'0.0',
                          }
         self.env['car.rental.contract'].create(values)
@@ -522,6 +522,10 @@ class CarRentalContract(models.Model):
     selected_cars_class = fields.Many2one('fleet.vehicle.model.category', string='Car Category')
 
     rent_from = fields.Many2one('stock.location', string='Start location')
+    rent_from_longitude = fields.Char(string="GPS X", related='stock.location.location_longitude')
+    rent_from_longitude = fields.Char(string="GPS Y", related='stock.location.location_latitude')
+   # rent_from_key_position = fields.Char(string="Key Position", related='stock.location.location_position')
+
     return_location = fields.Many2one('stock.location', string='Return location')
     reservation_code = fields.Char(string="Reservation Code", copy=False)
     allow_crossborder = fields.Boolean(string="Cross Border")
