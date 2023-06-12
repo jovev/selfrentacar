@@ -138,7 +138,7 @@ def pars_html_table(data):
                 kolona2 = columns[1].text.strip()
                 kolona3 = columns[2].text.strip()
                 my_dic['Selected Cars'] = kolona1
-                my_dic['Price'] = kolona2
+                my_dic['Rent Price'] = kolona2
 
             if last_col_name == "Rental Options" or last_col_name == "Opcije najma":
                 kolona1 = columns[0].text.strip()
@@ -182,6 +182,7 @@ def pars_reservation_body(input_string):
                     'rent_start_date': '2023-01-01',
                     'rent_end_date': '2023-01-02',
                     'selected_cars': 'car class',
+                  'rent_price': '1.0',
                     'grand_price': '1.0',
                   }
     reservation_code_start = input_string.find('Reservation code') + 16
@@ -246,8 +247,10 @@ class CarRentalReservation(models.Model):
     return_location = fields.Char(string="Return_location")
     rent_start_date = fields.Datetime(string="Rent Start Date", required=True, help="Start date of rent", track_visibility='onchange')
     rent_end_date = fields.Datetime(string="Rent End Date", required=True, help="End date of contract", track_visibility='onchange')
-    selected_cars = fields.Char(string="Selected Cars")     # Ovo je u stvari spisak vozila u odredjenoj kategoriji
+    selected_cars = fields.Char(string="Selected Cars")     # Ovo je u stvari spisak vozila u odredjenoj
+    rent_price = fields.Char(string="Rent price for car")
     grand_price = fields.Char(string="Total price for car rent and options")
+
     state = fields.Selection(
         [('draft', 'Draft'), ('reserved', 'Reserved'), ('running', 'Running'), ('cancel', 'Cancel'),
          ('checking', 'Checking'), ('invoice', 'Invoice'), ('done', 'Done')], string="State",
@@ -303,7 +306,14 @@ class CarRentalReservation(models.Model):
                          #    'rent_start_date': reserv_parameters['Pick-up Date & Time'],
                          #    'rent_end_date': reserv_parameters['Return Date & Time'],
                              'selected_cars': reserv_parameters['Selected Cars'],
-                         #    'grand_price': reserv_parameters['Grand Price'],
+                             'rent_price': reserv_parameters['Rent Price'],
+
+                             #    'grand_price': reserv_parameters['Grand Price'],
+                             'option_lines': [0, 0, ({'Option': 'Baby Seat 18-36kg.',
+                                                     'price': '€ 6.00',
+                                                     'total_price': '€ 15.00',
+                                                      }),
+                                              ],
 
                              }
         defaults = {
@@ -322,7 +332,9 @@ class CarRentalReservation(models.Model):
                              'rent_start_date': "2023-01-01",
                              'rent_end_date': "2023-01-02",
                              'selected_cars': "VW Golf 7-Automatic, Wagon-New Car, Station Wagon, New Renault Megan - Automatic- Vagon",
+                              'rent_price': "1.0",
                              'grand_price': "1.0",
+
               #               'option_lines': [0, 0, 0, ({'Option': 'Baby Seat 18-36kg.', 'price': '€ 6.00', 'total_price': '€ 15.00'})],
 
         }
