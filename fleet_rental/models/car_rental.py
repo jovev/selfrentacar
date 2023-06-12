@@ -114,6 +114,11 @@ def pars_html_table(data):
                 kolona3 = "BLANK"
                 redni_broj_opcije = 1    # pocinemo da brojimo opcije
                 continue
+            if kolona1 == "Total":
+                kolona1 = columns[0].text.strip()
+                kolona2 = "BLANK"
+                kolona3 = "BLANK"
+                continue
 
             if last_col_name == "Rent from" or last_col_name == "Lokacija preuzimanja":
                 kolona1 = columns[0].text.strip()
