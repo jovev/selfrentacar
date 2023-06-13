@@ -41,6 +41,7 @@ def pars_html_table(data):
     _logger.info('****PARS HTML-TABLE ********** selektovana = %s', table)
     my_dic = {}
     my_dic_opt = {}
+    option_lines = []
     t1_col_name = ['Customer Details','Reservation code', 'Customer', 'Date of Birth', 'Street Address', 'City', 'Flight number','Country', 'Phone', 'Email', 'Additional Comments' ]
     t2_col_name = ['Customer Details', 'Reservation code', 'Customer', 'Date of Birth', 'Street Address', 'City',
                    'Flight number', 'Country', 'Phone', 'Email', 'Additional Comments']
@@ -145,9 +146,11 @@ def pars_html_table(data):
                 kolona1 = columns[0].text.strip()
                 kolona2 = columns[1].text.strip()
                 kolona3 = columns[2].text.strip()
-                option = "Option" + str(redni_broj_opcije)
-                price = "Price" + str(redni_broj_opcije)
-                tprice = "Tprice" + str(redni_broj_opcije)
+                option = "option" + str(redni_broj_opcije)
+                price = "price" + str(redni_broj_opcije)
+                tprice = "tprice" + str(redni_broj_opcije)
+                option_content = "Command.create({'option':" + kolona1 + ",'price':" + kolona2 + ",'total_price':" + kolona3 +",})"
+                option_lines.append(option_content)
                 my_dic_opt[option] = kolona1
                 my_dic_opt[price] = kolona2
                 my_dic_opt['tprice'] = kolona3
@@ -165,7 +168,7 @@ def pars_html_table(data):
             row_no = row_no + 1
     #    Kraj obrade druge tabele   ###################
     _logger.info('***************  Dictionart TABELE 2 = %s', my_dic)
-    return my_dic, my_dic_opt
+    return my_dic, option_lines
 
 def pars_reservation_body(input_string):
     param_dict = {'customer_name': 'Ime i przime kupca',
@@ -277,10 +280,12 @@ class CarRentalReservation(models.Model):
         #_logger.info('***************  Goli tekst = %s', clear_tekst)
         # Parsiramo body emaila
         #reserv_parameters = pars_reservation_body(clear_tekst)
-        reserv_parameters, reserv_options = pars_html_table(email_body)
+        reserv_parameters, option_lines = pars_html_table(email_body)
+
+
 
         _logger.info('***************  Parametri Posle Parsiranja = %s', reserv_parameters)
-        _logger.info('***************  Opcije Posle Parsiranja = %s', reserv_options)
+        _logger.info('***************  Opcije Posle Parsiranja = %s', option_lines)
 
 
         # stomer = reserv_parameters['Customer'] or erv_parameters['Customer']
@@ -310,15 +315,7 @@ class CarRentalReservation(models.Model):
                              'rent_price': reserv_parameters['Rent Price'],
 
                              #    'grand_price': reserv_parameters['Grand Price'],
-                             'option_lines': [Command.create({'option': 'Baby Seat 18-36kg.',
-                                                     'price': '€ 6.00',
-                                                     'total_price': '€ 15.00',
-                                                      }),
-                                              Command.create({'option': 'Baby Seat 30-56kg.',
-                                                              'price': '€ 8.00',
-                                                              'total_price': '€ 18.00',
-                                                              }),
-                                              ],
+                             'option_lines': option_lines,
 
                              }
         defaults = {
@@ -340,11 +337,7 @@ class CarRentalReservation(models.Model):
                               'rent_price': "1.0",
                              'grand_price': "1.0",
 
-                            'option_lines': [0, 0, ({'option': 'Baby Seat 18-36kg.',
-                                                     'price': '€ 6.00',
-                                                     'total_price': '€ 15.00',
-                                                   }),
-                                           ],
+                            'option_lines': [{}],
 
         }
         defaults.update(custom_values)
