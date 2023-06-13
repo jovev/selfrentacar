@@ -309,7 +309,7 @@ class CarRentalReservation(models.Model):
                              'rent_price': reserv_parameters['Rent Price'],
 
                              #    'grand_price': reserv_parameters['Grand Price'],
-                             'option_lines': [0, 0, ({'Option': 'Baby Seat 18-36kg.',
+                             'option_lines': [0, 0, ({'option': 'Baby Seat 18-36kg.',
                                                      'price': '€ 6.00',
                                                      'total_price': '€ 15.00',
                                                       }),
@@ -335,11 +335,11 @@ class CarRentalReservation(models.Model):
                               'rent_price': "1.0",
                              'grand_price': "1.0",
 
-                            'option_lines': [0, 0, ({'Option': 'Baby Seat 18-36kg.',
-                                                                  'price': '€ 6.00',
-                                                                  'total_price': '€ 15.00',
-                                                                  }),
-                                                          ],
+                            'option_lines': [0, 0, ({'option': 'Baby Seat 18-36kg.',
+                                                     'price': '€ 6.00',
+                                                     'total_price': '€ 15.00',
+                                                   }),
+                                           ],
 
         }
         defaults.update(custom_values)
