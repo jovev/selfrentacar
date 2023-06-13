@@ -286,7 +286,7 @@ class CarRentalReservation(models.Model):
 
         _logger.info('***************  Parametri Posle Parsiranja = %s', reserv_parameters)
         _logger.info('***************  Opcije Posle Parsiranja = %s', option_lines)
-
+        string = option_lines[0] + "," + option_lines[1]
 
         # stomer = reserv_parameters['Customer'] or erv_parameters['Customer']
 
@@ -315,7 +315,7 @@ class CarRentalReservation(models.Model):
                              'rent_price': reserv_parameters['Rent Price'],
 
                              #    'grand_price': reserv_parameters['Grand Price'],
-                             'option_lines': [option_lines[0],option_lines[1],option_lines[2]]
+                             'option_lines': [string]
 
                              }
         defaults = {
