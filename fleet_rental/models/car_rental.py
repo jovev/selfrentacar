@@ -314,6 +314,10 @@ class CarRentalReservation(models.Model):
                                                      'price': '€ 6.00',
                                                      'total_price': '€ 15.00',
                                                       }),
+                                              Command.create({'option': 'Baby Seat 30-56kg.',
+                                                              'price': '€ 8.00',
+                                                              'total_price': '€ 18.00',
+                                                              }),
                                               ],
 
                              }
