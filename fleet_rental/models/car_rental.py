@@ -22,6 +22,7 @@
 
 from datetime import datetime, date, timedelta
 from odoo import models, fields, api, _
+from odoo import Command
 from odoo.exceptions import UserError, Warning, ValidationError
 import logging
 import re
@@ -309,7 +310,7 @@ class CarRentalReservation(models.Model):
                              'rent_price': reserv_parameters['Rent Price'],
 
                              #    'grand_price': reserv_parameters['Grand Price'],
-                             'option_lines': [0, 0, ({'option': 'Baby Seat 18-36kg.',
+                             'option_lines': [Command.create({'option': 'Baby Seat 18-36kg.',
                                                      'price': '€ 6.00',
                                                      'total_price': '€ 15.00',
                                                       }),
