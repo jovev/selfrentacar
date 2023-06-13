@@ -315,7 +315,7 @@ class CarRentalReservation(models.Model):
                              'rent_price': reserv_parameters['Rent Price'],
 
                              #    'grand_price': reserv_parameters['Grand Price'],
-                             'option_lines': option_lines,
+                             'option_lines': [option_lines[0],option_lines[1],option_lines[2]]
 
                              }
         defaults = {
