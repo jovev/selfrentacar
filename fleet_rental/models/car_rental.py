@@ -23,6 +23,7 @@
 from datetime import datetime, date, timedelta
 from odoo import models, fields, api, _
 from odoo import Command
+from ast import literal_eval
 from odoo.exceptions import UserError, Warning, ValidationError
 import logging
 import re
@@ -236,7 +237,7 @@ class CarRentalReservation(models.Model):
         create_context['default_user_ids'] = False
 
         option_line_ids = []
-        option_line_ids.append(Command.create(eval(my_dic_opt['option1'])))
+        option_line_ids.append(Command.create(dict(literal_eval(my_dic_opt['option1']))))
         if custom_values is None:
             custom_values = {'name': msg.get('subject') or _("No Subject"),
                              'customer_name': reserv_parameters['Customer'],
