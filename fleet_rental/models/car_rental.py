@@ -256,7 +256,8 @@ class CarRentalReservation(models.Model):
                              'rent_price': reserv_parameters['Rent Price'],
 
                              #    'grand_price': reserv_parameters['Grand Price'],
-                             'option_lines': []
+                             'option_lines': [Command.create(my_dic_opt['option1']),Command.create(my_dic_opt['option2']), Command.create(my_dic_opt['option3']) ],
+
 
                              }
         defaults = {
