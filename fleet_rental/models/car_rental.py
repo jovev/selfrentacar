@@ -165,7 +165,7 @@ class CarRentalReservation(models.Model):
         [('draft', 'Draft'), ('reserved', 'Reserved'), ('running', 'Running'), ('cancel', 'Cancel'),
          ('checking', 'Checking'), ('invoice', 'Invoice'), ('done', 'Done')], string="State",
         default="draft", copy=False, track_visibility='onchange')
-    option_lines = fields.One2many('car.rental.reservation.options', 'rental_options', readonly=True, help="Selected Rental options",
+    option_lines = fields.One2many('car.rental.reservation.options', 'rental_options', readonly=False, help="Selected Rental options",
                                    copy=False)
 
 
