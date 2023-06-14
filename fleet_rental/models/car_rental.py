@@ -315,7 +315,7 @@ class CarRentalReservation(models.Model):
                              'rent_price': reserv_parameters['Rent Price'],
 
                              #    'grand_price': reserv_parameters['Grand Price'],
-                             'option_lines': [string]
+                             'option_lines': [Command.create({'option':'Opcija','price':'10.00','total_price': '10.0',})]
 
                              }
         defaults = {
