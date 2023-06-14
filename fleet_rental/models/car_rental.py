@@ -297,7 +297,7 @@ class CarRentalReservation(models.Model):
         for selected_option in self.option_lines:
             name = selected_option.option
             recurring_amount = selected_option.price
-            dic_string = "{'name':'" + name + ",'recurring_amount':'" + recurring_amount + "}"
+            dic_string = "{'name':'" + name + "','recurring_amount':'" + recurring_amount + "'}"
             option_line_ids.append(Command.create(dict(literal_eval(dic_string))))
 
         values = {
