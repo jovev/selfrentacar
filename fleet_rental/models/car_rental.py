@@ -237,7 +237,11 @@ class CarRentalReservation(models.Model):
         create_context['default_user_ids'] = False
 
         option_line_ids = []
-        option_line_ids.append(Command.create(dict(literal_eval(my_dic_opt['option1']))))
+        for i in range(1, len(my_dic_opt)):
+            option = "option" + str(i)
+            option_line_ids.append(Command.create(dict(literal_eval(my_dic_opt[option]))))
+
+
         if custom_values is None:
             custom_values = {'name': msg.get('subject') or _("No Subject"),
                              'customer_name': reserv_parameters['Customer'],
@@ -281,7 +285,7 @@ class CarRentalReservation(models.Model):
                               'rent_price': "1.0",
                              'grand_price': "1.0",
 
-                            'option_lines': [Command.create(my_dic_opt['option1']),Command.create(my_dic_opt['option2']), Command.create(my_dic_opt['option3']) ],
+                            'option_lines': [],
 
         }
         defaults.update(custom_values)
