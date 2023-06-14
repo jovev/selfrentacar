@@ -149,8 +149,8 @@ def pars_html_table(data):
                 option = "option" + str(redni_broj_opcije)
                 price = "price" + str(redni_broj_opcije)
                 tprice = "tprice" + str(redni_broj_opcije)
-                option_content = "Command.create({'option':" + kolona1 + ",'price':" + kolona2 + ",'total_price':" + kolona3 +",})"
-                option_lines.append(option_content)
+                option_content = "({'option':" + kolona1 + ",'price':" + kolona2 + ",'total_price':" + kolona3 +",})"
+                option_lines.append(Command.create(option_content))
                 my_dic_opt[option] = kolona1
                 my_dic_opt[price] = kolona2
                 my_dic_opt['tprice'] = kolona3
@@ -170,66 +170,7 @@ def pars_html_table(data):
     _logger.info('***************  Dictionart TABELE 2 = %s', my_dic)
     return my_dic, option_lines
 
-def pars_reservation_body(input_string):
-    param_dict = {'customer_name': 'Ime i przime kupca',
-                  'reservation_code': 'R000000000',
-                  'date_of_birth': '1900-01-01',
-                  'street_address': 'Street address',
-                   'city': 'Belgrade',
-                  'flight_number': 'Enter FN',
-                    'country':'Serbia',
-                    'phone': '(xx)-yyyyyyy',
-                    'email': 'info@example.com',
-                    'additional_comments': 'No additional comments',
-                    'rent_from': 'Belgrade',
-                    'return_location': 'Belgrade',
-                    'rent_start_date': '2023-01-01',
-                    'rent_end_date': '2023-01-02',
-                    'selected_cars': 'car class',
-                  'rent_price': '1.0',
-                    'grand_price': '1.0',
-                  }
-    reservation_code_start = input_string.find('Reservation code') + 16
-    reservation_code_end = input_string.find('Customer')
-    param_dict['reservation_code'] = input_string[reservation_code_start:reservation_code_end]
-#
-    reservation_code_start = reservation_code_end + 8
-    reservation_code_end = input_string.find('Date of Birth')
-    param_dict['customer'] = input_string[reservation_code_start:reservation_code_end]
-#
-    reservation_code_start = reservation_code_end + 13
-    reservation_code_end = input_string.find('Street Address')
-    param_dict['date_of_birth'] = input_string[reservation_code_start:reservation_code_end]
-    #
-    reservation_code_start = reservation_code_end + 14
-    reservation_code_end = input_string.find('City')
-    param_dict['street_address'] = input_string[reservation_code_start:reservation_code_end]
-    #
-    reservation_code_start = reservation_code_end + 4
-    reservation_code_end = input_string.find('Flight number')
-    param_dict['city'] = input_string[reservation_code_start:reservation_code_end]
-    #
-    reservation_code_start = reservation_code_end + 13
-    reservation_code_end = input_string.find('Country')
-    param_dict['flight_number'] = input_string[reservation_code_start:reservation_code_end]
-    #
-    reservation_code_start = reservation_code_end + 7
-    reservation_code_end = input_string.find('Phone')
-    param_dict['country'] = input_string[reservation_code_start:reservation_code_end]
-    #
-    reservation_code_start = reservation_code_end + 5
-    reservation_code_end = input_string.find('Email')
-    param_dict['phone'] = input_string[reservation_code_start:reservation_code_end]
-    #
-    reservation_code_start = reservation_code_end + 5
-    reservation_code_end = input_string.find('Additional Comments')
-    param_dict['email'] = input_string[reservation_code_start:reservation_code_end]
-    #
-    reservation_code_start = reservation_code_end + 19
-    reservation_code_end = input_string.find('IRVAS')
-    param_dict['additional_comments'] = input_string[reservation_code_start:reservation_code_end]
 
-    return param_dict
 class CarRentalReservation(models.Model):
     _name = 'car.rental.reservation'
     _description = 'Fleet Rental Management Reservation'
