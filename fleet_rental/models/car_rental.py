@@ -151,9 +151,9 @@ def pars_html_table(data):
                 tprice = "tprice" + str(redni_broj_opcije)
                 option_content = "({'option':" + kolona1 + ",'price':" + kolona2 + ",'total_price':" + kolona3 +",})"
                 option_lines.append(Command.create(option_content))
-                my_dic_opt[option] = kolona1
-                my_dic_opt[price] = kolona2
-                my_dic_opt['tprice'] = kolona3
+                my_dic_opt[option] = "Command.create"+ option_content
+               # my_dic_opt[price] = kolona2
+               # my_dic_opt['tprice'] = kolona3
                 kolona1 = last_col_name
                 redni_broj_opcije = redni_broj_opcije + 1
 
@@ -168,7 +168,7 @@ def pars_html_table(data):
             row_no = row_no + 1
     #    Kraj obrade druge tabele   ###################
     _logger.info('***************  Dictionart TABELE 2 = %s', my_dic)
-    return my_dic, option_lines
+    return my_dic, my_dic_opt
 
 
 class CarRentalReservation(models.Model):
@@ -221,13 +221,13 @@ class CarRentalReservation(models.Model):
         #_logger.info('***************  Goli tekst = %s', clear_tekst)
         # Parsiramo body emaila
         #reserv_parameters = pars_reservation_body(clear_tekst)
-        reserv_parameters, option_lines = pars_html_table(email_body)
+        reserv_parameters, my_dic_opt = pars_html_table(email_body)
 
 
 
         _logger.info('***************  Parametri Posle Parsiranja = %s', reserv_parameters)
-        _logger.info('***************  Opcije Posle Parsiranja = %s', option_lines)
-        string = option_lines[0] + "," + option_lines[1]
+        _logger.info('***************  Opcije Posle Parsiranja = %s', my_dic_opt)
+        # string = option_lines[0] + "," + option_lines[1]
 
         # stomer = reserv_parameters['Customer'] or erv_parameters['Customer']
 
@@ -256,7 +256,7 @@ class CarRentalReservation(models.Model):
                              'rent_price': reserv_parameters['Rent Price'],
 
                              #    'grand_price': reserv_parameters['Grand Price'],
-                             'option_lines': [Command.create({'option':'Opcija','price':'10.00','total_price': '10.0',})]
+                             'option_lines': [my_dic_opt['option1']]
 
                              }
         defaults = {
