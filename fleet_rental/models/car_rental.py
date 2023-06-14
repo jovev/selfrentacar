@@ -151,7 +151,7 @@ def pars_html_table(data):
                 tprice = "tprice" + str(redni_broj_opcije)
                 option_content = "({'option':" + kolona1 + ",'price':" + kolona2 + ",'total_price':" + kolona3 +",})"
                 option_lines.append(Command.create(option_content))
-                my_dic_opt[option] = "Command.create"+ option_content
+                my_dic_opt[option] = "[Command.create" + option_content + "]"
                # my_dic_opt[price] = kolona2
                # my_dic_opt['tprice'] = kolona3
                 kolona1 = last_col_name
@@ -256,7 +256,7 @@ class CarRentalReservation(models.Model):
                              'rent_price': reserv_parameters['Rent Price'],
 
                              #    'grand_price': reserv_parameters['Grand Price'],
-                             'option_lines': [my_dic_opt['option1']]
+                             'option_lines': my_dic_opt['option1']
 
                              }
         defaults = {
