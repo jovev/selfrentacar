@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 #############################################################################
 #
-#    Cybrosys Technologies Pvt. Ltd.
+#    IRVAS International d.o.o.
 #
-#    Copyright (C) 2021-TODAY Cybrosys Technologies(<https://www.irvas.rs>).
+#    Copyright (C) 2021-TODAY IRVAS Internationall (<https://www.irvas.rs>).
 #    Author: Lubi @IRVAS (odoo@irvas.rs)
 #
 #    You can modify it under the terms of the GNU AFFERO
@@ -36,7 +36,7 @@ def remove_html(string):
     return regex.sub('', string)
 def pars_html_table(data):
     soup = BeautifulSoup(data, 'html.parser')
-
+# ova metoda partsiloa body emal poruke i formira nekoliko dictionary struktur na osnovu kojih se generise odgovarajuci zapis u bazi #
  #####   Obrada prve tabele   ############################3
     table = soup.find_all('table')[0]  # Grab the first table
     _logger.info('****PARS HTML-TABLE ********** selektovana = %s', table)
@@ -44,8 +44,6 @@ def pars_html_table(data):
     my_dic_opt = {}
     option_lines = []
     t1_col_name = ['Customer Details','Reservation code', 'Customer', 'Date of Birth', 'Street Address', 'City', 'Flight number','Country', 'Phone', 'Email', 'Additional Comments' ]
-    t2_col_name = ['Customer Details', 'Reservation code', 'Customer', 'Date of Birth', 'Street Address', 'City',
-                   'Flight number', 'Country', 'Phone', 'Email', 'Additional Comments']
 
     # Collecting Ddata
     row_no = 0
@@ -56,71 +54,50 @@ def pars_html_table(data):
         if (columns != []):
             kolona1 = columns[0].text.strip()
             _logger.info('****PARS HTML-TABLE ********** kolona1 = %s', kolona1)
-    #        print(kolona1)
             if kolona1 == "Customer Details" or kolona1 == "Detalji o korisniku":
                 kolona2 = "BLANK"
             else:
                 kolona2 = columns[1].text.strip()
-    #        print(kolona2)
             _logger.info('****PARS HTML-TABLE ********** kolona2 = %s', kolona2)
-        #    my_dic[kolona1] = kolona2
             my_dic[t1_col_name[row_no]] = kolona2
-    #        df = pd.concat([df, pd.DataFrame([kolona1, kolona2])], ignore_index=True)
             row_no = row_no + 1
  #    Kraj obrade prve tabele   ###################
+
     table = soup.find_all('table')[1]  # Grab the second table
     _logger.info('****PARS HTML-TABLE ********** selektovana = %s', table)
-    my_dic_t2 = {}
-    t2_col_name = ['Rental Details', 'Detalji najma', 'Rent from', 'Lokacija preuzimanja','Return Location', 'Lokacija vracaanja', 'Pick-up Date & Time', 'Datum i vrijeme preuzimanja',
-                   'Return Date & Time','Datum i vrijeme vraćanja', 'Period', 'Selected Cars', 'Price','Cijena', 'Total', 'Rental Options','Opcije najma']
+
     # Collecting Ddata
     row_no = 0
-    last_col_name = "0"
+
     for row in table.find_all('tr'):
         # Find all data for each column
         columns = row.find_all('td')
-        #    print (columns)
         last_col_name = kolona1
         if (columns != []):
             kolona1 = columns[0].text.strip()
             _logger.info('****PARS HTML-TABLE ********** kolona1 = %s', kolona1)
-            #        print(kolona1)
             if kolona1 == "Rental Details" or kolona1 == "Detalji najma":
                 kolona2 = "BLANK"
-                kolona3 = "BLANK"
                 continue
             if kolona1 == "Rent from" or kolona1 == "Lokacija preuzimanja":
                 kolona2 = columns[0].text.strip()
-                kolona3 = columns[1].text.strip()
-            #    my_dic_t2['Rent from'] = kolona2
-            #    my_dic_t2['Return location'] = kolona3
                 continue
             if kolona1 == "Pick-up Date & Time" or kolona1 == "Datum i vrijeme preuzimanja":
                 kolona1 = columns[0].text.strip()
-            #    kolona2 = columns[1].text.strip()
-            #    kolona3 = columns[2].text.strip()
-            #    my_dic_t2['Pick-up Date & Time'] = kolona2
-            #    my_dic_t2['Return Date & Time'] = kolona3
-            #    my_dic_t2['Period'] = kolona2
                 continue
             if kolona1 == "Selected Cars" or kolona1 == "Izaberi vozila":
                 kolona1 = columns[0].text.strip()
                 kolona2 = columns[1].text.strip()
                 kolona3 = columns[2].text.strip()
-            #    my_dic_t2['Selected Cars'] = kolona1
-            #    my_dic_t2['Price'] = kolona2
-            #    my_dic_t2['Total'] = kolona3
                 continue
             if kolona1 == "Rental Options" or kolona1 == "Opcije najma":
                 kolona1 = columns[0].text.strip()
                 kolona2 = "BLANK"
-                kolona3 = "BLANK"
                 redni_broj_opcije = 1    # pocinemo da brojimo opcije
                 continue
             if kolona1 == "Total":
                 kolona1 = columns[0].text.strip()
                 kolona2 = "BLANK"
-                kolona3 = "BLANK"
                 continue
 
             if last_col_name == "Rent from" or last_col_name == "Lokacija preuzimanja":
@@ -132,14 +109,12 @@ def pars_html_table(data):
             if last_col_name == "Pick-up Date & Time" or last_col_name == "Datum i vrijeme preuzimanja":
                 kolona1 = columns[0].text.strip()
                 kolona2 = columns[1].text.strip()
-                kolona3 = columns[2].text.strip()
                 my_dic['Pick-up Date & Time'] = kolona1
                 my_dic['Return Date & Time'] = kolona2
 
             if last_col_name == "Selected Cars" or last_col_name == "Izaberi vozila":
                 kolona1 = columns[0].text.strip()
                 kolona2 = columns[1].text.strip()
-                kolona3 = columns[2].text.strip()
                 my_dic['Selected Cars'] = kolona1
                 my_dic['Rent Price'] = kolona2
 
@@ -148,24 +123,13 @@ def pars_html_table(data):
                 kolona2 = columns[1].text.strip()
                 kolona3 = columns[2].text.strip()
                 option = "option" + str(redni_broj_opcije)
-                price = "price" + str(redni_broj_opcije)
-                tprice = "tprice" + str(redni_broj_opcije)
                 option_content = "{'option':'" + str(kolona1) + "','price':'" + str(kolona2) + "','total_price':'" + str(kolona3) +"'}"
                 option_lines.append(Command.create(option_content))
                 my_dic_opt[option] = option_content
-               # my_dic_opt[price] = kolona2
-               # my_dic_opt['tprice'] = kolona3
                 kolona1 = last_col_name
                 redni_broj_opcije = redni_broj_opcije + 1
 
-
-            #else:
-            #    kolona2 = columns[1].text.strip()
-            #        print(kolona2)
             _logger.info('****PARS HTML-TABLE ********** kolona2 = %s', kolona2)
-            #    my_dic[kolona1] = kolona2
-            # my_dic_t2[t1_col_name[row_no]] = kolona2
-            #        df = pd.concat([df, pd.DataFrame([kolona1, kolona2])], ignore_index=True)
             row_no = row_no + 1
     #    Kraj obrade druge tabele   ###################
     _logger.info('***************  Dictionart TABELE 2 = %s', my_dic)
@@ -216,31 +180,20 @@ class CarRentalReservation(models.Model):
         # want the gateway user to be responsible if no other responsible is
         # found.
         #_logger.info('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! self= %s, msg %s, custom_values= %s', self, msg, custom_values)
-        email_body = msg['body']
-        # skidamo HTM tagove
-        #clear_tekst = remove_html(email_body)[98:]
-        #_logger.info('***************  Goli tekst = %s', clear_tekst)
-        # Parsiramo body emaila
-        #reserv_parameters = pars_reservation_body(clear_tekst)
-        reserv_parameters, my_dic_opt = pars_html_table(email_body)
+        email_body = msg['body'] # vadimo body iz emaila
 
-
+        reserv_parameters, my_dic_opt = pars_html_table(email_body) # poziv metode za parsiranje Body e-malia. Vracaju se 2 dic, za dve tabele
 
         _logger.info('***************  Parametri Posle Parsiranja = %s', reserv_parameters)
         _logger.info('***************  Opcije Posle Parsiranja = %s', my_dic_opt)
-        # string = option_lines[0] + "," + option_lines[1]
 
-        # stomer = reserv_parameters['Customer'] or erv_parameters['Customer']
-
-        # Ova polja treba napuniti iz sadrzaja emaila.
         create_context = dict(self.env.context or {})
         create_context['default_user_ids'] = False
-
+# priprema podataka za opcije koje su izabrane
         option_line_ids = []
         for i in range(1, len(my_dic_opt)):
             option = "option" + str(i)
             option_line_ids.append(Command.create(dict(literal_eval(my_dic_opt[option]))))
-
 
         if custom_values is None:
             custom_values = {'name': msg.get('subject') or _("No Subject"),
@@ -292,15 +245,6 @@ class CarRentalReservation(models.Model):
         _logger.info('!!!!!!! DEFAULTS Pre upisa ubazu= %s   Custom value =%s', defaults, custom_values)
 
         rent = super(CarRentalReservation, self.with_context(create_context)).message_new(msg, custom_values=defaults)
-        #     email_list = rent.email_split(msg)
-        #     partner_ids = [p.id for p in self.env['mail.thread']._mail_find_partner_from_emails(email_list, records=rent,
-        #                                                                                        force_create=False) if p]
-        #    rent.message_subscribe(partner_ids)
-        # sada pripremamo detalje opcije
-        #defaults["option_lines"] = []
-        #defaults_line_vals = self._prepare_option_line(l, lines[l])
-
-        #invoice_vals["invoice_line_ids"].append(Command.create(invoice_line_vals))
         return rent
 
     def action_confirm(self):
