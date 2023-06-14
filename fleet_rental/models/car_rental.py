@@ -293,6 +293,12 @@ class CarRentalReservation(models.Model):
                 car_category_id = car_category.id
         else:
             car_category_id = '1'
+        option_line_ids = []
+        for selected_option in self.option_lines:
+            name = selected_option.option
+            recurring_amount = selected_option.price
+            dic_string = "{'name':'" + name + ",'recurring_amount':'" + recurring_amount + "}"
+            option_line_ids.append(Command.create(dict(literal_eval(dic_string))))
 
         values = {
                          'customer_id': customer_id.id,
@@ -307,6 +313,7 @@ class CarRentalReservation(models.Model):
                         'state':'draft',
                         'cost':self.rent_price,
                         'first_payment':'0.0',
+                        'recurring_line': option_line_ids,
                          }
         self.env['car.rental.contract'].create(values)
 
