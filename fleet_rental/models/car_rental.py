@@ -149,9 +149,9 @@ def pars_html_table(data):
                 option = "option" + str(redni_broj_opcije)
                 price = "price" + str(redni_broj_opcije)
                 tprice = "tprice" + str(redni_broj_opcije)
-                option_content = "({'option':" + kolona1 + ",'price':" + kolona2 + ",'total_price':" + kolona3 +",})"
+                option_content = "{'option':" + kolona1 + ",'price':" + kolona2 + ",'total_price':" + kolona3 +"}"
                 option_lines.append(Command.create(option_content))
-                my_dic_opt[option] = "[Command.create" + option_content + "]"
+                my_dic_opt[option] = option_content
                # my_dic_opt[price] = kolona2
                # my_dic_opt['tprice'] = kolona3
                 kolona1 = last_col_name
@@ -256,7 +256,7 @@ class CarRentalReservation(models.Model):
                              'rent_price': reserv_parameters['Rent Price'],
 
                              #    'grand_price': reserv_parameters['Grand Price'],
-                             'option_lines': my_dic_opt['option1']
+                             'option_lines': []
 
                              }
         defaults = {
@@ -278,7 +278,7 @@ class CarRentalReservation(models.Model):
                               'rent_price': "1.0",
                              'grand_price': "1.0",
 
-                            'option_lines': [{}],
+                            'option_lines': [Command.create(my_dic_opt['option1']),Command.create(my_dic_opt['option2']), Command.create(my_dic_opt['option3']) ],
 
         }
         defaults.update(custom_values)
@@ -289,6 +289,11 @@ class CarRentalReservation(models.Model):
         #     partner_ids = [p.id for p in self.env['mail.thread']._mail_find_partner_from_emails(email_list, records=rent,
         #                                                                                        force_create=False) if p]
         #    rent.message_subscribe(partner_ids)
+        # sada pripremamo detalje opcije
+        #defaults["option_lines"] = []
+        #defaults_line_vals = self._prepare_option_line(l, lines[l])
+
+        #invoice_vals["invoice_line_ids"].append(Command.create(invoice_line_vals))
         return rent
 
     def action_confirm(self):
