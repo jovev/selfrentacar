@@ -150,7 +150,7 @@ def pars_html_table(data):
                 option = "option" + str(redni_broj_opcije)
                 price = "price" + str(redni_broj_opcije)
                 tprice = "tprice" + str(redni_broj_opcije)
-                option_content = "{'option':" + str(kolona1) + ",'price':" + str(kolona2) + ",'total_price':" + str(kolona3) +"}"
+                option_content = "{'option':'" + str(kolona1) + "','price':'" + str(kolona2) + "','total_price':'" + str(kolona3) +"'}"
                 option_lines.append(Command.create(option_content))
                 my_dic_opt[option] = option_content
                # my_dic_opt[price] = kolona2
