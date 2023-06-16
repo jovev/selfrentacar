@@ -320,7 +320,10 @@ class FleetRent(models.Model):
         "tenancy.rent.schedule", "fleet_rent_id", "Rent Schedule"
     )
     maintanance_ids = fields.One2many(
-        "maintenance.cost", "fleet_rent_id", "Maintenance Costs"
+        "fleet.rent.options", "fleet_rent_id", "Maintenance Costs"
+    )
+    option_ids = fields.One2many(
+        "maintenance.cost", "rental_options", "Option Costs"
     )
     description = fields.Text()
     account_move_line_ids = fields.One2many(
@@ -993,3 +996,13 @@ class TenancyRentSchedule(models.Model):
         if tenancy_rent_recs and mail_temp_rec:
             for pending_rent in tenancy_rent_recs:
                 mail_temp_rec.send_mail(pending_rent.id, force_send=True)
+##  Prosirenja - lubi
+
+class CarRentalReservationOptions(models.Model):
+    _name = 'fleet.rent.options'
+    _description = 'Fleet Rental Reservation options'
+    option = fields.Many2one("product.product", "Optional service or equipment")
+    price = fields.Char(string="Price for option")
+    quantity = fields.float(string='Qty')
+    total_price = fields.Char(string="Total Price for option")
+    rental_options = fields.Many2one('fleet.rent', string='Rental options')
