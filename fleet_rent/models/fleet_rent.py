@@ -320,10 +320,10 @@ class FleetRent(models.Model):
         "tenancy.rent.schedule", "fleet_rent_id", "Rent Schedule"
     )
     maintanance_ids = fields.One2many(
-        "fleet.rent.options", "fleet_rent_id", "Maintenance Costs"
+        "fleet.rent.options", "fleet_rent_id", "Option Costs"
     )
     option_ids = fields.One2many(
-        "maintenance.cost", "rental_options", "Option Costs"
+        "maintenance.cost", "fleet_rent_id", "Maintenance Costs"
     )
     description = fields.Text()
     account_move_line_ids = fields.One2many(
@@ -1005,4 +1005,4 @@ class CarRentalReservationOptions(models.Model):
     price = fields.Char(string="Price for option")
     quantity = fields.Float(string='Qty')
     total_price = fields.Char(string="Total Price for option")
-    rental_options = fields.Many2one('fleet.rent', string='Rental options')
+    fleet_rent_id = fields.Many2one('fleet.rent', string='Rental options')
