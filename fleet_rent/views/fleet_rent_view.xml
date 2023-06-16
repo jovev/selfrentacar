@@ -346,7 +346,7 @@
                                 </tree>
                             </field>
                         </page>
-                <!--   Lubi dodatak za opcije     ---->
+                <!--   Lubi dodatak za opcije     -->
                         <page name="option_lines" string="Rent Options">
                             <separator colspan="4" string="Rent Options" />
                             <field name="maintanance_ids">
@@ -371,7 +371,7 @@
                             </field>
                         </page>
 
-                <!-- end Lubi    dodatak ----->
+                <!-- end Lubi    dodatak -->
                         <page name="maintenance_lines" string="Maintenance">
                             <separator colspan="4" string="Maintenance" />
                             <field name="maintanance_ids">
