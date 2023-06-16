@@ -319,10 +319,10 @@ class FleetRent(models.Model):
     rent_schedule_ids = fields.One2many(
         "tenancy.rent.schedule", "fleet_rent_id", "Rent Schedule"
     )
-    maintanance_ids = fields.One2many(
+    option_ids = fields.One2many(
         "fleet.rent.options", "fleet_rent_id", "Option Costs"
     )
-    option_ids = fields.One2many(
+    maintanance_ids = fields.One2many(
         "maintenance.cost", "fleet_rent_id", "Maintenance Costs"
     )
     description = fields.Text()
