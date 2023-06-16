@@ -1003,6 +1003,6 @@ class CarRentalReservationOptions(models.Model):
     _description = 'Fleet Rental Reservation options'
     option = fields.Many2one("product.product", "Optional service or equipment")
     price = fields.Char(string="Price for option")
-    quantity = fields.float(string='Qty')
+    quantity = fields.Float(string='Qty')
     total_price = fields.Char(string="Total Price for option")
     rental_options = fields.Many2one('fleet.rent', string='Rental options')
