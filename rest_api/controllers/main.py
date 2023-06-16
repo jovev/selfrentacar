@@ -484,19 +484,21 @@ def wrap__report__call_method(method, success_code):
     jdata = args.copy()
     jdata.update(body)
     # Try call method of report
-    _logger.info("Try call method of report: method == %s; len(jdata) == %s" \
-                                        % (method, len(jdata)))
-    _logger.debug("jdata == %s" % jdata)
+    _logger.info("Try call method of report: method == %s; len(jdata) == %s" % (method, len(jdata)))
+    _logger.info("jdata == %s" % jdata)
+    _logger.info("rname  == %s" % jdata['report_name'])
     cr, uid = request.cr, request.session.uid
     cr._cnx.set_isolation_level(ISOLATION_LEVEL_READ_COMMITTED)
     # Attention! Current implemented report methods: 'get_pdf'.
     if method == 'get_pdf' and 'report_name' in jdata and 'ids' in jdata:
         try:
-            report = request.env(cr, uid)['ir.actions.report'] \
-                        ._get_report_from_name(jdata['report_name'])
-            pdf = report.render_qweb_pdf(jdata['ids'])[0]
-            res = base64.encodebytes(pdf).decode('utf-8')
+            ###pdf = report.render_qweb_pdf(jdata['ids'])[0]
+            pdf = request.env['ir.actions.report'].sudo()._render_qweb_pdf(jdata['report_name'], jdata['ids'])[0]
+            res = base64.encodebytes(pdf)
+            _logger.info("PROSOOOOOOO! %s", res)
+
             return successful_response(success_code, res)
+
         except Exception as e:
             odoo_error = repr(e)
             return error_response_409__not_called_method_in_odoo(odoo_error)

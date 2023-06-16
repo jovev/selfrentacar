@@ -19,7 +19,7 @@ access_token = r.json()['access_token']
 
 print ('\n 2. res.partner - Read all (with filters in URL):')
 r = requests.get(
-    "http://localhost:8069/api/car.rental.contract?filters=[('state','like','reserved'),('id','!=',50)]",
+    "http://localhost:8069/api/car.rental.contract?filters=[('state','=','reserved')]",
     headers = {
         'Content-Type': 'text/html; charset=utf-8',
         'Access-Token': access_token
