@@ -349,7 +349,7 @@
                 <!--   Lubi dodatak za opcije     -->
                         <page name="option_lines" string="Rent Options">
                             <separator colspan="4" string="Rent Options" />
-                            <field name="maintanance_ids">
+                            <field name="option_ids">
                                 <tree editable="bottom">
                                     <field
                                         name="option"
