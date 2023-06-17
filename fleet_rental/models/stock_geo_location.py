@@ -33,7 +33,7 @@ class StockGeoLocation(models.Model):
    # key_position = fields.Char(string = "Key Position")
 
     street_name = fields.Char('Street Name')
-    street_number = fields.Char('Street Name')
+ #   street_number = fields.Char('Street Name')
     # street_name = fields.Char(
     #     'Street Name', compute='_compute_street_data', inverse='_inverse_street_data', store=True)
     # street_number = fields.Char(
