@@ -323,7 +323,7 @@ class CarRentalReservation(models.Model):
         if self.rent_end_date < self.rent_start_date:
             raise ValidationError("Please select the valid end date.")
 
-        customers = self.env['res.users'].search([('email', '=', self.cemail)])
+        customers = self.env['res.partner'].search([('email', '=', self.cemail)])
         countries = self.env['res.country'].search([('name', '=', self.country)])
         country_id=""
         for country in countries:
