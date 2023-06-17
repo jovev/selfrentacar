@@ -21,5 +21,5 @@
 #############################################################################
 
 # from . import car_rental
-# from . import fleet
+from . import fleet
 from . import stock_geo_location
