@@ -1022,9 +1022,9 @@ class CarRentalReservationOptions(models.Model):
     _name = 'fleet.rent.options'
     _description = 'Fleet Rental Reservation options'
     option = fields.Many2one("product.product", "Optional service or equipment")
-    price = fields.Char(string="Price for option")
+    price = fields.Float(string="Price for option")
     quantity = fields.Float(string='Qty')
-    total_price = fields.Char(compute="_compute_option_total_price", store=True, string="Total Price for option")
+    total_price = fields.Float(compute="_compute_option_total_price", store=True, string="Total Price")
     fleet_rent_id = fields.Many2one('fleet.rent', string='Rental options')
 
     @api.onchange("price")
