@@ -1027,8 +1027,8 @@ class CarRentalReservationOptions(models.Model):
     total_price = fields.Float(compute="_compute_option_total_price", store=True, string="Total Price")
     fleet_rent_id = fields.Many2one('fleet.rent', string='Rental options')
 
-    @api.onchange("price")
+    @api.onchange("price", "quantity")
     def _compute_option_total_price(self):
-        """Method to display owner name."""
+        """Method to compute total price."""
         for rent in self:
-            rent.total_price = rent.quantity * rent.price
+            rent.option_ids.total_price = rent.option_ids.quantity * rent.option_ids.price
