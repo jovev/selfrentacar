@@ -32,8 +32,8 @@ class StockGeoLocation(models.Model):
     keybox_location = fields.Boolean(string = "is KeyBox Location")
    # key_position = fields.Char(string = "Key Position")
 
-    street_name = fields.Char('Street Name')
-    street_number = fields.Char('Street Number')
+    #street_name = fields.Char('Street Name')
+    #street_number = fields.Char('Street Number')
     # street_name = fields.Char(
     #     'Street Name', compute='_compute_street_data', inverse='_inverse_street_data', store=True)
     # street_number = fields.Char(
@@ -44,13 +44,13 @@ class StockGeoLocation(models.Model):
     city_id = fields.Many2one(comodel_name='res.city', string='City ID')
    # country_enforce_cities = fields.Boolean(related='country_id.enforce_cities')
 
-    def _inverse_street_data(self):
-        """ update self.street based on street_name, street_number and street_number2 """
-        for partner in self:
-            street = ((partner.street_name or '') + " " + (partner.street_number or '')).strip()
-            if partner.street_number2:
-                street = street + " - " + partner.street_number2
-            partner.street = street
+   # def _inverse_street_data(self):
+   #     """ update self.street based on street_name, street_number and street_number2 """
+   #     for partner in self:
+   #         street = ((partner.street_name or '') + " " + (partner.street_number or '')).strip()
+   #         if partner.street_number2:
+   #             street = street + " - " + partner.street_number2
+   #         partner.street = street
 
     @api.depends('street')
     def _compute_street_data(self):
