@@ -319,77 +319,77 @@ class CarRentalReservation(models.Model):
 
 
 
-    def action_create_rent(self):
-        if self.rent_end_date < self.rent_start_date:
-            raise ValidationError("Please select the valid end date.")
-
-        customers = self.env['res.partner'].search([('email', '=', self.cemail)])
-        countries = self.env['res.country'].search([('name', '=', self.country)])
-        country_id=""
-        for country in countries:
-          country_id = country.id
-        if customers:
-            for customer in customers:
-                customer_name = customer.name
-                customer_id = customer
-        else:   # Znaci, korisnik ne postoji , idemo u proces kreiranja novog korisnika u respartner
-            values = {
-                'name': self.customer_name,
-                'email': self.cemail,
-                'login': self.cemail,
-                'phone': self.phone,
-                'is_company': '0',
-                'street': self.street_address,
-                'city': self.city,
-                'country_id': country_id,
-                'is_tenand': True
-            }
-            customer_id = self.env['res.users'].create(values)
-
-        start_locations = self.env['stock.location'].search([('name','=',self.rent_from)])
-        if start_locations:
-            for start_location in start_locations:
-                location_start_id = start_location.id
-        else:
-            location_start_id = '18'
-
-        end_locations = self.env['stock.location'].search([('name', '=', self.return_location)])
-        if end_locations:
-            for end_location in end_locations:
-                location_end_id = end_location.id
-        else:
-            location_end_id = '18'
-        self.state = "checking"
-
-        car_categories = self.env['fleet.vehicle.model.category'].search([('name', '=', self.selected_cars)])
-        if car_categories:
-            for car_category in car_categories:
-                car_category_id = car_category.id
-        else:
-            car_category_id = '1'
-        option_line_ids = []
-        for selected_option in self.option_lines:
-            name = selected_option.option
-            unit_price = selected_option.price
-            dic_string = "{'option':'" + name + "','price':'" + unit_price + "'}"
-            option_line_ids.append(Command.create(dict(literal_eval(dic_string))))
-
-        values = {
-                         'tenant_id': customer_id.id,
-                         'rent_start_date': self.rent_start_date,
-                         'rent_end_date': self.rent_end_date,
-                         'reservation_code': self.reservation_code,
-                         'notes': self.additional_comments,
-                         'rent_from': location_start_id,
-                         'return_location': location_end_id ,
-                         'web_car_request': self.selected_cars,
-                         'total': self.total_rent,
-                        'state':'draft',
-                        'rent_amt':self.rent_price,
-                        'option_ids': option_line_ids,
-                         }
-        self.env['fleet.rent'].create(values)
-
+    # def action_create_rent(self):
+    #     if self.rent_end_date < self.rent_start_date:
+    #         raise ValidationError("Please select the valid end date.")
+    #
+    #     customers = self.env['res.partner'].search([('email', '=', self.cemail)])
+    #     countries = self.env['res.country'].search([('name', '=', self.country)])
+    #     country_id=""
+    #     for country in countries:
+    #       country_id = country.id
+    #     if customers:
+    #         for customer in customers:
+    #             customer_name = customer.name
+    #             customer_id = customer
+    #     else:   # Znaci, korisnik ne postoji , idemo u proces kreiranja novog korisnika u respartner
+    #         values = {
+    #             'name': self.customer_name,
+    #             'email': self.cemail,
+    #             'login': self.cemail,
+    #             'phone': self.phone,
+    #             'is_company': '0',
+    #             'street': self.street_address,
+    #             'city': self.city,
+    #             'country_id': country_id,
+    #             'is_tenand': True
+    #         }
+    #         customer_id = self.env['res.users'].create(values)
+    #
+    #     start_locations = self.env['stock.location'].search([('name','=',self.rent_from)])
+    #     if start_locations:
+    #         for start_location in start_locations:
+    #             location_start_id = start_location.id
+    #     else:
+    #         location_start_id = '18'
+    #
+    #     end_locations = self.env['stock.location'].search([('name', '=', self.return_location)])
+    #     if end_locations:
+    #         for end_location in end_locations:
+    #             location_end_id = end_location.id
+    #     else:
+    #         location_end_id = '18'
+    #     self.state = "checking"
+    #
+    #     car_categories = self.env['fleet.vehicle.model.category'].search([('name', '=', self.selected_cars)])
+    #     if car_categories:
+    #         for car_category in car_categories:
+    #             car_category_id = car_category.id
+    #     else:
+    #         car_category_id = '1'
+    #     option_line_ids = []
+    #     for selected_option in self.option_lines:
+    #         name = selected_option.option
+    #         unit_price = selected_option.price
+    #         dic_string = "{'option':'" + name + "','price':'" + unit_price + "'}"
+    #         option_line_ids.append(Command.create(dict(literal_eval(dic_string))))
+    #
+    #     values = {
+    #                      'tenant_id': customer_id.id,
+    #                      'rent_start_date': self.rent_start_date,
+    #                      'rent_end_date': self.rent_end_date,
+    #                      'reservation_code': self.reservation_code,
+    #                      'notes': self.additional_comments,
+    #                      'rent_from': location_start_id,
+    #                      'return_location': location_end_id ,
+    #                      'web_car_request': self.selected_cars,
+    #                      'total': self.total_rent,
+    #                     'state':'draft',
+    #                     'rent_amt':self.rent_price,
+    #                     'option_ids': option_line_ids,
+    #                      }
+    #     self.env['fleet.rent'].create(values)
+    #
 
     #    raise ValidationError("Kreiranje nije jos zavrseno . Ovo je samo test akcije")
 
