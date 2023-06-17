@@ -199,6 +199,7 @@
                         <group colspan='4' col='4'>
                             <separator string="Vehicle Information" colspan="4" />
                             <field name = "web_car_request" />
+                            <field name = "plate" />
                             <field
                                 name="vehicle_id"
                                 required="1"
@@ -237,6 +238,8 @@
                                     required="1"
                                     string='Last Odometer'
                                 />
+                                <field name="rent_from" class="oe_inline" />
+                                <field name="return_location" class="oe_inline" />
                             </div>
                         </group>
                         <group
@@ -280,6 +283,7 @@
                         </group>
                         <group colspan='4' col='4'>
                             <separator string="Contract Information" colspan="4" />
+                            <field name = "allow_crossborder" />
                             <field
                                 name="date_start"
                                 colspan="2"
