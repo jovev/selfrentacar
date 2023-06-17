@@ -376,8 +376,8 @@ class CarRentalReservation(models.Model):
 
         values = {
                          'tenant_id': customer_id.id,
-                         'rent_start_date': self.rent_start_date,
-                         'rent_end_date': self.rent_end_date,
+                         'date_start': self.rent_start_date,
+                         'date_end': self.rent_end_date,
                          'reservation_code': self.reservation_code,
                          'notes': self.additional_comments,
                          'rent_from': location_start_id,
