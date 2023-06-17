@@ -344,7 +344,7 @@ class CarRentalReservation(models.Model):
                 'country_id': country_id,
                 'is_tenand': True
             }
-            customer_id = self.env['res.partner'].create(values)
+            customer_id = self.env['res.users'].create(values)
 
         start_locations = self.env['stock.location'].search([('name','=',self.rent_from)])
         if start_locations:
