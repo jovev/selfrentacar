@@ -383,7 +383,7 @@ class CarRentalReservation(models.Model):
                          'rent_from': location_start_id,
                          'return_location': location_end_id ,
                          'web_car_request': self.selected_cars,
-                         'total': self.grand_price,
+                         'total_rent': self.grand_price,
                         'state':'draft',
                         'rent_amt':self.rent_price,
                         'option_ids': option_line_ids,
