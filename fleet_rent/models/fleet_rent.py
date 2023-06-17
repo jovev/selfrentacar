@@ -376,7 +376,7 @@ class FleetRent(models.Model):
     x_bazna_lokacija = fields.Many2one(related='vehicle_id.x_bazna_lokacija', string = 'Base Location')
     x_trenutna_lokacija = fields.Many2one(related='vehicle_id.x_trenutna_lokacija', string='Current Location')
     x_key_position = fields.Char(related='vehicle_id.x_key_position', string = 'Key position in KeyBox')
-    note = fields.Char(string = "Additional notes")
+    notes = fields.Char(string = "Additional notes")
     @api.constrains("deposit_amt", "rent_amt", "maintenance_cost")
     def check_amt(self):
         for amount in self:
