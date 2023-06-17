@@ -22,4 +22,4 @@
 
 # from . import car_rental
 # from . import fleet
-# from . import stock_geo_location
+from . import stock_geo_location
