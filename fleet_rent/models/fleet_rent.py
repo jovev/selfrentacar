@@ -354,6 +354,7 @@ class FleetRent(models.Model):
         compute="_compute_count_refund_invoice", string="Refund"
     )
     # Dodao lubi - prosirenje modela
+    #
     option_ids = fields.One2many(
         "fleet.rent.options", "fleet_rent_id", "Option Costs"
     )
@@ -372,8 +373,9 @@ class FleetRent(models.Model):
     dropoff_fuel = fields.Selection([('e', 'Empty'), ('14', '1/4'), ('12', '1/2'), ('34', '3/d'),
                                      ('f', 'Full')], string="Dropoff fuel",
                                     help='Feel level at dropoff', required=False)
-
-
+    x_bazna_lokacija = fields.Many2one(related='vehicle_id.x_bazna_lokacija', string = 'Base Location')
+    x_trenutna_lokacija = fields.Many2one(related='vehicle_id.x_trenutna_lokacija', string='Current Location')
+    x_key_position = fields.Char(related='vehicle_id.x_key_position', string = 'Key position in KeyBox')
     @api.constrains("deposit_amt", "rent_amt", "maintenance_cost")
     def check_amt(self):
         for amount in self:
