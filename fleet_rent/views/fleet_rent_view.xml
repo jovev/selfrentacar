@@ -196,15 +196,19 @@
                                 />
                         </h1>
                     </div>
-                        <group colspan='4' col='4'>
+                        <group colspan="4" col="4">
                             <separator string="Vehicle Information" colspan="4"/>
                             <field name="web_car_request"/>
 
                             <field name="vehicle_id" required="1" placeholder="Vehicle Name" context="{'remove_inprogeress':True}"/>
-                            <field name="tenant_id" context="{'default_is_tenant':True, 'tree_view_ref': 'fleet_rent.view_tenant_users_tree',
-                                   'form_view_ref': 'fleet_rent.view_tenant_users_form'}" placeholder="Tenant Name"
-                                    required="1" domain="[('is_tenant','=',True)]" options="{'no_create': True, 'no_open': True}"/>
-                             <field name="plate"/>
+                            <field name="tenant_id" context="{'default_is_tenant':True, 'tree_view_ref': 'fleet_rent.view_tenant_users_tree',                                    'form_view_ref': 'fleet_rent.view_tenant_users_form'}" placeholder="Tenant Name" required="1" domain="[('is_tenant','=',True)]" options="{'no_create': True, 'no_open': True}"/>
+
+                            <field name="plate"/>
+                            <field name="x_bazna_lokacija"/>
+                            <field name="x_key_position"/>
+                            <field name="x_trenutna_lokacija"/>
+
+
                             <field name="fleet_tenant_id" invisible="1" string="Fleet Tenant"/>
                             <field name="manager_id"/>
                             <field name="vehicle_owner" required="1" string="Vehicle Owner"/>

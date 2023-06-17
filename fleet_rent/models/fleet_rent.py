@@ -1024,5 +1024,11 @@ class CarRentalReservationOptions(models.Model):
     option = fields.Many2one("product.product", "Optional service or equipment")
     price = fields.Char(string="Price for option")
     quantity = fields.Float(string='Qty')
-    total_price = fields.Char(string="Total Price for option")
+    total_price = fields.Char(compute="_compute_option_total_price", store=True, string="Total Price for option")
     fleet_rent_id = fields.Many2one('fleet.rent', string='Rental options')
+
+    @api.onchange("price")
+    def _compute_option_total_price(self):
+        """Method to display owner name."""
+        for rent in self:
+            rent.total_price = rent.quantity * rent.price
