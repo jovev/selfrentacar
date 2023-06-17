@@ -319,9 +319,7 @@ class FleetRent(models.Model):
     rent_schedule_ids = fields.One2many(
         "tenancy.rent.schedule", "fleet_rent_id", "Rent Schedule"
     )
-    option_ids = fields.One2many(
-        "fleet.rent.options", "fleet_rent_id", "Option Costs"
-    )
+
     maintanance_ids = fields.One2many(
         "maintenance.cost", "fleet_rent_id", "Maintenance Costs"
     )
@@ -355,6 +353,26 @@ class FleetRent(models.Model):
     refund_inv_count = fields.Integer(
         compute="_compute_count_refund_invoice", string="Refund"
     )
+    # Dodao lubi - prosirenje modela
+    option_ids = fields.One2many(
+        "fleet.rent.options", "fleet_rent_id", "Option Costs"
+    )
+    web_car_request = fields.Char(string="Required car model, class, ..")
+    plate = fields.Char(string="Vehicle Plate", related='vehicle_id.license_plate')
+    rent_from = fields.Many2one('stock.location', string='Start location')
+    rent_from_longitude = fields.Float(string="GPS X", related='rent_from.location_longitude')
+    rent_from_longitude = fields.Float(string="GPS Y", related='rent_from.location_latitude')
+    return_location = fields.Many2one('stock.location', string='Return location')
+    reservation_code = fields.Char(string="Reservation Code", copy=False)
+    allow_crossborder = fields.Boolean(string="Cross Border")
+    amount_pay_deposit = fields.Float(string="Amount pay deposit", copy=False)
+    pickup_fuel = fields.Selection([('e', 'Empty'), ('14', '1/4'), ('12', '1/2'), ('34', '3/d'),
+                                    ('f', 'Full')], string="Pickup fuel",
+                                   help='Feel level at pickup', required=False)
+    dropoff_fuel = fields.Selection([('e', 'Empty'), ('14', '1/4'), ('12', '1/2'), ('34', '3/d'),
+                                     ('f', 'Full')], string="Dropoff fuel",
+                                    help='Feel level at dropoff', required=False)
+
 
     @api.constrains("deposit_amt", "rent_amt", "maintenance_cost")
     def check_amt(self):

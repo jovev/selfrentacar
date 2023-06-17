@@ -185,9 +185,20 @@
                                     class="oe_inline"
                                 />
                         </h1>
+                        <label for="name" class="oe_edit_only" string="Reservation Number" />
+                        <h1>
+                            <field
+                                    name="reservation_code"
+                                    default_focus="1"
+                                    readonly="1"
+                                    placeholder="Reservation Number"
+                                    class="oe_inline"
+                                />
+                        </h1>
                     </div>
                         <group colspan='4' col='4'>
                             <separator string="Vehicle Information" colspan="4" />
+                            <field name = "web_car_request" />
                             <field
                                 name="vehicle_id"
                                 required="1"
@@ -366,6 +377,8 @@
 
                                         />
                                         <field name="price" />
+                                        <field name="quantity"/>
+                                        <field name="total_price"/>
                                     </group>
                                 </form>
                             </field>
