@@ -1052,6 +1052,7 @@ class CarRentalChecklist(models.Model):
     name = fields.Many2one('car.tools', string="Name")
     checklist_active = fields.Boolean(string="Available", default=True)
     checklist_number = fields.Many2one('car.rental.contract', string="Checklist Number")
+    checklist_number_fr = fields.Many2one('fleet.rent', string="Checklist Number")
     price = fields.Float(string="Price")
 
     @api.onchange('name')
