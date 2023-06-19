@@ -337,14 +337,14 @@
                 <!--   Lubi dodatak za check Lists     -->
 
                         <page string="Checklist">
-                            <!--    <group>
+                               <group>
                                     <group>
                                         <field name="attachment_ids" widget="many2many_binary" class="oe_inline"/>
                                     </group>
                                     <group>
                                         <field name="damage_cost" attrs="{'invisible': [('state','!=','checking')]}"/>
                                     </group>
-                                </group>  -->
+                                </group>
                                 <field name="checklist_line">
                                     <tree string="Fleet Checklist Lines" editable="bottom">
                                         <field name="name"/>
