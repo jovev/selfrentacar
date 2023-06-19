@@ -312,7 +312,7 @@
                                 <form>
                                     <group>
                                         <field
-                                            name="option"
+                                    <!--        name="option"  -->
                                             required="1"
 
                                         />
