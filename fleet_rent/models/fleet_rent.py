@@ -361,7 +361,7 @@ class FleetRent(models.Model):
  #   attachment_ids = fields.Many2many('ir.attachment', 'car_rent_checklist_ir_attachments_rel',
  #                                     'rental_id', 'attachment_id', string="Attachments",
  #                                     help="Images of the vehicle before contract/any attachments")
-    checklist_line = fields.One2many('car.rental.checklist', 'checklist_number', string="Checklist",
+    checklist_line = fields.One2many('car.rental.checklist', 'checklist_number_fr', string="Checklist",
                                      help="Facilities/Accessories, That should verify when closing the contract.",
                                      states={'invoice': [('readonly', True)],
                                              'done': [('readonly', True)],
