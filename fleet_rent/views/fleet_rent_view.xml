@@ -357,7 +357,7 @@
                                             <group>
                                                 <field name="name"/>
                                                 <field name="checklist_active" invisible="1"/>
-                                                <field name="checklist_number" invisible="1"/>
+                                                <field name="fleet_rent_id" invisible="1"/>
                                             </group>
                                         </sheet>
                                     </form>
