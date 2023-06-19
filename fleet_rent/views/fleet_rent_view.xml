@@ -304,7 +304,7 @@
                             <separator colspan="4" string="Rent Options" />
                             <field name="option_ids">
                                 <tree editable="bottom">
-                                    <field name="option" required="1"/>
+                        <!--            <field name="option" required="1"/>  -->
                                     <field name="price" />
                                     <field name="quantity"/>
                                     <field name="total_price"/>
