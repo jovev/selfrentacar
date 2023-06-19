@@ -326,9 +326,9 @@
 
                         <page string="Checklist">
                                 <group>
-                                    <group>
+                               <!--     <group>
                                         <field name="attachment_ids" widget="many2many_binary" class="oe_inline"/>
-                                    </group>
+                                    </group>  -->
                                     <group>
                                         <field name="damage_cost" attrs="{'invisible': [('state','!=','checking')]}"/>
                                     </group>
