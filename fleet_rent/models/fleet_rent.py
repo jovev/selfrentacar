@@ -406,6 +406,59 @@ class FleetRent(models.Model):
                 each.check_verify = False
             else:
                 each.check_verify = True
+    def action_verify(self):
+        self.state = "invoice"
+        self.reserved_fleet_id.unlink()
+        self.rent_end_date = fields.Date.today()
+        if self.total_cost != 0:
+            inv_obj = self.env['account.move']
+            inv_line_obj = self.env['account.move.line']
+            supplier = self.customer_id
+            inv_data = {
+                'ref': supplier.name,
+                'partner_id': supplier.id,
+                'currency_id': self.account_type.company_id.currency_id.id,
+                'journal_id': self.journal_type.id,
+                'invoice_origin': self.name,
+                'company_id': self.account_type.company_id.id,
+                'invoice_date_due': self.rent_end_date,
+            }
+            inv_id = inv_obj.create(inv_data)
+            product_id = self.env['product.product'].search([("name", "=", "Fleet Rental Service")])
+            if product_id.property_account_income_id.id:
+                income_account = product_id.property_account_income_id
+            elif product_id.categ_id.property_account_income_categ_id.id:
+                income_account = product_id.categ_id.property_account_income_categ_id
+            else:
+                raise UserError(
+                    _('Please define income account for this product: "%s" (id:%d).') % (product_id.name,
+                                                                                         product_id.id))
+            inv_line_data = {
+                'name': "Damage/Tools missing cost",
+                'account_id': income_account.id,
+                'price_unit': self.total_cost,
+                'quantity': 1,
+                'product_id': product_id.id,
+                'move_id': inv_id.id,
+            }
+            inv_line_obj.create(inv_line_data)
+            imd = self.env['ir.model.data']
+            action = self.env.ref('account.view_move_tree')
+            list_view_id = self.env.ref('account.view_move_form', False)
+            form_view_id = self.env.ref('account.view_move_tree', False)
+            result = {
+                'name': 'Fleet Rental Invoices',
+                'view_mode': 'form',
+                'res_model': 'account.move',
+                'type': 'ir.actions.act_window',
+                'views': [(list_view_id.id, 'tree'), (form_view_id.id, 'form')],
+            }
+
+            if len(inv_id) > 1:
+                result['domain'] = "[('id','in',%s)]" % inv_id.ids
+            else:
+                result = {'type': 'ir.actions.act_window_close'}
+            return result
 
     @api.constrains("deposit_amt", "rent_amt", "maintenance_cost")
     def check_amt(self):
