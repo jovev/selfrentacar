@@ -361,7 +361,7 @@ class FleetRent(models.Model):
  #   attachment_ids = fields.Many2many('ir.attachment', 'car_rent_checklist_ir_attachments_rel',
  #                                     'rental_id', 'attachment_id', string="Attachments",
  #                                     help="Images of the vehicle before contract/any attachments")
-    checklist_line = fields.One2many('car.rental.checklist', 'fleet_rent_id', string="Checklist",
+    checklist_line = fields.One2many('car.fleet.rent.checklist', 'fleet_rent_id', string="Checklist",
                                      help="Facilities/Accessories, That should verify when closing the contract.",
                                      states={'invoice': [('readonly', True)],
                                              'done': [('readonly', True)],
@@ -1145,4 +1145,10 @@ class CarRentalReservationOptions(models.Model):
     quantity = fields.Float(string='Qty')
     total_price = fields.Float(compute="_compute_option_total_price", store=True, string="Total Price")
     fleet_rent_id = fields.Many2one('fleet.rent', string='Rental options')
+class CarRentalChecklist(models.Model):
+    _name = 'car.fleet.rent.checklist'
 
+    name = fields.Many2one('car.tools', string="Name")
+    checklist_active = fields.Boolean(string="Available", default=True)
+    fleet_rent_id = fields.Many2one("fleet.rent", "Rental Vehicle")
+    price = fields.Float(string="Price")
