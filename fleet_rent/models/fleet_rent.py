@@ -366,6 +366,12 @@ class FleetRent(models.Model):
                                      states={'invoice': [('readonly', True)],
                                              'done': [('readonly', True)],
                                              'cancel': [('readonly', True)]})
+    total = fields.Float(string="Total (Accessories/Tools)", readonly=True, copy=False)
+    tools_missing_cost = fields.Float(string="Missing Cost", readonly=True, copy=False,
+                                      help='This is the total amount of missing tools/accessories')
+    damage_cost = fields.Float(string="Damage Cost", copy=False)
+    damage_cost_sub = fields.Float(string="Damage Cost", readonly=True, copy=False)
+    total_cost = fields.Float(string="Total", readonly=True, copy=False)
 #############
     web_car_request = fields.Char(string="Required car model, class, ..")
     plate = fields.Char(string="Vehicle Plate", related='vehicle_id.license_plate')
