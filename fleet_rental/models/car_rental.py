@@ -261,16 +261,28 @@ class CarRentalReservation(models.Model):
                 customer_name = customer.name
                 customer_id = customer
         else:   # Znaci, korisnik ne postoji , idemo u proces kreiranja novog korisnika u respartner
+            # values = {
+            #     'name': self.customer_name,
+            #     'email': self.cemail,
+            #     'phone': self.phone,
+            #     'is_company': '0',
+            #     'street': self.street_address,
+            #     'city': self.city,
+            #     'country_id': country_id,
+            # }
+            # customer_id = self.env['res.partner'].create(values)
             values = {
                 'name': self.customer_name,
+                'login': self.cemail,
                 'email': self.cemail,
                 'phone': self.phone,
                 'is_company': '0',
+                'is_tenant' : '1',
                 'street': self.street_address,
                 'city': self.city,
                 'country_id': country_id,
             }
-            customer_id = self.env['res.partner'].create(values)
+            customer_id = self.env['res.users'].create(values)
 
         start_locations = self.env['stock.location'].search([('name','=',self.rent_from)])
         if start_locations:
@@ -301,7 +313,7 @@ class CarRentalReservation(models.Model):
             option_line_ids.append(Command.create(dict(literal_eval(dic_string))))
 
         values = {
-                         'customer_id': customer_id.id,
+                         'tenant_id': customer_id.id,
                          'rent_start_date': self.rent_start_date,
                          'rent_end_date': self.rent_end_date,
                          'reservation_code': self.reservation_code,
@@ -488,6 +500,16 @@ class CarRentalContract(models.Model):
                                      states={'invoice': [('readonly', True)],
                                              'done': [('readonly', True)],
                                              'cancel': [('readonly', True)]})
+    #### prosirenje modela ugovora opcionim stavkama iz zahteva, koje treba prikazati u fakturi    ########
+
+    optional_line = fields.One2many('car.rental.contract.options', 'option_number', string="Options",
+                                     help="Requestet options by customer, That should verify when closing the contract.",
+                                     states={'invoice': [('readonly', True)],
+                                             'done': [('readonly', True)],
+                                             'cancel': [('readonly', True)]})
+
+
+    #####
     total = fields.Float(string="Total (Accessories/Tools)", readonly=True, copy=False)
     tools_missing_cost = fields.Float(string="Missing Cost", readonly=True, copy=False,
                                       help='This is the total amount of missing tools/accessories')
@@ -1035,7 +1057,18 @@ class CarRentalChecklist(models.Model):
     @api.onchange('name')
     def onchange_name(self):
         self.price = self.name.price
+class CarRentalContractOptions(models.Model):
+    _name = 'car.rental.contract.options'
 
+    name = fields.Many2one('car.tools', string="Name")
+    option_list_active = fields.Boolean(string="Available", default=True)
+    option_number = fields.Many2one('car.rental.contract', string="Checklist Number")
+    price = fields.Float(string="Price")
+    price_total = fields.Float(string="Price")
+
+    @api.onchange('name')
+    def onchange_name(self):
+        self.price = self.name.price
 
 class CarTools(models.Model):
     _name = 'car.tools'
