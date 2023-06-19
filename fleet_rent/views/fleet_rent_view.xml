@@ -349,7 +349,7 @@
                                     <tree string="Fleet Checklist Lines" editable="bottom">
                                         <field name="name"/>
                                         <field name="checklist_active"/>
-                                        <field name="checklist_number" invisible="True"/>
+                                        <field name="checklist_number_fr" invisible="True"/>
                                         <field name="price"/>
                                     </tree>
                                     <form>
