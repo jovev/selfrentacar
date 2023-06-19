@@ -392,6 +392,21 @@ class FleetRent(models.Model):
     x_trenutna_lokacija = fields.Many2one(related='vehicle_id.x_trenutna_lokacija', string='Current Location')
     x_key_position = fields.Char(related='vehicle_id.x_key_position', string = 'Key position in KeyBox')
     notes = fields.Char(string = "Additional notes")
+
+    @api.depends('checklist_line.checklist_active')
+    def check_action_verify(self):
+        flag = 0
+        for each in self:
+            for i in each.checklist_line:
+                if i.checklist_active:
+                    continue
+                else:
+                    flag = 1
+            if flag == 1:
+                each.check_verify = False
+            else:
+                each.check_verify = True
+
     @api.constrains("deposit_amt", "rent_amt", "maintenance_cost")
     def check_amt(self):
         for amount in self:
