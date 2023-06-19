@@ -322,6 +322,18 @@
 
                 <!-- end Lubi    dodatak -->
 
+                        <page string="Consumed fuel">
+                                <group>
+                                    <group>
+                                        <field name="pickup_fuel" widget="radio"/>
+                                    </group>
+                                    <group>
+                                        <field name="dropoff_fuel" widget="radio"/>
+                                    </group>
+                                </group>
+                            </page>
+
+
                 <!--   Lubi dodatak za check Lists     -->
 
                         <page string="Checklist">
