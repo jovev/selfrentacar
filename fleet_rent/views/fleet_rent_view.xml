@@ -311,11 +311,7 @@
                                 </tree>
                                 <form>
                                     <group>
-                                        <field
-                                    <!--        name="option"  -->
-                                            required="1"
-
-                                        />
+                                  <!--      <field name="option" required="1" />   -->
                                         <field name="price" />
                                         <field name="quantity"/>
                                         <field name="total_price"/>
