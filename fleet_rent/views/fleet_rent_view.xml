@@ -715,14 +715,14 @@
         action="action_fleet_rent_view"
         sequence="1"
     />
-<!--
+
     <menuitem
         id="sub_menu_vehicles_rent_checkout"
         name="Vehicle Rent Check Out"
         parent="fleet_rent.menu_vehicle_rent"
-        action="action_fleet_rent_checkout_view"
+
         sequence="1"
-    />  -->
+    />
 
     <menuitem
         name="Fleet"
