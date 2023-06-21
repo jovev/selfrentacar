@@ -214,7 +214,7 @@ class FleetRent(models.Model):
             ("open", "Reserved"),
             ("pending", "To Renew"),
             ("close", "Closed"),
-            ("running", "Checked In"),
+            ("running", "Checked Out"),
             ("done", "Done"),
             ("cancelled", "Cancelled"),
         ],
