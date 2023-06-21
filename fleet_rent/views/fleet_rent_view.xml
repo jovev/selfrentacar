@@ -85,7 +85,7 @@
             <form string="Vehicles Rent">
                 <header>
 
-                    <button
+                <!--    <button
                         name="action_deposite_receive"
                         string="Deposit Receive"
                         type="object"
@@ -104,7 +104,7 @@
                         class="oe_highlight"
                         context="{'return':1}"
                         groups="fleet_rent.group_vehicle_rent_manager"
-                    />
+                    />  -->
 
                     <field name="cr_rent_btn" invisible="1" />
                     <field
