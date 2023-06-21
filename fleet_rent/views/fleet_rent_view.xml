@@ -79,7 +79,7 @@
     </record>
  <!--    za mobilni    -->
     <record id='view_fleet_rentcheckout_form' model='ir.ui.view'>
-        <field name="name">view.fleet.rent.form</field>
+        <field name="name">view.fleet.rentcheckout.form</field>
         <field name="model">fleet.rent</field>
         <field name="arch" type="xml">
             <form string="Vehicles Rent">
