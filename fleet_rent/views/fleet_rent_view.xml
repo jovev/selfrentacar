@@ -695,11 +695,11 @@
         <field name="view_mode">tree,form,kanban</field>
     </record>
 
-    <record id="action_fleet_rent_checkout_view" model="ir.actions.act_window">
+    <record id="action_fleet_rent_checkout" model="ir.actions.act_window">
         <field name="name">Vehicles Rent Chockout</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">fleet.rent</field>
-        <field name="view_mode">tree</field>
+        <field name="view_mode">tree,view</field>
     </record>
 
     <!-- Main Menuitem for Vehicles Rent -->
@@ -721,7 +721,7 @@
         id="sub_menu_vehicles_rent_checkout"
         name="Vehicle Rent Check Out"
         parent="fleet_rent.menu_vehicle_rent"
-        action="action_fleet_rent_checkout_view"
+        action="action_fleet_rent_checkout"
         sequence="1"
     />
 
@@ -749,10 +749,10 @@
         <field name="name">Vehicles Checkout Rent</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">fleet.rent</field>
-        <field
+      <!--  <field
             name="context"
         >{'default_vehicle_id': active_id,'from_rent_smartbutton': True}</field>
-        <field name="domain">[('vehicle_id','=',active_id)]</field>
+        <field name="domain">[('vehicle_id','=',active_id)]</field> -->
         <field name="view_mode">tree,form</field>
     </record>
     <!-- Action view for Vehicles Rent to open from the Vehicle -->
