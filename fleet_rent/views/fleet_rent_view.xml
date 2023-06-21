@@ -60,7 +60,7 @@
     </record>
 
     <record id='fleet_rent_rent_checkout_tree' model='ir.ui.view'>
-        <field name="name">view.fleet.rentcheckout.tree</field>
+        <field name="name">view.fleet.rent.checkout.tree</field>
         <field name="model">fleet.rent</field>
         <field name="arch" type="xml">
             <tree>
@@ -79,10 +79,10 @@
     </record>
  <!--    za mobilni    -->
     <record id='view_fleet_rent_checkout_form' model='ir.ui.view'>
-        <field name="name">view.fleet.rentcheckout.form</field>
+        <field name="name">view.fleet.rent.checkout.form</field>
         <field name="model">fleet.rent</field>
         <field name="arch" type="xml">
-            <form string="Vehicles Rent">
+            <form string="Vehicles Checkout Rent">
                 <header>
 
                 <!--    <button
