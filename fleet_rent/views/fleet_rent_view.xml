@@ -695,7 +695,7 @@
         <field name="view_mode">tree,form,kanban</field>
     </record>
 
-    <record id="action_fleet_rent_checkout_tree" model="ir.actions.act_window">
+    <record id="action_fleet_rent_checkout_view" model="ir.actions.act_window">
         <field name="name">Vehicles Rent Chockout</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">fleet.rent</field>
