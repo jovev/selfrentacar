@@ -84,8 +84,24 @@
         <field name="arch" type="xml">
             <form string="Vehicles Checkout Rent">
                 <header>
+                    <button
+                        name="action_rent_confirm"
+                        string="Confirm"
+                        type="object"
+                        states="draft"
+                        class="oe_highlight"
+                        groups="fleet.fleet_group_manager"
+                    />
 
-                <!--    <button
+                    <button
+                        name="create_rent_schedule"
+                        string=" Schedule Rent"
+                        type="object"
+                        class="oe_highlight"
+                        attrs="{'invisible': ['|', ('state','!=','open'),('cr_rent_btn','=',True)]}"
+                    />
+
+                    <button
                         name="action_deposite_receive"
                         string="Deposit Receive"
                         type="object"
@@ -104,8 +120,39 @@
                         class="oe_highlight"
                         context="{'return':1}"
                         groups="fleet_rent.group_vehicle_rent_manager"
-                    />  -->
-
+                    />
+                    <button
+                        name="action_set_to_renew"
+                        string="Renew"
+                        type="object"
+                        states="close,done"
+                        class="oe_highlight"
+                        groups="fleet.fleet_group_manager"
+                    />
+                    <button
+                        name="action_set_to_draft"
+                        string="Set To Draft"
+                        type="object"
+                        states="open"
+                        class="oe_highlight"
+                        groups="fleet_rent.group_vehicle_rent_manager"
+                    />
+                    <button
+                        name="action_rent_close"
+                        string="Close"
+                        type="object"
+                        states="open"
+                        class="oe_highlight"
+                        groups="fleet_rent.group_vehicle_rent_manager"
+                    />
+                    <button
+                        name="action_rent_done"
+                        string="Done"
+                        type="object"
+                        states="open"
+                        class="oe_highlight"
+                        groups="fleet_rent.group_vehicle_rent_manager"
+                    />
                     <field name="cr_rent_btn" invisible="1" />
                     <field
                         name="state"
