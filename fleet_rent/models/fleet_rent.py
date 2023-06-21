@@ -211,9 +211,10 @@ class FleetRent(models.Model):
     state = fields.Selection(
         [
             ("draft", "New"),
-            ("open", "In Progress"),
+            ("open", "Reserved"),
             ("pending", "To Renew"),
             ("close", "Closed"),
+            ("running", "Checked In"),
             ("done", "Done"),
             ("cancelled", "Cancelled"),
         ],
