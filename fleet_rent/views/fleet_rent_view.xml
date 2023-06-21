@@ -59,7 +59,7 @@
         </field>
     </record>
 
-    <record id='fleet_rent_rent_checkout_tree' model='ir.ui.view'>
+    <record id='fleet_rent_checkout_tree' model='ir.ui.view'>
         <field name="name">view.fleet.rent.checkout.tree</field>
         <field name="model">fleet.rent</field>
         <field name="arch" type="xml">
@@ -78,6 +78,7 @@
         </field>
     </record>
  <!--    za mobilni    -->
+
     <record id='view_fleet_rent_checkout_form' model='ir.ui.view'>
         <field name="name">view.fleet.rent.checkout.form</field>
         <field name="model">fleet.rent</field>
@@ -279,8 +280,6 @@
             </form>
         </field>
     </record>
-
-
 
     <!--  Fleet Rent Form View -->
     <record id='view_fleet_rent_form' model='ir.ui.view'>
@@ -694,14 +693,14 @@
         <field name="res_model">fleet.rent</field>
         <field name="view_mode">tree,form,kanban</field>
     </record>
-
+<!--
     <record id="action_fleet_rent_checkout_view" model="ir.actions.act_window">
         <field name="name">Vehicles Rent Chockout</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">fleet.rent</field>
         <field name="view_mode">tree,view</field>
     </record>
-
+-->
     <!-- Main Menuitem for Vehicles Rent -->
     <menuitem
         id="menu_vehicle_rent"
@@ -716,14 +715,14 @@
         action="action_fleet_rent_view"
         sequence="1"
     />
-
+<!--
     <menuitem
         id="sub_menu_vehicles_rent_checkout"
         name="Vehicle Rent Check Out"
         parent="fleet_rent.menu_vehicle_rent"
         action="action_fleet_rent_checkout_view"
         sequence="1"
-    />
+    />  -->
 
     <menuitem
         name="Fleet"
