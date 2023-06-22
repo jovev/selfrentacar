@@ -751,7 +751,7 @@
     />
 
     <menuitem
-        name="Fleet"
+        name="Fleet"action_fleet_rent_checkout_view
         id="fleet.menu_root"
         sequence="115"
         groups="fleet.fleet_group_user,fleet_rent.group_vehicle_rent_user"
@@ -770,7 +770,7 @@
         <field name="domain">[('vehicle_id','=',active_id)]</field>
         <field name="view_mode">tree,form</field>
     </record>
-   <record id="action_fleet_rent_checkout_view" model="ir.actions.act_window">
+<!--   <record id="action_fleet_rent_checkout_view" model="ir.actions.act_window">
         <field name="name">Vehicles Checkout Rent</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">fleet.rent</field>
@@ -779,7 +779,7 @@
         >{'default_vehicle_id': active_id,'from_rent_smartbutton': True}</field>
         <field name="domain">[('vehicle_id','=',active_id)]</field>
         <field name="view_mode">tree,form</field>
-    </record> 
+    </record> -->
     <!-- Action view for Vehicles Rent to open from the Vehicle -->
 
 
