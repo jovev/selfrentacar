@@ -272,7 +272,7 @@
     </record>
     <record id="action_fleet_rent_checkout_form" model="ir.actions.act_window.view">
             <field eval="2" name="sequence"/>
-           
+
             <field name="view_mode">form</field>
             <field name="view_id" ref="view_fleet_rent_checkout_form"/>
             <field name="act_window_id" ref="action_fleet_rent_checkout_view"/>
@@ -292,8 +292,8 @@
         sequence="3"
     />
     <menuitem
-        id="sub_menu_vehicles_rent"
-        name="Vehicle Rent"
+        id="sub_menu_checkout_vehicles_rent"
+        name="Vehicle Mobile Rent"
         parent="fleet_rent.menu_vehicle_checkout_rent"
         action="action_fleet_rent_checkout_view"
         sequence="1"
