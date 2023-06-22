@@ -711,7 +711,7 @@
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">fleet.rent</field>
         <field name="view_mode">tree,view</field>
-        <field name="views"></field>
+       
     </record>
     
      <record id="action_fleet_rent_checkout_form" model="ir.actions.act_window.view">
