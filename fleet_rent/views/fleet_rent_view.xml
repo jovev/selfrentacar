@@ -702,7 +702,7 @@
         <record id="action_fleet_rent_tree" model="ir.actions.act_window.view">
             <field name="sequence" eval="1"/>
             <field name="view_mode">tree</field>
-            <field name="view_id" ref="fleet_rent_checkout_tree"/>
+            <field name="view_id" ref="fleet_rent_tree"/>
             <field name="act_window_id" ref="action_fleet_rent_view"/>
         </record>
 
