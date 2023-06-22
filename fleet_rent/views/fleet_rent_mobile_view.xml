@@ -41,11 +41,13 @@
     </record>
 
     <record id='view_fleet_rent_checkout_tree' model='ir.ui.view'>
+        <field name="name">fleet.rent.checkout.tree</field>
+        <field name="model">fleet.rent</field>
         <field name="inherid_id" ref="fleet_rent.view_fleet_rent_tree"></field>
         <field name="model">fleet.rent</field>
         <field name="arch" type="xml">
 
-            <field name="rent_type_id" position="replace">
+            <field name="rent_type_id" position="attributes">
                 <attribute name="invisible">1</attribute>
             </field>
         </field>
