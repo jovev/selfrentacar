@@ -22,6 +22,7 @@
         "data/rent_done_scheduler.xml",
         "views/fleet_rent_invoice_view.xml",
         "views/fleet_rent_view.xml",
+        "views/fleet_rent_mobile_view.xml",
         "views/fleet_res_partner_view.xml",
         "views/fleet_res_users_view.xml",
         "views/res_users_view.xml",

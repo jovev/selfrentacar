@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_fleet_rent_checkout_kanban" model="ir.ui.view">
+        <field name="name">view.fleet.rent.checkout.kanban</field>
+        <field name="model">fleet.rent</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state">
+                <field name="name" string="Rental Number" />
+                <field name="vehicle_id" />
+                <field name="rent_type_id" />
+                <field name="tenant_id" />
+                <field name="date_start" />
+                <templates>
+                    <t t-name="kanban-box">
+                        <table width="100%" t-attf-class="oe_kanban_global_click">
+                            <tr>
+                                <td><b>Rental Number : </b><field
+                                        name="name"
+                                        string="Name"
+                                    /></td>
+                            </tr>
+                            <tr>
+                                <td><b>Vehicle : </b><field name="vehicle_id" /></td>
+                            </tr>
+                            <tr>
+                                <td><b>Tenant Name : </b><field name="tenant_id" /></td>
+                            </tr>
+                            <tr>
+                                <td><b>Rent Type : </b><field
+                                        name="rent_type_id"
+                                    /></td>
+                            </tr>
+                             <tr>
+                                <td><b>Start Date : </b><field name="date_start" /></td>
+                            </tr>
+                        </table>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id='view_fleet_rent_checkout_tree' model='ir.ui.view'>
+        <field name="name">view.fleet.rent.checkout.tree</field>
+        <field name="model">fleet.rent</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field
+                    name="name"
+                    string="Rental Number"
+                    placeholder="Rental Name.."
+                    required="1"
+                />
+                <field name="date_start" />
+                <field name="date_end" />
+                <field name="rent_type_id" />
+                <field name="state" />
+            </tree>
+        </field>
+    </record>
+
+    <record id='view_fleet_rent_checkout_form' model='ir.ui.view'>
+        <field name="name">view.fleet.rent.checkout.form</field>
+        <field name="model">fleet.rent</field>
+        <field name="arch" type="xml">
+            <form string="Vehicles Checkout Rent">
+                <header>
+                    <button
+                        name="action_rent_confirm"
+                        string="Confirm"
+                        type="object"
+                        states="draft"
+                        class="oe_highlight"
+                        groups="fleet.fleet_group_manager"
+                    />
+
+                    <button
+                        name="create_rent_schedule"
+                        string=" Schedule Rent"
+                        type="object"
+                        class="oe_highlight"
+                        attrs="{'invisible': ['|', ('state','!=','open'),('cr_rent_btn','=',True)]}"
+                    />
+
+                    <button
+                        name="action_deposite_receive"
+                        string="Deposit Receive"
+                        type="object"
+                        attrs="{'invisible':['|',
+                            ('deposit_received','=',True), ('state', '=', 'draft')]}"
+                        class="oe_highlight"
+                        groups="fleet_rent.group_vehicle_rent_manager"
+                    />
+                    <button
+                        name="action_deposite_return"
+                        string="Deposit Return"
+                        type="object"
+                        attrs="{'invisible':['|',
+                            ('is_deposit_return','=',True),
+                            ('deposit_received','=',False)]}"
+                        class="oe_highlight"
+                        context="{'return':1}"
+                        groups="fleet_rent.group_vehicle_rent_manager"
+                    />
+                    <button
+                        name="action_set_to_renew"
+                        string="Renew"
+                        type="object"
+                        states="close,done"
+                        class="oe_highlight"
+                        groups="fleet.fleet_group_manager"
+                    />
+                    <button
+                        name="action_set_to_draft"
+                        string="Set To Draft"
+                        type="object"
+                        states="open"
+                        class="oe_highlight"
+                        groups="fleet_rent.group_vehicle_rent_manager"
+                    />
+                    <button
+                        name="action_rent_close"
+                        string="Close"
+                        type="object"
+                        states="open"
+                        class="oe_highlight"
+                        groups="fleet_rent.group_vehicle_rent_manager"
+                    />
+                    <button
+                        name="action_rent_done"
+                        string="Done"
+                        type="object"
+                        states="open"
+                        class="oe_highlight"
+                        groups="fleet_rent.group_vehicle_rent_manager"
+                    />
+                    <field name="cr_rent_btn" invisible="1" />
+                    <field
+                        name="state"
+                        widget="statusbar"
+                        statusbar_visible="draft,open,close"
+                        statusbar_colors='{"draft":"red", "open":"blue", "close":"red"}'
+                        select="1"
+                    />
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button
+                            icon="fa-pencil-square-o"
+                            class="oe_stat_button"
+                            name="%(action_fleet_out_invoice_view)d"
+                            type="action"
+                            help="We can see all the deposit receive invoices here"
+                        >
+                            <field
+                                name="invoice_count"
+                                string="Deposit Receive"
+                                widget="statinfo"
+                            />
+                        </button>
+                        <button
+                            icon="fa-pencil-square-o"
+                            class="oe_stat_button"
+                            name="%(action_fleet_out_refund_invoice_view)d"
+                            type="action"
+                            help="We can see all the deposit return invoices here"
+                        >
+                            <field
+                                name="refund_inv_count"
+                                string="Deposit Return"
+                                widget="statinfo"
+                            />
+                        </button>
+                    </div>
+                    <group colspan="2" attrs="{'readonly':[('state','=','close')]}">
+                    <div class="oe_title oe_left">
+                        <label for="name" class="oe_edit_only" string="Rental Number" />
+                        <h1>CHECKOUT 
+                            <field
+                                    name="name"
+                                    default_focus="1"
+                                    readonly="1"
+                                    placeholder="Rental Number"
+                                    class="oe_inline"
+                                />
+                        </h1>
+                        <label for="name" class="oe_edit_only" string="Reservation Number" />
+                        <h1>
+                            <field
+                                    name="reservation_code"
+                                    default_focus="1"
+                                    readonly="1"
+                                    placeholder="Reservation Number"
+                                    class="oe_inline"
+                                />
+                        </h1>
+                    </div>
+                        <group colspan="4" col="4">
+                            <separator string="Vehicle Information" colspan="4"/>
+                            <field name="web_car_request"/>
+
+                            <field name="vehicle_id" required="1" placeholder="Vehicle Name" context="{'remove_inprogeress':True}"/>
+                            <field name="tenant_id" context="{'default_is_tenant':True, 'tree_view_ref': 'fleet_rent.view_tenant_users_tree',                                    'form_view_ref': 'fleet_rent.view_tenant_users_form'}" placeholder="Tenant Name" required="1" domain="[('is_tenant','=',True)]" options="{'no_create': True, 'no_open': True}"/>
+                            <field name="deposit_received" string="Deposit Received?"/>
+                            <field name="is_deposit_return" string="Deposit Returned?"/>
+                            <label for="odometer"/>
+                            <div>
+                                <field name="odometer" class="oe_inline"/>
+                                <field name="odometer_unit" class="oe_inline" readonly="1" required="1" string="Last Odometer"/>
+
+                            </div>
+                        </group>
+
+                    </group>
+                    <notebook>
+
+
+                        <page string="Checklist">
+                               <group>
+                                    <group>
+                                        <field name="attachment_ids" widget="many2many_binary" class="oe_inline"/>
+                                    </group>
+                                    <group>
+                                        <field name="damage_cost" attrs="{'invisible': [('state','!=','checking')]}"/>
+                                    </group>
+                                </group>
+                                <field name="checklist_line">
+                                    <tree string="Fleet Checklist Lines" editable="bottom">
+                                        <field name="name"/>
+                                        <field name="checklist_active"/>
+                                        <field name="fleet_rent_id" invisible="True"/>
+                                        <field name="price"/>
+                                    </tree>
+                                    <form>
+                                        <sheet>
+                                            <group>
+                                                <field name="name"/>
+                                                <field name="checklist_active" invisible="1"/>
+                                                <field name="fleet_rent_id" invisible="1"/>
+                                            </group>
+                                        </sheet>
+                                    </form>
+                                </field>
+                                <div>
+                                    <group class="oe_subtotal_footer oe_right">
+                                        <field name="total"/>
+                                        <field name="tools_missing_cost"/>
+                                        <field name="damage_cost_sub"/>
+                                        <field name="total_cost" class="oe_subtotal_footer_separator"/>
+                                    </group>
+                                </div>
+                                <div style="float: right;margin-left: 78%;margin-bottom: 36px;">
+                                    <button name="action_verify" string="Verify" type="object" style="width: 100px !important;height: 40px;" attrs="{'invisible': [('state', '!=', 'checking')]}" class="oe_subtotal_footer oe_right oe_highlight"/>
+                                </div>
+                            </page>
+
+
+                        </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action view for Mobile Vehicles Rent -->
+
+    <record id="action_fleet_rent_checkout_view" model="ir.actions.act_window">
+        <field name="name">Vehicles Rent Chockout</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">fleet.rent</field>
+        <field name="view_mode">tree,view,kanban</field>
+       
+    </record>
+    <record id="action_fleet_rent_checkout_form" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_fleet_rent_checkout_form"/>
+            <field name="act_window_id" ref="action_fleet_rent_checkout_view"/>
+        </record>
+    <record id="action_fleet_rent_checkout_tree" model="ir.actions.act_window.view">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_fleet_rent_checkout_tree"/>
+            <field name="act_window_id" ref="action_fleet_rent_checkout_view"/>
+        </record>
+
+    <!-- Main Menuitem for Vehicles Rent -->
+    <menuitem
+        id="menu_vehicle_checkout_rent"
+        name="Mobile Rent"
+        parent="fleet.menu_root"
+        sequence="3"
+    />
+    <menuitem
+        id="sub_menu_vehicles_rent"
+        name="Vehicle Rent"
+        parent="fleet_rent.menu_vehicle_checkout_rent"
+        action="action_fleet_rent_checkout_view"
+        sequence="1"
+    />
+
+    <!-- Action view for Vehicles Rent to open from the Vehicle -->
+ <!--  <record id="action_fleet_rent_checkout_view" model="ir.actions.act_window">
+        <field name="name">Vehicles Checkout Rent</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">fleet.rent</field>
+        <field
+            name="context"
+        >{'default_vehicle_id': active_id,'from_rent_smartbutton': True}</field>
+        <field name="domain">[('vehicle_id','=',active_id)]</field>
+        <field name="view_mode">tree,form</field>
+    </record>  -->
+    <!-- Action view for Vehicles Rent to open from the Vehicle -->
+
+
+
+</odoo>
