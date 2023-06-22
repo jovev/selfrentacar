@@ -751,7 +751,7 @@
     />
 
     <menuitem
-        name="Fleet"action_fleet_rent_checkout_view
+        name="Fleet"
         id="fleet.menu_root"
         sequence="115"
         groups="fleet.fleet_group_user,fleet_rent.group_vehicle_rent_user"
