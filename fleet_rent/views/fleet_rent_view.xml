@@ -59,7 +59,7 @@
         </field>
     </record>
 
-    <record id='fleet_rent_checkout_tree' model='ir.ui.view'>
+    <record id='view_fleet_rent_checkout_tree' model='ir.ui.view'>
         <field name="name">view.fleet.rent.checkout.tree</field>
         <field name="model">fleet.rent</field>
         <field name="arch" type="xml">
