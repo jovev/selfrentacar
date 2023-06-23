@@ -207,6 +207,25 @@
 
 
                     </group>
+
+
+                    <group
+                            colspan="4"
+                            col="4"
+                            attrs="{'readonly':[('state','=','close')]}"
+                        >
+                            <separator string="Rental Vehicle Information" colspan="4"/>
+                            <field name="rent_from"/>
+                            <field name="return_location"/>
+                            <field name="rent_amt" widget="monetary" attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <field name="contract_dt" required="1" readonly="1"/>
+                            <field name="deposit_amt" widget="monetary" string="Amount Deposit" attrs="{'readonly':[('deposit_received','=',True)]}"/>
+                            <field name="amount_return" widget="monetary" readonly="1"/>
+                            <field name="deposit_received" string="Deposit Received?"/>
+                            <field name="is_deposit_return" string="Deposit Returned?"/>
+                            <field name="contact_id"/>
+                            <field name="maintenance_cost" widget="monetary" readonly="1" string="Maintenance Cost"/>
+                        </group>
                     <!--<notebook>
 
 
