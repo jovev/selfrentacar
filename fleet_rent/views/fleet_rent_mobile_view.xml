@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
+    <!--
     <record id="view_fleet_rent_checkout_kanban" model="ir.ui.view">
         <field name="name">view.fleet.rent.checkout.kanban</field>
         <field name="model">fleet.rent</field>
@@ -39,7 +40,7 @@
             </kanban>
         </field>
     </record>
-
+-->
     <record id='view_fleet_rent_checkout_tree' model='ir.ui.view'>
         <field name="name">fleet.rent.checkout.tree</field>
         <field name="model">fleet.rent</field>
@@ -53,7 +54,7 @@
         </field>
     </record>
 
-
+<!--
     <record id='view_fleet_rent_checkout_form' model='ir.ui.view'>
         <field name="name">view.fleet.rent.checkout.form</field>
         <field name="model">fleet.rent</field>
@@ -255,9 +256,9 @@
             </form>
         </field>
     </record>
-
+-->
     <!-- Action view for Mobile Vehicles Rent -->
-
+-->
   <!--  <record id="action_fleet_rent_checkout_view" model="ir.actions.act_window">
         <field name="name">Vehicles Rent Chockout</field>
         <field name="type">ir.actions.act_window</field>
