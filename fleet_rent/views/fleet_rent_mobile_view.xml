@@ -275,20 +275,19 @@
         <field name="name">Vehicles Rent Chockout</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">fleet.rent</field>
-        <field name="view_mode">tree,view,kanban</field>
+        <field name="view_mode">tree,view</field>
 
     </record>
 
 
     <record id="action_fleet_rent_checkout_form" model="ir.actions.act_window.view">
-            <field eval="2" name="sequence"/>
-
+            <field eval="1" name="sequence"/>
             <field name="view_mode">form</field>
             <field name="view_id" ref="view_fleet_rent_checkout_form"/>
             <field name="act_window_id" ref="action_fleet_rent_checkout_view"/>
         </record>
     <record id="action_fleet_rent_checkout_tree" model="ir.actions.act_window.view">
-            <field name="sequence" eval="1"/>
+            <field name="sequence" eval="0"/>
            <field name="view_mode">tree</field>
            <field name="view_id" ref="view_fleet_rent_checkout_tree"/>
             <field name="act_window_id" ref="action_fleet_rent_checkout_view"/>
