@@ -54,7 +54,7 @@
         </field>
     </record>
 
-<!--
+
     <record id='view_fleet_rent_checkout_form' model='ir.ui.view'>
         <field name="name">view.fleet.rent.checkout.form</field>
         <field name="model">fleet.rent</field>
@@ -256,7 +256,7 @@
             </form>
         </field>
     </record>
--->
+
     <!-- Action view for Mobile Vehicles Rent -->
 -->
   <!--  <record id="action_fleet_rent_checkout_view" model="ir.actions.act_window">
