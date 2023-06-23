@@ -41,18 +41,31 @@
         </field>
     </record>
 -->
+
+
     <record id='view_fleet_rent_checkout_tree' model='ir.ui.view'>
-        <field name="name">fleet.rent.checkout.tree</field>
-        <field name="model">fleet.rent</field>
-        <field name="inherit_id" ref="fleet_rent.view_fleet_rent_tree"></field>
+        <field name="name">view.fleet.checkout.tree</field>
         <field name="model">fleet.rent</field>
         <field name="arch" type="xml">
-
-            <field name="rent_type_id" position="attributes">
-                <attribute name="invisible">1</attribute>
-            </field>
+            <tree>
+                <field
+                    name="name"
+                    string="Rental Number"
+                    placeholder="Rental Name.."
+                    required="1"
+                />
+                <field name="date_start" />
+                <field name="date_end" />
+                <field name="rent_type_id" />
+                <field name="state" />
+            </tree>
         </field>
     </record>
+
+
+
+
+
 
 
     <record id='view_fleet_rent_checkout_form' model='ir.ui.view'>
