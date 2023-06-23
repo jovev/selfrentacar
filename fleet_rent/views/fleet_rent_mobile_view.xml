@@ -74,160 +74,72 @@
         <field name="arch" type="xml">
             <form string="Vehicles Checkout Rent">
                 <header>
-                    <button
-                        name="action_rent_confirm"
-                        string="Confirm"
-                        type="object"
-                        states="draft"
-                        class="oe_highlight"
-                        groups="fleet.fleet_group_manager"
-                    />
+                    <button name="action_rent_confirm" string="Confirm" type="object" states="draft" class="oe_highlight" groups="fleet.fleet_group_manager"/>
 
-                    <button
-                        name="create_rent_schedule"
-                        string=" Schedule Rent"
-                        type="object"
-                        class="oe_highlight"
-                        attrs="{'invisible': ['|', ('state','!=','open'),('cr_rent_btn','=',True)]}"
-                    />
+                    <button name="create_rent_schedule" string=" Schedule Rent" type="object" class="oe_highlight" attrs="{'invisible': ['|', ('state','!=','open'),('cr_rent_btn','=',True)]}"/>
 
-                    <button
-                        name="action_deposite_receive"
-                        string="Deposit Receive"
-                        type="object"
-                        attrs="{'invisible':['|',
-                            ('deposit_received','=',True), ('state', '=', 'draft')]}"
-                        class="oe_highlight"
-                        groups="fleet_rent.group_vehicle_rent_manager"
-                    />
-                    <button
-                        name="action_deposite_return"
-                        string="Deposit Return"
-                        type="object"
-                        attrs="{'invisible':['|',
-                            ('is_deposit_return','=',True),
-                            ('deposit_received','=',False)]}"
-                        class="oe_highlight"
-                        context="{'return':1}"
-                        groups="fleet_rent.group_vehicle_rent_manager"
-                    />
-                    <button
-                        name="action_set_to_renew"
-                        string="Renew"
-                        type="object"
-                        states="close,done"
-                        class="oe_highlight"
-                        groups="fleet.fleet_group_manager"
-                    />
-                    <button
-                        name="action_set_to_draft"
-                        string="Set To Draft"
-                        type="object"
-                        states="open"
-                        class="oe_highlight"
-                        groups="fleet_rent.group_vehicle_rent_manager"
-                    />
-                    <button
-                        name="action_rent_close"
-                        string="Close"
-                        type="object"
-                        states="open"
-                        class="oe_highlight"
-                        groups="fleet_rent.group_vehicle_rent_manager"
-                    />
-                    <button
-                        name="action_rent_done"
-                        string="Done"
-                        type="object"
-                        states="open"
-                        class="oe_highlight"
-                        groups="fleet_rent.group_vehicle_rent_manager"
-                    />
-                    <field name="cr_rent_btn" invisible="1" />
-                    <field
-                        name="state"
-                        widget="statusbar"
-                        statusbar_visible="draft,open,close"
-                        statusbar_colors='{"draft":"red", "open":"blue", "close":"red"}'
-                        select="1"
-                    />
+                    <button name="action_deposite_receive" string="Deposit Receive" type="object" attrs="{'invisible':['|', ('deposit_received','=',True), ('state', '=', 'draft')]}" class="oe_highlight" groups="fleet_rent.group_vehicle_rent_manager"/>
+                    <button name="action_deposite_return" string="Deposit Return" type="object" attrs="{'invisible':['|', ('is_deposit_return','=',True),                             ('deposit_received','=',False)]}" class="oe_highlight" context="{'return':1}" groups="fleet_rent.group_vehicle_rent_manager"/>
+                    <button name="action_set_to_renew" string="Renew" type="object" states="close,done" class="oe_highlight" groups="fleet.fleet_group_manager"/>
+                    <button name="action_set_to_draft" string="Set To Draft" type="object" states="open" class="oe_highlight" groups="fleet_rent.group_vehicle_rent_manager"/>
+                    <button name="action_rent_close" string="Close" type="object" states="open" class="oe_highlight" groups="fleet_rent.group_vehicle_rent_manager"/>
+                    <button name="action_rent_done" string="Done" type="object" states="open" class="oe_highlight" groups="fleet_rent.group_vehicle_rent_manager"/>
+                    <field name="cr_rent_btn" invisible="1"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,open,close" statusbar_colors="{&quot;draft&quot;:&quot;red&quot;, &quot;open&quot;:&quot;blue&quot;, &quot;close&quot;:&quot;red&quot;}" select="1"/>
                 </header>
                 <sheet>
                     <div class="oe_button_box" name="button_box">
-                        <button
-                            icon="fa-pencil-square-o"
-                            class="oe_stat_button"
-                            name="%(action_fleet_out_invoice_view)d"
-                            type="action"
-                            help="We can see all the deposit receive invoices here"
-                        >
-                            <field
-                                name="invoice_count"
-                                string="Deposit Receive"
-                                widget="statinfo"
-                            />
+                        <button icon="fa-pencil-square-o" class="oe_stat_button" name="508" type="action" help="We can see all the deposit receive invoices here">
+                            <field name="invoice_count" string="Deposit Receive" widget="statinfo"/>
                         </button>
-                        <button
-                            icon="fa-pencil-square-o"
-                            class="oe_stat_button"
-                            name="%(action_fleet_out_refund_invoice_view)d"
-                            type="action"
-                            help="We can see all the deposit return invoices here"
-                        >
-                            <field
-                                name="refund_inv_count"
-                                string="Deposit Return"
-                                widget="statinfo"
-                            />
+                        <button icon="fa-pencil-square-o" class="oe_stat_button" name="509" type="action" help="We can see all the deposit return invoices here">
+                            <field name="refund_inv_count" string="Deposit Return" widget="statinfo"/>
                         </button>
                     </div>
-                    <group colspan="2" attrs="{'readonly':[('state','=','close')]}">
+                    <group colspan="4" attrs="{'readonly':[('state','=','close')]}">
                         <group>
-                        <label for="name" class="oe_edit_only" string="Rental Number" />
+                        <label for="name" class="oe_edit_only" string="Rental Number"/>
                         <h3>
-                            <field
-                                    name="name"
-                                    default_focus="1"
-                                    readonly="1"
-                                    placeholder="Rental Number"
-                                    class="oe_inline"
-                                />
-                        </h3>
-                        <label for="name" class="oe_edit_only" string="Reservation Number" />
-                        <h3>
-                            <field
-                                    name="reservation_code"
-                                    default_focus="1"
-                                    readonly="1"
-                                    placeholder="Reservation Number"
-                                    class="oe_inline"
-                                />
+                            <field name="name" default_focus="1" readonly="1" placeholder="Rental Number" class="oe_inline"/>
+
+                        <label for="name" class="oe_edit_only" string="Reservation Number"/>
+
+                            <field name="reservation_code" default_focus="1" readonly="1" placeholder="Reservation Number" class="oe_inline"/>
                         </h3>
                         </group>
                     </group>
-                    <group
-                            colspan="4"
-                            col="4"
-                            attrs="{'readonly':[('state','=','close')]}"
-                        >
-                            <separator string="Rental Vehicle Information" colspan="4"/>
-                            <field name="rent_from"/>
-                            <field name="return_location"/>
+                    <group colspan="8" col="8" attrs="{'readonly':[('state','=','close')]}">
+                            <separator string="Rental Vehicle Information" colspan="8"/>
+
+                            <group>
+                            <field name="rent_from" invisible="1"/>
+                            <field name="return_location" invisible="1"/>
                             <field name="rent_amt" widget="monetary" attrs="{'readonly':[('state','!=','draft')]}"/>
-                            <field name="contract_dt" required="1" readonly="1"/>
+
                             <field name="deposit_amt" widget="monetary" string="Amount Deposit" attrs="{'readonly':[('deposit_received','=',True)]}"/>
+                            </group>
+                            <group>
                             <field name="amount_return" widget="monetary" readonly="1"/>
                             <field name="deposit_received" string="Deposit Received?"/>
-                            <field name="is_deposit_return" string="Deposit Returned?"/>
-                            <field name="contact_id"/>
-                            <field name="maintenance_cost" widget="monetary" readonly="1" string="Maintenance Cost"/>
+                            <field name="is_deposit_return" string=" IS Deposit Returned?"/>
+
+                            <field name="maintenance_cost" invisible="1" widget="monetary" readonly="1" string="Maintenance Cost"/>
+                            </group>
                         </group>
 
-
+                         <group>
+                       <separator string="Vehicle Fuel Consumation" colspan="8"/>
+                       <group>
+                          <field name="pickup_fuel" widget="radio"/>
+                       </group>
+                       <group>
+                         <field name="dropoff_fuel" widget="radio"/>
+                       </group>
+                   </group>
 
                         <group>
                             <separator string="Vehicle Check List" colspan="8"/>
-                               <group>
+                               <group colspan="12" col="4">
                                     <group>
                                         <field name="attachment_ids" widget="many2many_binary" class="oe_inline"/>
                                     </group>
@@ -264,17 +176,7 @@
                                     <button name="action_verify" string="Verify" type="object" style="width: 100px !important;height: 40px;" attrs="{'invisible': [('state', '!=', 'checking')]}" class="oe_subtotal_footer oe_right oe_highlight"/>
                                 </div>
                     </group>
-                   <group>
-                       <separator string="Vehicle Fuel Consumation" colspan="8"/>
-                       <group>
-                          <field name="pickup_fuel" widget="radio"/>
-                       </group>
-                       <group>
-                         <field name="dropoff_fuel" widget="radio"/>
-                       </group>
 
-
-                   </group>
                 </sheet>
             </form>
         </field>
