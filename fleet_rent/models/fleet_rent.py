@@ -402,7 +402,7 @@ class FleetRent(models.Model):
 
 #    Info o vozacima:
     driver_id1 = fields.Many2one('res.partner', string="Driver 1")
-    driver1_passport_no = fields.Char(string="Passport No", related='driver_id1.id_numbers')
+    driver1_passport_no = fields.Char(string="Passport No", related='driver_id1.ref')
   #  driver1_driver_licence_no = fields.Char(string="Licence No", related='driver_id1.d_id')
 
   #  driver_id2 = fields.Many2one('res.partner', string="Driver 2", )
