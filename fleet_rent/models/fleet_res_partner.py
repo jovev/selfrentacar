@@ -52,6 +52,6 @@ class ResUsers(models.Model):
         "maintenance.cost", "tenant_id", "Maintenance Details"
     )
     driver_licence_id = fields.Char(
-        related="partner_id.d_id", required=True, store=True, translate=True
+        related="tenant_id.d_id", required=True, store=True, translate=True
     )
 
