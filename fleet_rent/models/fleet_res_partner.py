@@ -51,7 +51,5 @@ class ResUsers(models.Model):
     maintanance_ids = fields.One2many(
         "maintenance.cost", "tenant_id", "Maintenance Details"
     )
-    driver_licence_id = fields.Char(
-        related="tenant_id.d_id", required=True, store=True, translate=True
-    )
+
 

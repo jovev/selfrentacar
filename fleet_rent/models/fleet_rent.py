@@ -230,7 +230,9 @@ class FleetRent(models.Model):
     tenant_id = fields.Many2one(
         "res.users", "Tenant", help="Tenant Name of Rental Vehicle."
     )
-
+    driver_licence_id = fields.Char(
+        related="tenant_id.d_id", required=True, store=True, translate=True
+    )
    # tenant_id = fields.Many2one(
    #     "res.partner", "Tenant", help="Tenant Name of Rental Vehicle."
    # )
