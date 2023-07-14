@@ -226,9 +226,15 @@ class FleetRent(models.Model):
     vehicle_owner = fields.Char(
         "vehicle_owner", compute="_compute_change_vehicle_owner"
     )
+
+   # tenant_id = fields.Many2one(
+   #     "res.users", "Tenant", help="Tenant Name of Rental Vehicle."
+   # )
+
     tenant_id = fields.Many2one(
-        "res.users", "Tenant", help="Tenant Name of Rental Vehicle."
+        "res.partner", "Tenant", help="Tenant Name of Rental Vehicle."
     )
+
     fleet_tenant_id = fields.Many2one(
         related="tenant_id.partner_id",
         store=True,
@@ -393,6 +399,18 @@ class FleetRent(models.Model):
     x_trenutna_lokacija = fields.Many2one(related='vehicle_id.x_trenutna_lokacija', string='Current Location')
     x_key_position = fields.Char(related='vehicle_id.x_key_position', string = 'Key position in KeyBox')
     notes = fields.Char(string = "Additional notes")
+
+#    Info o vozacima:
+    driver_id1 = fields.Many2one('res.partner', string="Driver 1")
+    driver1_passport_no = fields.Char(string="Passport No", related='driver_id1.id_numbers')
+  #  driver1_driver_licence_no = fields.Char(string="Licence No", related='driver_id1.d_id')
+
+  #  driver_id2 = fields.Many2one('res.partner', string="Driver 2", )
+  #  driver2_passport_no = fields.Char(string="Passport No", related='driver_id2.ref')
+  #  driver2_driver_licence_no = fields.Char(string="Licence No", related='driver_id2.d_id')
+
+
+
 
     @api.depends('checklist_line.checklist_active')
     def check_action_verify(self):
