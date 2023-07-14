@@ -231,10 +231,10 @@ class FleetRent(models.Model):
         "res.users", "Tenant", help="Tenant Name of Rental Vehicle."
     )
     driver_licence_id = fields.Char(
-        related="tenant_id.d_id", required=False, store=True, translate=True
+        related="tenant_id.d_id", required=False, store=True, translate=True, readonly=False, string = "Licence No"
     )
     driver_passport_id = fields.Char(
-        related="tenant_id.ref", required=False, store=True, translate=True, string = "Passport No"
+        related="tenant_id.ref", required=False, store=True, translate=True, readonly=False, string = "Passport No"
     )
     driver_id1 = fields.Char(string="Driver 1")
     driver1_driver_licence_no = fields.Char(string="Licence No")
