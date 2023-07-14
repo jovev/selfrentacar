@@ -235,11 +235,11 @@ class FleetRent(models.Model):
         "res.partner", "Tenant", help="Tenant Name of Rental Vehicle."
     )
 
-  #  fleet_tenant_id = fields.Many2one(
-  #      related="tenant_id.partner_id",
-  #      store=True,
-  #      help="Tenant Name of Rental Vehicle.",
-  #  )
+    fleet_tenant_id = fields.Many2one(
+        related="tenant_id.name",
+        store=True,
+        help="Tenant Name of Rental Vehicle.",
+    )
     manager_id = fields.Many2one(
         "res.users", "Account Manager", help="Manager of Rental Vehicle."
     )
