@@ -231,8 +231,17 @@ class FleetRent(models.Model):
         "res.users", "Tenant", help="Tenant Name of Rental Vehicle."
     )
     driver_licence_id = fields.Char(
-        related="tenant_id.d_id", required=True, store=True, translate=True
+        related="tenant_id.d_id", required=False, store=True, translate=True
     )
+    driver_passport_id = fields.Char(
+        related="tenant_id.ref", required=False, store=True, translate=True, string = "Passport No"
+    )
+    driver_id1 = fields.Char(string="Driver 1")
+    driver1_driver_licence_no = fields.Char(string="Licence No")
+    driver1_passport_no = fields.Char(string="Passport No")
+
+
+
    # tenant_id = fields.Many2one(
    #     "res.partner", "Tenant", help="Tenant Name of Rental Vehicle."
    # )
@@ -403,9 +412,7 @@ class FleetRent(models.Model):
     notes = fields.Char(string = "Additional notes")
 
 #    Info o vozacima:
-#    driver_id1 = fields.Many2one('res.partner', string="Driver 1")
-#    driver1_passport_no = fields.Char(string="Passport No", related='driver_id1.ref')
-  #  driver1_driver_licence_no = fields.Char(string="Licence No", related='driver_id1.d_id')
+#
 
   #  driver_id2 = fields.Many2one('res.partner', string="Driver 2", )
   #  driver2_passport_no = fields.Char(string="Passport No", related='driver_id2.ref')
