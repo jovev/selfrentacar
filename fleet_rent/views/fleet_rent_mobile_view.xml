@@ -125,6 +125,14 @@
 
                             <field name="maintenance_cost" invisible="1" widget="monetary" readonly="1" string="Maintenance Cost"/>
                             </group>
+                            <group>
+
+                            <field name="driver_licence_id" string="Driver 1 Licence ID"/>
+                            <field name="driver_passport_id" string="Driver 1 Password No"/>
+                            <field name="driver_id1" string="Driver 2 name"/>
+                            <field name="driver1_driver_licence_no" string="Driver 2 Licence ID"/>
+                            <field name="driver1_passport_no" string="Driver 2 Password No"/>
+                            </group>
                         </group>
 
                          <group>

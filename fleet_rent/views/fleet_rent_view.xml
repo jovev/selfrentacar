@@ -203,7 +203,11 @@
 
                             <field name="vehicle_id" required="1" placeholder="Vehicle Name" context="{'remove_inprogeress':True}"/>
                             <field name="tenant_id" context="{'default_is_tenant':True, 'tree_view_ref': 'fleet_rent.view_tenant_users_tree',                                    'form_view_ref': 'fleet_rent.view_tenant_users_form'}" placeholder="Tenant Name" required="1" domain="[('is_tenant','=',True)]" options="{'no_create': True, 'no_open': True}"/>
-
+                            <field name="driver_id1"/>
+                            <field name="driver_licence_id"/>
+                            <field name="driver1_driver_licence_no"/>
+                            <field name="driver_passport_id"/>
+                            <field name="driver1_passport_no"/>
                             <field name="plate"/>
                             <field name="x_bazna_lokacija"/>
                             <field name="x_key_position"/>
