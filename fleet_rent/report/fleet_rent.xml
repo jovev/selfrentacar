@@ -33,6 +33,17 @@ td {
                     <h5 class="">
 						<strong>UGOVOR O NAJMU VOZILA Cheap Car Hire</strong>
 					</h5>
+                    <table>
+					  <tr>
+						  <td><img t-attf-src="/report/barcode/QR/{{o.name}}{{o.reservation_code}}{{o.rent_from}}" style="width:100px;height:100px" alt="QRrcode"/> </td>
+						  <td/>
+						   <td width="300">
+						    No. Booking    : <span t-field="o.reservation_code"/><br/>
+                            Contract No    :  <span t-field="o.name"/><br/>
+                            Start rent time:  <span t-field="o.sate_start"/><br/>
+                            </td>
+                        </tr>
+                    </table>
 					<table width="420" class="table table-borderless" style="width:420px;">
                         <tbody>
                             <tr>
