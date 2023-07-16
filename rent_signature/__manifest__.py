@@ -34,6 +34,7 @@
     'demo': [
         'demo/demo.xml',
     ],
+
 'assets': {
         'web.assets_backend': [
             'rent_signature/static/src/js/rent_signatures.js',
