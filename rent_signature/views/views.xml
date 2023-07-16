@@ -1,5 +1,19 @@
 <odoo>
   <data>
+    <record id="fleet_rent_signature_view_form" model="ir.ui.view">
+            <field name="name">fleet.rent.signature.view.form</field>
+            <field name="model">fleet.rent.signature</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <canvas id="signature_canvas" t-att-src="widget.signature" width="300" height="150"/>
+                            <button name="clear_signature" string="Clear Signature" type="object"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
     <!-- explicit list view definition -->
 <!--
     <record model="ir.ui.view" id="rent_signature.list">

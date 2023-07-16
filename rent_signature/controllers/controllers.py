@@ -1,4 +1,16 @@
 # -*- coding: utf-8 -*-
+from odoo import http
+from odoo.http import request
+
+class MyModuleController(http.Controller):
+
+    @http.route('/rent_signature/save_signature', type='json', auth='user')
+    def save_signature(self, id, signature):
+        record = request.env['fleet.rent.signature'].browse(id)
+        record.write({'signature': signature})
+        return True
+
+
 # from odoo import http
 
 
