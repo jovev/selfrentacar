@@ -27,9 +27,16 @@
         # 'security/ir.model.access.csv',
         'views/views.xml',
         'views/templates.xml',
+
     ],
+
     # only loaded in demonstration mode
     'demo': [
         'demo/demo.xml',
     ],
+'assets': {
+        'web.assets_backend': [
+            'rent_signature/static/src/js/rent_signatures.js',
+        ],
+    },
 }
