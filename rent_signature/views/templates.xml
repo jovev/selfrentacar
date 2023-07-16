@@ -2,7 +2,7 @@
     <data>
         <template id="assets_backend" inherit_id="web.assets_backend">
             <xpath expr="." position="inside">
-                <script type="text/javascript" src="/rent_signature/static/src/js/rent_signature.js"></script>
+                <script type="text/javascript" src="rent_signature/static/src/js/rent_signature.js"></script>
             </xpath>
         </template>
 <!--
