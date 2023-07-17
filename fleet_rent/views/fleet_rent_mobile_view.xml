@@ -88,14 +88,14 @@
                     <field name="state" widget="statusbar" statusbar_visible="draft,open,close" statusbar_colors="{&quot;draft&quot;:&quot;red&quot;, &quot;open&quot;:&quot;blue&quot;, &quot;close&quot;:&quot;red&quot;}" select="1"/>
                 </header>
                 <sheet>
-                    <div class="oe_button_box" name="button_box">
+        <!--            <div class="oe_button_box" name="button_box">
                         <button icon="fa-pencil-square-o" class="oe_stat_button" name="508" type="action" help="We can see all the deposit receive invoices here">
                             <field name="invoice_count" string="Deposit Receive" widget="statinfo"/>
                         </button>
                         <button icon="fa-pencil-square-o" class="oe_stat_button" name="509" type="action" help="We can see all the deposit return invoices here">
                             <field name="refund_inv_count" string="Deposit Return" widget="statinfo"/>
                         </button>
-                    </div>
+                    </div>  -->
                     <group colspan="4" attrs="{'readonly':[('state','=','close')]}">
                         <group>
                         <label for="name" class="oe_edit_only" string="Rental Number"/>
