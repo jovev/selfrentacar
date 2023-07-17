@@ -382,8 +382,13 @@ class CarRentalReservation(models.Model):
         option_line_ids = []
         for selected_option in self.option_lines:
             name = selected_option.option
+            option_id= self.env['product.product'].search([('name', '=', name)])
+            if option_id:
+                id_rent_option = str(option_id.id)
+            else:
+                id_rent_option = str(1)
             unit_price = selected_option.price
-            dic_string = "{'option':'" + name + "','price':'" + unit_price + "','quantity':1}"
+            dic_string = "{'option':'" + id_rent_option + "','price':'" + unit_price + "','quantity':1}"
             option_line_ids.append(Command.create(dict(literal_eval(dic_string))))
 
         values = {
