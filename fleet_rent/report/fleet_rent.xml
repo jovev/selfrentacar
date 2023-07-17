@@ -40,7 +40,7 @@ td {
 						   <td width="300">
 						    No. Booking    : <span t-field="o.reservation_code"/><br/>
                             Contract No    :  <span t-field="o.name"/><br/>
-                            Start rent time:  <span t-field="o.sate_start"/><br/>
+                            Start rent time:  <span t-field="o.date_start"/><br/>
                             </td>
                         </tr>
                     </table>
