@@ -388,7 +388,8 @@ class CarRentalReservation(models.Model):
             else:
                 id_rent_option = str(1)
             unit_price = selected_option.price
-            dic_string = "{'option':'" + id_rent_option + "','price':'" + unit_price + "','quantity':1}"
+            total_price = str(unit_price * 1)
+            dic_string = "{'option':'" + id_rent_option + "','price':'" + unit_price + "','quantity':1," + "','total_price':" + total_price + ", }"
             option_line_ids.append(Command.create(dict(literal_eval(dic_string))))
 
         values = {
