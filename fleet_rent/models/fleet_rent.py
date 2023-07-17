@@ -1167,8 +1167,8 @@ class CarRentalReservationOptions(models.Model):
         """Method to compute total price."""
         for rent in self:
             rent.total_price = rent.quantity * rent.price
-
-    option = fields.Char(string="Optional service or equipment")
+    options = fields.Many2one('product.product', string='Rental options')
+  #  option = fields.Char(string="Optional service or equipment")
     price = fields.Float(string="Price for option")
     quantity = fields.Float(string='Qty')
     total_price = fields.Float(compute="_compute_option_total_price", store=True, string="Total Price")
