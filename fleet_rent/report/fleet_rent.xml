@@ -12,7 +12,7 @@
         <field name="binding_type">report</field>
     </record>
     <template id="report_fleet_rent_pdf">
-        <t t-call="web.html_container">
+ <t t-call="web.html_container">
             <t t-as="o" t-foreach="docs">
             <t t-call="web.internal_layout">
                 <t t-set="data_report_margin_top" t-value="0"/>
@@ -21,282 +21,308 @@
                 <div class="page">
 <style>
 .table-borderless &gt; tbody  &gt; tr  &gt; td {
-    padding: 2px;
+    padding-top: 2px;
+	padding-bottom: 2px;
+	padding-left: 5px;
+	padding-right: 9px;
 	font-size:12px;
 }
 td {
-    padding: 2px;
+    padding-top: 2px;
+	padding-bottom: 2px;
+	padding-left: 5px;
+	padding-right: 5px;
 	font-size:12px;
 }
 
-</style>				
-                    <h5 class="">
-						<strong>UGOVOR O NAJMU VOZILA Cheap Car Hire</strong>
-					</h5>
-                    <table>
-					  <tr>
-						  <td><img t-attf-src="/report/barcode/QR/{{o.name}}{{o.reservation_code}}{{o.rent_from}}" style="width:100px;height:100px" alt="QRrcode"/> </td>
-						  <td/>
-						   <td width="300">
-						    No. Booking    : <span t-field="o.reservation_code"/><br/>
-                            Contract No    :  <span t-field="o.name"/><br/>
-                            Start rent time:  <span t-field="o.date_start"/><br/>
-                            </td>
-                        </tr>
-                    </table>
-					<table width="420" class="table table-borderless" style="width:420px;">
-                        <tbody>
-                            <tr>
-                              <td width="200"><i>PODACI O KLIJENTU / CLIENT DATA</i></td>
-                              <td width="20">&amp;nbsp;</td>
-                              <td colspan="200">No. Booking <span t-field="o.reservation_code" style="border:1px solid; padding:5px;"/></td>
-                            </tr>
-						</tbody>
-					</table>		
-
+</style>			
+	<!-- LOGO I HEADER -->
                     <table width="420" class="table table-borderless" style="width:420px;">
                         <tbody>
                             <tr>
-                              <td width="200">Korisnik / User</td>
-                              <td width="40">&amp;nbsp;</td>
-                              <td colspan="3">Država / Country</td>
-                            </tr>
-                            <tr>
-                              <td style="border:1px solid"><span t-field="o.tenant_id"/></td>
-                              <td>&amp;nbsp;</td>
-                              <td colspan="3" style="border:1px solid;"><span t-field="o.tenant_id.country_id"/></td>
-                            </tr>
-                            <tr>
-                              <td>&amp;nbsp;</td><td>&amp;nbsp;</td><td>&amp;nbsp;</td><td>&amp;nbsp;</td><td>&amp;nbsp;</td>
-                            </tr>
-                            <tr>
-                              <td>Prvi vozač / 1st driver</td>
-                              <td class="text-right" style="white-space: text-nowrap;">&amp;nbsp;</td>
-                              <td width="95">Pasoš / Passport</td>
-                              <td width="10">&amp;nbsp;</td>
-                              <td width="95">Br. VD / Driver licence</td>
-                            </tr>
-                            <tr>
-                              <td style="border:1px solid">* driver_id1<!--<span t-field="o.driver_id1"/>--></td>
-                              <td>&amp;nbsp;</td>
-                              <td style="border:1px solid">* driver1_passport_no<!--<span t-field="o.driver1_passport_no"/>--></td>
-                              <td>&amp;nbsp;</td>
-                              <td style="border:1px solid">* driver1_driver_licence_no<!--<span t-field="o.driver1_driver_licence_no"/>--></td>
-                            </tr>
-                            <tr>
-                              <td>&amp;nbsp;</td><td>&amp;nbsp;</td><td>&amp;nbsp;</td><td>&amp;nbsp;</td><td>&amp;nbsp;</td>
-                            </tr>
-                            <tr>
-                              <td>Drugi vozač / 2nd driver</td>
-                              <td>&amp;nbsp;</td>
-                              <td>Pasoš / Passport</td>
-                              <td>&amp;nbsp;</td>
-                              <td>Br. VD / Driver licence</td>
-                            </tr>
-                            <tr>
-                              <td style="border:1px solid">* driver_id2<!--<span t-field="o.driver_id2"/>--></td>
-                              <td>&amp;nbsp;</td>
-                              <td style="border:1px solid">* driver2_passport_no<!--<span t-field="o.driver2_passport_no"/>--></td>
-                              <td>&amp;nbsp;</td>
-                              <td style="border:1px solid">* driver2_driver_licence_no<!--<span t-field="o.driver2_driver_licence_no"/>--></td>
-                            </tr>
-							<tr>
-                              <td>&amp;nbsp;</td><td>&amp;nbsp;</td><td>&amp;nbsp;</td><td>&amp;nbsp;</td><td>&amp;nbsp;</td>
+                              <td width="200"><img t-att-src="'/logo.png?company=%s' % res_company.id" t-att-alt="'Logo of %s' % res_company.name" t-att-title="res_company.name"/>
+                       <br/>
+					   www.cheapcarhire.rent<br/>
+					   Address: YU Business Center, Mihajla Pupina 10, 11070 Beograd<br/>
+					   Contact: + 382 68 840 480<br/>
+					   PIB:<br/>
+					   Matični broj:<br/></td>
+                              <td width="20">&amp;nbsp;</td>
+                              <td colspan="200" align="center">
+							  <span style="font-size:16px;padding-bottom:20px;"><strong>RENTAL AGREEMENT</strong></span><br/>
+							  Date:<br/>
+							  Rental Number: <span t-field="o.reservation_code"/><br/>
+							  Reservation Number: <span t-field="o.name"/><br/>
+							  Account Manager: <span t-field="o.manager_id"/><br/>
+							  </td>
                             </tr>
 							 <tr>
-                              <td colspan="5" style="border:0!important;"><i>DETALJI O NAJMU VOZILA / DETAILS OF CAR RENTAL</i></td>
-                            </tr>
-							<tr>
-                              <td>&amp;nbsp;</td><td>&amp;nbsp;</td><td>&amp;nbsp;</td><td>&amp;nbsp;</td><td>&amp;nbsp;</td>
-                            </tr>
-							<tr>
-                              <td>Tip i marka vozila /<br/> Model of car</td>
-                              <td>&amp;nbsp;</td>
-                              <td colspan="3">Registracijska oznaka vozila /<br/> Register plate</td>
-                            </tr>
+						  <td colspan="3" style="text-center" align="center"><img t-attf-src="/report/barcode/QR/{{o.name}}{{o.reservation_code}}{{o.rent_from}}" style="width:80px;height:80px" alt="QRrcode"/> </td>
+                        </tr>
+							
+						</tbody>
+					</table>
+
+							
+					<!-- TENANT/DRIVER DATA -->
+					
+					<div class="text-center" style="width:420px;font-size:14px; line-height:1.8;">Tenant/Driver Data</div>
+					
+                    <table width="420" class="table table-borderless" style="width:420px;">
+                        <tbody>
+                            <tr style="border-top:1px solid;">
+                              <td align="right" width="150" style="border-right:1px solid"><i>Name (or Company name)</i></td>
+                              <td colspan="2" width="270"><span t-field="o.tenant_id"/></td>
+							 </tr>
+							
                             <tr>
-                              <td style="border:1px solid"><span t-field="o.vehicle_id"/></td>
-                              <td>&amp;nbsp;</td>
-                              <td colspan="3" style="border:1px solid;"><span t-field="o.plate"/></td>
+                              <td align="right" style="border-right:1px solid"><i>ID document</i></td>
+							  <td colspan="2"></td>
+                            </tr>
+							
+							 <tr>
+                              <td align="right" style="border-right:1px solid"><i>Address</i></td>
+							  <td colspan="2"><span t-field="o.tenant_id.street"/></td>
+                            </tr>
+							
+                            <tr>
+                              <td align="right" style="border-right:1px solid"><i>Country</i></td>
+                              <td colspan="2"><span t-field="o.tenant_id.country_id"/></td>
+                            </tr>
+							
+							<tr>
+                              <td align="right" style="border-right:1px solid"><i>Phone number</i></td>
+							  <td colspan="2"><span t-field="o.tenant_id.phone"/></td>
+                            </tr>
+							
+                            <tr style="border-bottom:1px solid;">
+                              <td align="right" style="border-right:1px solid"><i>E-mail</i></td>
+							  <td colspan="2"><span t-field="o.tenant_id.email"/></td>
+                            </tr>
+							
+							<tr>
+							  <td class="text-center" style="border-right:1px solid"><i>First driver</i></td>
+							  <td class="text-center" style="border-right:1px solid"><i>Passport</i></td>
+							  <td class="text-center"><i>Driver licence</i></td>
+							</tr>
+							
+							<tr>
+							  <td class="text-center" style="border-right:1px solid"><span t-field="o.tenant_id"/></td>
+							  <td class="text-center" style="border-right:1px solid"><span t-field="o.driver_passport_id"/></td>
+							  <td class="text-center" style=""><span t-field="o.driver_licence_id"/></td>
+							</tr>
+							<tr>
+							  <td class="text-center" style="border-right:1px solid"><i>Second driver</i></td>
+							  <td class="text-center" style="border-right:1px solid"><i>Passport</i></td>
+							  <td class="text-center"><i>Driver licence</i></td>
+							</tr>
+							
+							<tr style="border-bottom:1px solid;">
+							  <td class="text-center" style="border-right:1px solid"><span t-field="o.driver_id1"/></td>
+							  <td class="text-center" style="border-right:1px solid"><span t-field="o.driver1_passport_no"/></td>
+							  <td class="text-center" style=""><span t-field="o.driver1_driver_licence_no"/></td>
+							</tr>
+							
+						</tbody>
+                    </table>
+							
+					<!-- VEHICLE DATA -->
+				<div class="text-center" style="width:420px;font-size:14px; line-height:1.8;">Vehicle Data</div>							
+						<table width="420" class="table table-borderless" style="width:420px;">
+                        <tbody>	
+
+							<tr style="border-top:1px solid;border-bottom:1px solid;">
+                              <td class="text-center" style="border-right:1px solid; width:100px;"><i>Model</i></td>
+                              <td class="text-center" style="border-right:1px solid; width:160px;"><span t-field="o.vehicle_id"/></td>
+                              <td class="text-center" style="border-right:1px solid; width:80px;"><span t-field="o.vehicle_id.category_id"/></td>
+							  <td class="text-center" style="width:80px;"><span t-field="o.vehicle_id.transmission"/></td>
                             </tr>
 							<tr>
-                              <td>&amp;nbsp;</td><td>&amp;nbsp;</td><td>&amp;nbsp;</td><td>&amp;nbsp;</td><td>&amp;nbsp;</td>
-                            </tr>
+							  <td align="right" style="border-right:1px solid"><i>Licence Plate</i></td>
+							  <td colspan="3"><span t-field="o.plate"/></td>
+							</tr>
 							<tr>
-                              <td>Početak  najma (mjesto) /<br/> Start of rental (place)</td>
-                              <td class="text-right" style="white-space: text-nowrap;">&amp;nbsp;</td>
-                              <td colspan="3">Datum i vrijeme /<br/> Date and Time</td>
+							  <td align="right" style="border-right:1px solid"><i>Odometer (start)</i></td>
+							  <td colspan="3"><span t-field="o.odometer"/></td>
+							</tr>
+							<tr>
+							  <td align="right" style="border-right:1px solid"><i>Fuel level (start)</i></td>
+							  <td colspan="3"><span t-field="o.pickup_fuel"/></td>
+							</tr>
+							<tr style="border-bottom:1px solid;"> 
+							  
+							  <td align="right" style="border-right:1px solid"><i>Type of fuel</i></td>
+							  <td colspan="3"><span t-field="o.vehicle_id.fuel_type"/></td>
+							</tr>
+							
+						</tbody>
+                    </table>	
+							
+							
+				<!-- RENTAL DATA -->
+				<div class="text-center" style="width:420px;font-size:14px; line-height:1.8;">Rental Data</div>								
+					<table width="420" class="table table-borderless" style="width:420px;">
+                        <tbody>			
+							<tr style="border-top:1px solid;">
+							  <td align="right" style="border-right:1px solid; width:140px;"><i>Pick-Up Date &amp; Тime</i></td>
+							  <td style="width:280px;"><span t-field="o.date_start"/></td>
+                            </tr>
+							
+                            <tr>  
+                              <td align="right" style="border-right:1px solid"><i>Pick-Up Location</i></td>
+                              <td><span t-field="o.rent_from"/></td>
                               
                             </tr>
+                            
                             <tr>
-                              <td style="border:1px solid"><span t-field="o.rent_from"/></td>
-                              <td>&amp;nbsp;</td>
-                              <td colspan="3" style="border:1px solid"><span t-field="o.date_start"/></td>
-                              
-                            </tr>
+							  <td align="right" style="border-right:1px solid"><i>Drop off Date &amp; Тime</i></td>
+							<td><span t-field="o.date_end"/></td>
+							</tr>
+                            
                             <tr>
-                              <td>&amp;nbsp;</td><td>&amp;nbsp;</td><td>&amp;nbsp;</td><td>&amp;nbsp;</td><td>&amp;nbsp;</td>
+                              <td align="right" style="border-right:1px solid"><i>Drop off Location</i></td>
+                              <td><span t-field="o.return_location"/></td>
                             </tr>
-                            <tr>
-                              <td>Predviđeno vraćanje (mjesto) / Drop off</td>
-                              <td class="text-right" style="white-space: text-nowrap;">&amp;nbsp;</td>
-                              <td colspan="3">Datum i vrijeme /<br/> Date and Time</td>
+							
+							<tr>
+                              <td align="right" style="border-right:1px solid"><i>Cross Border</i></td>
+                              <td><t t-if="o.allow_crossborder == true"> Dozvoljeno</t><t t-if="o.allow_crossborder == false">Zabranjeno</t></td>
                             </tr>
-                            <tr>
-                              <td style="border:1px solid"><span t-field="o.return_location"/></td>
-                              <td>&amp;nbsp;</td>
-                              <td colspan="3" style="border:1px solid"><span t-field="o.date_close"/></td>
+							
+							<tr>
+                              <td align="right" style="border-right:1px solid"><i>Total rent days</i></td>
+                              <td><span t-field="o.rent_type_id"/></td>
                             </tr>
+							
+							<tr style="border-bottom:1px solid;">
+                              <td align="right" style="border-right:1px solid"><i>Price per day</i></td>
+                              <td></td>
+                            </tr>
+							
                         </tbody>
                     </table>
 					
-					<table width="420" class="table table-borderless"  style="width:420px;">
-                        <tbody>
-                            <tr>
-                              <td width="100">Iznos uplaćenog depozita /<br/> Amount pay deposit</td>
-                              <td width="30">&amp;nbsp;</td>
-                              <td width="100">Povraćaj depozita / <br/> Deposit return</td>
-							  <td width="40">&amp;nbsp;</td>
-							  <td width="150"><br/>Prelazak granice / Cross Border</td>
-                            </tr>
-                            <tr>
-                              <td style="border:1px solid" class="text-center"><span t-field="o.deposit_amt"/></td>
-                              <td>&amp;nbsp;</td>
-                              <td style="border:1px solid;" class="text-center"><span t-field="o.amount_return"/></td>
-							  <td>&amp;nbsp;</td>
-                              <td style="border:1px solid;" class="text-center"><t t-if="o.allow_crossborder == true"> Dozvoljeno</t><t t-if="o.allow_crossborder == false">Zabranjeno</t></td>
-                            </tr>
-							<tr>
-                              <td>&amp;nbsp;</td><td>&amp;nbsp;</td><td>&amp;nbsp;</td><td>&amp;nbsp;</td><td>&amp;nbsp;</td>
-                            </tr>
-							<tr>
-                              <td>Potpis kor. / Signature user</td>
-                              <td>&amp;nbsp;</td>
-                              <td>Potpis kor. / Signature user</td>
-							  <td>&amp;nbsp;</td>
-							  <td>Cheap Car Hire - Agent</td>
-                            </tr>
-                            <tr>
-                              <td style="border-bottom:1px solid">&amp;nbsp;</td>
-                              <td>&amp;nbsp;</td>
-                              <td style="border-bottom:1px solid;">&amp;nbsp;</td>
-							  <td>&amp;nbsp;</td>
-                              <td style="border-bottom:1px solid;">&amp;nbsp;</td>
-                            </tr>
-							<tr>
-                              <td><span t-field="o.tenant_id"/></td>
-                              <td>&amp;nbsp;</td>
-                              <td>&amp;nbsp;</td>
-							  <td>&amp;nbsp;</td>
-                              <td><span t-field="o.rent_close_by"/></td>
-                            </tr>								
-						</tbody>
-                    </table>
+				<!-- RENTAL OPTIONS AND PRICE -->
+												
 					<table width="420" class="table table-borderless" style="width:420px;">
                         <tbody>
-                            <tr>
-                              <td colspan="2" width="130">Produžetak najma / Continue rental</td>
-                              <td width="100">Br. dana / No. of days</td>
-							  <td width="190">&amp;nbsp;</td>
+							<tr style="border-bottom:1px solid; border-bottom:1px solid;">
+							  <td class="text-center" style="width:180px;"><span style="width:420px;font-size:14px; line-height:1.6;">Rental Options</span></td>
+							  <td class="text-right" align="right" style="width:240px;"><span style="width:420px;font-size:14px; line-height:1.6;">Price per Rent</span></td>
                             </tr>
+							<t t-foreach="o.option_ids" t-as="line">
 							<tr>
-							  <td class="text-center">DA</td>
-							  <td class="text-center">NE</td>
-							  <td style="border:1px solid" class="text-center">&amp;nbsp;</td>
-							  <td>&amp;nbsp;</td>
-							</tr>	
+							  <td style="border-right:1px solid;"><i><span t-field="line.option"/></i></td>
+							  <td class="text-right" align="right"><span t-field="line.total_price"/></td>
+                            </tr>
+							</t>
+					<tr style="border-top:1px solid; border-bottom:1px solid;">
+						<td colspan="2"></td>
+					 </tr>
 						</tbody>
                     </table>
-			<p style="margin-top:20px; margin-bottom: 10px;font-size:12px;">
-				<u><i>KONAČAN OBRAČUN NAJMA VOZILA / DROP OFF:<br/>
-				</i> Datum i vrijeme / Date and Time <span t-field="o.write_date"/>  __________m.p.</u>
-			</p>
+					
+				<table width="420" class="table table-borderless" style="width:420px;">
+                        <tbody>
+							<tr>
+							  <td>	
+					
+				<p style="font-size:12px;">1. Korisnik učestvuje u šteti u visini depozita. Sve štete do visine depozita plaća korisnik.<br/>
+				2. Rok za vraćanje depozita je od 28 do 90 radnih dana računajući od dana vraćanja vozila.<br/>
+				3. Obavezan je zapisnik policije i uz CDW i SCDW osiguranje.<br/>
+				4. Ukoliko nema zapisnik policije, korisnik prihvata plaćanje štete po zvaničnim cenama ovlašćenog servisa u Srbiji+gubitak zbog nemogućnosti izdavanja vozila (broj dana potrebnih za popravku x dnevna cena najma). U slučaju alkohola u krvi prilikom saobraćajnog udesa kasko osiguranje ne važi i korisnik plaća kompletnu štetu.<br/>
+				5. Ukoliko korisnik nije kupio TP osiguranje plaća štetu po jednoj gumi:__________________;<br/>
+				6. Gubitak dokumenata od vozila, gubitak ili oštećenje ključa od vozila, gubitak tablica od vozila i zelenog kartona ne pokriva CDW ili SCDW osiguranje.<br/>
+				7. Potvrđujem da sam preuzeo: 1. Ključ; 2. Saobraćajnu dozvolu; 3. Zeleni karton;<br/>
+				8. U slučaju gubitka plaćam:</p>
+							   </td>
+                            </tr>	
+						</tbody>
+                    </table>
+				<table width="420" class="table table-bordered" style="width:420px; border:1px solid">
+                        <tbody>
+							<tr>
+							  <td>1</td>
+							  <td>Ključ</td>
+							  <td></td>
+							</tr>
+							<tr>
+							  <td>2</td>
+							  <td>Saobraćajnu dozvolu</td>
+							  <td align="right">12.000,00 RSD</td>
+							</tr>
+							<tr>
+							  <td>3</td>
+							  <td>Zeleni karton</td>
+							  <td align="right">5.000,00 RSD</td>
+							</tr>
+							<tr>
+							  <td>4</td>
+							  <td>1 x Registarsku tablicu</td>
+							  <td align="right">12.000,00 RSD</td>
+							</tr>
+							<tr>
+							  <td>5</td>
+							  <td>Potencijalne kazne i prekršaji u saobraćaju se uvećavaju za</td>
+							  <td align="right">3.000,00 RSD+PDV</td>
+							</tr>
+						</tbody>
+                </table>
+			<table width="420" class="table table-borderless" style="width:420px;">
+                        <tbody>
+							<tr>
+							  <td>	
+					
+				
+			<p style="font-size:14px; line-height:1.8; border-bottom:1px solid">Note</p>	
+				<p style="font-size:12px;">Prilikom online bukiranja ste prihvatili opšte uslove najma, politiku privatnosti i uslove povraćaja depozita. Prilikom potpisivanja ugovora ste takođe prihvatili opšte uslove najma, politiku privatnosti i uslove povraćaja depozita. U prilogu ugovora su opšti uslovi najma. Potpisom potvrđujete da ste ih pročitali i razumeli. Kontrola izdatog goriva se vrši pri povratku vozila, upoređenjem slika sa izdavanja i vraćanja.</p>
 
-					<table width="420" class="table table-borderless" style="width:420px;">
+<p style="font-size:12px;">U slučaju nepoštovanja uslova najma, prihvatam da se naplata izvrši sa moje kartice Visa/Master/American Express:</p>
+</td>
+</tr>
+						</tbody>
+                </table>
+				
+			<table width="420" class="table table-bordered" style="width:420px; border:1px solid">
                         <tbody>
-                            <tr>
-                              <td width="50">1. Broj dana / Number of days</td>
-							  <td width="35">&amp;nbsp;</td>
-                              <td width="50">2. Cijena po danu /<br/> Price per day</td>
-							  <td width="35">&amp;nbsp;</td>
-							  <td width="50">3. Cijena za kasko /<br/> Price casco</td>
-							  <td width="35">&amp;nbsp;</td>
-							  <td width="50">4. Troškovi goriva /<br/> Fuel costs</td>
-							  <td width="15">&amp;nbsp;</td>
-							  <td width="100"><br/>5. <strong>TOTAL</strong> 1 x ( 2 + 3 ) + 4</td>
-                            </tr>
 							<tr>
-							  <td style="border:1px solid" class="text-center">&amp;nbsp;</td>
-							  <td>&amp;nbsp;</td>
-							  <td style="border:1px solid" class="text-center">&amp;nbsp;</td>
-							  <td>&amp;nbsp;</td>
-							  <td style="border:1px solid" class="text-center">&amp;nbsp;</td>
-							  <td>&amp;nbsp;</td>
-							  <td style="border:1px solid" class="text-center">&amp;nbsp;</td>
-							  <td>&amp;nbsp;</td>
-							  <td style="border:1px solid" class="text-center">&amp;nbsp;</td>
+							  <td style="width:90px;">Card Number</td>
+							  <td></td>
+							  <td style="width:70px;">Valid until</td>
+							  <td></td>
+							   <td style="width:30px;">CVV</td>
+							  <td style="width:30px;"></td>
 							</tr>
 							<tr>
-                              <td>&amp;nbsp;</td><td>&amp;nbsp;</td><td>&amp;nbsp;</td><td>&amp;nbsp;</td><td>&amp;nbsp;</td><td>&amp;nbsp;</td><td>&amp;nbsp;</td><td>&amp;nbsp;</td><td>&amp;nbsp;</td>
-                            </tr>
-							<tr>
-							  <td colspan="3" class="text-center" style="vertical-align:bottom">Gorivo / Fuel</td>
-							  <td>&amp;nbsp;</td>
-							  <td colspan="3" class="text-center" style="vertical-align:bottom">Casco insurance</td>
-							  <td>&amp;nbsp;</td>
-							  <td style="vertical-align:bottom">6. Dodatni troškovi / Additional costs</td>
-							</tr>
-							<tr>
-							  <td style="border:1px solid" class="text-center"><span t-field="o.pickup_fuel"/></td>
-							  <td style="border:1px solid" class="text-center">&amp;nbsp;</td>
-							  <td style="border:1px solid" class="text-center"><span t-field="o.dropoff_fuel"/></td>
-							  <td>&amp;nbsp;</td>
-							  <td colspan="3" style="border:1px solid">&amp;nbsp;</td>
-							  <td>&amp;nbsp;</td>
-							  <td style="border:1px solid" class="text-center">&amp;nbsp;</td>
-							</tr>
-							<tr>
-							  <td>(pick-up)</td>
-							  <td>&amp;nbsp;</td>
-							  <td>(drop-off)</td>
-							  <td>&amp;nbsp;</td>
-							  <td style="border:1px solid" class="text-center">&amp;nbsp;</td>
-							  <td style="border:1px solid" class="text-center">&amp;nbsp;</td>
-							  <td style="border:1px solid" class="text-center">&amp;nbsp;</td>
-							  <td>&amp;nbsp;</td>
-							  <td style="border:1px solid" class="text-center">&amp;nbsp;</td>
-							</tr>
-							<td>&amp;nbsp;</td><td>&amp;nbsp;</td><td>&amp;nbsp;</td><td>&amp;nbsp;</td><td>&amp;nbsp;</td><td>&amp;nbsp;</td><td>&amp;nbsp;</td><td>&amp;nbsp;</td><td>&amp;nbsp;</td>
-							<tr>
-							  <td style="vertical-align:bottom" class="text-center">Litar</td>
-							  <td style="vertical-align:bottom" class="text-center">Cijena/price</td>
-							  <td style="vertical-align:bottom" class="text-center">Total</td>
-							  <td>&amp;nbsp;</td>
-							  <td style="vertical-align:bottom" class="text-center">Got/Cash</td>
-							  <td style="vertical-align:bottom" class="text-center">Ž.r.</td>
-							  <td style="vertical-align:bottom" class="text-center">Cr.card</td>
-							  <td>&amp;nbsp;</td>
-							  <td style="vertical-align:bottom">Iznos za naplatu/Amount due (5+6)</td>
-							</tr>
-							<tr>
-							  <td style="border:1px solid" class="text-center">&amp;nbsp;</td>
-							  <td style="border:1px solid" class="text-center">&amp;nbsp;</td>
-							  <td style="border:1px solid" class="text-center">&amp;nbsp;</td>
-							  <td>&amp;nbsp;</td>
-							  <td style="border:1px solid" class="text-center">&amp;nbsp;</td>
-							  <td style="border:1px solid" class="text-center">&amp;nbsp;</td>
-							  <td style="border:1px solid" class="text-center">&amp;nbsp;</td>
-							  <td>&amp;nbsp;</td>
-							  <td style="border:1px solid" class="text-center">&amp;nbsp;</td>
+							  <td>Card Number</td>
+							  <td></td>
+							  <td>Valid until</td>
+							  <td></td>
+							   <td>CVV</td>
+							  <td></td>
 							</tr>
 						</tbody>
-                    </table>
-					<div>
-				<span style="font-size:12px;">Pročitajte uslove  najma na sledećim stranama /<br/>
-				Read the rental terms on the following pages</span>
+                </table>
+			
+			<br/><br/>
+			<table width="420" class="table table-borderless" style="width:420px;">
+                        <tbody>
+							<tr>
+							  <td style="width:150px;"></td>
+							  <td></td>
+							  <td style="width:150px;"></td>
+							</tr>
+							<tr>
+							  <td style="border-top:1px solid;" class="text-center">Account Manager</td>
+							  <td ></td>
+							  <td style="border-top:1px solid;" class="text-center">Tenant/Driver</td>
+
+							</tr>
+						</tbody>
+                </table>
+			
 			</div>
 
-                </div>
             </t>
             </t>
         </t>
