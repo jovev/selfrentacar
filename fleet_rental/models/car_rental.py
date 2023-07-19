@@ -386,10 +386,11 @@ class CarRentalReservation(models.Model):
             if option_id:
                 id_rent_option = str(option_id.id)
             else:
-                id_rent_option = "Fleet Rental Service (unrecognised)"
+                id_rent_option = str(1)
             unit_price = selected_option.price
             total_price = str(unit_price * 1)
-            dic_string = "{'option':'" + id_rent_option + "','price':'" + unit_price + "','quantity':1," + "','total_price':" + total_price + ", }"
+            dic_string = "{'option':'" + id_rent_option + "', 'price':'" + unit_price + "' }"
+        #    dic_string = "{'option':" + "'" + id_rent_option + "'," + "'price':" + "'" + unit_price + "'," + "'quantity':" + "'1'" }
             option_line_ids.append(Command.create(dict(literal_eval(dic_string))))
 
         values = {
