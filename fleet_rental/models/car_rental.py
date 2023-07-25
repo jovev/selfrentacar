@@ -389,7 +389,7 @@ class CarRentalReservation(models.Model):
                 id_rent_option = str(option_id.id)
             else:
                 id_rent_option = str(1)
-            unit_price = Decimal(sub(r'[^\d.]', '', selected_option.price))
+            unit_price = str(Decimal(sub(r'[^\d.]', '', selected_option.price)))
         #    unit_price = Decimal(selected_option.price)
             total_price = str(unit_price * 1)
             dic_string = "{'option':'" + id_rent_option + "', 'price':'" + unit_price + "' }"
