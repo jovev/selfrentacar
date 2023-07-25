@@ -27,6 +27,8 @@ from ast import literal_eval
 from odoo.exceptions import UserError, Warning, ValidationError
 import logging
 import re
+from re import sub
+from decimal import Decimal
 from bs4 import BeautifulSoup
 regex = re.compile(r'<[^>]+>')
 _logger = logging.getLogger(__name__)
@@ -387,7 +389,8 @@ class CarRentalReservation(models.Model):
                 id_rent_option = str(option_id.id)
             else:
                 id_rent_option = str(1)
-            unit_price = selected_option.price
+            unit_price = Decimal(sub(r'[^\d.]', '', selected_option.price))
+        #    unit_price = Decimal(selected_option.price)
             total_price = str(unit_price * 1)
             dic_string = "{'option':'" + id_rent_option + "', 'price':'" + unit_price + "' }"
 
@@ -403,9 +406,9 @@ class CarRentalReservation(models.Model):
                          'rent_from': location_start_id,
                          'return_location': location_end_id ,
                          'web_car_request': self.selected_cars,
-                         'total_rent': self.grand_price,
+                         'total_rent': Decimal(sub(r'[^\d.]', '', self.grand_price)),
                         'state':'draft',
-                        'rent_amt':self.rent_price,
+                        'rent_amt':Decimal(sub(r'[^\d.]', '', self.rent_price)),
                         'option_ids': option_line_ids,
                          }
         self.env['fleet.rent'].create(values)
