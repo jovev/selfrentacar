@@ -410,7 +410,7 @@ class CarRentalReservation(models.Model):
                         'state':'draft',
                         'rent_amt':Decimal(sub(r'[^\d.]', '', self.rent_price)),
                         'option_ids': option_line_ids,
-                        'currency_id': 'EUR',
+                        'currency_id': 1,
                          }
         self.env['fleet.rent'].create(values)
 
