@@ -22,25 +22,42 @@ class CustomerPortal(portal.CustomerPortal):
         partner = request.env.user.partner_id
 
         FleetContract = request.env['fleet.rent']
-        if 'quotation_count' in counters:
-            values['quotation_count'] = FleetContract.search_count(self._prepare_quotations_domain(partner)) \
+        if 'rent_count' in counters:
+            values['rent_count'] = FleetContract.search_count(self._prepare_quotations_domain(partner)) \
                 if FleetContract.check_access_rights('read', raise_exception=False) else 0
-        if 'order_count' in counters:
-            values['order_count'] = FleetContract.search_count(self._prepare_orders_domain(partner)) \
+        if 'rent_count' in counters:
+            values['rent_count'] = FleetContract.search_count(self._prepare_orders_domain(partner)) \
                 if FleetContract.check_access_rights('read', raise_exception=False) else 0
 
         return values
 
+    # def _prepare_home_portal_values(self, counters):
+    #     """Which will set all portal values. And return total events count"""
+    #     values = super()._prepare_home_portal_values(counters)
+    #     if 'event_count' in counters:
+    #         event_count = request.env['event.registration'].search_count(
+    #             self._get_events_domain()) \
+    #             if request.env['event.registration'].check_access_rights('read',
+    #                                                                      raise_exception=False) else 0
+    #         values['event_count'] = event_count
+    #     return values
+
+
+
+
+
+
+
     def _prepare_quotations_domain(self, partner):
         return [
             ('message_partner_ids', 'child_of', [partner.commercial_partner_id.id]),
-            ('state', 'in', ['sent', 'cancel'])
+            ('state', 'in', ['draft', 'open'])
         ]
 
     def _prepare_orders_domain(self, partner):
         return [
             ('message_partner_ids', 'child_of', [partner.commercial_partner_id.id]),
-            ('state', 'in', ['sale', 'done'])
+            ('state', 'in', ['open', 'done'])
         ]
 
     def _get_sale_searchbar_sortings(self):
