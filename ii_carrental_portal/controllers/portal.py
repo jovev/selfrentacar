@@ -307,11 +307,11 @@ class PaymentPortal(payment_portal.PaymentPortal):
         kwargs.update({
             'reference_prefix': None,  # Allow the reference to be computed based on the order
             'partner_id': order_sudo.partner_id.id,
-            'sale_order_id': order_id,  # Include the SO to allow Subscriptions tokenizing the tx
+            'fleet_rent_id': order_id,  # Include the SO to allow Subscriptions tokenizing the tx
         })
         kwargs.pop('custom_create_values', None)  # Don't allow passing arbitrary create values
         tx_sudo = self._create_transaction(
-            custom_create_values={'sale_order_ids': [Command.set([order_id])]}, **kwargs,
+            custom_create_values={'fleet_rent_ids': [Command.set([order_id])]}, **kwargs,
         )
 
         return tx_sudo._get_processing_values()
@@ -319,14 +319,14 @@ class PaymentPortal(payment_portal.PaymentPortal):
     # Payment overrides
 
     @http.route()
-    def payment_pay(self, *args, amount=None, sale_order_id=None, access_token=None, **kwargs):
+    def payment_pay(self, *args, amount=None, fleet_rent_id=None, access_token=None, **kwargs):
         """ Override of payment to replace the missing transaction values by that of the sale order.
 
         This is necessary for the reconciliation as all transaction values, excepted the amount,
         need to match exactly that of the sale order.
 
         :param str amount: The (possibly partial) amount to pay used to check the access token
-        :param str sale_order_id: The sale order for which a payment id made, as a `fleet.rent` id
+        :param str fleet_rent_id: The sale order for which a payment id made, as a `fleet.rent` id
         :param str access_token: The access token used to authenticate the partner
         :return: The result of the parent method
         :rtype: str
@@ -334,9 +334,9 @@ class PaymentPortal(payment_portal.PaymentPortal):
         """
         # Cast numeric parameters as int or float and void them if their str value is malformed
         amount = self._cast_as_float(amount)
-        sale_order_id = self._cast_as_int(sale_order_id)
-        if sale_order_id:
-            order_sudo = request.env['fleet.rent'].sudo().browse(sale_order_id).exists()
+        fleet_rent_id = self._cast_as_int(fleet_rent_id)
+        if fleet_rent_id:
+            order_sudo = request.env['fleet.rent'].sudo().browse(fleet_rent_id).exists()
             if not order_sudo:
                 raise ValidationError(_("The provided parameters are invalid."))
 
@@ -351,43 +351,43 @@ class PaymentPortal(payment_portal.PaymentPortal):
                 'currency_id': order_sudo.currency_id.id,
                 'partner_id': order_sudo.partner_id.id,
                 'company_id': order_sudo.company_id.id,
-                'sale_order_id': sale_order_id,
+                'fleet_rent_id': fleet_rent_id,
             })
         return super().payment_pay(*args, amount=amount, access_token=access_token, **kwargs)
 
-    def _get_custom_rendering_context_values(self, sale_order_id=None, **kwargs):
+    def _get_custom_rendering_context_values(self, fleet_rent_id=None, **kwargs):
         """ Override of payment to add the sale order id in the custom rendering context values.
 
-        :param int sale_order_id: The sale order for which a payment id made, as a `fleet.rent` id
+        :param int fleet_rent_id: The sale order for which a payment id made, as a `fleet.rent` id
         :return: The extended rendering context values
         :rtype: dict
         """
         rendering_context_values = super()._get_custom_rendering_context_values(**kwargs)
-        if sale_order_id:
-            rendering_context_values['sale_order_id'] = sale_order_id
+        if fleet_rent_id:
+            rendering_context_values['fleet_rent_id'] = fleet_rent_id
 
             # Interrupt the payment flow if the sales order has been canceled.
-            order_sudo = request.env['fleet.rent'].sudo().browse(sale_order_id)
+            order_sudo = request.env['fleet.rent'].sudo().browse(fleet_rent_id)
             if order_sudo.state == 'cancel':
                 rendering_context_values['amount'] = 0.0
         return rendering_context_values
 
-    def _create_transaction(self, *args, sale_order_id=None, custom_create_values=None, **kwargs):
+    def _create_transaction(self, *args, fleet_rent_id=None, custom_create_values=None, **kwargs):
         """ Override of payment to add the sale order id in the custom create values.
 
-        :param int sale_order_id: The sale order for which a payment id made, as a `fleet.rent` id
+        :param int fleet_rent_id: The sale order for which a payment id made, as a `fleet.rent` id
         :param dict custom_create_values: Additional create values overwriting the default ones
         :return: The result of the parent method
         :rtype: recordset of `payment.transaction`
         """
-        if sale_order_id:
+        if fleet_rent_id:
             if custom_create_values is None:
                 custom_create_values = {}
             # As this override is also called if the flow is initiated from sale or website_sale, we
             # need not to override whatever value these modules could have already set
-            if 'sale_order_ids' not in custom_create_values:  # We are in the payment module's flow
-                custom_create_values['sale_order_ids'] = [Command.set([int(sale_order_id)])]
+            if 'fleet_rent_ids' not in custom_create_values:  # We are in the payment module's flow
+                custom_create_values['fleet_rent_ids'] = [Command.set([int(fleet_rent_id)])]
 
         return super()._create_transaction(
-            *args, sale_order_id=sale_order_id, custom_create_values=custom_create_values, **kwargs
+            *args, fleet_rent_id=fleet_rent_id, custom_create_values=custom_create_values, **kwargs
         )
