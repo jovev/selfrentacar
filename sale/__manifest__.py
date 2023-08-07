@@ -3,7 +3,7 @@
 
 
 {
-    'name': 'Sales',
+    'name': 'CarRent Portal',
     'version': '1.2',
     'category': 'Sales/Sales',
     'summary': 'Sales internal machinery',
