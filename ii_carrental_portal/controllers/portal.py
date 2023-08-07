@@ -17,32 +17,34 @@ from odoo.addons.portal.controllers.portal import pager as portal_pager
 
 class CustomerPortal(portal.CustomerPortal):
 
-    def _prepare_home_portal_values(self, counters):
-        values = super()._prepare_home_portal_values(counters)
-        partner = request.env.user.partner_id
-
-        FleetContract = request.env['fleet.rent']
-        if 'rent_count' in counters:
-            values['rent_count'] = FleetContract.search_count(self._prepare_quotations_domain(partner)) \
-                if FleetContract.check_access_rights('read', raise_exception=False) else 0
-        if 'rent_count' in counters:
-            values['rent_count'] = FleetContract.search_count(self._prepare_orders_domain(partner)) \
-                if FleetContract.check_access_rights('read', raise_exception=False) else 0
-
-        return values
-
     # def _prepare_home_portal_values(self, counters):
-    #     """Which will set all portal values. And return total events count"""
     #     values = super()._prepare_home_portal_values(counters)
-    #     if 'event_count' in counters:
-    #         event_count = request.env['event.registration'].search_count(
-    #             self._get_events_domain()) \
-    #             if request.env['event.registration'].check_access_rights('read',
-    #                                                                      raise_exception=False) else 0
-    #         values['event_count'] = event_count
+    #     partner = request.env.user.partner_id
+    #
+    #     FleetContract = request.env['fleet.rent']
+    #     if 'rent_count' in counters:
+    #         values['rent_count'] = FleetContract.search_count(self._prepare_quotations_domain(partner)) \
+    #             if FleetContract.check_access_rights('read', raise_exception=False) else 0
+    #     if 'rent_count' in counters:
+    #         values['rent_count'] = FleetContract.search_count(self._prepare_orders_domain(partner)) \
+    #             if FleetContract.check_access_rights('read', raise_exception=False) else 0
+    #
     #     return values
 
+    def _prepare_home_portal_values(self, counters):
+        """Which will set all portal values. And return total events count"""
+        values = super()._prepare_home_portal_values(counters)
+        if 'rent_count' in counters:
+            rent_count = request.env['fleet.rent'].search_count(
+                self._get_events_domain()) \
+                if request.env['fleet.rent'].check_access_rights('read',
+                                                                         raise_exception=False) else 0
+            values['rent_count'] = rent_count
+        return values
 
+    def _get_events_domain(self):
+        """Returns the events that are in stage 'cancel' and 'draft'"""
+        return [('state', 'not in', ('cancel', 'draft'))]
 
 
 
