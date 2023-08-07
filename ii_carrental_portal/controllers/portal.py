@@ -45,7 +45,7 @@ class CustomerPortal(portal.CustomerPortal):
 
     def _get_sale_searchbar_sortings(self):
         return {
-            'date': {'label': _('Order Date'), 'order': 'date_order desc'},
+            'date': {'label': _('Order Date'), 'order': 'contract_dt desc'},
             'name': {'label': _('Reference'), 'order': 'name'},
             'stage': {'label': _('Stage'), 'order': 'state'},
         }
