@@ -425,6 +425,7 @@ class PaymentPortal(payment_portal.PaymentPortal):
             - query_string: additional query string
             - anchor: string to append after the anchor #
         """
+        _logger.info("***USAO u GET PORTAL URL    self == %s", self)
         self.ensure_one()
         url = self.access_url + '%s?access_token=%s%s%s%s%s' % (
             suffix if suffix else '',
@@ -434,4 +435,5 @@ class PaymentPortal(payment_portal.PaymentPortal):
             query_string if query_string else '',
             '#%s' % anchor if anchor else ''
         )
+        _logger.info("*****************     URL == %s", url)
         return url
