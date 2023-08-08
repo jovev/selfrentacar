@@ -82,7 +82,7 @@ class CustomerPortal(portal.CustomerPortal):
 
         if quotation_page:
             url = "/my/carrental"
-            domain = self._carrental_domain(partner)
+            domain = self._prepare_carrental_domain(partner)
         else:
             url = "/my/carrental_contracts"
             domain = self._prepare_orders_domain(partner)
