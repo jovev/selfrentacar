@@ -12,6 +12,7 @@ This module contains all the common features of Sales Management and eCommerce.
     """,
     'depends': [
         'fleet_rent',
+        'portal',
         'account_payment',  # -> account, payment, portal
         'utm',
     ],
