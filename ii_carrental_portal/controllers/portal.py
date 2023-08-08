@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+ r# -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 import binascii
@@ -14,6 +14,8 @@ from odoo.addons.portal.controllers.mail import _message_post_helper
 from odoo.addons.portal.controllers import portal
 from odoo.addons.portal.controllers.portal import pager as portal_pager
 
+import logging
+_logger = logging.getLogger(__name__)
 
 class CustomerPortal(portal.CustomerPortal):
 
@@ -113,13 +115,13 @@ class CustomerPortal(portal.CustomerPortal):
             'searchbar_sortings': searchbar_sortings,
             'sortby': sortby,
         })
-
+        _logger.info("*****************     Values == %s", values)
         return values
 
     @http.route(['/my/carrental', '/my/carrental/page/<int:page>'], type='http', auth="user", website=True)
     def portal_my_carrental(self, **kwargs):
         values = self._prepare_carrental_portal_rendering_values(quotation_page=True, **kwargs)
-        request.session['my_quotations_history'] = values['quotations'].ids[:100]
+        request.session['my_carrental_history'] = values['carrental'].ids[:100]
         return request.render("ii_carrental_portal.portal_my_carrental", values)
 
     @http.route(['/my/carrental_contract', '/my/carrental_contract/page/<int:page>'], type='http', auth="user", website=True)
