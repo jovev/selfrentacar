@@ -3,8 +3,8 @@
     <!-- ONBOARDING STEPS -->
     <template id="onboarding_quotation_layout_step">
         <t t-call="base.onboarding_step">
-            <t t-set="title">Quotation Layout</t>
-            <t t-set="description">Customize the look of your quotations.</t>
+            <t t-set="title">Contracts Layout</t>
+            <t t-set="description">Customize the look of your contracts.</t>
             <t t-set="done_icon" t-value="'fa-star'" />
             <t t-set="done_text">Looks great!</t>
             <t t-set="btn_text">Customize</t>
@@ -25,7 +25,7 @@
     </template>
     <template id="sale_onboarding_sample_quotation_step">
         <t t-call="base.onboarding_step">
-            <t t-set="title">Sample Quotation</t>
+            <t t-set="title">Sample Contract</t>
             <t t-set="description">Send a quotation to test the customer portal.</t>
             <t t-set="btn_text">Send sample</t>
             <t t-set="method" t-value="'action_open_sale_onboarding_sample_quotation'" />
