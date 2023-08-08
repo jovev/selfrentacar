@@ -107,8 +107,8 @@ class CustomerPortal(portal.CustomerPortal):
 
         values.update({
             'date': date_begin,
-            'quotations': orders.sudo() if quotation_page else FleetContract,
-            'orders': orders.sudo() if not quotation_page else FleetContract,
+            'carrentals': orders.sudo() if quotation_page else FleetContract,
+            'carrentals': orders.sudo() if not quotation_page else FleetContract,
             'page_name': 'carrent' if quotation_page else 'carrent',
             'pager': pager_values,
             'default_url': url,
@@ -116,7 +116,7 @@ class CustomerPortal(portal.CustomerPortal):
             'sortby': sortby,
         })
         _logger.info("*****************     Values == %s", values)
-        _logger.info("*****************  Generisani URL= %s", values['quotations'][0].get_portal_url())
+    #    _logger.info("*****************  Generisani URL= %s", values['quotations'][0].get_portal_url())
         return values
 
     @http.route(['/my/carrental', '/my/carrental/page/<int:page>'], type='http', auth="user", website=True)
