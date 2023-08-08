@@ -116,6 +116,7 @@ class CustomerPortal(portal.CustomerPortal):
             'sortby': sortby,
         })
         _logger.info("*****************     Values == %s", values)
+        _logger.info("*****************  Generisani URL= %s", values.get_portal_url())
         return values
 
     @http.route(['/my/carrental', '/my/carrental/page/<int:page>'], type='http', auth="user", website=True)
