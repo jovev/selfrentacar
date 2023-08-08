@@ -23,7 +23,7 @@ class CustomerPortal(portal.CustomerPortal):
     #
     #     FleetContract = request.env['fleet.rent']
     #     if 'rent_count' in counters:
-    #         values['rent_count'] = FleetContract.search_count(self._prepare_quotations_domain(partner)) \
+    #         values['rent_count'] = FleetContract.search_count(self._prepare_carrental_domain(partner)) \
     #             if FleetContract.check_access_rights('read', raise_exception=False) else 0
     #     if 'rent_count' in counters:
     #         values['rent_count'] = FleetContract.search_count(self._prepare_orders_domain(partner)) \
@@ -50,7 +50,7 @@ class CustomerPortal(portal.CustomerPortal):
 
 
 
-    def _prepare_quotations_domain(self, partner):
+    def _prepare_carrental_domain(self, partner):
         return [
             ('message_partner_ids', 'child_of', [partner.commercial_partner_id.id]),
             ('state', 'in', ['draft', 'open'])
@@ -69,7 +69,7 @@ class CustomerPortal(portal.CustomerPortal):
             'stage': {'label': _('Stage'), 'order': 'state'},
         }
 
-    def _prepare_sale_portal_rendering_values(
+    def _prepare_carrental_portal_rendering_values(
         self, page=1, date_begin=None, date_end=None, sortby=None, quotation_page=False, **kwargs
     ):
         FleetContract = request.env['fleet.rent']
@@ -82,7 +82,7 @@ class CustomerPortal(portal.CustomerPortal):
 
         if quotation_page:
             url = "/my/carrental"
-            domain = self._prepare_quotations_domain(partner)
+            domain = self._carrental_domain(partner)
         else:
             url = "/my/carrental_contracts"
             domain = self._prepare_orders_domain(partner)
@@ -118,15 +118,15 @@ class CustomerPortal(portal.CustomerPortal):
 
     @http.route(['/my/carrental', '/my/carrental/page/<int:page>'], type='http', auth="user", website=True)
     def portal_my_carrental(self, **kwargs):
-        values = self._prepare_sale_portal_rendering_values(quotation_page=True, **kwargs)
+        values = self._prepare_carrental_portal_rendering_values(quotation_page=True, **kwargs)
         request.session['my_quotations_history'] = values['quotations'].ids[:100]
         return request.render("ii_carrental_portal.portal_my_carrental", values)
 
     @http.route(['/my/carrental_contract', '/my/carrental_contract/page/<int:page>'], type='http', auth="user", website=True)
     def portal_my_orders(self, **kwargs):
-        values = self._prepare_sale_portal_rendering_values(quotation_page=False, **kwargs)
+        values = self._prepare_carrental_portal_rendering_values(quotation_page=False, **kwargs)
         request.session['my_orders_history'] = values['orders'].ids[:100]
-        return request.render("ii_carrental_portal.portal_my_orders", values)
+        return request.render("ii_carrental_portal.portal_my_carrental", values)
 
     @http.route(['/my/carrental_contract/<int:order_id>'], type='http', auth="public", website=True)
     def portal_order_page(self, order_id, report_type=None, access_token=None, message=False, download=False, **kw):
