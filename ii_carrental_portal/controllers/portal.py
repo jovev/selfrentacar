@@ -46,7 +46,7 @@ class CustomerPortal(portal.CustomerPortal):
 
     def _get_events_domain(self):
         """Returns the events that are in stage 'cancel' and 'draft'"""
-        return [('state', 'not in', ('cancel', 'draft'))]
+        return [('state', 'not in', ('open', 'draft'))]
 
 
 
@@ -61,7 +61,7 @@ class CustomerPortal(portal.CustomerPortal):
     def _prepare_orders_domain(self, partner):
         return [
             ('message_partner_ids', 'child_of', [partner.commercial_partner_id.id]),
-            ('state', 'in', ['open', 'done'])
+            ('state', 'in', ['open', 'draft'])
         ]
 
     def _get_sale_searchbar_sortings(self):
@@ -180,7 +180,7 @@ class CustomerPortal(portal.CustomerPortal):
         if order_sudo._has_to_be_paid():
             values.update(self._get_payment_values(order_sudo))
 
-        if order_sudo.state in ('draft', 'sent', 'cancel'):
+        if order_sudo.state in ('draft', 'open', 'cancel'):
             history_session_key = 'my_quotations_history'
         else:
             history_session_key = 'my_orders_history'
