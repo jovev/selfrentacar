@@ -108,7 +108,7 @@ class CustomerPortal(portal.CustomerPortal):
         values.update({
             'date': date_begin,
             'carrentals': orders.sudo() if quotation_page else FleetContract,
-            'carrentals': orders.sudo() if not quotation_page else FleetContract,
+            'orders': orders.sudo() if not quotation_page else FleetContract,
             'page_name': 'carrent' if quotation_page else 'carrent',
             'pager': pager_values,
             'default_url': url,
@@ -122,7 +122,7 @@ class CustomerPortal(portal.CustomerPortal):
     @http.route(['/my/carrental', '/my/carrental/page/<int:page>'], type='http', auth="user", website=True)
     def portal_my_carrental(self, **kwargs):
         values = self._prepare_carrental_portal_rendering_values(quotation_page=True, **kwargs)
-        request.session['my_carrental_history'] = values['quotations'].ids[:100]
+        request.session['my_carrental_history'] = values['carrentals'].ids[:100]
         return request.render("ii_carrental_portal.portal_my_carrental", values)
 
     @http.route(['/my/carrental_contract', '/my/carrental_contract/page/<int:page>'], type='http', auth="user", website=True)
