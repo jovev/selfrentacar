@@ -413,3 +413,7 @@ class PaymentPortal(payment_portal.PaymentPortal):
         return super()._create_transaction(
             *args, fleet_rent_id=fleet_rent_id, custom_create_values=custom_create_values, **kwargs
         )
+
+
+    def get_portal_url(self):
+        return ''
