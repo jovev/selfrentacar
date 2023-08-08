@@ -120,7 +120,7 @@ class CustomerPortal(portal.CustomerPortal):
     def portal_my_carrental(self, **kwargs):
         values = self._prepare_sale_portal_rendering_values(quotation_page=True, **kwargs)
         request.session['my_quotations_history'] = values['quotations'].ids[:100]
-        return request.render("ii_carrental_portal.portal_my_quotations", values)
+        return request.render("ii_carrental_portal.portal_my_carrental", values)
 
     @http.route(['/my/carrental_contract', '/my/carrental_contract/page/<int:page>'], type='http', auth="user", website=True)
     def portal_my_orders(self, **kwargs):
