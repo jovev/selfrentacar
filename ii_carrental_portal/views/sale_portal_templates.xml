@@ -3,7 +3,7 @@
 
     <template id="portal_my_home_menu_carrental" name="Portal layout : carrental menu entries" inherit_id="portal.portal_breadcrumbs" priority="20">
         <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
-            <li t-if="page_name == 'quote' or sale_order and sale_order.state in ('draft', 'cancel')" t-attf-class="breadcrumb-item #{'active ' if not sale_order else ''}">
+            <li t-if="page_name == 'quote' or sale_order and sale_order.state in ('open', 'cancel')" t-attf-class="breadcrumb-item #{'active ' if not sale_order else ''}">
                 <a t-if="sale_order" t-attf-href="/my/carrental?{{ keep_query() }}">Car Rental Reservation</a>
                 <t t-else="">Car Rental Reservations</t>
             </li>
@@ -33,7 +33,7 @@
         </xpath>
     </template>
 
-    <template id="portal_my_quotations" name="My Reservations">
+    <template id="portal_my_carrental" name="My Reservations">
         <t t-call="portal.portal_layout">
             <t t-set="breadcrumbs_searchbar" t-value="True"/>
 
@@ -50,7 +50,7 @@
                         <th class="text-end">Total</th>
                     </tr>
                 </thead>
-                <t t-foreach="quotations" t-as="quotation">
+                <t t-foreach="carrentals" t-as="quotation">
                     <tr>
                         <td><a t-att-href="quotation.get_portal_url()"><t t-out="quotation.name"/></a></td>
                         <td class="text-end"><span t-field="quotation.date_order"/></td>
@@ -149,7 +149,7 @@
                                 <ul class="nav flex-column bs-sidenav"></ul>
                             </li>
 
-                            <t t-if="not sale_order.is_expired and sale_order.state in ['draft', 'sent']">
+                            <t t-if="not sale_order.is_expired and sale_order.state in ['open', 'sent']">
                                 <li t-if="sale_order.validity_date" class="list-group-item">
                                     <small><b class="text-muted">This offer expires on</b></small>
                                     <div t-field="sale_order.validity_date"></div>
@@ -424,7 +424,7 @@
                     </div>
                 </div>
 
-                <t t-set="invoices" t-value="sale_order.invoice_ids.filtered(lambda i: i.state not in ['draft', 'cancel'])"/>
+                <t t-set="invoices" t-value="sale_order.invoice_ids.filtered(lambda i: i.state not in ['open', 'cancel'])"/>
                 <div t-if="invoices" class="row">
                     <div class="col">
                         <strong class="d-block mb-1">Invoices</strong>
