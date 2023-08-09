@@ -40,7 +40,7 @@
             <t t-call="portal.portal_searchbar">
                 <t t-set="title">Reservations</t>
             </t>
-            <t t-if="quotations" t-call="portal.portal_table">
+            <t t-if="carrentals" t-call="portal.portal_table">
                 <thead>
                     <tr class="active">
                         <th>Reservations #</th>
