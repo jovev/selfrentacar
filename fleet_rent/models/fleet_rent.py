@@ -8,7 +8,8 @@ from dateutil.relativedelta import relativedelta
 from odoo import _, api, fields, models
 from odoo.exceptions import UserError, ValidationError
 from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT as DTF, ustr
-
+import logging
+_logger = logging.getLogger(__name__)
 
 class FleetRent(models.Model):
     """Fleet Rent Model."""
