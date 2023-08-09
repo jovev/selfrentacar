@@ -4,4 +4,4 @@
 
 # from . import sale_order
 # from . import sale_order_line
-from . import utm_campaign
+# from . import utm_campaign

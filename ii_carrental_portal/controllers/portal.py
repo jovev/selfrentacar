@@ -437,3 +437,8 @@ class PaymentPortal(payment_portal.PaymentPortal):
         )
         _logger.info("*****************     URL == %s", url)
         return url
+
+    def _compute_access_url(self):
+        super()._compute_access_url()
+        for order in self:
+            order.access_url = f'/my/carrental/{order.id}'
