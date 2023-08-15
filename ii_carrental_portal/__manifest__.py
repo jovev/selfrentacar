@@ -35,7 +35,7 @@ This module contains all the common features of Sales Management and eCommerce.
     #    'wizard/sale_order_cancel_views.xml',
 
         # Define sale order views before their references
-        #'views/sale_order_views.xml',
+        'views/sale_order_views.xml',
 
        # 'views/account_views.xml',
        # 'views/crm_team_views.xml',
