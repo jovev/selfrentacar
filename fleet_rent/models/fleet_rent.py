@@ -860,7 +860,10 @@ class FleetRent(models.Model):
                                                                                             force_create=False) if p]
         rent.message_subscribe(partner_ids)
         return rent
-
+    def _get_portal_return_action(self):
+        """ Return the action used to display orders when returning from customer portal. """
+        self.ensure_one()
+        return self.env.ref('ii_carrental_portal.action_quotations_with_onboarding')
     def get_portal_url(self, suffix=None, report_type=None, download=None, query_string=None, anchor=None):
         """
             Get a portal url for this model, including access_token.
