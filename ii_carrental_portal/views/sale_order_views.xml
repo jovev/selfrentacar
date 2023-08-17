@@ -24,11 +24,11 @@
         <field name="name">fleet.rent.calendar</field>
         <field name="model">fleet.rent</field>
         <field name="arch" type="xml">
-            <calendar string="Sales Orders" date_start="date_order" color="state" hide_time="true" event_limit="5">
-                <field name="currency_id" invisible="1"/>
+            <calendar string="Sales Orders" date_start="contract_dt" color="state" hide_time="true" event_limit="5">
+               
                 <field name="tenant_id" avatar_field="avatar_128"/>
-                <field name="amount_total" widget="monetary"/>
-                <field name="payment_term_id"/>
+                <field name="total_rent" widget="monetary"/>
+
                 <field name="state" filters="1" invisible="1"/>
             </calendar>
         </field>
@@ -40,7 +40,7 @@
         <field name="arch" type="xml">
             <graph string="Sales Orders" sample="1">
                 <field name="tenant_id"/>
-                <field name="amount_total" type="measure"/>
+                <field name="total_rent" type="measure"/>
             </graph>
         </field>
     </record>
@@ -50,8 +50,8 @@
         <field name="model">fleet.rent</field>
         <field name="arch" type="xml">
             <pivot string="Sales Orders" sample="1">
-                <field name="date_order" type="row"/>
-                <field name="amount_total" type="measure"/>
+                <field name="contract_dt" type="row"/>
+                <field name="total_rent" type="measure"/>
             </pivot>
         </field>
     </record>
@@ -63,10 +63,10 @@
             <kanban class="o_kanban_mobile" sample="1">
                 <field name="name"/>
                 <field name="tenant_id"/>
-                <field name="amount_total"/>
-                <field name="date_order"/>
+                <field name="total_rent"/>
+                <field name="contract_dt"/>
                 <field name="state"/>
-                <field name="currency_id"/>
+
                 <field name="activity_state"/>
                 <progressbar field="activity_state"
                     colors='{"planned": "success", "today": "warning", "overdue": "danger"}'/>
@@ -80,13 +80,13 @@
                                     </strong>
                                 </div>
                                 <strong>
-                                    <field name="amount_total" widget="monetary"/>
+                                    <field name="total_rent" widget="monetary"/>
                                 </strong>
                             </div>
                             <div class="o_kanban_record_bottom">
                                 <div class="oe_kanban_bottom_left text-muted">
                                     <span>
-                                        <t t-out="record.name.value"/> <t t-out="record.date_order.value"/>
+                                        <t t-out="record.name.value"/> <t t-out="record.contract_dt.value"/>
                                     </span>
                                     <field name="activity_ids" widget="kanban_activity"/>
                                 </div>
@@ -112,27 +112,20 @@
             <tree string="Sales Orders" sample="1"
                 decoration-info="invoice_status == 'to invoice'"
                 decoration-muted="state == 'cancel'">
-                <field name="message_needaction" invisible="1"/>
+
                 <field name="name" string="Number" readonly="1" decoration-bf="1"/>
-                <field name="date_order" string="Order Date" widget="date" optional="show"/>
-                <field name="commitment_date" optional="hide"/>
-                <field name="expected_date" optional="hide"/>
+                <field name="contract_dt" string="Order Date" widget="date" optional="show"/>
+                <field name="contract_dt" optional="hide"/>
+
                 <field name="tenant_id" readonly="1"/>
                 <field name="user_id" optional="show" widget="many2one_avatar_user"/>
                 <field name="activity_ids" widget="list_activity" optional="show"/>
-                <field name="team_id" optional="hide"/>
+
                 <field name="company_id" groups="base.group_multi_company" optional="show" readonly="1"/>
-                <field name="amount_untaxed" sum="Total Tax Excluded" widget="monetary" optional="hide"/>
-                <field name="amount_tax" sum="Tax Total" widget="monetary" optional="hide"/>
-                <field name="amount_total" sum="Total Tax Included" widget="monetary" decoration-bf="1" optional="show"/>
-                <field name="currency_id" invisible="1"/>
-                <field name="invoice_status"
-                    decoration-success="invoice_status == 'invoiced'"
-                    decoration-info="invoice_status == 'to invoice'"
-                    decoration-warning="invoice_status == 'upselling'"
-                    widget="badge" optional="show"/>
-                <field name="tag_ids" optional="hide" widget="many2many_tags" options="{'color_field': 'color'}"/>
-                <field name="state" invisible="1"/>
+
+                <field name="total_rent" sum="Total Tax Included" widget="monetary" decoration-bf="1" optional="show"/>
+
+
             </tree>
         </field>
     </record>
@@ -147,24 +140,21 @@
                 decoration-muted="state == 'cancel'">
                 <field name="name" string="Number" readonly="1" decoration-bf="1"/>
                 <field name="create_date" string="Creation Date" widget="date" optional="show"/>
-                <field name="commitment_date" widget="date" optional="hide"/>
-                <field name="expected_date" widget="date" optional="hide"/>
+                <field name="contract_dt" widget="date" optional="hide"/>
+
                 <field name="tenant_id" readonly="1"/>
                 <field name="user_id" widget="many2one_avatar_user" optional="show"/>
                 <field name="activity_ids" widget="list_activity" optional="show"/>
-                <field name="team_id" optional="hide"/>
-                <field name="tag_ids" optional="hide" widget="many2many_tags" options="{'color_field': 'color'}"/>
+
+
                 <field name="company_id" groups="base.group_multi_company" optional="show" readonly="1"/>
-                <field name="amount_untaxed" sum="Total Tax Excluded" widget="monetary" optional="hide"/>
-                <field name="amount_tax" sum="Tax Total" widget="monetary" optional="hide"/>
-                <field name="amount_total" sum="Total Tax Included" widget="monetary" decoration-bf="1" optional="show"/>
+
+                <field name="total_rent" sum="Total Tax Included" widget="monetary" decoration-bf="1" optional="show"/>
                 <field name="state"
                     decoration-success="state == 'sale' or state == 'done'"
                     decoration-info="state == 'draft' or state == 'sent'"
                     widget="badge" optional="show"/>
-                <field name="invoice_status" optional="hide"/>
-                <field name="message_needaction" invisible="1"/>
-                <field name="currency_id" invisible="1"/>
+
             </tree>
         </field>
     </record>
@@ -195,13 +185,10 @@
                         string="Void Transaction" data-hotkey="shift+v"
                         confirm="Are you sure you want to void the authorized transaction? This action can't be undone."
                         attrs="{'invisible': [('authorized_transaction_ids', '=', [])]}"/>
-                <button id="create_invoice" name="%(sale.action_view_sale_advance_payment_inv)d" string="Create Invoice"
-                    type="action" class="btn-primary" data-hotkey="q"
-                    attrs="{'invisible': [('invoice_status', '!=', 'to invoice')]}"/>
+
                 <button id="create_invoice_percentage" name="%(sale.action_view_sale_advance_payment_inv)d" string="Create Invoice"
                     type="action" context="{'default_advance_payment_method': 'percentage'}" data-hotkey="q"
-                    attrs="{'invisible': ['|',('invoice_status', '!=', 'no'), ('state', '!=', 'sale')]}"/>
-                <button name="action_quotation_send" string="Send by Email" type="object" states="draft" class="btn-primary" data-hotkey="g" context="{'validate_analytic': True}"/>
+                    attrs="{'invisible': ['|',('invoice_status', '!=', 'no'), ('state', '!=', 'sale')]}"/>                <button name="action_quotation_send" string="Send by Email" type="object" states="draft" class="btn-primary" data-hotkey="g" context="{'validate_analytic': True}"/>
                 <button name="action_quotation_send" type="object" string="Send PRO-FORMA Invoice"
                     groups="sale.group_proforma_sales" class="btn-primary"
                     attrs="{'invisible': ['|', ('state', '!=', 'draft'), ('invoice_count','&gt;=',1)]}" context="{'proforma': True, 'validate_analytic': True}"/>
@@ -211,10 +198,7 @@
                 <button name="action_confirm" data-hotkey="v"
                     string="Confirm" type="object" context="{'validate_analytic': True}"
                     attrs="{'invisible': [('state', 'not in', ['draft'])]}"/>
-                <button name="action_quotation_send" type="object" string="Send PRO-FORMA Invoice" groups="sale.group_proforma_sales" attrs="{'invisible': ['|', ('state', '=', 'draft'), ('invoice_count','&gt;=',1)]}" context="{'proforma': True, 'validate_analytic': True}"/>
-                <button name="action_quotation_send" string="Send by Email" type="object" states="sent,sale" data-hotkey="g" context="{'validate_analytic': True}"/>
-                <button name="action_cancel" type="object" string="Cancel" attrs="{'invisible': ['|', ('state', 'not in', ['draft', 'sent','sale']), ('id', '=', False)]}" data-hotkey="z"/>
-                <button name="action_draft" states="cancel" type="object" string="Set to Quotation" data-hotkey="w"/>
+
                 <field name="state" widget="statusbar" statusbar_visible="draft,sent,sale"/>
             </header>
             <div groups="account.group_account_invoice,account.group_account_readonly"
@@ -255,13 +239,13 @@
                     <group name="order_details">
                         <field name="validity_date" attrs="{'invisible': [('state', 'in', ['sale', 'done'])]}"/>
                         <div class="o_td_label" groups="base.group_no_one" attrs="{'invisible': [('state', 'in', ['sale', 'done', 'cancel'])]}">
-                            <label for="date_order" string="Quotation Date"/>
+                            <label for="contract_dt" string="Quotation Date"/>
                         </div>
-                        <field name="date_order" nolabel="1" groups="base.group_no_one" attrs="{'invisible': [('state', 'in', ['sale', 'done', 'cancel'])]}"/>
+                        <field name="contract_dt" nolabel="1" groups="base.group_no_one" attrs="{'invisible': [('state', 'in', ['sale', 'done', 'cancel'])]}"/>
                         <div class="o_td_label" attrs="{'invisible': [('state', 'in', ['draft', 'sent'])]}">
-                            <label for="date_order" string="Order Date"/>
+                            <label for="contract_dt" string="Order Date"/>
                         </div>
-                        <field name="date_order" attrs="{'invisible': [('state', 'in', ['draft', 'sent'])]}" nolabel="1"/>
+                        <field name="contract_dt" attrs="{'invisible': [('state', 'in', ['draft', 'sent'])]}" nolabel="1"/>
                         <field name="show_update_pricelist" invisible="1"/>
                         <label for="pricelist_id" groups="product.group_product_pricelist"/>
                         <div groups="product.group_product_pricelist" class="o_row">
@@ -277,7 +261,7 @@
                         <field name="currency_id" invisible="1"/>
                         <field name="pricelist_id" invisible="1" groups="!product.group_product_pricelist"/>
                         <field name="tax_country_id" invisible="1"/>
-                        <field name="payment_term_id" options="{'no_open':True,'no_create': True}"/>
+
                     </group>
                 </group>
                 <notebook>
@@ -626,9 +610,9 @@
                         </group>
                         <group>
                             <group name="sale_shipping">
-                                <label for="commitment_date" string="Delivery Date"/>
-                                <div name="commitment_date_div" class="o_row">
-                                    <field name="commitment_date"/>
+                                <label for="contract_dt" string="Delivery Date"/>
+                                <div name="contract_dt_div" class="o_row">
+                                    <field name="contract_dt"/>
                                     <span name="expected_date_span" class="text-muted">Expected: <field name="expected_date" class="oe_inline" widget="date"/></span>
                                 </div>
                             </group>
@@ -708,7 +692,7 @@
                 <group expand="0" string="Group By">
                     <filter string="Salesperson" name="salesperson" domain="[]" context="{'group_by': 'user_id'}"/>
                     <filter name="customer" string="Customer" domain="[]" context="{'group_by': 'tenant_id'}"/>
-                    <filter string="Order Date" name="order_month" domain="[]" context="{'group_by': 'date_order'}"/>
+                    <filter string="Order Date" name="order_month" domain="[]" context="{'group_by': 'contract_dt'}"/>
                 </group>
             </search>
         </field>
@@ -744,7 +728,7 @@
                 <filter string="To Invoice" name="to_invoice" domain="[('invoice_status','=','to invoice')]" />
                 <filter string="To Upsell" name="upselling" domain="[('invoice_status','=','upselling')]" />
                 <separator/>
-                <filter string="Order Date" name="order_date" date="date_order"/>
+                <filter string="Order Date" name="order_date" date="contract_dt"/>
             </filter>
         </field>
     </record>
