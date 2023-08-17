@@ -116,7 +116,7 @@
                 <field name="contract_dt" optional="hide"/>
 
                 <field name="tenant_id" readonly="1"/>
-                <field name="user_id" optional="show" widget="many2one_avatar_user"/>
+                <field name="tenant_id" optional="show" widget="many2one_avatar_user"/>
 
 
                 <field name="company_id" groups="base.group_multi_company" optional="show" readonly="1"/>
@@ -141,7 +141,7 @@
                 <field name="contract_dt" widget="date" optional="hide"/>
 
                 <field name="tenant_id" readonly="1"/>
-                <field name="user_id" widget="many2one_avatar_user" optional="show"/>
+                <field name="tenant_id" widget="many2one_avatar_user" optional="show"/>
 
 
 
@@ -573,7 +573,7 @@
                     <page string="Other Info" name="other_information">
                         <group>
                             <group name="sales_person" string="Sales">
-                                <field name="user_id" widget="many2one_avatar_user"/>
+                                <field name="tenant_id" widget="many2one_avatar_user"/>
                                 <field name="team_id" kanban_view_ref="%(sales_team.crm_team_view_kanban)s" options="{'no_create': True}"/>
                                 <field name="company_id" options="{'no_create': True}" groups="base.group_multi_company"/>
                                 <label for="require_signature" string="Online confirmation"/>
@@ -671,7 +671,7 @@
                 <field name="name" string="Order"
                     filter_domain="['|', '|', ('name', 'ilike', self), ('client_order_ref', 'ilike', self), ('tenant_id', 'child_of', self)]"/>
                 <field name="tenant_id" operator="child_of"/>
-                <field name="user_id"/>
+                <field name="tenant_id"/>
                 <field name="team_id" string="Sales Team"/>
                 <field name="order_line" string="Product" filter_domain="[('order_line.product_id', 'ilike', self)]"/>
                 <field name="analytic_account_id" groups="analytic.group_analytic_accounting"/>
@@ -679,7 +679,7 @@
                     will not be searched as often, and if they need to be searched it's usually in the context of products
                     and then they can be searched from the page listing the sale order lines related to a product (from the product itself).
                 -->
-                <filter string="My Orders" domain="[('user_id', '=', uid)]" name="my_sale_orders_filter"/>
+                <filter string="My Orders" domain="[('tenant_id', '=', uid)]" name="my_sale_orders_filter"/>
                 <filter invisible="1" string="Late Activities" name="activities_overdue"
                     domain="[('my_activity_date_deadline', '&lt;', context_today().strftime('%Y-%m-%d'))]"
                     help="Show all records which has next action date is before today"/>
@@ -688,7 +688,7 @@
                 <filter invisible="1" string="Future Activities" name="activities_upcoming_all"
                     domain="[('my_activity_date_deadline', '&gt;', context_today().strftime('%Y-%m-%d'))]"/>
                 <group expand="0" string="Group By">
-                    <filter string="Salesperson" name="salesperson" domain="[]" context="{'group_by': 'user_id'}"/>
+                    <filter string="Salesperson" name="salesperson" domain="[]" context="{'group_by': 'tenant_id'}"/>
                     <filter name="customer" string="Customer" domain="[]" context="{'group_by': 'tenant_id'}"/>
                     <filter string="Order Date" name="order_month" domain="[]" context="{'group_by': 'contract_dt'}"/>
                 </group>
@@ -705,7 +705,7 @@
             <filter name="my_sale_orders_filter" position="replace">
                 <field name="campaign_id"/>
                 <separator/>
-                <filter string="My Quotations" name="my_quotation" domain="[('user_id', '=', uid)]"/>
+                <filter string="My Quotations" name="my_quotation" domain="[('tenant_id', '=', uid)]"/>
                 <separator/>
                 <filter string="Quotations" name="draft" domain="[('state','in',('draft', 'sent'))]"/>
                 <filter string="Sales Orders" name="sales" domain="[('state','in',('sale','done'))]"/>
