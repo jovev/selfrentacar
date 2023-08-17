@@ -210,8 +210,7 @@
                         </div>
                         <field name="contract_dt" attrs="{'invisible': [('state', 'in', ['draft', 'sent'])]}" nolabel="1"/>
                     <!--    <field name="show_update_pricelist" invisible="1"/>   -->
-                        <label for="pricelist_id" groups="product.group_product_pricelist"/>
-                        <div groups="product.group_product_pricelist" class="o_row">
+
 <!-- <field name="pricelist_id" options="{'no_open':True,'no_create': True}"/>  -->
 
                         </div>
