@@ -107,9 +107,8 @@
         <field name="model">fleet.rent</field>
         <field name="priority">2</field>
         <field name="arch" type="xml">
-            <tree string="Sales Orders" sample="1"
+            <tree string="Sales Orders" sample="1">
 
-                decoration-muted="state == 'cancel'">
 
                 <field name="name" string="Number" readonly="1" decoration-bf="1"/>
                 <field name="contract_dt" string="Order Date" widget="date" optional="show"/>
