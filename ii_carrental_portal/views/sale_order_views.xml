@@ -12,7 +12,7 @@
                     <div t-name="activity-box">
                         <div>
                             <field name="name" display="full"/>
-                            <field name="partner_id" muted="1" display="full"/>
+                            <field name="tenant_id" muted="1" display="full"/>
                         </div>
                     </div>
                 </templates>
@@ -26,7 +26,7 @@
         <field name="arch" type="xml">
             <calendar string="Sales Orders" date_start="date_order" color="state" hide_time="true" event_limit="5">
                 <field name="currency_id" invisible="1"/>
-                <field name="partner_id" avatar_field="avatar_128"/>
+                <field name="tenant_id" avatar_field="avatar_128"/>
                 <field name="amount_total" widget="monetary"/>
                 <field name="payment_term_id"/>
                 <field name="state" filters="1" invisible="1"/>
@@ -39,7 +39,7 @@
         <field name="model">fleet.rent</field>
         <field name="arch" type="xml">
             <graph string="Sales Orders" sample="1">
-                <field name="partner_id"/>
+                <field name="tenant_id"/>
                 <field name="amount_total" type="measure"/>
             </graph>
         </field>
@@ -62,7 +62,7 @@
         <field name="arch" type="xml">
             <kanban class="o_kanban_mobile" sample="1">
                 <field name="name"/>
-                <field name="partner_id"/>
+                <field name="tenant_id"/>
                 <field name="amount_total"/>
                 <field name="date_order"/>
                 <field name="state"/>
@@ -76,7 +76,7 @@
                             <div class="o_kanban_record_top mb16">
                                 <div class="o_kanban_record_headings mt4">
                                     <strong class="o_kanban_record_title">
-                                        <span t-out="record.partner_id.value"/>
+                                        <span t-out="record.tenant_id.value"/>
                                     </strong>
                                 </div>
                                 <strong>
@@ -117,7 +117,7 @@
                 <field name="date_order" string="Order Date" widget="date" optional="show"/>
                 <field name="commitment_date" optional="hide"/>
                 <field name="expected_date" optional="hide"/>
-                <field name="partner_id" readonly="1"/>
+                <field name="tenant_id" readonly="1"/>
                 <field name="user_id" optional="show" widget="many2one_avatar_user"/>
                 <field name="activity_ids" widget="list_activity" optional="show"/>
                 <field name="team_id" optional="hide"/>
@@ -149,7 +149,7 @@
                 <field name="create_date" string="Creation Date" widget="date" optional="show"/>
                 <field name="commitment_date" widget="date" optional="hide"/>
                 <field name="expected_date" widget="date" optional="hide"/>
-                <field name="partner_id" readonly="1"/>
+                <field name="tenant_id" readonly="1"/>
                 <field name="user_id" widget="many2one_avatar_user" optional="show"/>
                 <field name="activity_ids" widget="list_activity" optional="show"/>
                 <field name="team_id" optional="hide"/>
@@ -248,7 +248,7 @@
                 </div>
                 <group name="sale_header">
                     <group name="partner_details">
-                        <field name="partner_id" widget="res_partner_many2one" context="{'res_partner_search_mode': 'customer', 'show_address': 1, 'show_vat': True}" options='{"always_reload": True}'/>
+                        <field name="tenant_id" widget="res_partner_many2one" context="{'res_partner_search_mode': 'customer', 'show_address': 1, 'show_vat': True}" options='{"always_reload": True}'/>
                         <field name="partner_invoice_id" groups="account.group_delivery_invoice_address" context="{'default_type':'invoice'}" options='{"always_reload": True}'/>
                         <field name="partner_shipping_id" groups="account.group_delivery_invoice_address" context="{'default_type':'delivery'}" options='{"always_reload": True}'/>
                     </group>
@@ -301,7 +301,7 @@
                                         <field name="product_updatable" invisible="1"/>
                                         <field name="product_id"
                                             domain="[('sale_ok', '=', True), '|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]"
-                                            context="{'partner_id':parent.partner_id, 'quantity':product_uom_qty, 'pricelist':parent.pricelist_id, 'uom':product_uom, 'company_id': parent.company_id}"
+                                            context="{'tenant_id':parent.tenant_id, 'quantity':product_uom_qty, 'pricelist':parent.pricelist_id, 'uom':product_uom, 'company_id': parent.company_id}"
                                             attrs="{
                                                 'readonly': [('product_updatable', '=', False)],
                                                 'required': [('display_type', '=', False)],
@@ -320,7 +320,7 @@
                                         <label for="product_uom_qty"/>
                                         <div class="o_row" name="ordered_qty">
                                             <field
-                                                context="{'partner_id':parent.partner_id, 'quantity':product_uom_qty, 'pricelist':parent.pricelist_id, 'uom':product_uom, 'uom_qty_change':True, 'company_id': parent.company_id}"
+                                                context="{'tenant_id':parent.tenant_id, 'quantity':product_uom_qty, 'pricelist':parent.pricelist_id, 'uom':product_uom, 'uom_qty_change':True, 'company_id': parent.company_id}"
                                                 name="product_uom_qty"/>
                                             <field name="product_uom" invisible="1" groups="!uom.group_uom"/>
                                             <field
@@ -403,7 +403,7 @@
                                     }"
                                     force_save="1"
                                     context="{
-                                        'partner_id': parent.partner_id,
+                                        'tenant_id': parent.tenant_id,
                                         'quantity': product_uom_qty,
                                         'pricelist': parent.pricelist_id,
                                         'uom':product_uom,
@@ -425,7 +425,7 @@
                                         'required': [('display_type', '=', False)],
                                     }"
                                     context="{
-                                        'partner_id': parent.partner_id,
+                                        'tenant_id': parent.tenant_id,
                                         'quantity': product_uom_qty,
                                         'pricelist': parent.pricelist_id,
                                         'uom':product_uom,
@@ -447,7 +447,7 @@
                                     name="product_uom_qty"
                                     decoration-info="(not display_type and invoice_status == 'to invoice')" decoration-bf="(not display_type and invoice_status == 'to invoice')"
                                     context="{
-                                        'partner_id': parent.partner_id,
+                                        'tenant_id': parent.tenant_id,
                                         'quantity': product_uom_qty,
                                         'pricelist': parent.pricelist_id,
                                         'uom': product_uom,
@@ -618,7 +618,7 @@
                                         attrs="{'invisible': ['|', ('show_update_fpos', '=', False), ('state', 'in', ['sale', 'done','cancel'])]}"/>
                                 </div>
                                 <field name="partner_invoice_id" invisible="1"/>
-                                <field name="analytic_account_id" context="{'default_partner_id':partner_invoice_id, 'default_name':name}" attrs="{'readonly': [('invoice_count','!=',0),('state','=','sale')]}" groups="analytic.group_analytic_accounting" force_save="1"/>
+                                <field name="analytic_account_id" context="{'default_tenant_id':partner_invoice_id, 'default_name':name}" attrs="{'readonly': [('invoice_count','!=',0),('state','=','sale')]}" groups="analytic.group_analytic_accounting" force_save="1"/>
                                 <field name="invoice_status" states="sale,done" groups="base.group_no_one"/>
                                 <!-- test_event_configurator -->
                                 <field name="invoice_status" invisible="1" groups="!base.group_no_one"/>
@@ -687,8 +687,8 @@
         <field name="arch" type="xml">
             <search string="Search Sales Order">
                 <field name="name" string="Order"
-                    filter_domain="['|', '|', ('name', 'ilike', self), ('client_order_ref', 'ilike', self), ('partner_id', 'child_of', self)]"/>
-                <field name="partner_id" operator="child_of"/>
+                    filter_domain="['|', '|', ('name', 'ilike', self), ('client_order_ref', 'ilike', self), ('tenant_id', 'child_of', self)]"/>
+                <field name="tenant_id" operator="child_of"/>
                 <field name="user_id"/>
                 <field name="team_id" string="Sales Team"/>
                 <field name="order_line" string="Product" filter_domain="[('order_line.product_id', 'ilike', self)]"/>
@@ -707,7 +707,7 @@
                     domain="[('my_activity_date_deadline', '&gt;', context_today().strftime('%Y-%m-%d'))]"/>
                 <group expand="0" string="Group By">
                     <filter string="Salesperson" name="salesperson" domain="[]" context="{'group_by': 'user_id'}"/>
-                    <filter name="customer" string="Customer" domain="[]" context="{'group_by': 'partner_id'}"/>
+                    <filter name="customer" string="Customer" domain="[]" context="{'group_by': 'tenant_id'}"/>
                     <filter string="Order Date" name="order_month" domain="[]" context="{'group_by': 'date_order'}"/>
                 </group>
             </search>
