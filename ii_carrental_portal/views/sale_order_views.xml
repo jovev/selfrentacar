@@ -86,7 +86,7 @@
                                     <span>
                                         <t t-out="record.name.value"/> <t t-out="record.contract_dt.value"/>
                                     </span>
-                                    <field name="activity_ids" widget="kanban_activity"/>
+
                                 </div>
                                 <div class="oe_kanban_bottom_right">
                                     <field name="state"
@@ -117,7 +117,7 @@
 
                 <field name="tenant_id" readonly="1"/>
                 <field name="user_id" optional="show" widget="many2one_avatar_user"/>
-                <field name="activity_ids" widget="list_activity" optional="show"/>
+
 
                 <field name="company_id" groups="base.group_multi_company" optional="show" readonly="1"/>
 
@@ -142,7 +142,7 @@
 
                 <field name="tenant_id" readonly="1"/>
                 <field name="user_id" widget="many2one_avatar_user" optional="show"/>
-                <field name="activity_ids" widget="list_activity" optional="show"/>
+
 
 
                 <field name="company_id" groups="base.group_multi_company" optional="show" readonly="1"/>
@@ -637,7 +637,7 @@
             </sheet>
             <div class="oe_chatter">
                 <field name="message_follower_ids"/>
-                <field name="activity_ids"/>
+
                 <field name="message_ids"/>
             </div>
             </form>
