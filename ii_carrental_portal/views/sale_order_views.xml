@@ -108,7 +108,7 @@
         <field name="priority">2</field>
         <field name="arch" type="xml">
             <tree string="Sales Orders" sample="1"
-                decoration-info="invoice_status == 'to invoice'"
+
                 decoration-muted="state == 'cancel'">
 
                 <field name="name" string="Number" readonly="1" decoration-bf="1"/>
@@ -184,9 +184,7 @@
                         confirm="Are you sure you want to void the authorized transaction? This action can't be undone."
                         attrs="{'invisible': [('authorized_transaction_ids', '=', [])]}"/>
 
-                <button id="create_invoice_percentage" name="%(sale.action_view_sale_advance_payment_inv)d" string="Create Invoice"
-                    type="action" context="{'default_advance_payment_method': 'percentage'}" data-hotkey="q"
-                    attrs="{'invisible': ['|',('invoice_status', '!=', 'no'), ('state', '!=', 'sale')]}"/>                <button name="action_quotation_send" string="Send by Email" type="object" states="draft" class="btn-primary" data-hotkey="g" context="{'validate_analytic': True}"/>
+                             <button name="action_quotation_send" string="Send by Email" type="object" states="draft" class="btn-primary" data-hotkey="g" context="{'validate_analytic': True}"/>
                 <button name="action_quotation_send" type="object" string="Send PRO-FORMA Invoice"
                     groups="sale.group_proforma_sales" class="btn-primary"
                     attrs="{'invisible': ['|', ('state', '!=', 'draft'), ('invoice_count','&gt;=',1)]}" context="{'proforma': True, 'validate_analytic': True}"/>
@@ -292,7 +290,7 @@
                                             widget="many2one_barcode"
                                             />
                                         <field name="product_type" invisible="1"/>
-                                        <field name="invoice_status" invisible="1"/>
+
                                         <field name="qty_to_invoice" invisible="1"/>
                                         <field name="qty_delivered_method" invisible="1"/>
                                         <field name="price_total" invisible="1"/>
@@ -425,35 +423,10 @@
                                            optional="hide"
                                            groups="analytic.group_analytic_accounting"
                                            options="{'product_field': 'product_id', 'business_domain': 'sale_order'}"/>
-                                <field
-                                    name="product_uom_qty"
-                                    decoration-info="(not display_type and invoice_status == 'to invoice')" decoration-bf="(not display_type and invoice_status == 'to invoice')"
-                                    context="{
-                                        'tenant_id': parent.tenant_id,
-                                        'quantity': product_uom_qty,
-                                        'pricelist': parent.pricelist_id,
-                                        'uom': product_uom,
-                                        'company_id': parent.company_id
-                                    }"
-                                />
-                                <field
-                                    name="qty_delivered"
-                                    decoration-info="(not display_type and invoice_status == 'to invoice')" decoration-bf="(not display_type and invoice_status == 'to invoice')"
-                                    string="Delivered"
-                                    attrs="{
-                                        'column_invisible': [('parent.state', 'not in', ['sale', 'done'])],
-                                        'readonly': [('qty_delivered_method', '!=', 'manual')]
-                                    }"
-                                    optional="show"
-                                />
+
+
                                 <field name="qty_delivered_method" invisible="1"/>
-                                <field
-                                    name="qty_invoiced"
-                                    decoration-info="(not display_type and invoice_status == 'to invoice')" decoration-bf="(not display_type and invoice_status == 'to invoice')"
-                                    string="Invoiced"
-                                    attrs="{'column_invisible': [('parent.state', 'not in', ['sale', 'done'])]}"
-                                    optional="show"
-                                />
+
                                 <field name="qty_to_invoice" invisible="1"/>
                                 <field name="product_uom_readonly" invisible="1"/>
                                 <field name="product_uom" invisible="1" groups="!uom.group_uom"/>
@@ -495,7 +468,7 @@
                                 <field name="price_subtotal" widget="monetary" groups="account.group_show_line_subtotals_tax_excluded" attrs="{'invisible': [('is_downpayment', '=', True)]}"/>
                                 <field name="price_total" widget="monetary" groups="account.group_show_line_subtotals_tax_included" attrs="{'invisible': [('is_downpayment', '=', True)]}"/>
                                 <field name="state" invisible="1"/>
-                                <field name="invoice_status" invisible="1"/>
+
                                 <field name="currency_id" invisible="1"/>
                                 <field name="price_tax" invisible="1"/>
                                 <field name="company_id" invisible="1"/>
@@ -601,9 +574,9 @@
                                 </div>
                                 <field name="partner_invoice_id" invisible="1"/>
                                 <field name="analytic_account_id" context="{'default_tenant_id':partner_invoice_id, 'default_name':name}" attrs="{'readonly': [('invoice_count','!=',0),('state','=','sale')]}" groups="analytic.group_analytic_accounting" force_save="1"/>
-                                <field name="invoice_status" states="sale,done" groups="base.group_no_one"/>
+
                                 <!-- test_event_configurator -->
-                                <field name="invoice_status" invisible="1" groups="!base.group_no_one"/>
+
                             </group>
                         </group>
                         <group>
@@ -723,8 +696,7 @@
         <field name="arch" type="xml">
             <filter name="my_sale_orders_filter" position="after">
                 <separator/>
-                <filter string="To Invoice" name="to_invoice" domain="[('invoice_status','=','to invoice')]" />
-                <filter string="To Upsell" name="upselling" domain="[('invoice_status','=','upselling')]" />
+
                 <separator/>
                 <filter string="Order Date" name="order_date" date="contract_dt"/>
             </filter>
@@ -873,7 +845,7 @@
         <field name="res_model">fleet.rent</field>
         <field name="view_mode">tree,form,calendar,graph,pivot,kanban,activity</field>
         <field name="context">{'create': False}</field>
-        <field name="domain">[('invoice_status','=','to invoice')]</field>
+
         <field name="search_view_id" ref="view_sales_order_filter"/>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
@@ -890,7 +862,7 @@
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">fleet.rent</field>
         <field name="view_mode">tree,form,calendar,graph,pivot,kanban,activity</field>
-        <field name="domain">[('invoice_status','=','upselling')]</field>
+
         <field name="context">{'create': False}</field>
         <field name="search_view_id" ref="view_sales_order_filter"/>
         <field name="help" type="html">
