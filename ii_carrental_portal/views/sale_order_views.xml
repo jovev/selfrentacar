@@ -264,7 +264,7 @@
         </field>
     </record>   -->
 
-    <record id="sale_order_view_search_inherit_quotation" model="ir.ui.view">
+ <!--   <record id="sale_order_view_search_inherit_quotation" model="ir.ui.view">
         <field name="name">fleet.rent.search.inherit.quotation</field>
         <field name="model">fleet.rent</field>
         <field name="mode">primary</field>
@@ -296,7 +296,7 @@
                 <filter string="Order Date" name="order_date" date="contract_dt"/>
             </filter>
         </field>
-    </record>
+    </record> -->
 
     <!-- ACTIONS (WINDOW) -->
 
