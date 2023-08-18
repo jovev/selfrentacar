@@ -48,9 +48,11 @@ class CustomerPortal(portal.CustomerPortal):
         """Returns the events that are in stage 'cancel' and 'draft'"""
         return [('state', 'not in', ('open', 'draft'))]
 
-
-
-
+    def _has_to_be_paid(self, include_draft=False):
+        return True
+    #    transaction = self.get_portal_last_transaction()
+    #    return (self.state == 'sent' or (
+    #                self.state == 'draft' and include_draft)) and not self.is_expired and self.require_payment and transaction.state != 'done' and self.amount_total
 
     def _prepare_carrental_domain(self, partner):
         return [
