@@ -239,7 +239,7 @@
                     filter_domain="['|', '|', ('name', 'ilike', self), ('client_order_ref', 'ilike', self), ('tenant_id', 'child_of', self)]"/>
                 <field name="tenant_id" operator="child_of"/>
                 <field name="tenant_id"/>
-                <field name="team_id" string="Sales Team"/>
+            <!--    <field name="team_id" string="Sales Team"/> -->
                 <field name="order_line" string="Product" filter_domain="[('order_line.product_id', 'ilike', self)]"/>
                 <field name="analytic_account_id" groups="analytic.group_analytic_accounting"/>
                 <!-- We only allow to search on the following sale order line fields (product, name) because the other fields, such as price, quantity, ...
