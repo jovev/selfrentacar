@@ -136,6 +136,7 @@ class CustomerPortal(portal.CustomerPortal):
         _logger.info("Usao u carrental_contract    self, orderiid == %s  %s", self, order_id)
         try:
             order_sudo = self._document_check_access('fleet.rent', order_id, access_token=access_token)
+            _logger.info("Usao u carrental_contract ORDER SUDO == %s", order_sudo)
         except (AccessError, MissingError):
             return request.redirect('/my')
 
@@ -189,7 +190,7 @@ class CustomerPortal(portal.CustomerPortal):
         values = self._get_page_view_values(
             order_sudo, access_token, values, history_session_key, False)
 
-        return request.render('sale.sale_order_portal_template', values)
+        return request.render('ii_carrental.sale_order_portal_template', values)
 
     def _get_payment_values(self, order_sudo):
         """ Return the payment-specific QWeb context values.
