@@ -76,7 +76,7 @@ class CustomerPortal(portal.CustomerPortal):
         if not sortby:
             sortby = 'date'
 
-        partner = request.env.user.tenant_id
+        partner = request.env.user.partner_id
         values = self._prepare_portal_layout_values()
 
         if quotation_page:
