@@ -892,6 +892,12 @@ class FleetRent(models.Model):
         for order in self:
             order.access_url = f'/my/carrental/{order.id}'
 
+    def _has_to_be_paid(self, include_draft=False):
+        return True
+    #    transaction = self.get_portal_last_transaction()
+    #    return (self.state == 'sent' or (
+    #                self.state == 'draft' and include_draft)) and not self.is_expired and self.require_payment and transaction.state != 'done' and self.amount_total
+
 
 class RentType(models.Model):
     """Rent Type Model."""
