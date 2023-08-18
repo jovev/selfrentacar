@@ -51,13 +51,13 @@ class CustomerPortal(portal.CustomerPortal):
 
     def _prepare_carrental_domain(self, partner):
         return [
-            ('message_tenant_ids', 'child_of', [partner.commercial_partner_id.id]),
+            ('message_partner_ids', 'child_of', [partner.commercial_partner_id.id]),
             ('state', 'in', ['draft', 'open'])
         ]
 
     def _prepare_orders_domain(self, partner):
         return [
-            ('message_tenant_ids', 'child_of', [partner.commercial_partner_id.id]),
+            ('message_partner_ids', 'child_of', [partner.commercial_partner_id.id]),
             ('state', 'in', ['open', 'draft'])
         ]
 
