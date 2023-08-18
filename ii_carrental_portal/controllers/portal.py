@@ -21,7 +21,7 @@ class CustomerPortal(portal.CustomerPortal):
 
     # def _prepare_home_portal_values(self, counters):
     #     values = super()._prepare_home_portal_values(counters)
-    #     partner = request.env.user.partner_id
+    #     partner = request.env.user.tenand_id
     #
     #     FleetContract = request.env['fleet.rent']
     #     if 'rent_count' in counters:
@@ -48,21 +48,16 @@ class CustomerPortal(portal.CustomerPortal):
         """Returns the events that are in stage 'cancel' and 'draft'"""
         return [('state', 'not in', ('open', 'draft'))]
 
-    def _has_to_be_paid(self, include_draft=False):
-        return True
-    #    transaction = self.get_portal_last_transaction()
-    #    return (self.state == 'sent' or (
-    #                self.state == 'draft' and include_draft)) and not self.is_expired and self.require_payment and transaction.state != 'done' and self.amount_total
 
     def _prepare_carrental_domain(self, partner):
         return [
-            ('message_partner_ids', 'child_of', [partner.commercial_partner_id.id]),
+            ('message_tenand_ids', 'child_of', [partner.commercial_tenand_id.id]),
             ('state', 'in', ['draft', 'open'])
         ]
 
     def _prepare_orders_domain(self, partner):
         return [
-            ('message_partner_ids', 'child_of', [partner.commercial_partner_id.id]),
+            ('message_tenand_ids', 'child_of', [partner.commercial_tenand_id.id]),
             ('state', 'in', ['open', 'draft'])
         ]
 
@@ -81,7 +76,7 @@ class CustomerPortal(portal.CustomerPortal):
         if not sortby:
             sortby = 'date'
 
-        partner = request.env.user.partner_id
+        partner = request.env.user.tenand_id
         values = self._prepare_portal_layout_values()
 
         if quotation_page:
@@ -153,8 +148,8 @@ class CustomerPortal(portal.CustomerPortal):
                 request.session['view_quote_%s' % order_sudo.id] = today
                 # The "Quotation viewed by customer" log note is an information
                 # dedicated to the salesman and shouldn't be translated in the customer/website lgg
-                context = {'lang': order_sudo.user_id.partner_id.lang or order_sudo.company_id.partner_id.lang}
-                msg = _('Quotation viewed by customer %s', order_sudo.partner_id.name)
+                context = {'lang': order_sudo.user_id.tenand_id.lang or order_sudo.company_id.tenand_id.lang}
+                msg = _('Quotation viewed by customer %s', order_sudo.tenand_id.name)
                 del context
                 _message_post_helper(
                     "fleet.rent",
@@ -163,7 +158,7 @@ class CustomerPortal(portal.CustomerPortal):
                     token=order_sudo.access_token,
                     message_type="notification",
                     subtype_xmlid="mail.mt_note",
-                    partner_ids=order_sudo.user_id.sudo().partner_id.ids,
+                    tenand_ids=order_sudo.user_id.sudo().tenand_id.ids,
                 )
 
         backend_url = f'/web#model={order_sudo._name}'\
@@ -202,18 +197,18 @@ class CustomerPortal(portal.CustomerPortal):
         logged_in = not request.env.user._is_public()
         providers_sudo = request.env['payment.provider'].sudo()._get_compatible_providers(
             order_sudo.company_id.id,
-            order_sudo.partner_id.id,
+            order_sudo.tenand_id.id,
             order_sudo.amount_total,
             currency_id=order_sudo.currency_id.id,
             sale_order_id=order_sudo.id,
         )  # In sudo mode to read the fields of providers and partner (if not logged in)
         tokens = request.env['payment.token'].search([
             ('provider_id', 'in', providers_sudo.ids),
-            ('partner_id', '=', order_sudo.partner_id.id)
+            ('tenand_id', '=', order_sudo.tenand_id.id)
         ]) if logged_in else request.env['payment.token']
         # Make sure that the partner's company matches the order's company.
         if not payment_portal.PaymentPortal._can_partner_pay_in_company(
-            order_sudo.partner_id, order_sudo.company_id
+            order_sudo.tenand_id, order_sudo.company_id
         ):
             providers_sudo = request.env['payment.provider'].sudo()
             tokens = request.env['payment.token']
@@ -221,7 +216,7 @@ class CustomerPortal(portal.CustomerPortal):
             provider: provider._compute_fees(
                 order_sudo.amount_total,
                 order_sudo.currency_id,
-                order_sudo.partner_id.country_id,
+                order_sudo.tenand_id.country_id,
             ) for provider in providers_sudo.filtered('fees_active')
         }
         return {
@@ -233,7 +228,7 @@ class CustomerPortal(portal.CustomerPortal):
             ),
             'amount': order_sudo.amount_total,
             'currency': order_sudo.pricelist_id.currency_id,
-            'partner_id': order_sudo.partner_id.id,
+            'tenand_id': order_sudo.tenand_id.id,
             'access_token': order_sudo.access_token,
             'transaction_route': order_sudo.get_portal_url(suffix='/transaction'),
             'landing_route': order_sudo.get_portal_url(),
@@ -330,7 +325,7 @@ class PaymentPortal(payment_portal.PaymentPortal):
 
         kwargs.update({
             'reference_prefix': None,  # Allow the reference to be computed based on the order
-            'partner_id': order_sudo.partner_id.id,
+            'tenand_id': order_sudo.tenand_id.id,
             'fleet_rent_id': order_id,  # Include the SO to allow Subscriptions tokenizing the tx
         })
         kwargs.pop('custom_create_values', None)  # Don't allow passing arbitrary create values
@@ -367,13 +362,13 @@ class PaymentPortal(payment_portal.PaymentPortal):
             # Check the access token against the order values. Done after fetching the order as we
             # need the order fields to check the access token.
             if not payment_utils.check_access_token(
-                access_token, order_sudo.partner_id.id, amount, order_sudo.currency_id.id
+                access_token, order_sudo.tenand_id.id, amount, order_sudo.currency_id.id
             ):
                 raise ValidationError(_("The provided parameters are invalid."))
 
             kwargs.update({
                 'currency_id': order_sudo.currency_id.id,
-                'partner_id': order_sudo.partner_id.id,
+                'tenand_id': order_sudo.tenand_id.id,
                 'company_id': order_sudo.company_id.id,
                 'fleet_rent_id': fleet_rent_id,
             })
