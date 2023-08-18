@@ -198,7 +198,7 @@ class CustomerPortal(portal.CustomerPortal):
         providers_sudo = request.env['payment.provider'].sudo()._get_compatible_providers(
             order_sudo.company_id.id,
             order_sudo.tenant_id.id,
-            order_sudo.amount_total,
+            order_sudo.total_rent,
             currency_id=order_sudo.currency_id.id,
             sale_order_id=order_sudo.id,
         )  # In sudo mode to read the fields of providers and partner (if not logged in)
@@ -214,7 +214,7 @@ class CustomerPortal(portal.CustomerPortal):
             tokens = request.env['payment.token']
         fees_by_provider = {
             provider: provider._compute_fees(
-                order_sudo.amount_total,
+                order_sudo.total_rent,
                 order_sudo.currency_id,
                 order_sudo.tenant_id.country_id,
             ) for provider in providers_sudo.filtered('fees_active')
@@ -226,7 +226,7 @@ class CustomerPortal(portal.CustomerPortal):
             'show_tokenize_input': PaymentPortal._compute_show_tokenize_input_mapping(
                 providers_sudo, logged_in=logged_in, sale_order_id=order_sudo.id
             ),
-            'amount': order_sudo.amount_total,
+            'amount': order_sudo.total_rent,
             'currency': order_sudo.pricelist_id.currency_id,
             'tenant_id': order_sudo.tenant_id.id,
             'access_token': order_sudo.access_token,
