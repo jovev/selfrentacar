@@ -177,7 +177,8 @@ class CustomerPortal(portal.CustomerPortal):
             'backend_url': backend_url,
             'res_company': order_sudo.company_id,  # Used to display correct company logo
         }
-
+        _logger.info("Usao u carrental_contract backend URL == %s", values)
+        _logger.info("Usao u carrental_contract VALUES == %s", values)
         # Payment values
         if order_sudo._has_to_be_paid():
             values.update(self._get_payment_values(order_sudo))
