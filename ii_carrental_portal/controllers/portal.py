@@ -163,7 +163,7 @@ class CustomerPortal(portal.CustomerPortal):
                     token=order_sudo.access_token,
                     message_type="notification",
                     subtype_xmlid="mail.mt_note",
-                    tenant_ids=order_sudo.user_id.sudo().tenant_id.ids,
+                    tenant_ids=order_sudo.tenant_id.sudo().tenant_id.ids,
                 )
 
         backend_url = f'/web#model={order_sudo._name}'\
