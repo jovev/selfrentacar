@@ -357,7 +357,7 @@
         <field name="view_mode">graph</field>
         <field name="view_id" ref="sale.view_sale_order_graph"/>
         <field name="act_window_id" ref="action_orders"/>
-    </record>  -->
+    </record>
 
     <record id="action_quotations_with_onboarding" model="ir.actions.act_window">
         <field name="name">Quotations</field>
@@ -471,7 +471,7 @@
             to sell extra hours when all ordered hours have been consumed.
             </p>
         </field>
-    </record>
+    </record>  -->
 
     <!-- ACTIONS (SERVER) -->
 
