@@ -133,6 +133,7 @@ class CustomerPortal(portal.CustomerPortal):
 
     @http.route(['/my/carrental_contract/<int:order_id>'], type='http', auth="public", website=True)
     def portal_order_page(self, order_id, report_type=None, access_token=None, message=False, download=False, **kw):
+        _logger.info("Usao u carrental_contract    self, orderiid == %s  %s", self, order_id)
         try:
             order_sudo = self._document_check_access('fleet.rent', order_id, access_token=access_token)
         except (AccessError, MissingError):
