@@ -210,7 +210,7 @@
             </form>
         </field>
     </record>
-
+    <!--
     <record id="view_sales_order_auto_done_setting" model="ir.ui.view">
         <field name="name">fleet.rent.form</field>
         <field name="model">fleet.rent</field>
@@ -228,7 +228,7 @@
             </button>
         </field>
     </record>
-
+-->
     <record id="view_sales_order_filter" model="ir.ui.view">
         <field name="name">fleet.rent.list.select</field>
         <field name="model">fleet.rent</field>
