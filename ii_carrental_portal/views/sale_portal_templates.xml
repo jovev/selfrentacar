@@ -52,7 +52,12 @@
                 </thead>
                 <t t-foreach="carrentals" t-as="quotation">
                     <tr>
-                        <td><a t-att-href="quotation.get_portal_url()"><t t-out="quotation.name"/></a></td>
+                    <!--    <td><a t-att-href="quotation.get_portal_url()"><t t-out="quotation.name"/></a></td>  -->
+                        <td>
+						<t t-set="contract_url">https://selfcar.naisrobotics.com/my/carrental_contract/48</t>
+						<a t-att-href="contract_url"> <t t-out="quotation.name"/></a>
+						</td>
+
                         <td class="text-end"><span t-field="quotation.date_order"/></td>
                         <td class="text-end"><span t-field="quotation.validity_date"/></td>
                         <td class="text-center">
