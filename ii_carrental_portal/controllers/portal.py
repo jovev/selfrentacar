@@ -72,6 +72,7 @@ class CustomerPortal(portal.CustomerPortal):
         self, page=1, date_begin=None, date_end=None, sortby=None, quotation_page=False, **kwargs
     ):
         FleetContract = request.env['fleet.rent']
+        _logger.info("***************** USAO U _prepare_carrental_portal_rendering_values    Values == %s", FleetContract)
 
         if not sortby:
             sortby = 'date'
@@ -120,11 +121,13 @@ class CustomerPortal(portal.CustomerPortal):
     def portal_my_carrental(self, **kwargs):
         values = self._prepare_carrental_portal_rendering_values(quotation_page=True, **kwargs)
         request.session['my_carrental_history'] = values['carrentals'].ids[:100]
+        _logger.info("Usao u my/carrental     Values == %s", values)
         return request.render("ii_carrental_portal.portal_my_carrental", values)
 
     @http.route(['/my/carrental_contract', '/my/carrental_contract/page/<int:page>'], type='http', auth="user", website=True)
     def portal_my_orders(self, **kwargs):
         values = self._prepare_carrental_portal_rendering_values(quotation_page=False, **kwargs)
+        _logger.info("Usao u carrental_contract     Values == %s", values)
         request.session['my_orders_history'] = values['orders'].ids[:100]
         return request.render("ii_carrental_portal.portal_my_carrental", values)
 
