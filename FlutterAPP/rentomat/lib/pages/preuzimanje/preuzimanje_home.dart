@@ -83,7 +83,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: Column(
                       children: [
                         Text(
-                          'Scan QR code ppp - Lubi',
+                          'Scan QR code ppp',
                           style: TextStyle(
                             // styling the text
                             fontSize: 45.0, //the size of the text
