@@ -112,7 +112,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       context,
                       MaterialPageRoute(
                           builder: (context) => preuzimanje_ugovor(
-                                text: '38',
+                                text: '318',
                               )),
                     );
                   },
