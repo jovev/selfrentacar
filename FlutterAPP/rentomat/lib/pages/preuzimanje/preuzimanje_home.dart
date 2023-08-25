@@ -128,7 +128,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: Column(
                       children: [
                         Text(
-                          'Preuzmi ugovor',
+                          'Preuzmi ugovoro',
                           style: TextStyle(
                             // styling the text
                             fontSize: 45.0, //the size of the text
