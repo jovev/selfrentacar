@@ -181,17 +181,22 @@ class CustomerPortal(portal.CustomerPortal):
         _logger.info("Usao u carrental_contract VALUES == %s", values)
         # Payment values
         if order_sudo._has_to_be_paid():
-            values.update(self._get_payment_values(order_sudo))
+            _logger.info("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB Usao u carrental_contract 0")
+            ###################### OVO JE PROBLEM
+            ##values.update(self._get_payment_values(order_sudo))
+        _logger.info("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB Usao u carrental_contract 1")
 
         if order_sudo.state in ('draft', 'open', 'cancel'):
             history_session_key = 'my_quotations_history'
         else:
             history_session_key = 'my_orders_history'
+        _logger.info("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB Usao u carrental_contract 2")
 
         values = self._get_page_view_values(
             order_sudo, access_token, values, history_session_key, False)
+        _logger.info("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB Usao u carrental_contract 3")
 
-        return request.render('ii_carrental.sale_order_portal_template', values)
+        return request.render('ii_carrental_portal.fleet_rent_portal_template', values)
 
     def _get_payment_values(self, order_sudo):
         """ Return the payment-specific QWeb context values.

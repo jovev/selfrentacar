@@ -54,20 +54,20 @@
                     <tr>
                     <!--    <td><a t-att-href="quotation.get_portal_url()"><t t-out="quotation.name"/></a></td>  -->
                         <td>
-						<t t-set="contract_url">https://selfcar.naisrobotics.com/my/carrental_contract/48</t>
+						<t t-set="contract_url">https://selfcar.naisrobotics.com/my/carrental_contract/43</t>
 						<a t-att-href="contract_url"> <t t-out="quotation.name"/></a>
 						</td>
 
-                        <td class="text-end"><span t-field="quotation.date_order"/></td>
-                        <td class="text-end"><span t-field="quotation.validity_date"/></td>
+                        <td class="text-end"><span t-field="quotation.date_start"/></td>
+                        <td class="text-end"><span t-field="quotation.date_close"/></td>
                         <td class="text-center">
                             <span t-if="quotation.state == 'cancel'" class="badge rounded-pill text-bg-secondary">
                                 <i class="fa fa-fw fa-remove"/> Cancelled</span>
-                            <span t-if="quotation.is_expired" class="badge rounded-pill text-bg-secondary">
-                                <i class="fa fa-fw fa-clock-o"/> Expired</span>
+			<!-- <span t-if="quotation.is_expired" class="badge rounded-pill text-bg-secondary">
+			<i class="fa fa-fw fa-clock-o"/> Expired</span> -->
                         </td>
                         <td class="text-end">
-                            <span t-field="quotation.amount_total"/>
+                            <span t-field="quotation.rent_amt"/>
                         </td>
                     </tr>
                 </t>
@@ -75,6 +75,14 @@
             <p t-else="">There are currently no quotations for your account.</p>
         </t>
     </template>
+
+
+    <template id="fleet_rent_portal_template" name="My Rental Contracts">
+	    <div class="row mt16 o_portal_sale_sidebar">
+kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk
+            </div>
+    </template>
+
 
     <template id="portal_my_orders" name="My Sales Orders">
         <t t-call="portal.portal_layout">
