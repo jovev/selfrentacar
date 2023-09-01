@@ -38,7 +38,6 @@ dependencies:
   flutter_rating_bar: ^4.0.1
   flutter_webview_pro: ^3.0.1+4
   animated_background: ^2.0.0
-  http: ^1.1.0
   url_launcher: ^6.1.12
   # syncfusion_flutter_pdfviewer: ^22.1.39
   # pdf: ^3.10.4
