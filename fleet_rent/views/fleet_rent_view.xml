@@ -211,6 +211,7 @@
                             <field name="plate"/>
                             <field name="x_bazna_lokacija"/>
                             <field name="x_key_position"/>
+                            <field name="x_key_rfid"/>
                             <field name="x_trenutna_lokacija"/>
 
 
