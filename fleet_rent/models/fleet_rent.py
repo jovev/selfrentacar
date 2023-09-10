@@ -894,7 +894,7 @@ class FleetRent(models.Model):
     def _compute_access_url(self):
         super()._compute_access_url()
         for order in self:
-            order.access_url = f'/my/carrental/{order.id}'
+            order.access_url = f'/my/carrental_contract/{order.id}'
 
     def _has_to_be_paid(self, include_draft=False):
         return True
