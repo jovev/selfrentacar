@@ -15,7 +15,8 @@ class FleetRent(models.Model):
     """Fleet Rent Model."""
 
     _name = "fleet.rent"
-    _inherit = ["mail.thread"]
+    _inherit = ['portal.mixin', 'mail.thread', 'mail.activity.mixin', 'utm.mixin']  # ovo je kljucno za portal pristup
+  #  _inherit = ["mail.thread"]
     _description = "Fleet Rent"
 
     @api.onchange("vehicle_id")
