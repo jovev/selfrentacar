@@ -878,7 +878,7 @@ class FleetRent(models.Model):
         """
         _logger.info("***USAO u GET PORTAL URL    self == %s", self)
         self.ensure_one()
-        tkoen = self._portal_ensure_token()
+        token = self._portal_ensure_token()
         _logger.info("*****************     URL == %s", token)
         url = self.access_url + '%s?access_token=%s%s%s%s%s' % (
             suffix if suffix else '',
