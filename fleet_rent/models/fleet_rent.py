@@ -375,6 +375,28 @@ class FleetRent(models.Model):
     )
     # Dodao lubi - prosirenje modela
     #
+    require_signature = fields.Boolean(
+        string="Online Signature",
+        compute='_compute_require_signature',
+        store=True, readonly=False, precompute=True,
+        states=READONLY_FIELD_STATES,
+        help="Request a online signature and/or payment to the customer in order to confirm orders automatically.")
+    require_payment = fields.Boolean(
+        string="Online Payment",
+        compute='_compute_require_payment',
+        store=True, readonly=False, precompute=True,
+        states=READONLY_FIELD_STATES)
+
+    signature = fields.Image(
+        string="Signature",
+        copy=False, attachment=True, max_width=1024, max_height=1024)
+    signed_by = fields.Char(
+        string="Signed By", copy=False)
+    signed_on = fields.Datetime(
+        string="Signed On", copy=False)
+
+
+
     option_ids = fields.One2many(
         "fleet.rent.options", "fleet_rent_id", "Option Costs"
     )
