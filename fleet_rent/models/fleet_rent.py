@@ -19,8 +19,9 @@ class FleetRent(models.Model):
 
     _name = "fleet.rent"
     _inherit = ['portal.mixin', 'mail.thread', 'mail.activity.mixin', 'utm.mixin']  # ovo je kljucno za portal pristup
-  #  _inherit = ["mail.thread"]
     _description = "Fleet Rent"
+#    _order = 'date_order desc, id desc'
+    _check_company_auto = True
 
     @api.onchange("vehicle_id")
     def _compute_change_vehicle_owner(self):
@@ -446,7 +447,10 @@ class FleetRent(models.Model):
   #  driver2_passport_no = fields.Char(string="Passport No", related='driver_id2.ref')
   #  driver2_driver_licence_no = fields.Char(string="Licence No", related='driver_id2.d_id')
 
-
+    @api.depends('company_id')
+    def _compute_require_signature(self):
+        for order in self:
+            order.require_signature = order.company_id.portal_confirmation_sign
 
     def _has_to_be_signed(self, include_draft=False):
         return (self.state == 'open' or (self.state == 'draft' and include_draft)) and self.require_signature and not self.signature
