@@ -423,6 +423,8 @@ class FleetRent(models.Model):
 
 
 
+    def _has_to_be_signed(self, include_draft=False):
+        return (self.state == 'open' or (self.state == 'draft' and include_draft)) and self.require_signature and not self.signature
 
     @api.depends('checklist_line.checklist_active')
     def check_action_verify(self):
