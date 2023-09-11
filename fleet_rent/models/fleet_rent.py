@@ -10,7 +10,10 @@ from odoo.exceptions import UserError, ValidationError
 from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT as DTF, ustr
 import logging
 _logger = logging.getLogger(__name__)
-
+READONLY_FIELD_STATES = {
+    state: [('readonly', True)]
+    for state in {'sale', 'done', 'cancel'}
+}
 class FleetRent(models.Model):
     """Fleet Rent Model."""
 
