@@ -448,6 +448,10 @@ class FleetRent(models.Model):
   #  driver2_driver_licence_no = fields.Char(string="Licence No", related='driver_id2.d_id')
 
     @api.depends('company_id')
+    def _compute_require_payment(self):
+        for order in self:
+            order.require_payment = order.company_id.portal_confirmation_pay
+    @api.depends('company_id')
     def _compute_require_signature(self):
         for order in self:
             order.require_signature = order.company_id.portal_confirmation_sign
