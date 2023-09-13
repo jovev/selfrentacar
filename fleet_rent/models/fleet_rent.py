@@ -469,6 +469,16 @@ class FleetRent(models.Model):
     def _has_to_be_signed(self, include_draft=False):
         return (self.state == 'open' or (self.state == 'draft' and include_draft)) and self.require_signature and not self.signature
 
+    def action_preview_rent_order(self):
+        self.ensure_one()
+        return {
+            'type': 'ir.actions.act_url',
+            'target': 'self',
+            'url': self.get_portal_url(),
+        }
+
+
+
     @api.depends('checklist_line.checklist_active')
     def check_action_verify(self):
         flag = 0
