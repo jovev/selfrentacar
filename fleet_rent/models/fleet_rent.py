@@ -233,6 +233,16 @@ class FleetRent(models.Model):
         "vehicle_owner", compute="_compute_change_vehicle_owner"
     )
 
+    # user_id = fields.Many2one(
+    #     comodel_name='res.users',
+    #     string="Salesperson",
+    #     compute='_compute_user_id',
+    #     store=True, readonly=False, precompute=True, index=True,
+    #     tracking=2,
+    #     domain=lambda self: "[('groups_id', '=', {}), ('share', '=', False), ('company_ids', '=', company_id)]".format(
+    #         self.env.ref("sales_team.group_sale_salesman").id
+    #     ))
+
     tenant_id = fields.Many2one(
         "res.users", "Tenant", help="Tenant Name of Rental Vehicle."
     )
@@ -257,7 +267,7 @@ class FleetRent(models.Model):
         store=True,
         help="Tenant Name of Rental Vehicle.",
     )
-    manager_id = fields.Many2one(
+    user_id = fields.Many2one(
         "res.users", "Account Manager", help="Manager of Rental Vehicle."
     )
     currency_id = fields.Many2one(
@@ -563,6 +573,12 @@ class FleetRent(models.Model):
                 )
                 raise ValidationError(msg)
 
+    @api.depends('partner_id')
+    def _compute_user_id(self):
+        for order in self:
+            if not order.user_id:
+                order.user_id = order.partner_id.user_id or order.partner_id.commercial_partner_id.user_id or \
+                                (self.user_has_groups('sales_team.group_sale_salesman') and self.env.user)
     def _compute_count_invoice(self):
         """Method to count Out Invoice."""
         obj = self.env["account.move"]
