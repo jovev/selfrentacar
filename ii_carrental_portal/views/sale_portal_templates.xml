@@ -12,8 +12,8 @@
                 <t t-else="">Car Rental contracts</t>
             </li>
             <li t-if="sale_order" class="breadcrumb-item active">
-                <span t-field="fleet_rent.type_name"/>
-                <t t-out="fleet_rent.name"/>
+                <span t-field="sale_order.reservation_number"/>
+                <t t-out="sale_order.name"/>
             </li>
         </xpath>
     </template>
@@ -449,7 +449,7 @@
         <!-- Intro -->
         <div id="introduction" t-attf-class="pb-2 pt-3 #{'card-header bg-white' if report_type == 'html' else ''}">
           <h2 class="my-0">
-                <t t-out="sale_order.type_name"/>
+                <t t-out="sale_order.reservation_code"/>
                 <em t-out="sale_order.name"/>
             </h2>
         </div>
