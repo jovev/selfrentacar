@@ -12,7 +12,7 @@
                 <t t-else="">Car Rental contracts</t>
             </li>
             <li t-if="sale_order" class="breadcrumb-item active">
-                <span t-field="sale_order.reservation_number"/>
+                <span t-field="sale_order.reservation_code"/>
                 <t t-out="sale_order.name"/>
             </li>
         </xpath>
