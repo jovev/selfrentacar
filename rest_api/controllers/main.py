@@ -377,7 +377,7 @@ def wrap__resource__update_one(modelname, id, success_code):
         Model.browse(obj_id).write(vals)
         cr.commit()
         cr.close()
-        request._cr = None
+  #      request._cr = None
         return successful_response(success_code, {})
     except Exception as e:
         odoo_error = repr(e)
