@@ -153,7 +153,7 @@ class CustomerPortal(portal.CustomerPortal):
                 request.session['view_quote_%s' % order_sudo.id] = today
                 # The "Quotation viewed by customer" log note is an information
                 # dedicated to the salesman and shouldn't be translated in the customer/website lgg
-                context = {'lang': order_sudo.user_id.tenant_id.lang or order_sudo.company_id.tenant_id.lang}
+                context = {'lang': order_sudo.user_id.partner_id.lang or order_sudo.company_id.partner_id.lang}
                 msg = _('Quotation viewed by customer %s', order_sudo.tenant_id.name)
                 del context
                 _message_post_helper(
