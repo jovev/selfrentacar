@@ -449,7 +449,7 @@
         <!-- Intro -->
         <div id="introduction" t-attf-class="pb-2 pt-3 #{'card-header bg-white' if report_type == 'html' else ''}">
           <h2 class="my-0">
-                <t t-out="sale_order.reservation_code"/>
+                <t t-out="sale_order.id"/>
                 <em t-out="sale_order.name"/>
             </h2>
         </div>
