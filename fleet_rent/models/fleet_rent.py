@@ -902,7 +902,7 @@ class FleetRent(models.Model):
             custom_values = {}
         defaults = {
             'name': msg.get('subject') or _("No Subject"),
-            'manager_id': "WEB BOOKING",
+            'user_id': "WEB BOOKING",
             'contact_id': msg.get('author_id'),
         }
         defaults.update(custom_values)

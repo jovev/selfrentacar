@@ -216,7 +216,7 @@
 
 
                             <field name="fleet_tenant_id" invisible="1" string="Fleet Tenant"/>
-                            <field name="manager_id"/>
+                            <field name="user_id"/>
                             <field name="vehicle_owner" required="1" string="Vehicle Owner"/>
                             <field name="company_id" required="1"/>
                             <field name="currency_id" required="1" string="Currency"/>

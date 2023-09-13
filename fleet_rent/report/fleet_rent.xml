@@ -52,7 +52,7 @@ td {
 							  Date:<br/>
 							  Rental No: <span t-field="o.reservation_code"/><br/>
 							  Reservation No: <span t-field="o.name"/><br/>
-							  Account Manager:<br/><span t-field="o.manager_id"/><br/>
+							  Account Manager:<br/><span t-field="o.user_id"/><br/>
 							  </td>
                             </tr>
 						</tbody>
