@@ -179,10 +179,10 @@ def vracanjeOtvori():
       access_token = response_data['access_token']
       #return(access_token)
 
-      rfid_num = str(47)
+      rfid_num = str(rfid_input)
       
 
-      url = "http://23.88.98.237:8069/api/fleet.rent?filters=[('state', '=', 'running')]"
+      url = "http://23.88.98.237:8069/api/fleet.rent?filters=[('x_key_rfid', '=', '"+rfid_num+"'), ('state', '=', 'running')]"
 
       header_data = {'Access-Token' : str(access_token)}
 
@@ -192,7 +192,7 @@ def vracanjeOtvori():
 
 
       
-      contract_id = response_data['results'][0]['id']
+      contract_id = str(response_data['results'][0]['id'])
 
 
 
@@ -201,10 +201,9 @@ def vracanjeOtvori():
       header_data = {'Content-Type': 'text/html; charset=utf-8', 'Access-Token' : str(access_token)}
 
       url = "http://23.88.98.237:8069/api/fleet.rent/"+contract_id
-      print("Ugovor id je: "+contract_id)
-      print("Acces token je: "+access_token)
-      print("Url je"+url)
-      data_update = json.dumps({'state': 'running',})
+     
+     
+      data_update = json.dumps({'state': 'done',})
       response = requests.put(url, data=data_update, headers=header_data)
 
 
@@ -284,33 +283,33 @@ def get_rfid_num(id_ugovora):
 def api():
 
 
-   response = requests.get(
-            "http://23.88.98.237:8069/api/auth/get_tokens",
-            params={"username": "odoo@irvas.rs", "password": "irvasadm"}
-      )
+   # response = requests.get(
+   #          "http://23.88.98.237:8069/api/auth/get_tokens",
+   #          params={"username": "odoo@irvas.rs", "password": "irvasadm"}
+   #    )
 
-   response_data = json.loads(response.text)
-   access_token = response_data['access_token']
-   #return(access_token)
+   # response_data = json.loads(response.text)
+   # access_token = response_data['access_token']
+   # #return(access_token)
 
-   rfid_num = str(47)
+   # rfid_num = str(47)
    
 
-   url = "http://23.88.98.237:8069/api/fleet.rent?filters=[('x_key_rfid', '=', 'R47'),('state', '=', 'running')]"
+   # url = "http://23.88.98.237:8069/api/fleet.rent?filters=[('x_key_rfid', '=', 'R47'),('state', '=', 'running')]"
 
-   header_data = {'Access-Token' : str(access_token)}
+   # header_data = {'Access-Token' : str(access_token)}
 
-   response = requests.get(url, headers=header_data)
+   # response = requests.get(url, headers=header_data)
 
-   response_data = json.loads(response.text)
+   # response_data = json.loads(response.text)
 
 
    
-   contract_id = response_data['results'][0]['id']
-   print(contract_id)
+   # contract_id = response_data['results'][0]['id']
+   # print(contract_id)
 
 
-   return render_template('/vracanje/vracanjeHvala.html')
+   # return render_template('/vracanje/vracanjeHvala.html')
 
 
 
@@ -349,7 +348,7 @@ def api():
    
 
    
-   url = "http://23.88.98.237:8069/api/fleet.rent/47"
+   url = "http://23.88.98.237:8069/api/fleet.rent/43"
    
    
  
