@@ -8,7 +8,16 @@
 
 
 <style>
-
+.button {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
 
 .rating {
   unicode-bidi: bidi-override;
@@ -46,29 +55,29 @@
 <p>&nbsp;</p>
   <div class="" style="">
   <h2><br>
-    <input type="hidden" value="{{ status }}" id="status">
-    <input type="hidden" value="{{ rfid_input }}" id="rfid">
-  Ocena usluge/ Rate</h2>
+   
+  Primedbe i sugestije / Suggestions</h2>
   <br>
 
   <p>&nbsp;</p>
 
 
-  
+<form action="/vracanjePrimedbe" method="post">
 
 
+    <input type="hidden" name="rating" value="{{rating}}">
+    <input type="hidden" name="rfid_input" value="{{rfid_input}}">
+    <input type="hidden" name="status" value="{{status}}">
 
+  <textarea name="comment" rows="10" cols="50" style="font-size: 25px;;"></textarea>
+    <br><br>
+  <input type="submit" class="button" value="NEXT">
+</form>
 
 </div>
 
 
-<div class="rating">
-  <span data-target="/vracanjePrimedbe?rating=5" class="click_and_go">☆</span>
-  <span data-target="/vracanjePrimedbe?rating=4" class="click_and_go">☆</span>
-  <span data-target="/vracanjePrimedbe?rating=3" class="click_and_go">☆</span>
-  <span data-target="/vracanjePrimedbe?rating=2" class="click_and_go">☆</span>
-  <span data-target="/vracanjePrimedbe?rating=1" class="click_and_go">☆</span>
-</div>
+
 <br>
 <p>
 
@@ -82,16 +91,6 @@
 
 
 <script>
-var status_val = $('#status').val();
-var rfid_val = $('#rfid').val();
-console.log(status_val);
-console.log(rfid_val);
-$('.click_and_go').click(function(){
-
-  var target_link = $(this).data('target')
-  console.log(target_link);
-  window.location.href=target_link+'&status='+status_val+'&rfid='+rfid_val;
-})
 
 
 </script>
