@@ -373,10 +373,11 @@ def wrap__resource__update_one(modelname, id, success_code):
     cr._cnx.set_isolation_level(ISOLATION_LEVEL_READ_COMMITTED)
     Model = request.env(cr, uid)[modelname]
     try:
+        _logger.info("vals = %s object_id=%s", vals, obj_id)
         Model.browse(obj_id).write(vals)
         cr.commit()
         cr.close()
-        request._cr = None
+  #      request._cr = None
         return successful_response(success_code, {})
     except Exception as e:
         odoo_error = repr(e)

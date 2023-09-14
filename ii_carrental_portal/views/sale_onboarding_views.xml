@@ -13,7 +13,7 @@
             <t t-set="state" t-value="state.get('account_onboarding_invoice_layout_state')" />
         </t>
     </template>
-    <template id="sale_onboarding_order_confirmation_step">
+    <template id="carrental_onboarding_order_confirmation_step">
         <t t-call="base.onboarding_step">
             <t t-set="title">Order Confirmation</t>
             <t t-set="description">Choose between electronic signatures or online payments.</t>
@@ -35,16 +35,16 @@
     </template>
 
     <!-- ONBOARDING PANEL-->
-    <template id="carrental_quotation_onboarding_panel" name="sale.quotation.onboarding.panel">
+    <template id="carrental_quotation_onboarding_panel" name="carrental.quotation.onboarding.panel">
         <t t-call="base.onboarding_container">
             <t t-set="classes" t-value="'o_onboarding_violet'" />
             <t t-set="bg_image" t-value="'/ii_carrental_portal/static/src/img/sale_quotation_onboarding_bg.jpg'"/>
             <t t-set="close_method" t-value="'action_close_carrental_quotation_onboarding'" />
             <t t-set="close_model" t-value="'res.company'" />
             <t t-call="base.onboarding_company_step" name="company_step" />
-            <t t-call="sale.onboarding_quotation_layout_step" name="quotation_layout_step" />
-            <t t-call="sale.sale_onboarding_order_confirmation_step" name="payment_provider_step" />
-            <t t-call="sale.sale_onboarding_sample_quotation_step" name="sample_quotation_step" />
+            <t t-call="carrental.onboarding_quotation_layout_step" name="quotation_layout_step" />
+            <t t-call="carrental.sale_onboarding_order_confirmation_step" name="payment_provider_step" />
+            <t t-call="carrental.sale_onboarding_sample_quotation_step" name="sample_quotation_step" />
         </t>
     </template>
     <!-- ORDER CONFIRMATION -->

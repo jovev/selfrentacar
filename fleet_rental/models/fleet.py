@@ -55,6 +55,8 @@ class EmployeeFleet(models.Model):
     x_godina_proizvodnje = fields.Char('Year of production')
     x_key_location = fields.Selection([('keybox', 'In Key Box'), ('office', 'In Office'), ('vihicle', 'In Car'), ('employee', 'Officer')])
     x_key_position = fields.Char('Key position in KeyBox')
+    x_key_rfid = fields.Char('Key RFID Number')
+
     x_osnov_raspolaganja = fields.Selection([('gasoline', 'Gasoline'),
                                   ('ownership', 'vlasnistvo'),
                                   ('rent', 'zakup'),

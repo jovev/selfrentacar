@@ -12,8 +12,8 @@
                 <t t-else="">Car Rental contracts</t>
             </li>
             <li t-if="sale_order" class="breadcrumb-item active">
-                <span t-field="fleet_rent.type_name"/>
-                <t t-out="fleet_rent.name"/>
+                <span t-field="sale_order.reservation_code"/>
+                <t t-out="sale_order.name"/>
             </li>
         </xpath>
     </template>
@@ -21,7 +21,7 @@
     <template id="portal_my_home_rental" name="Show Reservations / Sales Contracts" customize_show="True" inherit_id="portal.portal_my_home" priority="20">
         <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
             <t t-call="portal.portal_docs_entry">
-                <t t-set="title">Reservations</t>
+                <t t-set="title">Rent Reservations</t>
                 <t t-set="url" t-value="'/my/carrental'"/>
                 <t t-set="placeholder_count" t-value="'rent_count'"/>
             </t>
@@ -44,30 +44,34 @@
                 <thead>
                     <tr class="active">
                         <th>Reservations #</th>
-                        <th class="text-end">Reservation Date</th>
-                        <th class="text-end">Valid Until</th>
+                        <th class="text-end">Tenat</th>
+                        <th class="text-end">From date</th>
+                        <th class="text-end">To date</th>
+                        <th class="text-end">Vehicle</th>
                         <th class="text-center"/>
                         <th class="text-end">Total</th>
                     </tr>
                 </thead>
-                <t t-foreach="carrentals" t-as="quotation">
+                <t t-foreach="carrentals" t-as="reservation">
                     <tr>
-                    <!--    <td><a t-att-href="quotation.get_portal_url()"><t t-out="quotation.name"/></a></td>  -->
+                       <td><a t-att-href="reservation.get_portal_url()"><t t-out="reservation.name"/></a></td>
                         <td>
-						<t t-set="contract_url">https://selfcar.naisrobotics.com/my/carrental_contract/43</t>
-						<a t-att-href="contract_url"> <t t-out="quotation.name"/></a>
+				<!--		<t t-set="contract_url">https://selfcar.naisrobotics.com/my/carrental_contract/43</t>  -->
+					<!--	<a t-att-href="contract_url"> <t t-out="reservation.name"/></a>
+				      <a t-att-href="contract_url"><t t-out="reservation.id"/></a>  -->
 						</td>
-
-                        <td class="text-end"><span t-field="quotation.date_start"/></td>
-                        <td class="text-end"><span t-field="quotation.date_close"/></td>
+                        <td class="text-end"><span t-field="reservation.tenant_id"/></td>
+                        <td class="text-end"><span t-field="reservation.date_start"/></td>
+                        <td class="text-end"><span t-field="reservation.date_end"/></td>
+                        <td class="text-end"><span t-field="reservation.vehicle_id"/></td>
                         <td class="text-center">
-                            <span t-if="quotation.state == 'cancel'" class="badge rounded-pill text-bg-secondary">
+                            <span t-if="reservation.state == 'cancel'" class="badge rounded-pill text-bg-secondary">
                                 <i class="fa fa-fw fa-remove"/> Cancelled</span>
-			<!-- <span t-if="quotation.is_expired" class="badge rounded-pill text-bg-secondary">
+			<!-- <span t-if="reservation.is_expired" class="badge rounded-pill text-bg-secondary">
 			<i class="fa fa-fw fa-clock-o"/> Expired</span> -->
                         </td>
                         <td class="text-end">
-                            <span t-field="quotation.rent_amt"/>
+                            <span t-field="reservation.rent_amt"/>
                         </td>
                     </tr>
                 </t>
@@ -144,7 +148,7 @@
 <xpath expr="." position="attributes"><attribute name="t-name">account.portal_invoice_page</attribute></xpath>	
     </template>
 
-
+<!--
     <template id="portal_my_orders" name="My Sales Orders">
         <t t-call="portal.portal_layout">
             <t t-set="breadcrumbs_searchbar" t-value="True"/>
@@ -183,7 +187,7 @@
             <p t-else="">There are currently no orders for your account.</p>
         </t>
     </template>
-
+-->
     <!-- Complete page of the sale_order -->
     <template id="sale_order_portal_template" name="Sales Order Portal Template" inherit_id="portal.portal_sidebar" primary="True">
         <xpath expr="//div[hasclass('o_portal_sidebar')]" position="inside">
@@ -445,7 +449,7 @@
         <!-- Intro -->
         <div id="introduction" t-attf-class="pb-2 pt-3 #{'card-header bg-white' if report_type == 'html' else ''}">
           <h2 class="my-0">
-                <t t-out="sale_order.type_name"/>
+                <t t-out="sale_order.id"/>
                 <em t-out="sale_order.name"/>
             </h2>
         </div>

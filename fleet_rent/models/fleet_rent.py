@@ -10,13 +10,18 @@ from odoo.exceptions import UserError, ValidationError
 from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT as DTF, ustr
 import logging
 _logger = logging.getLogger(__name__)
-
+READONLY_FIELD_STATES = {
+    state: [('readonly', True)]
+    for state in {'sale', 'done', 'cancel'}
+}
 class FleetRent(models.Model):
     """Fleet Rent Model."""
 
     _name = "fleet.rent"
-    _inherit = ["mail.thread"]
+    _inherit = ['portal.mixin', 'mail.thread', 'mail.activity.mixin', 'utm.mixin']  # ovo je kljucno za portal pristup
     _description = "Fleet Rent"
+#    _order = 'date_order desc, id desc'
+    _check_company_auto = True
 
     @api.onchange("vehicle_id")
     def _compute_change_vehicle_owner(self):
@@ -228,6 +233,16 @@ class FleetRent(models.Model):
         "vehicle_owner", compute="_compute_change_vehicle_owner"
     )
 
+    # user_id = fields.Many2one(
+    #     comodel_name='res.users',
+    #     string="Salesperson",
+    #     compute='_compute_user_id',
+    #     store=True, readonly=False, precompute=True, index=True,
+    #     tracking=2,
+    #     domain=lambda self: "[('groups_id', '=', {}), ('share', '=', False), ('company_ids', '=', company_id)]".format(
+    #         self.env.ref("sales_team.group_sale_salesman").id
+    #     ))
+
     tenant_id = fields.Many2one(
         "res.users", "Tenant", help="Tenant Name of Rental Vehicle."
     )
@@ -252,7 +267,7 @@ class FleetRent(models.Model):
         store=True,
         help="Tenant Name of Rental Vehicle.",
     )
-    manager_id = fields.Many2one(
+    user_id = fields.Many2one(
         "res.users", "Account Manager", help="Manager of Rental Vehicle."
     )
     currency_id = fields.Many2one(
@@ -374,6 +389,28 @@ class FleetRent(models.Model):
     )
     # Dodao lubi - prosirenje modela
     #
+    require_signature = fields.Boolean(
+        string="Online Signature",
+        compute='_compute_require_signature',
+        store=True, readonly=False, precompute=True,
+        states=READONLY_FIELD_STATES,
+        help="Request a online signature and/or payment to the customer in order to confirm orders automatically.")
+    require_payment = fields.Boolean(
+        string="Online Payment",
+        compute='_compute_require_payment',
+        store=True, readonly=False, precompute=True,
+        states=READONLY_FIELD_STATES)
+
+    signature = fields.Image(
+        string="Signature",
+        copy=False, attachment=True, max_width=1024, max_height=1024)
+    signed_by = fields.Char(
+        string="Signed By", copy=False)
+    signed_on = fields.Datetime(
+        string="Signed On", copy=False)
+
+
+
     option_ids = fields.One2many(
         "fleet.rent.options", "fleet_rent_id", "Option Costs"
     )
@@ -410,6 +447,7 @@ class FleetRent(models.Model):
     x_bazna_lokacija = fields.Many2one(related='vehicle_id.x_bazna_lokacija', string = 'Base Location')
     x_trenutna_lokacija = fields.Many2one(related='vehicle_id.x_trenutna_lokacija', string='Current Location')
     x_key_position = fields.Char(related='vehicle_id.x_key_position', string = 'Key position in KeyBox')
+    x_key_rfid = fields.Char(related='vehicle_id.x_key_rfid', string='Key RFID number')
     notes = fields.Char(string = "Additional notes")
 
 #    Info o vozacima:
@@ -419,6 +457,25 @@ class FleetRent(models.Model):
   #  driver2_passport_no = fields.Char(string="Passport No", related='driver_id2.ref')
   #  driver2_driver_licence_no = fields.Char(string="Licence No", related='driver_id2.d_id')
 
+    @api.depends('company_id')
+    def _compute_require_payment(self):
+        for order in self:
+            order.require_payment = order.company_id.portal_confirmation_pay
+    @api.depends('company_id')
+    def _compute_require_signature(self):
+        for order in self:
+            order.require_signature = order.company_id.portal_confirmation_sign
+
+    def _has_to_be_signed(self, include_draft=False):
+        return (self.state == 'open' or (self.state == 'draft' and include_draft)) and self.require_signature and not self.signature
+
+    def action_preview_rent_order(self):
+        self.ensure_one()
+        return {
+            'type': 'ir.actions.act_url',
+            'target': 'self',
+            'url': self.get_portal_url(),
+        }
 
 
 
@@ -526,6 +583,12 @@ class FleetRent(models.Model):
                 )
                 raise ValidationError(msg)
 
+    @api.depends('partner_id')
+    def _compute_user_id(self):
+        for order in self:
+            if not order.user_id:
+                order.user_id = order.partner_id.user_id or order.partner_id.commercial_partner_id.user_id or \
+                                (self.user_has_groups('sales_team.group_sale_salesman') and self.env.user)
     def _compute_count_invoice(self):
         """Method to count Out Invoice."""
         obj = self.env["account.move"]
@@ -849,7 +912,7 @@ class FleetRent(models.Model):
             custom_values = {}
         defaults = {
             'name': msg.get('subject') or _("No Subject"),
-            'manager_id': "WEB BOOKING",
+            'user_id': "WEB BOOKING",
             'contact_id': msg.get('author_id'),
         }
         defaults.update(custom_values)
@@ -876,6 +939,8 @@ class FleetRent(models.Model):
         """
         _logger.info("***USAO u GET PORTAL URL    self == %s", self)
         self.ensure_one()
+        token = self._portal_ensure_token()
+        _logger.info("*****************     URL == %s", token)
         url = self.access_url + '%s?access_token=%s%s%s%s%s' % (
             suffix if suffix else '',
             self._portal_ensure_token(),
@@ -890,7 +955,7 @@ class FleetRent(models.Model):
     def _compute_access_url(self):
         super()._compute_access_url()
         for order in self:
-            order.access_url = f'/my/carrental/{order.id}'
+            order.access_url = f'/my/carrental_contract/{order.id}'
 
     def _has_to_be_paid(self, include_draft=False):
         return True
