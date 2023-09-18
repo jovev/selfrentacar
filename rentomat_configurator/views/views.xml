@@ -1,28 +1,28 @@
 <odoo>
   <data>
     <!-- explicit list view definition -->
-<!--
+
     <record model="ir.ui.view" id="rentomat_configurator.list">
       <field name="name">rentomat_configurator list</field>
-      <field name="model">rentomat_configurator.rentomat_configurator</field>
+      <field name="model">rentomat.configurator</field>
       <field name="arch" type="xml">
         <tree>
-          <field name="name"/>
-          <field name="value"/>
-          <field name="value2"/>
+          <field name="rentomat_id"/>
+          <field name="location_id"/>
+          <field name="max_rentomat_capacity"/>
         </tree>
       </field>
     </record>
--->
+
 
     <!-- actions opening views on models -->
-<!--
+
     <record model="ir.actions.act_window" id="rentomat_configurator.action_window">
       <field name="name">rentomat_configurator window</field>
-      <field name="res_model">rentomat_configurator.rentomat_configurator</field>
+      <field name="res_model">rentomat.configurator</field>
       <field name="view_mode">tree,form</field>
     </record>
--->
+
 
     <!-- server action to the one above -->
 <!--
@@ -45,16 +45,20 @@
     <menuitem name="rentomat_configurator" id="rentomat_configurator.menu_root"/>
 -->
     <!-- menu categories -->
-<!--
-    <menuitem name="Menu 1" id="rentomat_configurator.menu_1" parent="rentomat_configurator.menu_root"/>
-    <menuitem name="Menu 2" id="rentomat_configurator.menu_2" parent="rentomat_configurator.menu_root"/>
+
+   <!-- <menuitem name="Rentomat" id="rentomat_configurator.menu_1" parent="fleet.configuration"/>-->
+     <!-- Action -->
+     <menuitem name="Rentomat" id="rentomat_configurator.rentomat_list" parent="fleet.configuration"
+              action="rentomat_configurator.action_window"/>
+ <!--
+     <menuitem name="Menu 2" id="rentomat_configurator.menu_2" parent="rentomat_configurator.menu_root"/>
 -->
     <!-- actions -->
-<!--
-    <menuitem name="List" id="rentomat_configurator.menu_1_list" parent="rentomat_configurator.menu_1"
-              action="rentomat_configurator.action_window"/>
+
+   
+  <!--
     <menuitem name="Server to list" id="rentomat_configurator" parent="rentomat_configurator.menu_2"
               action="rentomat_configurator.action_server"/>
--->
+-->            
   </data>
 </odoo>
