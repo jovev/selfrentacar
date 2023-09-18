@@ -10,7 +10,7 @@ class rentomat_configurator(models.Model):
     name = fields.Char()
     rentomat_id = fields.Char(string = "Rentomat ID")
     location_id = fields.Many2one("stock.location", string = "Rentomat location")
-    max_rentomat_capacity = fields.Int("Rentomat capacity")
+    max_rentomat_capacity = fields.int("Rentomat capacity")
     position_1 = fields.Char("RFID for position 1")
     position_2 = fields.Char("RFID for position 2")
     position_3 = fields.Char("RFID for position 3")
