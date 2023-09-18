@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api
+from odoo import _, models, fields, api
 
 
 class rentomat_configurator(models.Model):
@@ -9,7 +9,7 @@ class rentomat_configurator(models.Model):
 
     name = fields.Char()
     rentomat_id = fields.Char(string = "Rentomat ID")
-    location_id = fields.Meny2one("stock.location", string = "Rentomat location")
+    location_id = fields.Many2one("stock.location", string = "Rentomat location")
     max_rentomat_capacity = fields.Int("Rentomat capacity")
     position_1 = fields.Char("RFID for position 1")
     position_2 = fields.Char("RFID for position 2")
