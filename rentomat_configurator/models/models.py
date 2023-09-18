@@ -26,7 +26,6 @@ class rentomat_configurator(models.Model):
     
 
 
-
     description = fields.Text("Description")
 
     # @api.depends('value')
