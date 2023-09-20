@@ -13,7 +13,7 @@ This module contains all the common features of Sales Management and eCommerce.
     'depends': [
         'fleet_rent',
         'portal',
-        'web',
+		'web',
         'account_payment',  # -> account, payment, portal
         'utm',
     ],
@@ -75,8 +75,10 @@ This module contains all the common features of Sales Management and eCommerce.
             'sale/static/src/js/sale_portal_sidebar.js',
             'sale/static/src/js/sale_portal.js',
             'sale/static/src/js/payment_form.js',
-            'static/src/xml/name_and_signature.xml',
         ],
+		'web.assets_qweb': [
+        'static/src/xml/name_and_signature.xml',
+		],
         'web.assets_tests': [
             'sale/static/tests/tours/**/*',
         ],
