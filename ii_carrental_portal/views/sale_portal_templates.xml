@@ -85,18 +85,32 @@
 	   		<xpath expr="//div[hasclass('o_portal_sidebar')]" position="inside">
 			<t t-set="o_portal_fullwidth_alert" groups="sales_team.group_sale_salesman,account.group_account_invoice,account.group_account_readonly">
                 <t t-call="portal.portal_back_in_edit_mode">
-                    t-cal portal.portal_back_in_edit_mode
                 </t>
             </t>
-
+<style>
+.o_portal_sidebar #sidebar_content.card > div.card-footer {
+    display: none!important;
+}
+.table-borderless &gt; tbody  &gt; tr  &gt; td, .table-bordered &gt; tbody  &gt; tr  &gt; td {
+    padding-top: 0px;
+	padding-bottom: 1px;
+	padding-left: 15px;
+	padding-right: 15px;
+}
+td {
+    padding-top: 0px;
+	padding-bottom: 1px;
+	padding-left: 15px;
+	padding-right: 15px;
+}
+</style>
 			<div class="row mt16 o_portal_invoice_sidebar">
                 <!-- Sidebar -->
                 <t t-call="portal.portal_record_sidebar">
                     <t t-set="classes" t-value="'col-lg-auto d-print-none'"/>
                     <t t-set="title">
                         <h2 class="mb-0">
-                           TOTAL AMOUNT <!--<b t-if="invoice.amount_residual &gt; 0" t-field="invoice.amount_residual"/>
-                            <b t-else="1" t-field="invoice.amount_total"/>-->
+                           <b t-field="sale_order.rent_amt" data-id="total_amount"/>
                         </h2>
 
                     </t>
@@ -104,20 +118,27 @@
                     <t t-set="entries">
                         <ul class="list-group list-group-flush flex-wrap flex-row flex-lg-column">
                             <li class="list-group-item flex-grow-1">
+							
+							<a t-if="sale_order._has_to_be_signed(True)" role="button" class="btn btn-primary mb8" data-bs-toggle="modal" data-bs-target="#modalaccept" href="#">
+                                    <i class="fa fa-check"/><t t-if="sale_order._has_to_be_paid(True)"> Sign &amp; Pay</t><t t-else=""> Prihvati &amp; Sign</t>
+                                </a>
+								<!--<a t-elif="sale_order._has_to_be_paid(True)" role="button" id="o_sale_portal_paynow" data-bs-toggle="modal" data-bs-target="#modalaccept" href="#" t-att-class="'mb8 %s' % ('btn btn-light' if sale_order.transaction_ids else 'btn btn-primary')">
+                                    <i class="fa fa-check"/> <t t-if="not sale_order.signature">Accept &amp; Pay</t><t t-else="">Pay Now</t>
+                                </a>-->
+							
                                 <div class="o_download_pdf btn-toolbar flex-sm-nowrap">
                                     <div class="btn-group  flex-grow-1 me-1 mb-1">
-                                        Download
-										
+                                       <a class="btn btn-secondary" href="#" title="Download"><i class="fa fa-download"/> Download</a>
+                                    </div>
+								<div class="btn-group flex-grow-1 mb-1">
+                                        <a class="btn btn-secondary o_print_btn o_portal_invoice_print" href="#" id="print_invoice_report" title="Print" target="_blank"><i class="fa fa-print"/> Print</a>
                                     </div>
                                    
                                 </div>
                             </li>
                            
 							<li>
-                                <div class="small mb-1"><strong class="text-muted">
-                                   Salesperson
-								   
-                                </strong></div>
+                               
                                 
                             </li>
                         </ul>
@@ -125,16 +146,449 @@
                 </t>
 
                 <!-- Page Content -->
-                <div id="invoice_content" class="col-12 col-lg">
-                    
+                <div id="agreement_content" class="col-12 col-lg">
+                  
+
+                    <!-- modal relative to the actions sign and pay -->
+                    <div role="dialog" class="modal fade" id="modalaccept">
+                        <div class="modal-dialog" t-if="sale_order._has_to_be_signed(True)">
+                            <form id="accept" method="POST" t-att-data-order-id="sale_order.id" t-att-data-token="sale_order.access_token" class="js_accept_json modal-content js_website_submit_form">
+                                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                <header class="modal-header">
+                                    <h4 class="modal-title">Validate Order</h4>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"/>
+                                </header>
+                                <main class="modal-body" id="sign-dialog">
+                                    <p>
+                                        <span>By signing this proposal, I agree to the following terms:</span>
+                                        <ul>
+                                            <li>
+                                                <span>Accepted on the behalf of:</span> <b t-field="sale_order.tenant_id"/>
+                                            </li>
+                                            <li>
+                                                <span>For an amount of:</span> <b data-id="total_amount" t-field="sale_order.rent_amt"/>
+                                            </li>
+                                            
+                                        </ul>
+                                    </p>
+                                    <t t-call="portal.signature_form">
+                                        <t t-set="call_url" t-value="sale_order.get_portal_url(suffix='/accept')"/>
+                                        <t t-set="default_name" t-value="sale_order.tenant_id"/>
+                                    </t>
+                                </main>
+                            </form>
+                        </div>
+
+                        <div class="modal-dialog" t-if="not sale_order._has_to_be_signed(True) and sale_order._has_to_be_paid(True)">
+                            <div class="modal-content">
+                                <header class="modal-header">
+                                    <h4 class="modal-title">Validate Order</h4>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"/>
+                                </header>
+                                <main class="modal-body" id="sign-dialog">
+                                    <p>
+                                        <span>By paying this proposal, I agree to the following terms:</span>
+                                        <ul>
+                                            <li>
+                                                <span>Accepted on the behalf of:</span> <b t-field="sale_order.tenant_id"/>
+                                            </li>
+                                            <li>
+                                                <span>For an amount of:</span> <b data-id="total_amount" t-field="sale_order.rent_amt"/>
+                                            </li>
+                                            
+                                        </ul>
+                                    </p>
+                                    <div t-if="providers or tokens" id="payment_method" class="text-start">
+                                        <h3 class="mb24">Pay with</h3>
+                                        <t t-call="payment.checkout"/>
+                                    </div>
+                                    <div t-else="" class="alert alert-warning">
+                                        <strong>No suitable payment option could be found.</strong><br/>
+                                        If you believe that it is an error, please contact the website administrator.
+                                    </div>
+                                </main>
+                            </div>
+                        </div>
+                    </div>
+
+			<!-- modal relative to the action reject -->
+                    <div role="dialog" class="modal fade" id="modaldecline">
+                        <div class="modal-dialog">
+                            <form id="decline" method="POST" t-attf-action="/my/orders/#{sale_order.id}/decline?access_token=#{sale_order.access_token}" class="modal-content">
+                                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                <header class="modal-header">
+                                    <h4 class="modal-title">Reject This Quotation</h4>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"/>
+                                </header>
+                                <main class="modal-body">
+                                    <p>
+                                        Tell us why you are refusing this quotation, this will help us improve our services.
+                                    </p>
+                                    <textarea rows="4" name="decline_message" required="" placeholder="Your feedback..." class="form-control"/>
+                                </main>
+                                <footer class="modal-footer">
+                                    <button type="submit" t-att-id="sale_order.id" class="btn btn-danger">
+                                        <i class="fa fa-times"/> Reject
+                                    </button>
+                                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
+                                        Cancel
+                                    </button>
+                                </footer>
+                            </form>
+                        </div>
+                    </div>
+
+<!-- status messages -->
+                    <div t-if="message == 'sign_ok'" class="alert alert-success alert-dismissible d-print-none" role="status">
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"/>
+                        <strong>Thank You!</strong><br/>
+                        <t t-if="message == 'sign_ok' and sale_order.state in ['sale', 'done']">
+                            Your order has been confirmed.
+                        </t>
+                        <t t-elif="message == 'sign_ok' and sale_order._has_to_be_paid()">
+                            Your order has been signed but still needs to be paid to be confirmed.
+                        </t>
+                        <t t-else="">Your order has been signed.</t>
+                    </div>
+
+                    <div t-if="message == 'cant_reject'" class="alert alert-danger alert-dismissible d-print-none" role="alert">
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"/>
+                        Your order is not in a state to be rejected.
+                    </div>
+
+                    <!--<t t-if="sale_order.transaction_ids">
+                        <t t-call="payment.transaction_status">
+                            <t t-set="tx" t-value="sale_order.get_portal_last_transaction()"/>
+                        </t>
+                    </t>-->
+
+                    <div t-if="sale_order.state == 'cancel'" class="alert alert-danger alert-dismissible d-print-none" role="alert">
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"/>
+                        <strong>This quotation has been canceled.</strong> <a role="button" href="#discussion"><i class="fa fa-comment"/> Contact us to get a new quotation.</a>
+                    </div>
+
+                    <!--<div t-if="sale_order.is_expired" class="alert alert-warning alert-dismissible d-print-none" role="alert">
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"/>
+                        <strong>This offer expired!</strong> <a role="button" href="#discussion"><i class="fa fa-comment"/> Contact us to get a new quotation.</a>
+                    </div>-->
+
+
+
+				  
 
                     <div class="o_portal_html_view shadow p-3">
                         <div class="o_portal_html_loader text-center">
                             <i class="fa fa-circle-o-notch fa-spin fa-2x fa-fw text-black-50"/>
                         </div>
-						iframe sa sadrzajem stranice
+						<table class="table table-borderless" style="margin-bottom:0!important;">
+                        <tbody>
+							<tr>
+							  <td>	
+					
+					
+					<!-- LOGO I HEADER -->
+                    <table class="table table-borderless" style="">
+                        <tbody>
+                            <tr>
+                              <td ><img t-att-src="'/logo.png?company=%s' % res_company.id" t-att-alt="'Logo of %s' % res_company.name" t-att-title="res_company.name" style="width:180px;margin-bottom:5px;"/>
+                       <br/>
+					   www.cheapcarhire.rent<br/>
+					   Dečja 2D, Beograd, Palilula<br/><br/>
+					   Contact: + 382 68 840 480<br/>
+					   PIB: 111167096<br/>
+					   MB: 21435422<br/></td>
+                              <td align="center">
+							  <h2> Rental Agreement</h2>
+							  Date:<br/>
+							  Rental No: <span t-field="sale_order.reservation_code"/><br/>
+							  Reservation No: <span t-field="sale_order.name"/><br/>
+							  Account Manager:<br/><span t-field="sale_order.user_id"/><br/>
+							  </td>
+                            </tr>
+						</tbody>
+					</table>
+					
+			<!-- TENANT/DRIVER DATA -->
+					
+					<div class="" style="font-size:20px; line-height:1.8;padding-left: 6px;"><strong>Tenant/Driver Data</strong></div>
+					
+                    <table class="table table-borderless" style="margin-bottom:14px;">
+                        <tbody>
+                            <tr style="border-top:1px solid;">
+                              <td align="right" style="border-right:1px solid; width:50%;"><i>Name (or Company name)</i></td>
+                              <td><strong><span t-field="sale_order.tenant_id"/></strong></td>
+							 </tr>
+							
+                            <tr>
+                              <td align="right" style="border-right:1px solid"><i>ID document</i></td>
+							  <td><strong><span t-field="sale_order.name"/></strong></td>
+                            </tr>
+							
+							 <tr>
+                              <td align="right" style="border-right:1px solid"><i>Address</i></td>
+							  <td><strong><span t-field="sale_order.tenant_id.street"/></strong></td>
+                            </tr>
+							
+                            <tr>
+                              <td align="right" style="border-right:1px solid"><i>Country</i></td>
+                              <td><strong><span t-field="sale_order.tenant_id.country_id"/></strong></td>
+                            </tr>
+							
+							<tr>
+                              <td align="right" style="border-right:1px solid"><i>Phone number</i></td>
+							  <td><strong><span t-field="sale_order.tenant_id.phone"/></strong></td>
+                            </tr>
+							
+                            <tr style="border-bottom:1px solid;">
+                              <td align="right" style="border-right:1px solid"><i>E-mail</i></td>
+							  <td><strong><span t-field="sale_order.tenant_id.email"/></strong></td>
+                            </tr>
+							
+						</tbody>
+                    </table>		
+					
+				<!-- VEHICLE DATA -->
+				<div class="" style="font-size:20px; line-height:1.8;padding-left: 6px;"><strong>Vehicle Data</strong></div>							
+						<table class="table table-borderless" style="margin-bottom:14px;">
+                        <tbody>	
+
+							<tr style="border-top:1px solid;border-bottom:1px solid;">
+                              <td align="right" style="border-right:1px solid; width:50%;"><i>Model</i></td>
+                              <td style=""><strong><span t-field="sale_order.vehicle_id"/> - <span t-field="sale_order.vehicle_id.transmission"/></strong></td>
+                            </tr>
+							<tr>
+							  <td align="right" style="border-right:1px solid"><i>Licence Plate</i></td>
+							  <td><strong><span t-field="sale_order.plate"/></strong></td>
+							</tr>
+							<tr>
+							  <td align="right" style="border-right:1px solid"><i>Odometer (start)</i></td>
+							  <td><strong><span t-field="sale_order.odometer"/></strong></td>
+							</tr>
+							<tr>
+							  <td align="right" style="border-right:1px solid"><i>Fuel level (start)</i></td>
+							  <td><strong><span t-field="sale_order.pickup_fuel"/></strong></td>
+							</tr>
+							<tr style="border-bottom:1px solid;"> 
+							  <td align="right" style="border-right:1px solid"><i>Type of fuel</i></td>
+							  <td><strong><span t-field="sale_order.vehicle_id.fuel_type"/></strong></td>
+							</tr>
+							
+						</tbody>
+                    </table>
+
+					
+			<!-- RENTAL DATA -->
+				<div class="" style="font-size:20px; line-height:1.8; padding-left: 6px;"><strong>Rental Data</strong></div>								
+					<table class="table table-borderless" style="margin-bottom:14px;">
+                        <tbody>			
+							<tr style="border-top:1px solid;">
+							  <td align="right" style="border-right:1px solid; width:50%;"><i>Pick-Up Date &amp; Тime</i></td>
+							  <td><strong><span t-field="sale_order.date_start"/></strong></td>
+                            </tr>
+							
+                            <tr>  
+                              <td align="right" style="border-right:1px solid"><i>Pick-Up Location</i></td>
+                              <td><strong><span t-field="sale_order.rent_from"/></strong></td>
+                              
+                            </tr>
+                            
+                            <tr>
+							  <td align="right" style="border-right:1px solid"><i>Drop off Date &amp; Тime</i></td>
+							<td><strong><span t-field="sale_order.date_end"/></strong></td>
+							</tr>
+                            
+                            <tr>
+                              <td align="right" style="border-right:1px solid"><i>Drop off Location</i></td>
+                              <td><strong><span t-field="sale_order.return_location"/></strong></td>
+                            </tr>
+							
+							<tr>
+                              <td align="right" style="border-right:1px solid"><i>Cross Border</i></td>
+                              <td><strong><t t-if="sale_order.allow_crossborder == true"> Dozvoljeno</t><t t-if="sale_order.allow_crossborder == false">Zabranjeno</t></strong></td>
+                            </tr>
+							
+							<tr>
+                              <td align="right" style="border-right:1px solid"><i>Total rent days</i></td>
+                              <td><strong><span t-field="sale_order.rent_type_id"/></strong></td>
+                            </tr>
+							
+							<tr>
+                              <td align="right" style="border-right:1px solid"><i>Basic Rental Price</i></td>
+                              <td><strong/></td>
+							</tr>
+							
+							  <tr style="border-bottom:1px solid;">
+                              <td align="right" style="border-right:1px solid"><i>Deposit (SCDW is not selected)</i></td>
+                              <td><strong> </strong></td>
+                            </tr>
+							
+                        </tbody>
+                    </table>		
+			
+<!-- RENTAL OPTIONS AND PRICE -->
+												
+					<table class="table table-borderless" style="margin-bottom:14px;">
+                        <tbody>
+							<tr style="border-bottom:1px solid; border-bottom:1px solid;">
+							  <td class="" style="width:50%; padding-left: 6px!important;"><span style="font-size:20px; line-height:1.6;"><strong>Rental Options</strong></span></td>
+							  <td class="text-right" align="right" style=""><span style="line-height:1.6;">Price</span></td>
+                            </tr>
+							<t t-foreach="sale_order.option_ids" t-as="line">
+							<tr>
+							  <td align="right" style="border-right:1px solid;"><i><span t-field="line.option"/></i></td>
+							  <td class="text-right" align="right"><span t-field="line.total_price"/></td>
+                            </tr>
+							</t>
+					<tr style="border-top:1px solid; border-bottom:1px solid;">
+						<td colspan="2"/>
+					 </tr>
+						</tbody>
+                    </table>			
+			
+							<!-- TOTAL RENTAL -->
+												
+					<table class="table table-borderless" style="margin-bottom:14px;">
+                        <tbody>
+							<tr style="border-bottom:1px solid; border-bottom:1px solid;">
+							  <td align="right" class="text-right" style="width:50%;"><span style="line-height:1.6;"><strong>TOTAL RENT</strong></span></td>
+							  <td class="text-right" align="right" style=""><span style="line-height:1.6;"><strong>PRICE</strong></span></td>
+                            </tr>
+							<tr>
+							  <td style="border-right:1px solid;" align="right"><i>1. Basic Rental Price</i></td>
+							  <td class="text-right" align="right"><strong>60 €</strong></td>
+                            </tr>
+							<tr>
+							  <td style="border-right:1px solid;" align="right"><i>2. Rental Options</i></td>
+							  <td class="text-right" align="right"><strong>30 €</strong></td>
+                            </tr>
+							<tr>
+							  <td style="border-right:1px solid;" align="right"><i>TOTAL RENT</i></td>
+							  <td class="text-right" align="right"><strong>90 €</strong></td>
+                            </tr>
+					<tr style="border-top:1px solid; border-bottom:1px solid;">
+						<td colspan="2"/>
+					 </tr>
+						</tbody>
+                    </table>
+
+
+			
+					
+				<p style="">
+				
+				1. Korisnik učestvuje u šteti u visini depozita. Sve štete do visine depozita plaća korisnik.<br/>
+				2. Rok za vraćanje depozita je od 28 do 90 radnih dana računajući od dana vraćanja vozila.<br/>
+				3. Obavezan je zapisnik policije i uz CDW i SCDW osiguranje.<br/>
+				4. Ukoliko nema zapisnik policije, korisnik prihvata plaćanje štete po zvaničnim cenama ovlašćenog servisa u Srbiji+gubitak zbog nemogućnosti izdavanja vozila (broj dana potrebnih za popravku x dnevna cena najma). U slučaju alkohola u krvi prilikom saobraćajnog udesa kasko osiguranje ne važi i korisnik plaća kompletnu štetu.<br/>
+				5. Ukoliko korisnik nije kupio TP osiguranje plaća štetu po jednoj gumi:__________________;<br/>
+				6. Gubitak dokumenata od vozila, gubitak ili oštećenje ključa od vozila, gubitak tablica od vozila i zelenog kartona ne pokriva CDW ili SCDW osiguranje.<br/>
+				7. Potvrđujem da sam preuzeo: 1. Ključ; 2. Saobraćajnu dozvolu; 3. Zeleni karton;<br/>
+				8. U slučaju gubitka plaćam:
+				</p>
+							   </td>
+                            </tr>	
+						</tbody>
+                    </table>
+				<table class="table table-sm" style="margin-bottom:4px;">
+                        <tbody>
+							<tr>
+							  <td style="width:70px;">1</td>
+							  <td>Ključ</td>
+							  <td/>
+							</tr>
+							<tr>
+							  <td>2</td>
+							  <td>Saobraćajnu dozvolu</td>
+							  <td align="right">12.000,00 RSD</td>
+							</tr>
+							<tr>
+							  <td>3</td>
+							  <td>Zeleni karton</td>
+							  <td align="right">5.000,00 RSD</td>
+							</tr>
+							<tr>
+							  <td>4</td>
+							  <td>1 x Registarsku tablicu</td>
+							  <td align="right">12.000,00 RSD</td>
+							</tr>
+							<tr>
+							  <td>5</td>
+							  <td>Potencijalne kazne i prekršaji u saobraćaju se uvećavaju za</td>
+							  <td align="right">3.000,00 RSD+PDV</td>
+							</tr>
+						</tbody>
+                </table>
+				
+			<div class="" style="font-size:20px; line-height:1.8; padding-left: 6px; border-bottom:1px solid;"><strong>Note</strong></div>		
+
+				<p style="text-align: justify;">Prilikom online bukiranja ste prihvatili opšte uslove najma, politiku privatnosti i uslove povraćaja depozita. Prilikom potpisivanja ugovora ste takođe prihvatili opšte uslove najma, politiku privatnosti i uslove povraćaja depozita. U prilogu ugovora su opšti uslovi najma. Potpisom potvrđujete da ste ih pročitali i razumeli. Kontrola izdatog goriva se vrši pri povratku vozila, upoređenjem slika sa izdavanja i vraćanja.</p>
+
+<p style="text-align: justify;">U slučaju nepoštovanja uslova najma, prihvatam da se naplata izvrši sa moje kartice Visa/Master/American Express:</p>	
+				
+			<table class="table table-bordered" style="border:1px solid; margin-bottom:40px;">
+                        <tbody>
+							<tr>
+							  <td style="width:10%">Card No.</td>
+							  <td/>
+							  <td style="width:14%">Valid until</td>
+							  <td/>
+							   <td style="width:10%">CVV</td>
+							  <td/>
+							</tr>
+							<tr>
+							  <td>Card No.</td>
+							  <td/>
+							  <td>Valid until</td>
+							  <td/>
+							   <td>CVV</td>
+							  <td/>
+							</tr>
+						</tbody>
+                </table>
+			
+		
+			<table class="table table-borderless" style="">
+                        <tbody>
+							<tr>
+							  <td style=""/>
+							  <td/>
+							  <td style=""/>
+							</tr>
+							<tr>
+							  <td style="border-top:1px solid;" class="text-center">Account Manager</td>
+							  <td/>
+							  <td style="border-top:1px solid;" class="text-center">Tenant/Driver</td>
+
+							</tr>
+						</tbody>
+                </table>	
+				
                        
                     </div>
+					
+					
+					 <!-- bottom actions -->
+                    <div t-if="sale_order._has_to_be_signed(True) or sale_order._has_to_be_paid(True)" class="row justify-content-center text-center d-print-none pt-1 pb-4">
+
+                        <t t-if="sale_order._has_to_be_signed(True)">
+                            <div class="col-sm-auto mt8">
+                                <a role="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalaccept" href="#"><i class="fa fa-check"/><t t-if="sale_order._has_to_be_paid(True)"> Sign &amp; Pay</t><t t-else=""> Accept &amp; Sign</t></a>
+                            </div>
+                            <div class="col-sm-auto mt8">
+                                <a role="button" class="btn btn-secondary" href="#discussion"><i class="fa fa-comment"/> Feedback</a>
+                            </div>
+                            <div class="col-sm-auto mt8">
+                                <a role="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modaldecline" href="#"> <i class="fa fa-times"/> Reject</a>
+                            </div>
+                        </t>
+                        <div t-elif="sale_order._has_to_be_paid(True)" class="col-sm-auto mt8">
+                            <!--<a role="button" data-bs-toggle="modal" data-bs-target="#modalaccept" href="#" t-att-class="'%s' % ('btn btn-light' if sale_order.transaction_ids else 'btn btn-primary')">
+                                <i class="fa fa-check"/> <t t-if="not sale_order.signature">Accept &amp; Pay</t><t t-else="">Pay Now</t>
+                            </a>-->
+                        </div>
+                    </div>
+					
+					
                     <!-- chatter -->
                     <div id="invoice_communication" class="mt-4">
                         <h2>History</h2>
@@ -142,10 +596,10 @@
                     </div>
                 </div>
             </div>   
-	   
-	   
+
 		</xpath> 
-<xpath expr="." position="attributes"><attribute name="t-name">account.portal_invoice_page</attribute></xpath>	
+	
+    <xpath expr="." position="attributes"><attribute name="t-name">ii_carrental_portal.fleet_rent_portal_template</attribute></xpath>	
     </template>
 
 <!--
