@@ -51,7 +51,7 @@ This module contains all the common features of Sales Management and eCommerce.
      #   'views/sale_order_line_views.xml',
         'views/sale_portal_templates.xml',
     #    'views/utm_campaign_views.xml',
-	    'static/src/xml/name_and_signature.xml',
+	 #   'static/src/xml/name_and_signature.xml',
     #    'views/sale_menus.xml',  # Last because referencing actions defined in previous files
     ],
     'demo': [
