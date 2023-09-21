@@ -171,6 +171,7 @@ td {
                                             
                                         </ul>
                                     </p>
+									
                                     <t t-call="portal.signature_form">
                                         <t t-set="call_url" t-value="sale_order.get_portal_url(suffix='/accept')"/>
                                         <t t-set="default_name" t-value="sale_order.tenant_id"/>
@@ -550,9 +551,13 @@ td {
 			<table class="table table-borderless" style="">
                         <tbody>
 							<tr>
-							  <td style=""/>
+							  <td style="width:50%"><div t-if="sale_order.user_id.digital_signature">
+							   <img t-att-src="image_data_uri(sale_order.user_id.digital_signature)" style="max-height: 2cm; max-width: 7.5cm;"/></div></td>
 							  <td/>
-							  <td style=""/>
+							  <td align="center" style="">
+							  <div t-if="sale_order.signature">
+							   <img t-att-src="image_data_uri(sale_order.signature)" style="max-height: 2cm; max-width: 7.5cm;"/></div>
+							  </td>
 							</tr>
 							<tr>
 							  <td style="border-top:1px solid;" class="text-center">Account Manager</td>
