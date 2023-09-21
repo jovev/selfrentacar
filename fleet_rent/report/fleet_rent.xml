@@ -104,8 +104,8 @@ td {
                         <tbody>	
 
 							<tr style="border-top:1px solid;border-bottom:1px solid;">
-                              <td class="text-center" style="border-right:1px solid; width:140px;"><i>Model</i></td>
-                              <td class="text-center" style=""><strong><span t-field="o.vehicle_id"/> - <span t-field="o.vehicle_id.transmission"/></strong></td>
+                              <td align="right" style="border-right:1px solid; width:140px;"><i>Model</i></td>
+                              <td><strong><span t-field="o.vehicle_id"/> - <span t-field="o.vehicle_id.transmission"/></strong></td>
                             </tr>
 							<tr>
 							  <td align="right" style="border-right:1px solid"><i>Licence Plate</i></td>
@@ -165,7 +165,7 @@ td {
 							
 							<tr>
                               <td align="right" style="border-right:1px solid"><i>Basic Rental Price</i></td>
-                              <td><strong></strong></td>
+                              <td><strong/></td>
 							</tr>
 							
 							  <tr style="border-bottom:1px solid;">
@@ -274,8 +274,7 @@ td {
 							  <td>	
 					
 				
-			<span style="width:280px; font-size:11px; line-height:1.8; border-bottom:1px solid">Note</span>	
-
+			<div class="" style="font-size:11px; line-height:1.8; border-bottom:1px solid">Note</div>
 				<p style="font-size:10px; text-align: justify;">Prilikom online bukiranja ste prihvatili opšte uslove najma, politiku privatnosti i uslove povraćaja depozita. Prilikom potpisivanja ugovora ste takođe prihvatili opšte uslove najma, politiku privatnosti i uslove povraćaja depozita. U prilogu ugovora su opšti uslovi najma. Potpisom potvrđujete da ste ih pročitali i razumeli. Kontrola izdatog goriva se vrši pri povratku vozila, upoređenjem slika sa izdavanja i vraćanja.</p>
 
 <p style="font-size:10px; text-align: justify;">U slučaju nepoštovanja uslova najma, prihvatam da se naplata izvrši sa moje kartice Visa/Master/American Express:</p>
@@ -309,9 +308,11 @@ td {
 			<table width="280" class="table table-borderless" style="width:280px;">
                         <tbody>
 							<tr>
-							  <td style="width:125px;"/>
+							  <td style="width:125px;"><div t-if="o.user_id.digital_signature">
+							   <img t-att-src="image_data_uri(o.user_id.digital_signature)" style="max-height: 1.5cm; max-width: 3.5cm;"/></div></td>
 							  <td/>
-							  <td style="width:125px;"/>
+							  <td style="width:125px;"><div t-if="o.signature">
+							   <img t-att-src="image_data_uri(o.signature)" style="max-height: 1.5cm; max-width: 3.5cm;"/></div>	   </td>
 							</tr>
 							<tr>
 							  <td style="border-top:1px solid;" class="text-center">Account Manager</td>
