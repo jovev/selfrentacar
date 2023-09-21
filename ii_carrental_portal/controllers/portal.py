@@ -141,7 +141,7 @@ class CustomerPortal(portal.CustomerPortal):
             return request.redirect('/my')
 
         if report_type in ('html', 'pdf', 'text'):
-            return self._show_report(model=order_sudo, report_type=report_type, report_ref='ii_carrental_portal.action_report_saleorder', download=download)
+            return self._show_report(model=order_sudo, report_type=report_type, report_ref='fleet_rent.report_fleet_rent', download=download)
         _logger.info("Usao u carrental_contract NIJE HTML == %s", report_type)
         if request.env.user.share and access_token:
             # If a public/portal user accesses the order with the access token
@@ -273,7 +273,7 @@ class CustomerPortal(portal.CustomerPortal):
             order_sudo.action_confirm()
             order_sudo._send_order_confirmation_mail()
 
-        pdf = request.env['ir.actions.report'].sudo()._render_qweb_pdf('ii_carrental_portal.action_report_saleorder', [order_sudo.id])[0]
+        pdf = request.env['ir.actions.report'].sudo()._render_qweb_pdf('fleet_rent.report_fleet_rent', [order_sudo.id])[0]
 
         _message_post_helper(
             'fleet.rent',
