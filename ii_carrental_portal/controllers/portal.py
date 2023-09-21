@@ -273,7 +273,7 @@ class CustomerPortal(portal.CustomerPortal):
             order_sudo.action_confirm()
             order_sudo._send_order_confirmation_mail()
 
-        pdf = request.env['ir.actions.report'].sudo()._render_qweb_pdf('ii_carrental_portal.action_report_fleetcontract', [order_sudo.id])[0]
+        pdf = request.env['ir.actions.report'].sudo()._render_qweb_pdf('ii_carrental_portal.action_report_fleet_contract', [order_sudo.id])[0]
 
         _message_post_helper(
             'fleet.rent',
