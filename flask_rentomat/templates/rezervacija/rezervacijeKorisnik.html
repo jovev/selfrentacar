@@ -1,0 +1,574 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Rentomat</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link rel="stylesheet" href="../static/plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="../static/dist/css/adminlte.min.css">
+
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+
+
+<style type="text/css">
+  .card {
+    margin-bottom: 0px;
+    
+  }
+  .card-header {
+    background-color: #ff6600;
+    color: white;
+  }
+
+  .rent_title {
+    font-size: 25px;
+  }
+
+  .rent_txt {
+    font-size: 20px;
+  }
+</style>
+
+   
+  </head>
+  <body>
+
+
+    <div class="wrapper">
+      <section class="content">
+      <div class="container-fluid">
+
+
+
+        <div class="row">
+            <div class="col-md-12 " style="margin-bottom: 20px;">
+                <h1>Rental Details</h1>
+            </div>
+        </div>
+
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card card-primary">
+          
+              <div class="card">
+              <div class="card-body p-0">
+                <div class="table-responsive">
+                  <table class="table m-0">
+                    <thead>
+                      <tr class="card-header rent_title">
+                      <td>
+                         Rent From
+                      </td>
+                      <td>
+                        Return Location
+                      </td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="rent_txt">
+                      <td>
+                        Podgorica Airport (TGD)-Montenegro<br>
+                        Podgorica, 81000, Montenegro
+                      </td>
+                      <td>
+                        Podgorica Airport (TGD)-Montenegro<br>
+                        Podgorica, 81000, Montenegro
+                      </td>
+                    </tr>
+
+
+
+                    <tr class="card-header rent_title">
+                      <td>
+                        Pick-Up Date & Time 
+                      </td>
+                      <td>
+                        Return Date & Time  
+                      </td>
+                      <td>
+                        Period  
+                      </td>
+                    </tr>
+                    <tr class="rent_txt">
+                      <td>
+                        September 23, 2023    12:00 
+                      </td>
+                      <td>
+                        October 2, 2023    12:00  
+                      </td>
+                      <td>
+                        9 days
+                      </td>
+                    </tr>
+
+
+                    <tr class="card-header rent_title">
+                      <td>
+                        Selected Cars  
+                      </td>
+                      <td>
+                        Price 
+                      </td>
+                      <td>
+                        Total  
+                      </td>
+                    </tr>
+                    <tr class="rent_txt">
+                      <td>
+                        Ford Fiesta - Manual, Economy 
+                      </td>
+                      <td>
+                        € 140.00  
+                      </td>
+                      <td>
+                        € 140.00
+                      </td>
+                    </tr>
+
+
+
+
+                     <tr class="card-header rent_title">
+                      <td>
+                        Location Fees
+ 
+                      </td>
+                      <td>
+                        
+                      </td>
+                      <td>
+                           
+                      </td>
+                    </tr>
+                    <tr class="rent_txt">
+                      <td>
+                        Pick-up fee 
+                      </td>
+                      <td>
+                        € 0.00    
+                      </td>
+                      <td>
+                        € 0.00  
+                      </td>
+                    </tr>
+                    <tr class="rent_txt">
+                      <td>
+                        Return fee  
+                      </td>
+                      <td>
+                        € 0.00    
+                      </td>
+                      <td>
+                        € 0.00  
+                      </td>
+                    </tr>
+
+
+
+                    <tr class="card-header rent_title">
+                      <td>
+                        Total 
+                      </td>
+                      <td>
+                          
+                      </td>
+                      <td>
+                       </td>
+                    </tr>
+                    <tr  class="rent_txt">
+                      <td>
+                        Grand Total:  
+                      </td>
+                      <td>
+                       </td>
+                      <td>
+                        € 140.00
+                      </td>
+                    </tr>
+                    <tr  class="rent_txt">
+                      <td>
+                        Deposit:   
+                      </td>
+                      <td>
+                       </td>
+                      <td>
+                        € 600.00
+
+                      </td>
+                    </tr>
+
+
+
+
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            </div>
+          </div>
+
+      
+
+        </div>
+        <div class="row">
+            <div class="col-md-12" style="margin-top: 20px; margin-bottom: 20px;">
+                <h1>User Details</h1>
+            </div>
+        </div>
+
+     <div class="row">
+        <!-- left column -->
+        <div class="col-md-6"> 
+         <div class="card card-primary">
+              <div class="card-header" style="background-color: #ff6600 !important;">
+                <h3 class="card-title rent_title">Search For Existing Customer Details
+</h3>
+              </div>
+              <!-- /.card-header -->
+              <!-- form start -->
+              <form>
+                <div class="card-body">
+
+
+
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email Adress">
+                    </div>
+                  </div>
+
+                  <div class="col-md-12">
+                    <div class="form-group">
+                        <select class="form-control">
+                          <option value="" disabled selected hidden>Year Of Birth</option>
+                          <option>option 1</option>
+                          <option>option 2</option>
+                          <option>option 3</option>
+                          <option>option 4</option>
+                          <option>option 5</option>
+                        </select>
+                      </div>
+                  </div>
+
+                  <div class="col-md-12">
+                    <button type="submit" class="btn btn-primary">Fetch Details</button>
+                  </div>
+
+
+
+                </div>
+             
+
+              </form>
+            </div>
+          </div>
+
+
+
+           <div class="col-md-6"> 
+            
+            <div class="col-md-12 text-center">
+                    <button type="submit" class="btn btn-primary">Change date, time & location</button>
+                  </div>
+            <div class="col-md-12 text-center" style="margin-top: 20px;">
+                    <button type="submit" class="btn btn-primary">Change car</button>
+                  </div>
+
+            <div class="col-md-12 text-center" style="margin-top: 20px;">
+                    <button type="submit" class="btn btn-primary">Change rental options</button>
+                  </div>
+          </div>
+        </div>
+
+
+
+        <div class="row" style="margin-top: 20px;">
+        <!-- left column -->
+        <div class="col-md-12"> 
+         <div class="card card-primary">
+              <div class="card-header " style="background-color: #ff6600 !important;">
+                <h3 class="card-title rent_title">Or Create A New Account</h3>
+              </div>
+              <!-- /.card-header -->
+              <!-- form start -->
+
+                <div class="card-body">
+
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="row">
+
+                        <div class="col-md-3">
+                          First Name:*
+                        </div>
+
+                        <div class="col-md-9">
+                          <div class="form-group">
+                            <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email Adress">
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+
+                    <div class="col-md-6">
+                      <div class="row">
+
+                        <div class="col-md-3">
+                          Last Name:*
+                        </div>
+
+                        <div class="col-md-9">
+                          <div class="form-group">
+                            <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email Adress">
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+
+                    <div class="col-md-6">
+                      <div class="row">
+
+                        <div class="col-md-3">
+                          Date of Birth:*
+
+                        </div>
+
+                        <div class="col-md-3">
+                          <div class="form-group">
+                              <select class="form-control">
+                                <option value="" disabled selected hidden>Year</option>
+                                <option>option 1</option>
+                                <option>option 2</option>
+                                <option>option 3</option>
+                                <option>option 4</option>
+                                <option>option 5</option>
+                              </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                          <div class="form-group">
+                              <select class="form-control">
+                                <option value="" disabled selected hidden>Month</option>
+                                <option>option 1</option>
+                                <option>option 2</option>
+                                <option>option 3</option>
+                                <option>option 4</option>
+                                <option>option 5</option>
+                              </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                          <div class="form-group">
+                              <select class="form-control">
+                                <option value="" disabled selected hidden>Day</option>
+                                <option>option 1</option>
+                                <option>option 2</option>
+                                <option>option 3</option>
+                                <option>option 4</option>
+                                <option>option 5</option>
+                              </select>
+                            </div>
+                        </div>
+
+                      </div>
+                    </div>
+
+                    <div class="col-md-6">
+                      <div class="row">
+
+                        <div class="col-md-3">
+                          Address:
+                        </div>
+
+                        <div class="col-md-9">
+                          <div class="form-group">
+                            <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email Adress">
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+
+                    <div class="col-md-6">
+                      <div class="row">
+
+                        <div class="col-md-3">
+                          City:
+                        </div>
+
+                        <div class="col-md-9">
+                          <div class="form-group">
+                            <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email Adress">
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+
+                    <div class="col-md-6">
+                      <div class="row">
+
+                        <div class="col-md-3">
+                          Country:
+                        </div>
+
+                        <div class="col-md-9">
+                          <div class="form-group">
+                            <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email Adress">
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+
+                    <div class="col-md-6">
+                      <div class="row">
+
+                        <div class="col-md-3">
+                          Phone:
+                        </div>
+
+                        <div class="col-md-9">
+                          <div class="form-group">
+                            <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email Adress">
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+
+                    <div class="col-md-6">
+                      <div class="row">
+
+                        <div class="col-md-3">
+                          Email:*
+                        </div>
+
+                        <div class="col-md-9">
+                          <div class="form-group">
+                            <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email Adress">
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+
+                    <div class="col-md-6">
+                      <div class="row">
+
+                        <div class="col-md-3">
+                          Additional Comments:
+                        </div>
+
+                        <div class="col-md-9">
+                          <div class="form-group">
+                            <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email Adress">
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+
+
+
+
+                  </div>
+
+                 
+
+
+                </div>
+             
+
+            </div>
+          </div>
+
+
+        </div>
+
+
+
+        <div class="row">
+            <div class="col-md-12"style="text-align: center;">
+                <a href="/terms"></a>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" checked>
+                    <label class="form-check-label">I agree with the terms & conditions*</label>
+                  </div>
+                </a> 
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12" style="text-align: center;">
+                
+                <button type="submit" class="btn btn-primary">Continue</button>
+            </div>
+        </div>
+
+
+
+
+
+
+        
+      </div>
+    </section>
+
+
+    </div>
+ 
+  </body>
+</html>
+
+
+
+<!-- /.card-header -->
+              <!-- form start -->
+
+              <!--
+              <form>
+                <div class="card-body">
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Email address</label>
+                    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">Password</label>
+                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputFile">File input</label>
+                    <div class="input-group">
+                      <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="exampleInputFile">
+                        <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                      </div>
+                      <div class="input-group-append">
+                        <span class="input-group-text">Upload</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                    <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                  </div>
+                </div>
+
+
+                <div class="card-footer">
+                  <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+              </form>
+            -->

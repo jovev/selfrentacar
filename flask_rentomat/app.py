@@ -54,6 +54,172 @@ def rezervacije():
 
 
 
+@app.route('/listaVozila')
+def listaVozila():
+   with open("/home/pi/VSCProjects/selfrentacar/flask_rentomat/settings.json", "r") as jsonFile:
+      data = json.load(jsonFile)
+
+
+   available_cars=[]
+
+
+
+  
+       
+
+
+
+
+
+   for key in data['key_positions']:
+      if (data['key_positions'][key]['rfid'] != ""):
+         rfid = data['key_positions'][key]['rfid']
+         
+
+
+         response = requests.get("http://23.88.98.237:8069/api/auth/get_tokens",params={"username": "odoo@irvas.rs", "password": "irvasadm"})
+
+         response_data = json.loads(response.text)
+         access_token = response_data['access_token']
+
+
+         
+
+         url = "http://23.88.98.237:8069/api/fleet.rent?filters=[('x_key_rfid', '=', '"+rfid+"'), ('state', '!=', 'open'), ('state', '!=', 'running')]"
+
+         header_data = {'Access-Token' : str(access_token)}
+
+         response = requests.get(url, headers=header_data)
+
+         response_data = json.loads(response.text)
+         #print(response.text)
+         # if(response_data['count'] != 0):
+         #     available_cars.append(rfid)
+
+         #     url = "http://23.88.98.237:8069/api/fleet.vehicle?filters=[('x_key_rfid', '=', '"+rfid+"')]"
+
+         #     header_data = {'Access-Token' : str(access_token)}
+
+         #     response = requests.get(url, headers=header_data)
+
+         #     response_data = json.loads(response.text)
+             
+         # if(response_data['count'] != 0):
+         #    vehicle_id = str(response_data['results'][0]['vehicle_id']['id'])
+
+         #    url = "http://23.88.98.237:8069/api/fleet.vehicle/"+vehicle_id
+
+         #    header_data = {'Access-Token' : str(access_token)}
+
+         #    response = requests.get(url, headers=header_data)
+
+         #    response_data = json.loads(response.text)
+
+         #    print(response_data)
+         #    print("Vehicle name: "+response_data['name'])
+         #    print("Vehicle plate"+response_data['license_plate'])
+
+         if(response_data['count'] != 0):
+            vehicle_id = str(response_data['results'][0]['vehicle_id']['id'])
+            #print(vehicle_id)
+            vehicle_name = str(response_data['results'][0]['vehicle_id']['name'])
+            vehicle_plate = str(response_data['results'][0]['vehicle_id']['license_plate'])
+
+            transmission = str(response_data['results'][0]['vehicle_id']['transmission'])
+            fuel_type = str(response_data['results'][0]['vehicle_id']['fuel_type'])
+            seats = str(response_data['results'][0]['vehicle_id']['seats'])
+            doors = str(response_data['results'][0]['vehicle_id']['doors'])
+            # vehicle_plate = str(response_data['results'][0]['vehicle_id']['license_plate'])
+            
+            toAdd = {
+               'id' : vehicle_id,
+               'name' : vehicle_name,
+               'plate' : vehicle_plate,
+               'transmission' : transmission,
+               'fuel_type' : fuel_type,
+               'seats' : seats,
+               'doors' : doors
+            }
+
+            available_cars.append(toAdd)
+            print(available_cars)
+
+ 
+   return render_template('rezervacija/listaVozila.html', cars = available_cars)
+
+
+
+@app.route('/vozilo',  methods=['GET', 'POST'])
+def vozilo():
+
+   vehicle_id = request.args.get('id')
+
+
+
+   response = requests.get("http://23.88.98.237:8069/api/auth/get_tokens",params={"username": "odoo@irvas.rs", "password": "irvasadm"})
+
+   response_data = json.loads(response.text)
+   access_token = response_data['access_token']
+
+   
+   url = "http://23.88.98.237:8069/api/fleet.vehicle/"+vehicle_id
+
+   header_data = {'Access-Token' : str(access_token)}
+
+   response = requests.get(url, headers=header_data)
+
+   response_data = json.loads(response.text)
+
+   print(response.text)
+
+
+   brand = response_data['brand_id']['name']
+   model = response_data['model_id']['name']
+   gearbox = response_data['transmission']
+   fuel_type = response_data['fuel_type']
+   category = response_data['category_id']['name']
+   license_plate = response_data['license_plate']
+   seats = response_data['seats']
+   model_year = response_data['model_year']
+   doors = response_data['doors']
+   horsepower = response_data['horsepower']
+   power = response_data['power']
+   image_128 = response_data['image_128']
+
+   
+   
+
+
+   print("Brand: "+brand)
+   print("model: "+model)
+   print("gearbox: "+gearbox)
+   print("fuel_type: "+fuel_type)
+   print("category: "+category)
+   print("license_plate: "+license_plate)
+   print("seats: "+str(seats))
+   print("model_year: "+str(model_year))
+   print("doors: "+str(doors))
+   print("horsepower: "+str(horsepower))
+   print("power: "+str(power))
+
+   # vehicle_data = {
+   #             'name' : vehicle_name,
+   #             'plate' : vehicle_plate,
+   #          }
+
+
+
+
+   return render_template('/rezervacija/vozilo.html', brand=brand, model=model, gearbox=gearbox, fuel_type=fuel_type, category=category, license_plate=license_plate, seats=seats, model_year=model_year, doors=doors, horsepower=horsepower, power=power, image_128=image_128)
+
+
+@app.route('/rezervacijeKorisnik')
+def rezervacijeKorisnik():
+   return render_template('/rezervacija/rezervacijeKorisnik.html')
+
+
+
+
 
 
 
@@ -140,10 +306,11 @@ def vracanjeOtvori():
       if (data['key_positions'][key]['rfid'] == ""):
          first_empty_key_position = key
          break
-    
 
-   # print("prva slobodna pozicija je")
-   # print(first_empty_key_position)
+   rentomat_id = data['rentomat_id']
+
+
+
 
    if(first_empty_key_position != ''):
 
@@ -165,7 +332,9 @@ def vracanjeOtvori():
       with open("/home/pi/VSCProjects/selfrentacar/flask_rentomat/settings.json", "w") as jsonFile:
          json.dump(data, jsonFile)
 
-
+      # UPDATE ODOO RFID
+      
+      update_odoo_rfid(rentomat_id)
 
 
 
@@ -249,6 +418,70 @@ def get_prazna_pozicija():
 
 
 # API CALL
+
+
+
+
+
+def update_odoo_rfid(rentomatId):
+   response = requests.get(
+         "http://23.88.98.237:8069/api/auth/get_tokens",
+         params={"username": "odoo@irvas.rs", "password": "irvasadm"}
+      )
+
+   response_data = json.loads(response.text)
+   access_token = response_data['access_token']
+
+   
+   url = "http://23.88.98.237:8069/api/rentomat.configurator?filters=[('rentomat_id','=','"+rentomatId+"')]"
+   
+   
+ 
+
+   header_data = {'Content-Type': 'text/html; charset=utf-8', 'Access-Token' : str(access_token)}
+
+   response = requests.get(url, headers=header_data)
+
+   return_data = json.loads(response.content)
+
+   id_rent = str(return_data['results'][0]['id'])
+
+
+
+   with open("/home/pi/VSCProjects/selfrentacar/flask_rentomat/settings.json", "r") as jsonFile:
+         data = json.load(jsonFile)
+
+
+   data_insert={
+       "position_1" : "",
+       "position_2" : "",
+       "position_3" : "",
+       "position_4" : "",
+       "position_5" : "",
+       "position_6" : "",
+       "position_7" : "",
+       "position_8" : "",
+       "position_9" : "",
+       "position_10" : "",
+       "position_11" : "",
+       "position_12" : ""
+   }
+
+
+
+   url = "http://23.88.98.237:8069/api/rentomat.configurator/"+id_rent
+   
+   for key in data['key_positions']:
+       data_insert['position_'+key] = data['key_positions'][key]['rfid']
+
+   data_insert_final = json.dumps(data_insert)
+
+   response = requests.put(url, data=data_insert_final, headers=header_data)
+
+
+
+
+
 
 
 
@@ -344,11 +577,11 @@ def api():
    
 
    # url = "http://23.88.98.237:8069/api/fleet.rent?filters=[('id','=','47'), ('state','=','open')]"
-   data_update = json.dumps({'state': 'running',})
+   # data_update = json.dumps({'state': 'running',})
    
 
    
-   url = "http://23.88.98.237:8069/api/fleet.rent/43"
+   url = "http://23.88.98.237:8069/api/rentomat.configurator?filters=[('rentomat_id','=','RN01834')]"
    
    
  
@@ -357,12 +590,63 @@ def api():
 
    print(access_token)
    print(url)
-   print(data_update)
+   # print(data_update)
    print(header_data)
 
 
-   response = requests.put(url, data=data_update, headers=header_data)
-   print(response.content)
+   response = requests.get(url, headers=header_data)
+   #print(response.content)
+
+   return_data = json.loads(response.content)
+
+   id_rent = str(return_data['results'][0]['id'])
+
+
+
+   with open("/home/pi/VSCProjects/selfrentacar/flask_rentomat/settings.json", "r") as jsonFile:
+         data = json.load(jsonFile)
+
+   # print(data['key_positions'])
+
+
+   data_insert={
+       "position_1" : "",
+       "position_2" : "",
+       "position_3" : "",
+       "position_4" : "",
+       "position_5" : "",
+       "position_6" : "",
+       "position_7" : "",
+       "position_8" : "",
+       "position_9" : "",
+       "position_10" : "",
+       "position_11" : "",
+       "position_12" : ""
+   }
+
+
+
+   url = "http://23.88.98.237:8069/api/rentomat.configurator/"+id_rent
+
+   for key in data['key_positions']:
+       data_insert['position_'+key] = data['key_positions'][key]['rfid']
+
+   data_insert_final = json.dumps(data_insert)
+
+   response = requests.put(url, data=data_insert_final, headers=header_data)
+   
+
+
+
+
+
+   # url = "http://23.88.98.237:8069/api/rentomat.configurator/"+id_rent
+
+   # response = requests.get(url, headers=header_data)
+   # print(response.content)
+
+   # url = "http://23.88.98.237:8069/api/rentomat.configurator?filters=[('rentomat_id','=','RN01834')]"
+
 
    # response_data = json.loads(response.text)
    # print(print(json.dumps(response_data, indent=4)))
@@ -526,6 +810,10 @@ def preuzimanjeKljuc():
          if (data['key_positions'][key]['rfid'] == key_rfid):
          
             key_position = key
+      rentomat_id = data['rentomat_id']
+      print("**************************")
+      print(rentomat_id)
+      print("**************************")
          
 
       # print(key_position) 
@@ -546,6 +834,8 @@ def preuzimanjeKljuc():
          with open("/home/pi/VSCProjects/selfrentacar/flask_rentomat/settings.json", "w") as jsonFile:
             json.dump(data, jsonFile) 
          
+         
+         update_odoo_rfid(rentomat_id)
 
       # update contract to RUNNING
 

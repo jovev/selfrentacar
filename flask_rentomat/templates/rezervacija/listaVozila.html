@@ -1,0 +1,227 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Home</title>
+<link rel="stylesheet" type="text/css" href="../static/css/stylesheet.css" />
+<link rel="stylesheet" href="../static/plugins/fontawesome-free/css/all.min.css">
+<link rel="stylesheet" href="../static/dist/css/adminlte.min.css">
+<link rel="stylesheet" type="text/css" href="../static/css/stolen.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+
+
+
+<style>
+
+  body {
+    font-size: 14px;
+  }
+  table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+th{
+  padding: 10px;
+}
+
+
+
+.single-car-list {
+  margin: 15px 0;
+  padding: 0;
+}
+
+.box_shadow {
+    box-shadow: 2px 2px 3px rgba(0,0,0,.12), 1px 1px 2px rgba(0,0,0,.24);
+}
+
+.item_list_titles {
+    border-bottom: 1px dashed grey;
+    margin-bottom: 5px;
+    padding-bottom: 5px;
+}
+.item_list_title {
+    font-weight: 600;
+    margin-top: 0;
+    text-transform: uppercase;
+    margin-bottom: 0;
+    word-wrap: break-word;
+}
+
+a {
+    color: #000000 !important;
+    text-decoration: none;
+}
+
+</style>
+
+
+
+</head>
+
+<body>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+<div style="height: 100px">
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+</div>
+
+
+
+
+
+
+
+
+{% for car in cars %}
+
+
+
+
+
+<div class="row single-car-list item_id_40" data-item_passengers="5" data-fuel_type="2" data-transmission_type="2" data-manufacturer="13" data-body_type="7">
+  <div class="box_shadow block_full row-eq-height">
+    <div class="item-image col-xs-12 col-sm-4 col-md-3"> 
+      <a class="fancybox" href="https://cheapcarhire.rent/wp-content/uploads/CarRentalGallery/rent-a-car-beograd-aerodrom-ekonomik-vozilo-cheap-car-hire.jpg" title="Renault Clio - Manual "> 
+        <picture>
+          <source data-srcset="https://cheapcarhire.rent/wp-content/webp-express/webp-images/doc-root/wp-content/uploads/CarRentalGallery/thumb_rent-a-car-beograd-aerodrom-ekonomik-vozilo-cheap-car-hire.jpg.webp" type="image/webp" srcset="https://cheapcarhire.rent/wp-content/webp-express/webp-images/doc-root/wp-content/uploads/CarRentalGallery/thumb_rent-a-car-beograd-aerodrom-ekonomik-vozilo-cheap-car-hire.jpg.webp">
+          <noscript>
+            <img   alt="Renault Clio - Manual " data-src="https://cheapcarhire.rent/wp-content/uploads/CarRentalGallery/thumb_rent-a-car-beograd-aerodrom-ekonomik-vozilo-cheap-car-hire.jpg" class="item_list webpexpress-processed lazyload" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==">
+            <noscript>
+              <img class="item_list webpexpress-processed" src="https://cheapcarhire.rent/wp-content/uploads/CarRentalGallery/thumb_rent-a-car-beograd-aerodrom-ekonomik-vozilo-cheap-car-hire.jpg" alt="Renault Clio - Manual ">
+            </noscript>
+            <img class="item_list webpexpress-processed lazyloaded" src="https://cheapcarhire.rent/wp-content/uploads/CarRentalGallery/thumb_rent-a-car-beograd-aerodrom-ekonomik-vozilo-cheap-car-hire.jpg" data-src="https://cheapcarhire.rent/wp-content/uploads/CarRentalGallery/thumb_rent-a-car-beograd-aerodrom-ekonomik-vozilo-cheap-car-hire.jpg" alt="Renault Clio - Manual " loading="lazy">
+          </picture> 
+        </a>
+      </div>
+      
+      <div class="item-details-group col-xs-12 col-sm-8 col-md-5 col-lg-6">
+        <div class="row item_list_titles">
+          <div class="col-xs-12 no_padding"> 
+            <a href="https://cheapcarhire.rent/car/renault-clio-manual/" target="_blank" title="Show car description"> 
+              <span class="item_list_title">{{car['name']}} - {{car['transmission']}}</span> 
+            </a>
+          </div>
+        </div>
+        
+        <div class="row no_padding item_details details">
+          <div class="col-xxs-12 col-xs-6 col-lg-4"> 
+            <i class="fa fa-car"></i> 
+            <strong> Class: </strong> Economy</div>
+            <div class="col-xxs-12 col-xs-6 col-lg-4"> 
+              <i class="fa fa-cogs"></i> 
+              <strong> Gearbox: </strong> {{car['transmission']}}
+            </div>
+            <div class="col-xxs-12 col-xs-6 col-lg-4"> 
+              <i class="fa fa-users"></i> 
+              <strong> Max passengers: </strong> {{car['seats']}}
+            </div>
+            
+            <div class="col-xxs-12 col-xs-6 col-lg-4"> 
+              <i class="fa fa-tachometer"></i> 
+              <strong> Fuel: </strong> {{car['fuel_type']}}
+            </div>
+          </div>
+          
+          <div class="row">
+            <div id="features-40" class="col-xs-12 no_padding item_details features"> 
+              <span class="item-features-title">Features</span>
+            
+              
+              <div class="single-feature col-xxs-12 col-xs-6 col-lg-4 soft-hide-grid">
+                <i class="fa fa-check"></i>1x Additional driver
+              </div>
+              
+              <div class="single-feature col-xxs-12 col-xs-6 col-lg-4 soft-hide-grid">
+                <i class="fa fa-check"></i>A/C
+              </div>
+              
+              <div class="single-feature col-xxs-12 col-xs-6 col-lg-4 soft-hide-grid">
+                <i class="fa fa-check"></i>Airport Taxes
+              </div>
+              
+              <div class="single-feature col-xxs-12 col-xs-6 col-lg-4 soft-hide-grid">
+                <i class="fa fa-check"></i>
+                CDW insurance (With deposit €600)
+              </div>
+              
+              <div class="single-feature col-xxs-12 col-xs-6 col-lg-4 soft-hide-grid">
+                <i class="fa fa-check"></i>Fuel: Same to Same
+              </div>
+          
+              
+              <div class="single-feature col-xxs-12 col-xs-6 col-lg-4 soft-hide-grid soft-hide-list">
+                <i class="fa fa-check"></i>Great Deal
+              </div>
+              
+              <div class="single-feature col-xxs-12 col-xs-6 col-lg-4 soft-hide-grid soft-hide-list">
+                <i class="fa fa-check"></i>
+                Pick up At Airport
+              </div>
+              
+              <div class="single-feature col-xxs-12 col-xs-6 col-lg-4 soft-hide-grid soft-hide-list">
+                <i class="fa fa-check"></i>
+                Unlimited mileages
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="item-pricing col-xs-12 col-md-offset-1 col-md-3 col-lg-2 no_padding">
+          <div class="item_list_price_container float_right">
+            <div class="item_list_price_text">Price/day</div>
+            <div class="item_list_price" title="€ 15.29 / day"> € 15.29</div>
+          </div>
+
+          <div class="bottom-fixed"> 
+            <span class="item_list_deposit_title">Total</span> 
+            <span class="item_list_deposit float_right">214.00 EUR</span>
+            <br> 
+            <span class="item_list_deposit_title">Deposit</span> 
+            <span class="item_list_deposit float_right">600.00 EUR</span> 
+            <br> 
+            <span class="item_list_mileage_title">Mileage</span> 
+            <span class="item_list_mileage float_right">Unlimited</span>
+            <div class="car-rental-buttons">
+              
+              <form action="" name="form1" id="form_item40" method="post"> 
+                <input type="hidden" name="car_rental_came_from_step2" value="yes"> 
+                <input type="hidden" name="item_ids[]" value="40"> 
+                <input type="hidden" name="item_units[40]" value="1"> 
+                
+                <!--<button id="car_rental_do_search_item40" name="car_rental_do_search2" type="submit" style="width: 100%;">Choose</button>-->
+                <a class="btn btn-success" href="vozilo?id={{car['id']}}">Choose</a>
+              </form>
+            </div>
+          </div>
+        </div>
+
+
+
+
+
+      </div>
+    </div>
+    {% endfor %}
+
+
+
+<!--
+<table style="width:100%">
+  {% for car in cars %}
+  <tr>
+    <th>{{car['name']}}</th>
+    <th>{{car['plate']}}</th>
+    <th><a href="vozilo?id={{car['id']}}">Detalji</a></th>
+    <th>Rezervisi</th>
+  </tr>
+  {% endfor %}
+-->
+  
+</table>
+
+
+
+</body>
+</html>

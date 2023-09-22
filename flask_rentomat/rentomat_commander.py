@@ -24,10 +24,10 @@ while 1==1:
             result = [x.strip() for x in komanda_text.split(',')]
 
             komanda_text = result[0]
-            empty_pos = result[1]
+            position = result[1]
 
             print(komanda_text)
-            print(empty_pos)
+            print(position)
             
 
     if(komanda_text == 'HOME'):
@@ -37,14 +37,14 @@ while 1==1:
     if(komanda_text == 'EMPTY'):
         ser.write(empty.encode())
         time.sleep(2)
-        ser.write(empty_pos.encode())
+        ser.write(position.encode())
         with open("/home/pi/VSCProjects/selfrentacar/flask_rentomat/komanda.txt", "w") as komanda_fajl:
            komanda_fajl.write("") 
 
     if(komanda_text == 'FILL'):
         ser.write(fill.encode())
         time.sleep(2)
-        ser.write(fill_pos.encode())
+        ser.write(position.encode())
         with open("/home/pi/VSCProjects/selfrentacar/flask_rentomat/komanda.txt", "w") as komanda_fajl:
            komanda_fajl.write("") 
 
