@@ -122,9 +122,9 @@ td {
 							<a t-if="sale_order._has_to_be_signed(True)" role="button" class="btn btn-primary mb8" data-bs-toggle="modal" data-bs-target="#modalaccept" href="#">
                                     <i class="fa fa-check"/><t t-if="sale_order._has_to_be_paid(True)"> Sign &amp; Pay</t><t t-else=""> Prihvati &amp; Sign</t>
                                 </a>
-								<!--<a t-elif="sale_order._has_to_be_paid(True)" role="button" id="o_sale_portal_paynow" data-bs-toggle="modal" data-bs-target="#modalaccept" href="#" t-att-class="'mb8 %s' % ('btn btn-light' if sale_order.transaction_ids else 'btn btn-primary')">
+								<a t-elif="sale_order._has_to_be_paid(True)" role="button" id="o_sale_portal_paynow" data-bs-toggle="modal" data-bs-target="#modalaccept" href="#" t-att-class="'mb8 %s' % ('btn btn-light' if sale_order.transaction_ids else 'btn btn-primary')">
                                     <i class="fa fa-check"/> <t t-if="not sale_order.signature">Accept &amp; Pay</t><t t-else="">Pay Now</t>
-                                </a>-->
+                                </a>
 							
                                 <div class="o_download_pdf btn-toolbar flex-sm-nowrap">
                                     <div class="btn-group  flex-grow-1 me-1 mb-1">
@@ -257,11 +257,11 @@ td {
                         Your order is not in a state to be rejected.
                     </div>
 
-                    <!--<t t-if="sale_order.transaction_ids">
+                    <t t-if="sale_order.transaction_ids">
                         <t t-call="payment.transaction_status">
                             <t t-set="tx" t-value="sale_order.get_portal_last_transaction()"/>
                         </t>
-                    </t>-->
+                    </t>
 
                     <div t-if="sale_order.state == 'cancel'" class="alert alert-danger alert-dismissible d-print-none" role="alert">
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"/>
@@ -587,9 +587,9 @@ td {
                             </div>
                         </t>
                         <div t-elif="sale_order._has_to_be_paid(True)" class="col-sm-auto mt8">
-                            <!--<a role="button" data-bs-toggle="modal" data-bs-target="#modalaccept" href="#" t-att-class="'%s' % ('btn btn-light' if sale_order.transaction_ids else 'btn btn-primary')">
+                            <a role="button" data-bs-toggle="modal" data-bs-target="#modalaccept" href="#" t-att-class="'%s' % ('btn btn-light' if sale_order.transaction_ids else 'btn btn-primary')">
                                 <i class="fa fa-check"/> <t t-if="not sale_order.signature">Accept &amp; Pay</t><t t-else="">Pay Now</t>
-                            </a>-->
+                            </a>
                         </div>
                     </div>
 					
