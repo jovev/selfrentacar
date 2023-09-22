@@ -455,7 +455,7 @@ class FleetRent(models.Model):
     # Payment fields
     transaction_ids = fields.Many2many(
         comodel_name='payment.transaction',
-        relation='sale_order_transaction_rel', column1='fleet_rent_id', column2='transaction_id',
+        relation='fleet_rent_transaction_rel',
         string="Transactions",
         copy=False, readonly=True)
     authorized_transaction_ids = fields.Many2many(
