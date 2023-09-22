@@ -92,7 +92,7 @@ def listaVozila():
          response = requests.get(url, headers=header_data)
 
          response_data = json.loads(response.text)
-         #print(response.text)
+         print(response.text)
          # if(response_data['count'] != 0):
          #     available_cars.append(rfid)
 
@@ -130,7 +130,9 @@ def listaVozila():
             seats = str(response_data['results'][0]['vehicle_id']['seats'])
             doors = str(response_data['results'][0]['vehicle_id']['doors'])
             # vehicle_plate = str(response_data['results'][0]['vehicle_id']['license_plate'])
-            
+            image = str(response_data['results'][0]['vehicle_id']['image_128'])
+
+
             toAdd = {
                'id' : vehicle_id,
                'name' : vehicle_name,
@@ -138,11 +140,12 @@ def listaVozila():
                'transmission' : transmission,
                'fuel_type' : fuel_type,
                'seats' : seats,
-               'doors' : doors
+               'doors' : doors,
+               'image' : image
             }
 
             available_cars.append(toAdd)
-            print(available_cars)
+            # print(available_cars)
 
  
    return render_template('rezervacija/listaVozila.html', cars = available_cars)
