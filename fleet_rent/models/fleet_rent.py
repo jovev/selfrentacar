@@ -450,6 +450,20 @@ class FleetRent(models.Model):
     x_key_rfid = fields.Char(related='vehicle_id.x_key_rfid', string='Key RFID number')
     notes = fields.Char(string = "Additional notes")
 
+
+# Info o placanjima
+    # Payment fields
+    transaction_ids = fields.Many2many(
+        comodel_name='payment.transaction',
+        relation='sale_order_transaction_rel', column1='fleet_rent_id', column2='transaction_id',
+        string="Transactions",
+        copy=False, readonly=True)
+    authorized_transaction_ids = fields.Many2many(
+        comodel_name='payment.transaction',
+        string="Authorized Transactions",
+        compute='_compute_authorized_transaction_ids',
+        copy=False)
+
 #    Info o vozacima:
 #
 
@@ -457,6 +471,10 @@ class FleetRent(models.Model):
   #  driver2_passport_no = fields.Char(string="Passport No", related='driver_id2.ref')
   #  driver2_driver_licence_no = fields.Char(string="Licence No", related='driver_id2.d_id')
 
+    @api.depends('transaction_ids')
+    def _compute_authorized_transaction_ids(self):
+        for trans in self:
+            trans.authorized_transaction_ids = trans.transaction_ids.filtered(lambda t: t.state == 'authorized')
     @api.depends('company_id')
     def _compute_require_payment(self):
         for order in self:
