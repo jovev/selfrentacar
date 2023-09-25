@@ -16,13 +16,15 @@ while 1==1:
 
     with open("/home/pi/VSCProjects/selfrentacar/flask_rentomat/komanda.txt", "r") as komanda_fajl:
         komanda_text = komanda_fajl.readline()
+        print("****************")
         print(komanda_text)
+        print("****************")
 
 
     if(komanda_text != ""):
         if(komanda_text != "HOME"):
             result = [x.strip() for x in komanda_text.split(',')]
-
+            print(result)
             komanda_text = result[0]
             position = result[1]
 

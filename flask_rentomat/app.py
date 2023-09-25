@@ -576,7 +576,7 @@ def api():
    response_data = json.loads(response.text)
    access_token = response_data['access_token']
    #return(access_token)
-
+   header_data = {'Content-Type': 'text/html; charset=utf-8', 'Access-Token' : str(access_token)}
    
 
    # url = "http://23.88.98.237:8069/api/fleet.rent?filters=[('id','=','47'), ('state','=','open')]"
@@ -584,18 +584,35 @@ def api():
    
 
    
-   url = "http://23.88.98.237:8069/api/rentomat.configurator?filters=[('rentomat_id','=','RN01834')]"
-   
-   
+   # ADD USER
+
+   url = "http://23.88.98.237:8069/api/res.users"
+
+
  
 
-   header_data = {'Content-Type': 'text/html; charset=utf-8', 'Access-Token' : str(access_token)}
+   data_insert={
+       "name" : "Milos",
+       "email" : "milos@rentomat.com",
+       "login" : "milos@rentomat.com",
+       "phone" : "0603525456",
+       "is_company" : "0",
+       "street" : "Cara Dusana 12",
+       "city" : "Nis",
+       "country_id" : "1",
+       "is_tenant" : True
+   }
 
-   print(access_token)
-   print(url)
-   # print(data_update)
-   print(header_data)
+   data_insert_final = json.dumps(data_insert)
+   # print(url)
+   # print(data_insert_final)
+   # print(header_data)
 
+   response = requests.post(url, data=data_insert_final, headers=header_data)
+
+   print(response)
+
+   return render_template('/vracanje/vracanjeHvala.html')
 
    response = requests.get(url, headers=header_data)
    #print(response.content)
@@ -657,7 +674,7 @@ def api():
    #key_position = response_data['results'][0]['vehicle_id']['license_plate']
 
    
-   return render_template('/vracanje/vracanjeHvala.html')
+   
 
    # find key position
 
