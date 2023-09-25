@@ -645,7 +645,7 @@ class FleetRent(models.Model):
     def action_rentconfirmation_send(self):
         """ Opens a wizard to compose an email, with relevant mail template loaded by default """
         self.ensure_one()
-        self.order_line._validate_analytic_distribution()
+       # self.order_line._validate_analytic_distribution()
         lang = self.env.context.get('lang')
         mail_template = self._find_mail_template()
         if mail_template and mail_template.lang:
