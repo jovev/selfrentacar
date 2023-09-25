@@ -336,8 +336,8 @@ def wrap__resource__create_one(modelname, default_vals, success_code, OUT_fields
     except Exception as e:
         odoo_error = repr(e)
         if not cr.closed:
-            # cr.close()
-            request._cr = None
+            cr.close()
+            # request._cr = None
         return error_response_409__not_created_object_in_odoo(odoo_error)
 
 def wrap__resource__update_one(modelname, id, success_code):
