@@ -686,6 +686,13 @@ class FleetRent(models.Model):
             return self.env.ref('fleet_rent.mail_template_33_d7dff2da', raise_if_not_found=False)
         else:
             return self._get_confirmation_template()
+            
+    def _get_confirmation_template(self):
+        """ Get the mail template sent on SO confirmation (or for confirmed SO's).
+
+        :return: `mail.template` record or None if default template wasn't found
+        """
+        return self.env.ref('sale.mail_template_sale_confirmation', raise_if_not_found=False)
 
 
     def action_rent_close(self):
