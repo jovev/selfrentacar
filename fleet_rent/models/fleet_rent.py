@@ -631,16 +631,6 @@ class FleetRent(models.Model):
                 ]
             )
 
-    def action_rent_confirm(self):
-        """Method to confirm rent status."""
-        for rent in self:
-            rent_vals = {"state": "open"}
-            if not rent.name or rent.name == "New":
-                seq = self.env["ir.sequence"].next_by_code("fleet.rent")
-                rent_vals.update({"name": seq})
-            rent.write(rent_vals)
-            action_rentconfirmation_send(self)
-            
     # ovo je preuzeto iz Sales Order
     def action_rentconfirmation_send(self):
         """ Opens a wizard to compose an email, with relevant mail template loaded by default """
@@ -693,6 +683,16 @@ class FleetRent(models.Model):
         :return: `mail.template` record or None if default template wasn't found
         """
         return self.env.ref('fleet_rent.mail_template_34_29ec1fd4', raise_if_not_found=False)
+
+    def action_rent_confirm(self):
+        """Method to confirm rent status."""
+        for rent in self:
+            rent_vals = {"state": "open"}
+            if not rent.name or rent.name == "New":
+                seq = self.env["ir.sequence"].next_by_code("fleet.rent")
+                rent_vals.update({"name": seq})
+            rent.write(rent_vals)
+            action_rentconfirmation_send(self)
 
 
     def action_rent_close(self):
