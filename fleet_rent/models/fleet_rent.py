@@ -660,7 +660,7 @@ class FleetRent(models.Model):
             'default_email_layout_xmlid': 'mail.mail_notification_layout_with_responsible_signature',
             'proforma': self.env.context.get('proforma', False),
             'force_email': True,
-            'model_description': self.with_context(lang=lang).type_name,
+        #    'model_description': self.with_context(lang=lang).type_name,
         }
         return {
             'type': 'ir.actions.act_window',
