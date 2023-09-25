@@ -692,7 +692,7 @@ class FleetRent(models.Model):
 
         :return: `mail.template` record or None if default template wasn't found
         """
-        return self.env.ref('fleet_rent.mail_template_rent_confirmation', raise_if_not_found=False)
+        return self.env.ref('fleet_rent.mail_template_34_29ec1fd4', raise_if_not_found=False)
 
 
     def action_rent_close(self):
