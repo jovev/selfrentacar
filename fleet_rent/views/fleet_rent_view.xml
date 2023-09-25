@@ -75,7 +75,17 @@
                         class="oe_highlight"
                         groups="fleet.fleet_group_manager"
                     />
-
+                    
+                    <button 
+                        name="action_rentconfirmation_send" 
+                        string="Send by Email" 
+                        type="object" 
+                        states="draft,open" 
+                        class="btn-primary" 
+                        data-hotkey="g" 
+                        context="{'validate_analytic': True}"
+                    />
+                    
                     <button
                         name="create_rent_schedule"
                         string=" Schedule Rent"
