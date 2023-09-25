@@ -634,6 +634,7 @@ class FleetRent(models.Model):
     # ovo je preuzeto iz Sales Order
     def action_rentconfirmation_send(self):
         """ Opens a wizard to compose an email, with relevant mail template loaded by default """
+        _logger.info("***USAO u action_rentconfirmation_send    self == %s", self)
         self.ensure_one()
        # self.order_line._validate_analytic_distribution()
         lang = self.env.context.get('lang')
