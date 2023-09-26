@@ -89,7 +89,7 @@ class ControllerREST(http.Controller):
         return int(round(expires_in or (sys.maxsize - time.time())))
     
     # Login in Odoo database and get access tokens:
-    @http.route('/api/auth/get_tokens', methods=['GET', 'POST'], type='http', auth='none', csrf=False)
+    @http.route('/api/auth/get_tokens', methods=['GET', 'POST'], type='http', auth='none', csrf=False, cors="*")
     def api_auth_gettokens(self, **kw):
         # Get request parameters from url
         args = request.httprequest.args.to_dict()

@@ -9,8 +9,10 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <link rel="stylesheet" href="../static/plugins/fontawesome-free/css/all.min.css">
     <link rel="stylesheet" href="../static/dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/themes/base/jquery-ui.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.css">
 
-
+    
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
 
@@ -42,12 +44,12 @@
     <div class="wrapper">
       <section class="content">
       <div class="container-fluid">
-
+          <form action="/submit_form">
 
 
         <div class="row">
             <div class="col-md-12 " style="margin-bottom: 20px;">
-                <h1>Rental Details</h1>
+                <h1>Rental Details {{carId}}</h1>
             </div>
         </div>
 
@@ -77,8 +79,18 @@
                         Podgorica, 81000, Montenegro
                       </td>
                       <td>
-                        Podgorica Airport (TGD)-Montenegro<br>
-                        Podgorica, 81000, Montenegro
+                        <div class="row">
+                        <div class="col-sm-12">
+                          <!-- select -->
+                          <div class="form-group">
+                            <select class="form-control" name="location">
+                              {% for location in allLocations %}
+                              <option value="{{location['id']}}">{{location['name']}}</option>
+                              {% endfor %}
+                            </select>
+                          </div>
+                        </div>
+                      </div>
                       </td>
                     </tr>
 
@@ -96,14 +108,51 @@
                       </td>
                     </tr>
                     <tr class="rent_txt">
-                      <td>
-                        September 23, 2023    12:00 
+                      <td id="start_date_id">
                       </td>
                       <td>
-                        October 2, 2023    12:00  
+                        <div class="row">
+                          <div class="col-md-12">
+
+                           
+
+
+
+
+                            <div class="input-group">
+
+
+
+                                 <div class="input-group">
+                                    <input autocomplete="off" type="text" id="inputId" class="form-control">
+                                    <!--<span class="input-group-addon"><i class="fa fa-calendar"></i</span>-->
+                                </div>
+
+
+                                <!-- <div class="input-group date" id="reservationdatetime" data-target-input="nearest">
+                                    <input type="text" id="inputId" name="return_date" class="form-control datetimepicker-input" data-target="#reservationdatetime"/ autocomplete="off">
+                                    <div class="input-group-append" data-target="#reservationdatetime" data-toggle="datetimepicker">
+                                        <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+                                    </div>
+                                </div> -->
+
+
+
+
+
+                            </div> 
+
+
+
+
+
+
+                        </div>
+                        </div>
+
                       </td>
-                      <td>
-                        9 days
+                      <td id="days_num">
+                        
                       </td>
                     </tr>
 
@@ -121,13 +170,13 @@
                     </tr>
                     <tr class="rent_txt">
                       <td>
-                        Ford Fiesta - Manual, Economy 
+                        {{carDetails['brand']}} {{carDetails['name']}}, {{carDetails['transmission']}}, {{carDetails['category']}}
                       </td>
                       <td>
-                        € 140.00  
+                        € <span id="price_per_day">{{carDetails['price']}}</span>
                       </td>
                       <td>
-                        € 140.00
+                        € <span id="all_days_price">0.00</span>
                       </td>
                     </tr>
 
@@ -136,7 +185,7 @@
 
                      <tr class="card-header rent_title">
                       <td>
-                        Location Fees
+                        Insurance
  
                       </td>
                       <td>
@@ -148,23 +197,26 @@
                     </tr>
                     <tr class="rent_txt">
                       <td>
-                        Pick-up fee 
+                        SCDW-Full Casco insurance without deposit
+                        <br> <span id="insurance_id">Deposit: 600.00 EUR</span>
                       </td>
                       <td>
-                        € 0.00    
+                    
+                            <input type="checkbox" name="casco_checkbox" id="casco_checkbox"> € 12.00 
+                      
                       </td>
-                      <td>
+                      <td id="casco_price">
                         € 0.00  
                       </td>
                     </tr>
                     <tr class="rent_txt">
                       <td>
-                        Return fee  
+                        TP-Tyres Protection. Required without credit card.
                       </td>
                       <td>
-                        € 0.00    
+                        <input type="checkbox" name="tyres_checbox" id="tyres_checbox"> € 15
                       </td>
-                      <td>
+                      <td id="tyres_price">
                         € 0.00  
                       </td>
                     </tr>
@@ -188,7 +240,7 @@
                       <td>
                        </td>
                       <td>
-                        € 140.00
+                        € <span id="grand_total">0.00</span>
                       </td>
                     </tr>
                     <tr  class="rent_txt">
@@ -197,7 +249,7 @@
                       </td>
                       <td>
                        </td>
-                      <td>
+                      <td id="deposit_id">
                         € 600.00
 
                       </td>
@@ -233,18 +285,17 @@
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form>
                 <div class="card-body">
 
 
 
                   <div class="col-md-12">
                     <div class="form-group">
-                      <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email Adress">
+                      <input type="email" class="form-control" id="userEmail" placeholder="Email Adress">
                     </div>
                   </div>
 
-                  <div class="col-md-12">
+                  <!-- <div class="col-md-12">
                     <div class="form-group">
                         <select class="form-control">
                           <option value="" disabled selected hidden>Year Of Birth</option>
@@ -255,10 +306,10 @@
                           <option>option 5</option>
                         </select>
                       </div>
-                  </div>
+                  </div> -->
 
                   <div class="col-md-12">
-                    <button type="submit" class="btn btn-primary">Fetch Details</button>
+                    <button type="button" id="fetxh_data" class="btn btn-primary">Fetch Details</button>
                   </div>
 
 
@@ -266,7 +317,6 @@
                 </div>
              
 
-              </form>
             </div>
           </div>
 
@@ -274,16 +324,16 @@
 
            <div class="col-md-6"> 
             
-            <div class="col-md-12 text-center">
+            <!-- <div class="col-md-12 text-center">
                     <button type="submit" class="btn btn-primary">Change date, time & location</button>
-                  </div>
+                  </div> -->
             <div class="col-md-12 text-center" style="margin-top: 20px;">
-                    <button type="submit" class="btn btn-primary">Change car</button>
+                    <a href="/listaVozila" class="btn btn-primary">Change car</a>
                   </div>
 
-            <div class="col-md-12 text-center" style="margin-top: 20px;">
+            <!-- <div class="col-md-12 text-center" style="margin-top: 20px;">
                     <button type="submit" class="btn btn-primary">Change rental options</button>
-                  </div>
+                  </div> -->
           </div>
         </div>
 
@@ -521,54 +571,176 @@
 
 
 
-
+      </form>
         
       </div>
     </section>
-
+ 
 
     </div>
+
+  
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.0/moment.min.js"></script>  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.js"></script>  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.js"></script>  
+    
+
+  
+    <!-- AdminLTE for demo purposes -->
+
+<!-- <script src="../static/plugins/jquery/jquery.min.js"></script>
+<script src="../static/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="../static/plugins/jquery-ui/jquery-ui.min.js"></script> -->
+<script>
+
+
+$(document).ready(function(){   
+  $.datetimepicker.setDateFormatter('moment');
+  
+  var currentDate = moment().format("MMMM D, YYYY H:mm");
+  console.log(currentDate);
+
+  $("#start_date_id").text(currentDate);
+
+  let tomorrow  = moment().add(1,'days');
+
+  
+    $("#inputId").datetimepicker({
+      onSelectTime:function(current_time,$input){
+
+        var grand_total = parseFloat($("#grand_total").text());
+
+        var old_all_day_price = parseFloat($("#all_days_price").text());
+
+
+        var startDate = moment();
+        var endDate = moment($input.val());
+
+        var result = endDate.diff(startDate, 'days');
+
+        //$('#result').html(result);
+
+
+            console.log(result+1);
+
+          if(result == 0) {
+            day_string = " day";
+          } else {
+            day_string = " days";
+          }
+
+
+
+            var price_per_day = parseFloat($("#price_per_day").html());
+
+
+            var all_day_price = (result+1)*price_per_day;
+
+            $('#days_num').html((result+1)+day_string);
+            $("#all_days_price").html(all_day_price);
+
+            $("#grand_total").text(grand_total-old_all_day_price+all_day_price);
+            
+        },
+        minDate : tomorrow,
+        dateFormat: 'MMMM D, YYYY H:m',
+        changeYear: true 
+    }).attr('readonly', 'readonly');
+    //$("#inputId").datetimepicker("setDate", currentDate);
+
+
+
+    
+    $('#casco_checkbox').change(function() {
+        if(this.checked) {
+          $("#casco_price").text("€ 12.00");
+          $("#deposit_id").text("€ 0.00");
+          var grand_total = parseFloat($("#grand_total").text());
+          var total_price = (Math.round(parseFloat(grand_total+12.00) * 100) / 100).toFixed(2);
+          $("#grand_total").text(total_price);
+
+        } else {
+          $("#casco_price").text("€ 0.00");
+          $("#deposit_id").text("€ 600.00");
+          var grand_total = parseFloat($("#grand_total").text());
+          var total_price = (Math.round(parseFloat(grand_total-12.00) * 100) / 100).toFixed(2);
+          $("#grand_total").text(total_price);
+        }
+    });
+
+
+
+    $('#tyres_checbox').change(function() {
+        if(this.checked) {
+          $("#tyres_price").text("€ 15.00");
+          var grand_total = parseFloat($("#grand_total").text());
+          var total_price = (Math.round(parseFloat(grand_total+15.00) * 100) / 100).toFixed(2);
+          $("#grand_total").text(total_price);
+
+        } else {
+          $("#tyres_price").text("€ 0.00");
+          var grand_total = parseFloat($("#grand_total").text());
+
+          var total_price = (Math.round(parseFloat(grand_total-15.00) * 100) / 100).toFixed(2);
+
+          $("#grand_total").text(total_price);
+        }
+    });
+
+    $("#fetxh_data").on("click", function() {
+        var userEmail = $("#userEmail").val();
+        console.log(userEmail);
+
+     
+
+
+
+        $.ajax({
+            url: 'http://23.88.98.237:8069/api/auth/get_tokens?username=odoo@irvas.rs&password=irvasadm',
+            type: 'GET',
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            headers: { 
+              "Access-Control-Allow-Origin" : "*",
+              "Access-Control-Allow-Methods" : "POST, GET, OPTIONS",
+              "Access-Control-Allow-Headers" : "Content-Type, Authorization, X-Requested-With"
+            },
+            complete: function(result) {
+                //called when complete
+                alert(result.uid);
+            },
+
+            success: function(result) {
+                //called when successful
+                alert(result.uid);
+            },
+
+            error: function(result) {
+                //called when there is an error
+                alert(result.uid);
+            },
+        });
+
+
+    });
+
+    
+
+    
+
+
+
+});
+
+
+
+
+</script>
+
+
  
   </body>
 </html>
 
-
-
-<!-- /.card-header -->
-              <!-- form start -->
-
-              <!--
-              <form>
-                <div class="card-body">
-                  <div class="form-group">
-                    <label for="exampleInputEmail1">Email address</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleInputPassword1">Password</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleInputFile">File input</label>
-                    <div class="input-group">
-                      <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="exampleInputFile">
-                        <label class="custom-file-label" for="exampleInputFile">Choose file</label>
-                      </div>
-                      <div class="input-group-append">
-                        <span class="input-group-text">Upload</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                    <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                  </div>
-                </div>
-
-
-                <div class="card-footer">
-                  <button type="submit" class="btn btn-primary">Submit</button>
-                </div>
-              </form>
-            -->
