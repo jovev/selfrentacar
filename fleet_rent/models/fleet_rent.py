@@ -9,6 +9,15 @@ from odoo import _, api, fields, models
 from odoo.exceptions import UserError, ValidationError
 from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT as DTF, ustr
 import logging
+try:
+  import qrcode
+except ImportError:
+  qrcode = None
+try:
+  import base64
+except ImportError:
+  base64 = None
+from io import BytesIO
 _logger = logging.getLogger(__name__)
 READONLY_FIELD_STATES = {
     state: [('readonly', True)]
@@ -408,7 +417,7 @@ class FleetRent(models.Model):
         string="Signed By", copy=False)
     signed_on = fields.Datetime(
         string="Signed On", copy=False)
-
+    qr_code = fields.Binary("QR Code", compute='generate_qr_code')
 
 
     option_ids = fields.One2many(
@@ -470,7 +479,22 @@ class FleetRent(models.Model):
   #  driver_id2 = fields.Many2one('res.partner', string="Driver 2", )
   #  driver2_passport_no = fields.Char(string="Passport No", related='driver_id2.ref')
   #  driver2_driver_licence_no = fields.Char(string="Licence No", related='driver_id2.d_id')
-
+    def generate_qr_code(self):
+       for rec in self:
+           if qrcode and base64:
+               qr = qrcode.QRCode(
+                   version=1,
+                 error_correction=qrcode.constants.ERROR_CORRECT_L,
+                   box_size=3,
+                   border=4,
+               )
+               qr.add_data(rec.reservation_code)
+               qr.make(fit=True)
+               img = qr.make_image()
+               temp = BytesIO()
+               img.save(temp, format="PNG")
+               qr_image = base64.b64encode(temp.getvalue())
+               rec.update({'qr_code': qr_image})
     @api.depends('transaction_ids')
     def _compute_authorized_transaction_ids(self):
         for trans in self:
@@ -631,6 +655,60 @@ class FleetRent(models.Model):
                 ]
             )
 
+    # ovo je preuzeto iz Sales Order
+    def action_rentconfirmation_send(self):
+        """ Opens a wizard to compose an email, with relevant mail template loaded by default """
+        _logger.info("***USAO u action_rentconfirmation_send    self == %s", self)
+        self.ensure_one()
+       # self.order_line._validate_analytic_distribution()
+        lang = self.env.context.get('lang')
+        mail_template = self._find_mail_template()
+        if mail_template and mail_template.lang:
+            lang = mail_template._render_lang(self.ids)[self.id]
+        ctx = {
+            'default_model': 'fleet.rent',
+            'default_res_id': self.id,
+            'default_use_template': bool(mail_template),
+            'default_template_id': mail_template.id if mail_template else None,
+            'default_composition_mode': 'comment',
+            'mark_so_as_sent': True,
+            'default_email_layout_xmlid': 'mail.mail_notification_layout_with_responsible_signature',
+            'proforma': self.env.context.get('proforma', False),
+            'force_email': True,
+        #    'model_description': self.with_context(lang=lang).type_name,
+        }
+        return {
+            'type': 'ir.actions.act_window',
+            'view_mode': 'form',
+            'res_model': 'mail.compose.message',
+            'views': [(False, 'form')],
+            'view_id': False,
+            'target': 'new',
+            'context': ctx,
+        }
+        
+    def _find_mail_template(self):
+        """ Get the appropriate mail template for the current sales order based on its state.
+
+        If the SO is confirmed, we return the mail template for the sale confirmation.
+        Otherwise, we return the quotation email template.
+
+        :return: The correct mail template based on the current status
+        :rtype: record of `mail.template` or `None` if not found
+        """
+        self.ensure_one()
+        if self.env.context.get('proforma') or self.state not in ('new', 'open'):
+            return self.env.ref('fleet_rent.mail_template_33_d7dff2da', raise_if_not_found=False)
+        else:
+            return self._get_confirmation_template()
+            
+    def _get_confirmation_template(self):
+        """ Get the mail template sent on SO confirmation (or for confirmed SO's).
+
+        :return: `mail.template` record or None if default template wasn't found
+        """
+        return self.env.ref('fleet_rent.mail_template_34_29ec1fd4', raise_if_not_found=False)
+
     def action_rent_confirm(self):
         """Method to confirm rent status."""
         for rent in self:
@@ -639,6 +717,11 @@ class FleetRent(models.Model):
                 seq = self.env["ir.sequence"].next_by_code("fleet.rent")
                 rent_vals.update({"name": seq})
             rent.write(rent_vals)
+        self.action_send_email()
+
+    def action_send_email(self):
+        mail_template = self.env.ref('fleet_rent.fleet_rent_confirmation')
+        mail_template.send_mail(self.id, force_send=True)
 
     def action_rent_close(self):
         """Method to Change rent state to close."""
