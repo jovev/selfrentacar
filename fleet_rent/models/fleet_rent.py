@@ -9,6 +9,15 @@ from odoo import _, api, fields, models
 from odoo.exceptions import UserError, ValidationError
 from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT as DTF, ustr
 import logging
+try:
+  import qrcode
+except ImportError:
+  qrcode = None
+try:
+  import base64
+except ImportError:
+  base64 = None
+from io import BytesIO
 _logger = logging.getLogger(__name__)
 READONLY_FIELD_STATES = {
     state: [('readonly', True)]
@@ -408,7 +417,7 @@ class FleetRent(models.Model):
         string="Signed By", copy=False)
     signed_on = fields.Datetime(
         string="Signed On", copy=False)
-
+    qr_code = fields.Binary("QR Code", compute='generate_qr_code')
 
 
     option_ids = fields.One2many(
@@ -470,7 +479,22 @@ class FleetRent(models.Model):
   #  driver_id2 = fields.Many2one('res.partner', string="Driver 2", )
   #  driver2_passport_no = fields.Char(string="Passport No", related='driver_id2.ref')
   #  driver2_driver_licence_no = fields.Char(string="Licence No", related='driver_id2.d_id')
-
+    def generate_qr_code(self):
+       for rec in self:
+           if qrcode and base64:
+               qr = qrcode.QRCode(
+                   version=1,
+                 error_correction=qrcode.constants.ERROR_CORRECT_L,
+                   box_size=3,
+                   border=4,
+               )
+               qr.add_data(rec.reservation_code)
+               qr.make(fit=True)
+               img = qr.make_image()
+               temp = BytesIO()
+               img.save(temp, format="PNG")
+               qr_image = base64.b64encode(temp.getvalue())
+               rec.update({'qr_code': qr_image})
     @api.depends('transaction_ids')
     def _compute_authorized_transaction_ids(self):
         for trans in self:
