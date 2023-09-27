@@ -18,6 +18,9 @@
 
 
 <style type="text/css">
+  .error {
+    color:red;
+  }
   .card {
     margin-bottom: 0px;
     
@@ -44,15 +47,20 @@
     <div class="wrapper">
       <section class="content">
       <div class="container-fluid">
-          <form action="/submit_form">
+          <form action="/submit_form" id="form_details">
 
 
         <div class="row">
             <div class="col-md-12 " style="margin-bottom: 20px;">
-                <h1>Rental Details {{carId}}</h1>
+                <h1>Rental Details </h1>
             </div>
         </div>
+        
 
+
+        <input type="hidden" name="carid" value="{{carDetails['carId']}}">
+        <input type="hidden" name="start_date_input" id="start_date_input">
+        <input type="hidden" name="days_num_var" id="days_num_var">
 
         <div class="row">
           <div class="col-md-12">
@@ -84,6 +92,7 @@
                           <!-- select -->
                           <div class="form-group">
                             <select class="form-control" name="location">
+                              <option disabled selected value> -- select location -- </option>
                               {% for location in allLocations %}
                               <option value="{{location['id']}}">{{location['name']}}</option>
                               {% endfor %}
@@ -124,7 +133,7 @@
 
 
                                  <div class="input-group">
-                                    <input autocomplete="off" type="text" id="inputId" class="form-control">
+                                    <input autocomplete="off" name="return_date" type="text" id="inputId" class="form-control">
                                     <!--<span class="input-group-addon"><i class="fa fa-calendar"></i</span>-->
                                 </div>
 
@@ -241,6 +250,7 @@
                        </td>
                       <td>
                         € <span id="grand_total">0.00</span>
+                        <input type="hidden" id="grand_total_value" name="grand_total_val">
                       </td>
                     </tr>
                     <tr  class="rent_txt">
@@ -269,82 +279,26 @@
       
 
         </div>
+
+        
+
+
+
+
         <div class="row">
-            <div class="col-md-12" style="margin-top: 20px; margin-bottom: 20px;">
-                <h1>User Details</h1>
-            </div>
-        </div>
-
-     <div class="row">
-        <!-- left column -->
-        <div class="col-md-6"> 
-         <div class="card card-primary">
-              <div class="card-header" style="background-color: #ff6600 !important;">
-                <h3 class="card-title rent_title">Search For Existing Customer Details
-</h3>
-              </div>
-              <!-- /.card-header -->
-              <!-- form start -->
-                <div class="card-body">
-
-
-
-                  <div class="col-md-12">
-                    <div class="form-group">
-                      <input type="email" class="form-control" id="userEmail" placeholder="Email Adress">
-                    </div>
-                  </div>
-
-                  <!-- <div class="col-md-12">
-                    <div class="form-group">
-                        <select class="form-control">
-                          <option value="" disabled selected hidden>Year Of Birth</option>
-                          <option>option 1</option>
-                          <option>option 2</option>
-                          <option>option 3</option>
-                          <option>option 4</option>
-                          <option>option 5</option>
-                        </select>
-                      </div>
-                  </div> -->
-
-                  <div class="col-md-12">
-                    <button type="button" id="fetxh_data" class="btn btn-primary">Fetch Details</button>
-                  </div>
-
-
-
-                </div>
-             
-
-            </div>
+          <div class="col-md-12" style="margin-top: 20px; margin-bottom: 20px;">
+              <h1>User Details</h1>
           </div>
+      </div>
 
 
 
-           <div class="col-md-6"> 
-            
-            <!-- <div class="col-md-12 text-center">
-                    <button type="submit" class="btn btn-primary">Change date, time & location</button>
-                  </div> -->
-            <div class="col-md-12 text-center" style="margin-top: 20px;">
-                    <a href="/listaVozila" class="btn btn-primary">Change car</a>
-                  </div>
-
-            <!-- <div class="col-md-12 text-center" style="margin-top: 20px;">
-                    <button type="submit" class="btn btn-primary">Change rental options</button>
-                  </div> -->
-          </div>
-        </div>
-
-
-
-        <div class="row" style="margin-top: 20px;">
+      <div class="row" style="margin-top: 20px;">
         <!-- left column -->
         <div class="col-md-12"> 
          <div class="card card-primary">
               <div class="card-header " style="background-color: #ff6600 !important;">
-                <h3 class="card-title rent_title">Or Create A New Account</h3>
+                <h3 class="card-title rent_title">Insert your details</h3>
               </div>
               <!-- /.card-header -->
               <!-- form start -->
@@ -361,7 +315,7 @@
 
                         <div class="col-md-9">
                           <div class="form-group">
-                            <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email Adress">
+                            <input type="text" class="form-control" name="first_name" placeholder="Insert first name">
                           </div>
                         </div>
 
@@ -377,7 +331,7 @@
 
                         <div class="col-md-9">
                           <div class="form-group">
-                            <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email Adress">
+                            <input type="text" class="form-control" name="last_name" placeholder="Insert last name">
                           </div>
                         </div>
 
@@ -394,39 +348,35 @@
 
                         <div class="col-md-3">
                           <div class="form-group">
-                              <select class="form-control">
+                              <select class="form-control" name="year">
                                 <option value="" disabled selected hidden>Year</option>
-                                <option>option 1</option>
-                                <option>option 2</option>
-                                <option>option 3</option>
-                                <option>option 4</option>
-                                <option>option 5</option>
+                                
+                                
+                                {% for year in years_range %}
+                                  <option value="{{year}}">{{year}}</option>
+                                {% endfor %}
                               </select>
                             </div>
                         </div>
 
                         <div class="col-md-3">
                           <div class="form-group">
-                              <select class="form-control">
+                              <select class="form-control" name="month">
                                 <option value="" disabled selected hidden>Month</option>
-                                <option>option 1</option>
-                                <option>option 2</option>
-                                <option>option 3</option>
-                                <option>option 4</option>
-                                <option>option 5</option>
+                                {% for month in months_range %}
+                                <option value="{{month}}">{{month}}</option>
+                                {% endfor %}
                               </select>
                             </div>
                         </div>
 
                         <div class="col-md-3">
                           <div class="form-group">
-                              <select class="form-control">
+                              <select class="form-control" name="day">
                                 <option value="" disabled selected hidden>Day</option>
-                                <option>option 1</option>
-                                <option>option 2</option>
-                                <option>option 3</option>
-                                <option>option 4</option>
-                                <option>option 5</option>
+                                {% for day in days_range %}
+                                <option value="{{day}}">{{day}}</option>
+                                {% endfor %}
                               </select>
                             </div>
                         </div>
@@ -443,7 +393,7 @@
 
                         <div class="col-md-9">
                           <div class="form-group">
-                            <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email Adress">
+                            <input type="text" class="form-control" name="address" placeholder="Insert adress">
                           </div>
                         </div>
 
@@ -459,7 +409,7 @@
 
                         <div class="col-md-9">
                           <div class="form-group">
-                            <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email Adress">
+                            <input type="text" class="form-control" name="city" placeholder="Insert city">
                           </div>
                         </div>
 
@@ -475,7 +425,7 @@
 
                         <div class="col-md-9">
                           <div class="form-group">
-                            <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email Adress">
+                            <input type="text" class="form-control" name="country" placeholder="Insert country">
                           </div>
                         </div>
 
@@ -491,7 +441,7 @@
 
                         <div class="col-md-9">
                           <div class="form-group">
-                            <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email Adress">
+                            <input type="text" class="form-control" name="phone" placeholder="Insert phone number">
                           </div>
                         </div>
 
@@ -507,7 +457,7 @@
 
                         <div class="col-md-9">
                           <div class="form-group">
-                            <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email Adress">
+                            <input type="email" class="form-control" name="email" placeholder="Email Adress">
                           </div>
                         </div>
 
@@ -523,7 +473,7 @@
 
                         <div class="col-md-9">
                           <div class="form-group">
-                            <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email Adress">
+                            <input type="text" class="form-control" name="comments" placeholder="Insert comments">
                           </div>
                         </div>
 
@@ -549,16 +499,27 @@
 
 
 
-        <div class="row">
-            <div class="col-md-12"style="text-align: center;">
-                <a href="/terms"></a>
+
+
+
+
+        <div class="row" style="margin-top: 20px; margin-bottom: 20px;">
+          <div class="col-md-12"style="text-align: center;">
+            <div class="form-group">
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" checked>
-                    <label class="form-check-label">I agree with the terms & conditions*</label>
+                    <input class="form-check-input" type="checkbox" name="terms"> 
+                    <label class="form-check-label"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I agree with the <a href="/terms">terms & conditions*</a></label>
                   </div>
-                </a> 
-            </div>
-        </div>
+              </div>
+
+              </a> 
+          </div>
+      </div>
+
+
+
+
+
 
         <div class="row">
             <div class="col-md-12" style="text-align: center;">
@@ -568,10 +529,112 @@
         </div>
 
 
-
-
-
       </form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+
+     <!-- <div class="row">
+        <div class="col-md-6"> 
+         <div class="card card-primary">
+              <div class="card-header" style="background-color: #ff6600 !important;">
+                <h3 class="card-title rent_title">Search For Existing Customer Details
+</h3>
+              </div>
+        
+                <div class="card-body">
+
+
+
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <input type="email" class="form-control" id="userEmail" placeholder="Email Adress">
+                    </div>
+                  </div>
+
+                 <div class="col-md-12">
+                    <div class="form-group">
+                        <select class="form-control">
+                          <option value="" disabled selected hidden>Year Of Birth</option>
+                          <option>option 1</option>
+                          <option>option 2</option>
+                          <option>option 3</option>
+                          <option>option 4</option>
+                          <option>option 5</option>
+                        </select>
+                      </div>
+                  </div> 
+
+                  <div class="col-md-12">
+                    <button type="button" id="fetxh_data" class="btn btn-primary">Fetch Details</button>
+                  </div>
+
+
+
+                </div>
+             
+
+            </div>
+          </div>
+
+
+
+           <div class="col-md-6"> 
+            
+            <div class="col-md-12 text-center">
+                    <button type="submit" class="btn btn-primary">Change date, time & location</button>
+                  </div> 
+            <div class="col-md-12 text-center" style="margin-top: 20px;">
+                    <a href="/listaVozila" class="btn btn-primary">Change car</a>
+                  </div>
+
+            <div class="col-md-12 text-center" style="margin-top: 20px;">
+                    <button type="submit" class="btn btn-primary">Change rental options</button>
+                  </div> 
+          </div>
+        </div> -->
+
+
+
+        
+
+
+
+        
+
+
+
+
+
+      
         
       </div>
     </section>
@@ -585,6 +648,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.js"></script>  
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>  
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.js"></script>  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>  
     
 
   
@@ -603,6 +667,7 @@ $(document).ready(function(){
   console.log(currentDate);
 
   $("#start_date_id").text(currentDate);
+  $("#start_date_input").val(currentDate);
 
   let tomorrow  = moment().add(1,'days');
 
@@ -619,7 +684,8 @@ $(document).ready(function(){
         var endDate = moment($input.val());
 
         var result = endDate.diff(startDate, 'days');
-
+        $('#days_num_var').val(result);
+        
         //$('#result').html(result);
 
 
@@ -642,6 +708,7 @@ $(document).ready(function(){
             $("#all_days_price").html(all_day_price);
 
             $("#grand_total").text(grand_total-old_all_day_price+all_day_price);
+            $("#grand_total_value").val(grand_total-old_all_day_price+all_day_price);
             
         },
         minDate : tomorrow,
@@ -660,6 +727,7 @@ $(document).ready(function(){
           var grand_total = parseFloat($("#grand_total").text());
           var total_price = (Math.round(parseFloat(grand_total+12.00) * 100) / 100).toFixed(2);
           $("#grand_total").text(total_price);
+          $("#grand_total_value").val(total_price);
 
         } else {
           $("#casco_price").text("€ 0.00");
@@ -667,6 +735,7 @@ $(document).ready(function(){
           var grand_total = parseFloat($("#grand_total").text());
           var total_price = (Math.round(parseFloat(grand_total-12.00) * 100) / 100).toFixed(2);
           $("#grand_total").text(total_price);
+          $("#grand_total_value").val(total_price);
         }
     });
 
@@ -678,6 +747,7 @@ $(document).ready(function(){
           var grand_total = parseFloat($("#grand_total").text());
           var total_price = (Math.round(parseFloat(grand_total+15.00) * 100) / 100).toFixed(2);
           $("#grand_total").text(total_price);
+          $("#grand_total_value").val(total_price);
 
         } else {
           $("#tyres_price").text("€ 0.00");
@@ -686,45 +756,86 @@ $(document).ready(function(){
           var total_price = (Math.round(parseFloat(grand_total-15.00) * 100) / 100).toFixed(2);
 
           $("#grand_total").text(total_price);
+          $("#grand_total_value").val(total_price);
         }
     });
 
-    $("#fetxh_data").on("click", function() {
-        var userEmail = $("#userEmail").val();
-        console.log(userEmail);
+    
+
+    
+   
+   
+   
+   
+   
+
+    $("#form_details").validate({
+    rules: {
+      location: "required",
+      return_date: "required",
+      first_name: "required",
+      last_name: "required",
+      year: "required",
+      month: "required",
+      day: "required",
+      email: "required",
+      terms: "required"
+    },
+    messages: {
+      location: "Please choose return location",
+      return_date: "Please choose return date",
+      first_name: "Please insert first name",
+      last_name: "Please insert last name",
+      year: "Please choose birthday year",
+      month: "Please choose birthday month",
+      day: "Please choose birthday day",
+      email: "Please insert email address",
+      terms: "*",
+    },
+    submitHandler: function(form) {
+      form.submit();
+    }
+  });
+
+
+
+
+    // $("#fetxh_data").on("click", function() {
+    //     var userEmail = $("#userEmail").val();
+    //     console.log(userEmail);
 
      
 
 
 
-        $.ajax({
-            url: 'http://23.88.98.237:8069/api/auth/get_tokens?username=odoo@irvas.rs&password=irvasadm',
-            type: 'GET',
-            dataType: 'json',
-            contentType: 'application/json; charset=utf-8',
-            headers: { 
-              "Access-Control-Allow-Origin" : "*",
-              "Access-Control-Allow-Methods" : "POST, GET, OPTIONS",
-              "Access-Control-Allow-Headers" : "Content-Type, Authorization, X-Requested-With"
-            },
-            complete: function(result) {
-                //called when complete
-                alert(result.uid);
-            },
+    //     $.ajax({
+    //         url: 'http://23.88.98.237:8069/api/auth/get_tokens?username=odoo@irvas.rs&password=irvasadm',
+    //         type: 'GET',
+    //         dataType: 'json',
+    //         contentType: 'application/json; charset=utf-8',
+    //         headers: { 
+    //           "Access-Control-Allow-Origin" : "*",
+    //           "Access-Control-Allow-Methods" : "POST, GET, OPTIONS",
+    //           "Access-Control-Allow-Headers" : "Content-Type, Authorization, X-Requested-With"
+    //         },
+    //         complete: function(result) {
+    //             //called when complete
+    //             alert(result.uid);
+    //         },
 
-            success: function(result) {
-                //called when successful
-                alert(result.uid);
-            },
+    //         success: function(result) {
+    //             //called when successful
+    //             alert(result.uid);
+    //         },
 
-            error: function(result) {
-                //called when there is an error
-                alert(result.uid);
-            },
-        });
+    //         error: function(result) {
+    //             //called when there is an error
+    //             alert(result.uid);
+    //         },
+    //     });
 
 
-    });
+    // });
 
     
 

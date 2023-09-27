@@ -7,6 +7,9 @@ import requests
 import bs4 as bs
 import json
 import pprint
+from datetime import datetime
+from urllib.parse import urlencode
+
 
 
 import urllib.request
@@ -216,8 +219,14 @@ def vozilo():
    return render_template('/rezervacija/vozilo.html', brand=brand, model=model, gearbox=gearbox, fuel_type=fuel_type, category=category, license_plate=license_plate, seats=seats, model_year=model_year, doors=doors, horsepower=horsepower, power=power, image_128=image_128)
 
 
-@app.route('/rezervacijeKorisnik', methods = ['GET', 'POST'], type="json", cors="*")
+@app.route('/rezervacijeKorisnik', methods = ['GET', 'POST'])
 def rezervacijeKorisnik():
+
+
+
+   
+
+   
    
    if request.method == 'POST':
 
@@ -285,6 +294,7 @@ def rezervacijeKorisnik():
 
 
    toAdd = {
+       'carId' : carId,
       'brand' : vehicle_brand,
       'name' : vehicle_name,
       'transmission': transmission,
@@ -292,20 +302,296 @@ def rezervacijeKorisnik():
       'price': 26
    }
 
+   years_range = list(range(1943, 2013))
+   months_range = list(range(1, 13))
+   days_range = list(range(1, 32))
 
 
-   return render_template('/rezervacija/rezervacijeKorisnik.html',carDetails = toAdd, allLocations = allLocations)
+
+
+   return render_template('/rezervacija/rezervacijeKorisnik.html',days_range=days_range, months_range=months_range, years_range=years_range,carDetails = toAdd, allLocations = allLocations)
 
 
 @app.route('/submit_form',  methods=['GET', 'POST'])
 def submit_form():
+
+   
+   carid = request.args.get('carid')
+   grand_value = request.args.get('grand_total_val')
    location = request.args.get('location')
    return_date = request.args.get('return_date')
+   start_date_input = request.args.get('start_date_input')
+   casco_checkbox = request.args.get('casco_checkbox')
+   tyres_checbox = request.args.get('tyres_checbox')
 
-   print("lokacija je:" + location)
-   print("datum i vreme vracanja je:" + return_date)
+   if(casco_checkbox == 'on'):
+       casco = "1"
+   else :
+       casco = "0"
+   
+
+   if(tyres_checbox == 'on'):
+       tyres = "1"
+   else :
+       tyres = "0"
+
+
+
+
+
+   
+
+
+
+   # USER DETAILS
+
+   first_name = request.args.get('first_name')
+   last_name = request.args.get('last_name')
+   year = request.args.get('year')
+   month = request.args.get('month')
+   day = request.args.get('day')
+   address = request.args.get('address')
+   city = request.args.get('city')
+   country = request.args.get('country')
+   phone = request.args.get('phone')
+   email = request.args.get('email')
+   comments = request.args.get('comments')
+   days_num_var = request.args.get('days_num_var')
+   birthday = year+'-'+month+'-'+day
+
+
+   rent_details = {
+       'carId': carid,
+       'grand_value' : grand_value,
+       'location': location,
+       'return_date': return_date,
+       'start_date' : start_date_input,
+       'casco' : casco,
+       'tyres' : tyres,
+       'days_num_var' : days_num_var
+   }
+
+
+   user_details = {
+       'first_name': first_name,
+       'last_name': last_name,
+       'birthday': birthday,
+       'address' : address,
+       'city' : city,
+       'country' : country,
+       'phone' : phone,
+       'email' : email,
+       'comments' : comments
+   }
+
+   create_contract(rent_details, user_details)
+
+   
+
+   # print("carid je:" + carid)
+   # print("lokacija je:" + location)
+   # print("datum i vreme preuzimanja je:" + start_date_input)
+   # print("datum i vreme vracanja je:" + return_date)
+   # print("casco_checkbox je:" + casco)
+   # print("tyres_checbox je:" + tyres)
+
+   # print("***********************")
+
+   # print("first_name je:" + first_name)
+   # print("last_name je:" + last_name)
+   # print("year je:" + year)
+   # print("month je:" + month)
+   # print("day je:" + day)
+   # print("address je:" + address)
+   # print("city je:" + city)
+   # print("country je:" + country)
+   # print("phone je:" + phone)
+   # print("email je:" + email)
+   # print("comments je:" + comments)
+
 
    return render_template('/rezervacija/submit_form.html')
+
+
+
+
+
+@app.route('/create_contract', methods = ['GET', 'POST'])
+def create_contract(rent_details, user_details):
+
+
+
+   # print(rent_details['carId'])
+   # print(user_details['first_name'])
+
+    
+   user_name = user_details['first_name']
+   user_email = user_details['email']
+   phone = user_details['phone']
+   street = user_details['address']
+   city = user_details['city']
+   country_id = 1
+
+
+
+
+   
+
+
+  
+  
+
+
+
+   response = requests.get(
+            "http://23.88.98.237:8069/api/auth/get_tokens",
+            params={"username": "odoo@irvas.rs", "password": "irvasadm"}
+       )
+
+   response_data = json.loads(response.text)
+   access_token = response_data['access_token']
+   #return(access_token)
+   header_data = {'Content-Type': 'text/html; charset=utf-8', 'Access-Token' : str(access_token)}
+   
+
+   # url = "http://23.88.98.237:8069/api/fleet.rent?filters=[('id','=','47'), ('state','=','open')]"
+   # data_update = json.dumps({'state': 'running',})
+   
+
+   url = "http://23.88.98.237:8069/api/res.users?filters=[('email','=','"+user_email+"')]"
+
+   # CHECK EXISTING USER
+
+
+
+   response = requests.get(url, headers=header_data)
+
+   response_data = json.loads(response.text)
+
+   if(response_data['count'] > 0):
+       print("User postoji")
+       user_id = response_data['results'][0]['id']
+ 
+   else:
+       print("User NE postoji")
+
+
+       # CREATE USER
+
+       data_insert={
+         "name" : user_name,
+         "email" : user_email,
+         "login" : user_email,
+         "phone" : phone,
+         "is_company" : "0",
+         "street" : street,
+         "city" : city,
+         "country_id" : country_id,
+         "is_tenant" : True
+      }
+
+
+       data_insert_final = json.dumps(data_insert)
+       url = "http://23.88.98.237:8069/api/res.users"
+       response = requests.post(url, data=data_insert_final, headers=header_data)
+
+
+      # GET USER ID
+       url = "http://23.88.98.237:8069/api/res.users?filters=[('email','=','"+user_email+"')]"
+       response = requests.get(url, headers=header_data)
+
+       response_data = json.loads(response.text)
+       user_id = response_data['results'][0]['id']
+   
+   print("*************************")
+   print(user_id)
+   print("*************************")
+
+   
+
+
+   date_object = datetime.strptime(rent_details['start_date'], '%B %d, %Y %H:%M')
+   date_start_value =date_object.strftime('%Y-%m-%d %H:%M:%S')
+
+   date_object = datetime.strptime(rent_details['return_date'], '%Y/%m/%d %H:%M')
+   date_end_value = date_object.strftime('%Y-%m-%d %H:%M:%S')
+
+   
+
+
+
+   # rent_details = {
+   #     'carId': carid,
+   #     'location': location,
+   #     'return_date': return_date,
+   #     'start_date' : start_date_input,
+   #     'casco' : casco,
+   #     'tyres' : tyres
+   # }
+
+
+   date_start = date_start_value
+   date_end = date_end_value
+   reservation_code = "Rtest01"
+   notes =""
+   rent_from = rent_details['location']
+   return_location = rent_details['location']
+   web_car_request = ""
+   total_rent = rent_details['grand_value']
+   rent_amt = rent_details['grand_value']
+   option_ids = []
+   currency_id = 1
+   carid = rent_details['carId']
+   days_num_var = rent_details['days_num_var']
+
+
+   # date_start = "2023-02-05 13:00:00"
+   # date_end = "2023-02-07 13:00:00"
+   # reservation_code = "Rtest01"
+   # notes =""
+   # rent_from = 1
+   # return_location = 1
+   # web_car_request = ""
+   # total_rent = "20"
+   # rent_amt = "20"
+   # option_ids = []
+   # currency_id = 1
+
+   # CREATE CONTRACT
+
+
+
+
+
+   data_insert={
+      "tenant_id" : user_id, ####
+      "date_start" : date_start, ####
+      "date_end" : date_end, ####
+      "reservation_code" : reservation_code, ####
+      "notes" : notes, ####
+      "rent_from" : rent_from,
+      "return_location" : return_location,
+      "web_car_request" : web_car_request,
+      "total_rent" : total_rent,
+      "state" : "running", ####
+      "rent_amt" : rent_amt, ####
+      "option_ids" : option_ids, ####
+      "currency_id" : currency_id,
+      "vehicle_id" : carid,
+      "rent_type_id" : days_num_var
+   }
+
+
+   data_insert_final = json.dumps(data_insert)
+   url = "http://23.88.98.237:8069/api/fleet.rent"
+   response = requests.post(url, data=data_insert_final, headers=header_data)
+
+   print(response.text)
+
+   return render_template('/vracanje/vracanjeHvala.html')
+
+
+
 
 
 
@@ -601,6 +887,44 @@ def get_rfid_num(id_ugovora):
 @app.route('/api', methods = ['GET', 'POST', 'PUT'])
 def api():
 
+   # redirect_baseUrl = 'https://www.google.com' 
+
+   # return redirect(redirect_baseUrl)
+
+
+
+   # response = requests.get(
+   #          "http://23.88.98.237:8069/api/auth/get_tokens",
+   #          params={"username": "odoo@irvas.rs", "password": "irvasadm"}
+   #    )
+
+   # response_data = json.loads(response.text)
+   # access_token = response_data['access_token']
+   # #return(access_token)
+
+   # print(access_token)
+
+
+   # params_email={"pecooou@yahoo.com"}
+
+   # url = "http://23.88.98.237:8069/api/mail.compose.message"
+
+   # header_data = {'Access-Token' : str(access_token)}
+
+   # response = requests.post(url, headers=header_data, params_email)
+
+   # response_data = json.loads(response.text)
+
+   # print(response_data)
+
+
+
+
+
+
+
+
+
 
    # response = requests.get(
    #          "http://23.88.98.237:8069/api/auth/get_tokens",
@@ -642,12 +966,12 @@ def api():
 
 
 
-   user_email = "pecooou"
-   user_email = "pecooou1@yahoo.com"
-   phone = "123456789"
-   street = "Ulica i broj"
-   city = "Nis"
-   country_id = 1
+   # user_email = "pecooou"
+   # user_email = "pecooou1@yahoo.com"
+   # phone = "123456789"
+   # street = "Ulica i broj"
+   # city = "Nis"
+   # country_id = 1
 
 
 
@@ -656,107 +980,107 @@ def api():
 
 
 
-   response = requests.get(
-            "http://23.88.98.237:8069/api/auth/get_tokens",
-            params={"username": "odoo@irvas.rs", "password": "irvasadm"}
-       )
+   # response = requests.get(
+   #          "http://23.88.98.237:8069/api/auth/get_tokens",
+   #          params={"username": "odoo@irvas.rs", "password": "irvasadm"}
+   #     )
 
-   response_data = json.loads(response.text)
-   access_token = response_data['access_token']
-   #return(access_token)
-   header_data = {'Content-Type': 'text/html; charset=utf-8', 'Access-Token' : str(access_token)}
+   # response_data = json.loads(response.text)
+   # access_token = response_data['access_token']
+   # #return(access_token)
+   # header_data = {'Content-Type': 'text/html; charset=utf-8', 'Access-Token' : str(access_token)}
    
 
-   # url = "http://23.88.98.237:8069/api/fleet.rent?filters=[('id','=','47'), ('state','=','open')]"
-   # data_update = json.dumps({'state': 'running',})
+   # # url = "http://23.88.98.237:8069/api/fleet.rent?filters=[('id','=','47'), ('state','=','open')]"
+   # # data_update = json.dumps({'state': 'running',})
    
 
-   url = "http://23.88.98.237:8069/api/res.users?filters=[('email','=','"+user_email+"')]"
+   # url = "http://23.88.98.237:8069/api/res.users?filters=[('email','=','"+user_email+"')]"
 
-   # CHECK EXISTING USER
+   # # CHECK EXISTING USER
 
 
 
-   response = requests.get(url, headers=header_data)
+   # response = requests.get(url, headers=header_data)
 
-   response_data = json.loads(response.text)
+   # response_data = json.loads(response.text)
 
-   if(response_data['count'] > 0):
-       print("User postoji")
-       user_id = response_data['results'][0]['id']
+   # if(response_data['count'] > 0):
+   #     print("User postoji")
+   #     user_id = response_data['results'][0]['id']
  
-   else:
-       print("User NE postoji")
+   # else:
+   #     print("User NE postoji")
 
 
-       # CREATE USER
+   #     # CREATE USER
 
-       data_insert={
-         "name" : "Pecooou1",
-         "email" : user_email,
-         "login" : user_email,
-         "phone" : phone,
-         "is_company" : "0",
-         "street" : street,
-         "city" : city,
-         "country_id" : country_id,
-         "is_tenant" : True
-      }
-
-
-       data_insert_final = json.dumps(data_insert)
-       url = "http://23.88.98.237:8069/api/res.users"
-       response = requests.post(url, data=data_insert_final, headers=header_data)
+   #     data_insert={
+   #       "name" : "Pecooou1",
+   #       "email" : user_email,
+   #       "login" : user_email,
+   #       "phone" : phone,
+   #       "is_company" : "0",
+   #       "street" : street,
+   #       "city" : city,
+   #       "country_id" : country_id,
+   #       "is_tenant" : True
+   #    }
 
 
-      # GET USER ID
-       url = "http://23.88.98.237:8069/api/res.users?filters=[('email','=','"+user_email+"')]"
-       response = requests.get(url, headers=header_data)
+   #     data_insert_final = json.dumps(data_insert)
+   #     url = "http://23.88.98.237:8069/api/res.users"
+   #     response = requests.post(url, data=data_insert_final, headers=header_data)
 
-       response_data = json.loads(response.text)
-       user_id = response_data['results'][0]['id']
+
+   #    # GET USER ID
+   #     url = "http://23.88.98.237:8069/api/res.users?filters=[('email','=','"+user_email+"')]"
+   #     response = requests.get(url, headers=header_data)
+
+   #     response_data = json.loads(response.text)
+   #     user_id = response_data['results'][0]['id']
    
-   print("*************************")
-   print(user_id)
-   print("*************************")
+   # print("*************************")
+   # print(user_id)
+   # print("*************************")
 
 
-   date_start = "2023-02-05 13:00:00"
-   date_end = "2023-02-07 13:00:00"
-   reservation_code = "R0192837465"
-   notes =""
-   rent_from = 1
-   return_location = 1
-   web_car_request = ""
-   total_rent = "20"
-   rent_amt = "20"
-   option_ids = []
-   currency_id = 1
+   # date_start = "2023-02-05 13:00:00"
+   # date_end = "2023-02-07 13:00:00"
+   # reservation_code = "R0192837465"
+   # notes =""
+   # rent_from = 1
+   # return_location = 1
+   # web_car_request = ""
+   # total_rent = "20"
+   # rent_amt = "20"
+   # option_ids = []
+   # currency_id = 1
 
-   # CREATE CONTRACT
+   # # CREATE CONTRACT
 
-   data_insert={
-      "tenant_id" : user_id, ####
-      "date_start" : date_start, ####
-      "date_end" : date_end, ####
-      "reservation_code" : reservation_code, ####
-      "notes" : notes, ####
-      "rent_from" : rent_from,
-      "return_location" : return_location,
-      "web_car_request" : web_car_request,
-      "total_rent" : total_rent,
-      "state" : "running", ####
-      "rent_amt" : rent_amt, ####
-      "option_ids" : option_ids, ####
-      "currency_id" : currency_id ####
-   }
+   # data_insert={
+   #    "tenant_id" : user_id, ####
+   #    "date_start" : date_start, ####
+   #    "date_end" : date_end, ####
+   #    "reservation_code" : reservation_code, ####
+   #    "notes" : notes, ####
+   #    "rent_from" : rent_from,
+   #    "return_location" : return_location,
+   #    "web_car_request" : web_car_request,
+   #    "total_rent" : total_rent,
+   #    "state" : "running", ####
+   #    "rent_amt" : rent_amt, ####
+   #    "option_ids" : option_ids, ####
+   #    "currency_id" : currency_id ####
+   # }
 
 
-   data_insert_final = json.dumps(data_insert)
-   url = "http://23.88.98.237:8069/api/fleet.rent"
-   response = requests.post(url, data=data_insert_final, headers=header_data)
+   # data_insert_final = json.dumps(data_insert)
+   # url = "http://23.88.98.237:8069/api/fleet.rent"
+   # response = requests.post(url, data=data_insert_final, headers=header_data)
 
-   print(response.text)
+   # print(response.text)
 
    return render_template('/vracanje/vracanjeHvala.html')
    # ADD USER
