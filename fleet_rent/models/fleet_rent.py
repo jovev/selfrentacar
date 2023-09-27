@@ -488,7 +488,10 @@ class FleetRent(models.Model):
                    box_size=3,
                    border=4,
                )
-               qr.add_data(rec.reservation_code)
+               base_url = rec.env['ir.config_parameter'].get_param('web.base.url')
+               access_url = rec.get_portal_url()
+               qr.add_data(base_url)
+               qr.add_data(access_url)
                qr.make(fit=True)
                img = qr.make_image()
                temp = BytesIO()
