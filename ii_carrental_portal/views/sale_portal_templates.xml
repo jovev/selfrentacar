@@ -131,7 +131,7 @@ td {
                                        <a class="btn btn-secondary" href="#" title="Download"><i class="fa fa-download"/> Download</a>
                                     </div>
 								<div class="btn-group flex-grow-1 mb-1">
-                                    <a class="btn btn-secondary o_print_btn o_portal_invoice_print" href="&amp;report_type=pdf" id="print_invoice_report" title="Print" target="_blank"><i class="fa fa-print"/> Print</a>
+                                    <a class="btn btn-secondary o_print_btn o_portal_invoice_print" href="#&amp;report_type=pdf" id="print_invoice_report" title="Print" target="_blank"><i class="fa fa-print"/> Print</a>
                                     </div>
                                    
                                 </div>
