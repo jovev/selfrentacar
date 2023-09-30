@@ -95,7 +95,7 @@ def listaVozila():
          response = requests.get(url, headers=header_data)
 
          response_data = json.loads(response.text)
-         print(response.text)
+         # print(response.text)
          # if(response_data['count'] != 0):
          #     available_cars.append(rfid)
 
@@ -176,7 +176,7 @@ def vozilo():
 
    response_data = json.loads(response.text)
 
-   print(response.text)
+   # print(response.text)
 
 
    brand = response_data['brand_id']['name']
@@ -196,17 +196,17 @@ def vozilo():
    
 
 
-   print("Brand: "+brand)
-   print("model: "+model)
-   print("gearbox: "+gearbox)
-   print("fuel_type: "+fuel_type)
-   print("category: "+category)
-   print("license_plate: "+license_plate)
-   print("seats: "+str(seats))
-   print("model_year: "+str(model_year))
-   print("doors: "+str(doors))
-   print("horsepower: "+str(horsepower))
-   print("power: "+str(power))
+   # print("Brand: "+brand)
+   # print("model: "+model)
+   # print("gearbox: "+gearbox)
+   # print("fuel_type: "+fuel_type)
+   # print("category: "+category)
+   # print("license_plate: "+license_plate)
+   # print("seats: "+str(seats))
+   # print("model_year: "+str(model_year))
+   # print("doors: "+str(doors))
+   # print("horsepower: "+str(horsepower))
+   # print("power: "+str(power))
 
    # vehicle_data = {
    #             'name' : vehicle_name,
@@ -384,7 +384,35 @@ def submit_form():
        'comments' : comments
    }
 
-   create_contract(rent_details, user_details)
+   contract_id = create_contract(rent_details, user_details)
+
+
+   # response = requests.get(
+   #          "http://23.88.98.237:8069/api/auth/get_tokens",
+   #          params={"username": "odoo@irvas.rs", "password": "irvasadm"}
+   #     )
+
+   # response_data = json.loads(response.text)
+   # access_token = response_data['access_token']
+
+
+   # header_data = {'Content-Type': 'text/html; charset=utf-8', 'Access-Token' : str(access_token)}
+
+   # url = "http://23.88.98.237:8069/api/fleet.rent/"+contract_id
+   
+   
+   # response = requests.get(url, headers=header_data)
+
+   # response_data = json.loads(response.text)
+
+   # print(response_data)
+      
+   # contract_id = str(response_data['results'][0]['id'])
+
+
+   return render_template('/rezervacija/submit_form_confirm.html', contract_id = contract_id)
+
+   
 
    
 
@@ -415,6 +443,56 @@ def submit_form():
 
 
 
+
+@app.route('/go_contract', methods = ['GET', 'POST'])
+def go_contract():
+
+   contract_id = request.args.get('contract_id')
+
+
+   response = requests.get(
+            "http://23.88.98.237:8069/api/auth/get_tokens",
+            params={"username": "odoo@irvas.rs", "password": "irvasadm"}
+       )
+
+   response_data = json.loads(response.text)
+   access_token = response_data['access_token']
+
+
+   header_data = {'Content-Type': 'text/html; charset=utf-8', 'Access-Token' : str(access_token)}
+
+   url = "http://23.88.98.237:8069/api/fleet.rent/"+contract_id
+   
+   
+   response = requests.get(url, headers=header_data)
+
+   response_data = json.loads(response.text)
+
+   base_url = "https://selfcar.naisrobotics.com"
+   access_url = response_data["access_url"]
+   token = response_data["access_token"]
+   
+   final_url = base_url + access_url + "?access_token=4" + token
+
+
+   print(response.text)
+
+   print(final_url)
+
+  
+  
+
+   print(base_url)
+   print(access_url)
+   print(token)
+      
+   # contract_id = str(response_data['results'][0]['id'])
+
+
+
+
+   # print(contract_id)
+   return 'df'
 
 @app.route('/create_contract', methods = ['GET', 'POST'])
 def create_contract(rent_details, user_details):
@@ -529,10 +607,19 @@ def create_contract(rent_details, user_details):
    #     'tyres' : tyres
    # }
 
+   with open("/home/pi/VSCProjects/selfrentacar/flask_rentomat/settings.json", "r") as jsonFile:
+      data = json.load(jsonFile)
+
+
+   rentomat_id = data['rentomat_id']
+   next_contract_id = int(data['last_contract_id'])+1
+
+
+
 
    date_start = date_start_value
    date_end = date_end_value
-   reservation_code = "Rtest01"
+   reservation_code = rentomat_id + "_" + str(next_contract_id)
    notes =""
    rent_from = rent_details['location']
    return_location = rent_details['location']
@@ -544,7 +631,9 @@ def create_contract(rent_details, user_details):
    carid = rent_details['carId']
    days_num_var = rent_details['days_num_var']
 
-
+   print("*****************")
+   print(reservation_code)
+   print("*****************")
    # date_start = "2023-02-05 13:00:00"
    # date_end = "2023-02-07 13:00:00"
    # reservation_code = "Rtest01"
@@ -564,6 +653,7 @@ def create_contract(rent_details, user_details):
 
 
    data_insert={
+      "name": "Test Rent",
       "tenant_id" : user_id, ####
       "date_start" : date_start, ####
       "date_end" : date_end, ####
@@ -575,21 +665,106 @@ def create_contract(rent_details, user_details):
       "total_rent" : total_rent,
       "state" : "running", ####
       "rent_amt" : rent_amt, ####
+      "deposit_amt": 100,
       "option_ids" : option_ids, ####
       "currency_id" : currency_id,
       "vehicle_id" : carid,
-      "rent_type_id" : days_num_var
-   }
+      "rent_type_id" : days_num_var,
+      "odometer": "321",
+      "odometer_unit" : "kilometers"
+      }
 
 
    data_insert_final = json.dumps(data_insert)
    url = "http://23.88.98.237:8069/api/fleet.rent"
    response = requests.post(url, data=data_insert_final, headers=header_data)
 
+
+   data_odometer = {
+       'vehicle_id' : carid,
+       'value' : "126",
+       'unit' : "kilometers"
+   }
+
+   data_insert_final_odometer = json.dumps(data_odometer)
+   url = "http://23.88.98.237:8069/api/fleet.vehicle.odometer"
+   response = requests.post(url, data=data_insert_final_odometer, headers=header_data)
+
+
+
+   url = "http://23.88.98.237:8069/api/fleet.rent?filters=[('reservation_code', '=', '"+reservation_code+"')]"
+
+   header_data = {'Access-Token' : str(access_token)}
+
+   response = requests.get(url, headers=header_data)
+
+   response_data = json.loads(response.text)
+
+
+   contract_id = str(response_data['results'][0]['id'])
+
+   return contract_id
+
+   
+   # data_insert_final2 = json.dumps(data_insert2)
+   # url = "http://23.88.98.237:8069/api/fleet.rent"
+   # response = requests.post(url, data=data_insert_final2, headers=header_data)
+
+
+   # return redirect(url_for("get_redirection"))
+
+
+
+
+
+   url = "http://23.88.98.237:8069/api/fleet.rent?filters=[('reservation_code', '=', '"+reservation_code+"')]"
+
+   header_data = {'Access-Token' : str(access_token)}
+
+   response = requests.get(url, headers=header_data)
+
+   response_data = json.loads(response.text)
    print(response.text)
 
-   return render_template('/vracanje/vracanjeHvala.html')
+   url_prefix = "https://selfcar.naisrobotics.com/"
+   link = response_data['results'][0]['access_url']
+   token = response_data['results'][0]['access_token']
 
+   final_url = url_prefix+link+token
+
+   print(response_data)
+   print(token)
+   print(link)
+
+   print(final_url)
+
+
+
+   return reservation_code
+@app.route('/get_redirection', methods = ['GET', 'POST'])
+def get_redirection():
+   print("da")
+   url = "http://23.88.98.237:8069/api/fleet.rent?filters=[('reservation_code', '=', 'RN01834_8')]"
+
+   header_data = {'Access-Token' : str(access_token)}
+
+   response = requests.get(url, headers=header_data)
+
+   response_data = json.loads(response.text)
+   print(response.text)
+
+   url_prefix = "https://selfcar.naisrobotics.com/"
+   link = response_data['results'][0]['access_url']
+   token = response_data['results'][0]['access_token']
+
+   final_url = url_prefix+link+token
+
+   print(response_data)
+   print(token)
+   print(link)
+
+   print(final_url)
+    
 
 
 
@@ -886,6 +1061,27 @@ def get_rfid_num(id_ugovora):
 
 @app.route('/api', methods = ['GET', 'POST', 'PUT'])
 def api():
+
+
+   response = requests.get(
+            "http://23.88.98.237:8069/api/auth/get_tokens",
+            params={"username": "odoo@irvas.rs", "password": "irvasadm"}
+      )
+
+   response_data = json.loads(response.text)
+   access_token = response_data['access_token']
+
+
+
+   url = "http://23.88.98.237:8069/api/fleet.rent?filters=[('reservation_code', '=', 'RN01834_8')]"
+
+   header_data = {'Access-Token' : str(access_token)}
+
+   response = requests.get(url, headers=header_data)
+
+   response_data = json.loads(response.text)
+   print(response.text)
+
 
    # redirect_baseUrl = 'https://www.google.com' 
 
