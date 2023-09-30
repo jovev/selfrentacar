@@ -21,6 +21,7 @@ This module contains all the common features of Sales Management and eCommerce.
 
     #    'report/account_invoice_report_views.xml',
         'report/ir_actions_report_templates.xml',
+        'report/fleet_rent.xml',
     #   'report/ir_actions_report.xml',
     #    'report/sale_report_views.xml',
 

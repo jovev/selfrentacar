@@ -51,10 +51,14 @@
                     placeholder="Rental Name.."
                     required="1"
                 />
-                <field name="date_start" />
-                <field name="date_end" />
-                <field name="rent_type_id" />
-                <field name="state" />
+                <field name="vehicle_id"/>
+                <field name="tenant_id"/>
+                <field name="date_start"/>
+                <field name="rent_from"/>
+                <field name="date_end"/>
+                <field name="return_location"/>
+                <field name="rent_type_id"/>
+                <field name="state"/>
             </tree>
         </field>
     </record>
@@ -202,7 +206,7 @@
                                     class="oe_inline"
                                 />
                         </h1>
-                        <label for="name" class="oe_edit_only" string="Reservation Number" />
+                        <label for="reservation_code" class="oe_edit_only" string="Reservation Number" />
                         <h1>
                             <field
                                     name="reservation_code"
@@ -240,7 +244,7 @@
                             <label for="odometer"/>
                             <div>
                                 <field name="odometer" class="oe_inline"/>
-                                <field name="odometer_unit" class="oe_inline" readonly="1" required="1" string="Last Odometer"/>
+                                <field name="odometer_unit" class="oe_inline" readonly="0" required="1" string="Last Odometer"/>
 
                             </div>
                         </group>
