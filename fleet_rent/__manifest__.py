@@ -27,6 +27,7 @@
         "views/fleet_res_users_view.xml",
         "views/res_users_view.xml",
         "views/fleet_view.xml",
+        "views/rent_confirmation_mail_template.xml",
      #   "views/signature.xml"
         "wizard/renew_tenancy_view.xml",
         "wizard/rent_close_reason_view.xml",
