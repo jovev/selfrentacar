@@ -21,9 +21,9 @@
 					</p>
 					<p>
 					Your registration has been confirmed for the vehicle:
-					<strong><t t-out="object.vehicle_id.name"/></strong><br>
-					License plate: <strong><t t-out="object.vehicle_id.license_plate"/></strong><br>
-					You can pick up your car key at: <strong><t t-out="object.x_trenutna_lokacija.name"/></strong><br>
+					<strong><t t-out="object.vehicle_id.name"/></strong><br/>
+					License plate: <strong><t t-out="object.vehicle_id.license_plate"/></strong><br/>
+					You can pick up your car key at: <strong><t t-out="object.x_trenutna_lokacija.name"/></strong><br/>
 					Location of the car key: <strong><t t-out="object.vehicle_id.x_key_location"/></strong><br/>
 					Pick-up date and time: <strong><t t-out="object.date_start"/></strong><br/>
 					Drop off date and time: <strong><t t-out="object.date_end"/></strong><br/>
