@@ -2,7 +2,7 @@
     <data noupdate="1">
         <record id="fleet_email_template" model="mail.template">
             <field name="name">Rent Confirmation Template</field>
-            <field name="model_id" ref="fleet_rent.rent_mail_confirmation"/>
+            <field name="model_id" ref="fleet_rent.model_fleet_rent"/>
             <field name="subject">Cheap Car Hire - Rent Confirmation</field>
             <field name="email_from">sales@cheapcarhire.rent</field>
             <field name="email_to">{{ object.tenant_id.email }}</field>
