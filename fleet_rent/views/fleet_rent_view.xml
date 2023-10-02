@@ -217,6 +217,9 @@
                                 />
                         </h1>
                     </div>
+                    <div style="text-align:right">
+    					 <field name="qr_code" widget='image' class="oe_avatar"/>
+    				</div>
                         <group colspan="4" col="4">
                             <separator string="Vehicle Information" colspan="4"/>
                             <field name="web_car_request"/>
