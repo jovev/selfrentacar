@@ -724,7 +724,7 @@ class FleetRent(models.Model):
         
 
     def action_send_email(self):
-        mail_template = self.env.ref('fleet_rent.rent_mail_confirmation')
+        mail_template = self.env.ref('fleet_rent.fleet_email_template')
         mail_template.send_mail(self.id, force_send=True)
 
     def action_rent_close(self):
