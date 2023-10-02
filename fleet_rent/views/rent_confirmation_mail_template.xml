@@ -1,0 +1,51 @@
+﻿<odoo>
+    <data noupdate="1">
+        <record id="fleet_email_template" model="mail.template">
+            <field name="name">Rent Confirmation Template</field>
+            <field name="model_id" ref="fleet_rent.rent_mail_confirmation"/>
+            <field name="subject">Cheap Car Hire - Rent Confirmation</field>
+            <field name="email_from">sales@cheapcarhire.rent</field>
+            <field name="email_to">{{ object.tenant_id.email }}</field>
+            <field name="description">Email confirmation to tenant</field>
+            <field name="body_html" type="html">
+				<div style="margin: 0px; padding: 0px;line-height:1.7">
+					<p>Dear <strong><t t-out="object.tenant_id.name"/></strong>,</p>
+					<p>
+					<t t-set="base_url" t-value="object.env['ir.config_parameter'].get_param('web.base.url')"/>
+					</p>
+					<p>
+					<t t-set="key_position" t-value="object.vehicle_id.x_key_location"/>
+					</p>
+					<p>
+					<t t-set="contract_url" t-value="base_url + object.get_portal_url()"/>
+					</p>
+					<p>
+					Your registration has been confirmed for the vehicle:
+					<strong><t t-out="object.vehicle_id.name"/></strong><br>
+					License plate: <strong><t t-out="object.vehicle_id.license_plate"/></strong><br>
+					You can pick up your car key at: <strong><t t-out="object.x_trenutna_lokacija.name"/></strong><br>
+					Location of the car key: <strong><t t-out="object.vehicle_id.x_key_location"/></strong><br>
+					Pick-up date and time: <strong><t t-out="object.date_start"/></strong><br>
+					Drop off date and time: <strong><t t-out="object.date_end"/></strong><br>
+					<span><t t-set="url" t-value="object.env['ir.config_parameter'].get_param('web.base.url')"/></span> 
+					</p>
+					<!--<span><t t-out="object.get_portal_url()"/></span><br>-->
+					<p>You can view your rental agreement here:</p>
+					<p align="center">	<span><t t-out="contract_url"/></span>
+					</p>
+					<t t-if="key_position == 'keybox'">
+					<p>Scan the QR code to see the keybox location:</p>
+					<p align="center"><img t-attf-src="data:image/png;base64,{{ object.qr_code }}" style=" width:260px;height:260px;border: 1px solid #dee2e6"/>
+					
+					</p>
+					</t>
+					<br>
+					Best Regards,
+					<br>
+					Cheap Car Hire
+					<br>    
+				</div>
+			</field>
+        </record>
+    </data>
+</odoo>
