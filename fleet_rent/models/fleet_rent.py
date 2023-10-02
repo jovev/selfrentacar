@@ -721,6 +721,7 @@ class FleetRent(models.Model):
                 rent_vals.update({"name": seq})
             rent.write(rent_vals)
         self.action_send_email()
+        
 
     def action_send_email(self):
         mail_template = self.env.ref('fleet_rent.rent_mail_confirmation')
