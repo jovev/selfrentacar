@@ -291,13 +291,19 @@ td {
                     <table class="table table-borderless" style="">
                         <tbody>
                             <tr>
-                              <td ><img t-att-src="'/logo.png?company=%s' % res_company.id" t-att-alt="'Logo of %s' % res_company.name" t-att-title="res_company.name" style="width:180px;margin-bottom:5px;"/>
+                              <td><img t-att-src="'/logo.png?company=%s' % res_company.id" t-att-alt="'Logo of %s' % res_company.name" t-att-title="res_company.name" style="width:180px;margin-bottom:5px;"/>
                        <br/>
 					   www.cheapcarhire.rent<br/>
 					   Dečja 2D, Beograd, Palilula<br/><br/>
 					   Contact: + 382 68 840 480<br/>
 					   PIB: 111167096<br/>
 					   MB: 21435422<br/></td>
+					   
+					   <td align="center" style="padding-top: 50px;">
+					  <img t-attf-src="data:image/png;base64,{{ sale_order.qr_code }}" style="align:left; width:100px;height:100px;"/>
+					   
+					   </td>
+					   
                               <td align="center">
 							  <h2> Rental Agreement</h2>
 							  Date:<br/>
@@ -308,7 +314,6 @@ td {
                             </tr>
 						</tbody>
 					</table>
-					
 			<!-- TENANT/DRIVER DATA -->
 					
 					<div class="" style="font-size:20px; line-height:1.8;padding-left: 6px;"><strong>Tenant/Driver Data</strong></div>
