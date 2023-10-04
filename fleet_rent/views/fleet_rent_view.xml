@@ -7,7 +7,7 @@
             <kanban default_group_by="state">
                 <field name="name" string="Rental Number" />
                 <field name="vehicle_id" />
-                <field name="rent_type_id" />
+                <field name="duration" />
                 <field name="tenant_id" />
                 <field name="date_start" />
                 <templates>
@@ -27,7 +27,7 @@
                             </tr>
                             <tr>
                                 <td><b>Rent Type : </b><field
-                                        name="rent_type_id"
+                                        name="duration"
                                     /></td>
                             </tr>
                              <tr>
@@ -53,7 +53,7 @@
                 />
                 <field name="date_start" />
                 <field name="date_end" />
-                <field name="rent_type_id" />
+                <field name="duration" />
                 <field name="state" />
             </tree>
         </field>
@@ -256,7 +256,7 @@
                             <field name="allow_crossborder"/>
                             <field name="date_start" colspan="2" required="True" attrs="{'readonly':[('state','!=','draft')]}"/>
                             <field name="date_end" placeholder="End Date" colspan="2" string="Expiration Date" readonly="True" attrs="{'readonly':[('state','!=','draft')]}"/>
-                            <field name="rent_type_id" required="True"/>
+                            <field name="duration"/>
                             <field name="total_rent" widget="monetary" string="Total Rent"/>
                             <field name="rent_close_by" string="Rent Close By" readonly="1"/>
                             <field name="date_close" readonly="1"/>
