@@ -349,7 +349,7 @@ class FleetRent(models.Model):
         store=True,
         help="Rental Vehicle contract end date.",
     )
-    # rent_type_id = fields.Many2one("rent.type", "Rent Type")
+    rent_type_id = fields.Many2one("rent.type", "Rent Type")
     total_rent = fields.Monetary(
          compute="_compute_total_amount_rent",
          currency_field="currency_id",
