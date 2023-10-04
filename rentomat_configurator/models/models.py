@@ -23,6 +23,8 @@ class rentomat_configurator(models.Model):
     position_10 = fields.Char("RFID for position 10")
     position_11 = fields.Char("RFID for position 11")
     position_12 = fields.Char("RFID for position 12")
+    last_contract_id = fields.Char("Last contract ID")
+    address = fields.Many2one("res.partner", string = "Rentomat address") 
     
 
 

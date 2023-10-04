@@ -122,16 +122,16 @@ td {
 							<a t-if="sale_order._has_to_be_signed(True)" role="button" class="btn btn-primary mb8" data-bs-toggle="modal" data-bs-target="#modalaccept" href="#">
                                     <i class="fa fa-check"/><t t-if="sale_order._has_to_be_paid(True)"> Sign &amp; Pay</t><t t-else=""> Prihvati &amp; Sign</t>
                                 </a>
-								<!--<a t-elif="sale_order._has_to_be_paid(True)" role="button" id="o_sale_portal_paynow" data-bs-toggle="modal" data-bs-target="#modalaccept" href="#" t-att-class="'mb8 %s' % ('btn btn-light' if sale_order.transaction_ids else 'btn btn-primary')">
+								<a t-elif="sale_order._has_to_be_paid(True)" role="button" id="o_sale_portal_paynow" data-bs-toggle="modal" data-bs-target="#modalaccept" href="#" t-att-class="'mb8 %s' % ('btn btn-light' if sale_order.transaction_ids else 'btn btn-primary')">
                                     <i class="fa fa-check"/> <t t-if="not sale_order.signature">Accept &amp; Pay</t><t t-else="">Pay Now</t>
-                                </a>-->
+                                </a>
 							
                                 <div class="o_download_pdf btn-toolbar flex-sm-nowrap">
                                     <div class="btn-group  flex-grow-1 me-1 mb-1">
                                        <a class="btn btn-secondary" href="#" title="Download"><i class="fa fa-download"/> Download</a>
                                     </div>
 								<div class="btn-group flex-grow-1 mb-1">
-                                        <a class="btn btn-secondary o_print_btn o_portal_invoice_print" href="#" id="print_invoice_report" title="Print" target="_blank"><i class="fa fa-print"/> Print</a>
+                                    <a class="btn btn-secondary o_print_btn o_portal_invoice_print" t-att-href="sale_order.get_portal_url(report_type='pdf')" id="print_invoice_report" title="Print" target="_blank"><i class="fa fa-print"/> Print</a>
                                     </div>
                                    
                                 </div>
@@ -257,11 +257,11 @@ td {
                         Your order is not in a state to be rejected.
                     </div>
 
-                    <!--<t t-if="sale_order.transaction_ids">
+                    <t t-if="sale_order.transaction_ids">
                         <t t-call="payment.transaction_status">
                             <t t-set="tx" t-value="sale_order.get_portal_last_transaction()"/>
                         </t>
-                    </t>-->
+                    </t>
 
                     <div t-if="sale_order.state == 'cancel'" class="alert alert-danger alert-dismissible d-print-none" role="alert">
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"/>
@@ -291,13 +291,19 @@ td {
                     <table class="table table-borderless" style="">
                         <tbody>
                             <tr>
-                              <td ><img t-att-src="'/logo.png?company=%s' % res_company.id" t-att-alt="'Logo of %s' % res_company.name" t-att-title="res_company.name" style="width:180px;margin-bottom:5px;"/>
+                              <td><img t-att-src="'/logo.png?company=%s' % res_company.id" t-att-alt="'Logo of %s' % res_company.name" t-att-title="res_company.name" style="width:180px;margin-bottom:5px;"/>
                        <br/>
 					   www.cheapcarhire.rent<br/>
 					   Dečja 2D, Beograd, Palilula<br/><br/>
 					   Contact: + 382 68 840 480<br/>
 					   PIB: 111167096<br/>
 					   MB: 21435422<br/></td>
+					   
+					   <td align="center" style="padding-top: 50px;">
+					  <img t-attf-src="data:image/png;base64,{{ sale_order.qr_code }}" style="align:left; width:100px;height:100px;"/>
+					   
+					   </td>
+					   
                               <td align="center">
 							  <h2> Rental Agreement</h2>
 							  Date:<br/>
@@ -308,7 +314,6 @@ td {
                             </tr>
 						</tbody>
 					</table>
-					
 			<!-- TENANT/DRIVER DATA -->
 					
 					<div class="" style="font-size:20px; line-height:1.8;padding-left: 6px;"><strong>Tenant/Driver Data</strong></div>
@@ -587,9 +592,9 @@ td {
                             </div>
                         </t>
                         <div t-elif="sale_order._has_to_be_paid(True)" class="col-sm-auto mt8">
-                            <!--<a role="button" data-bs-toggle="modal" data-bs-target="#modalaccept" href="#" t-att-class="'%s' % ('btn btn-light' if sale_order.transaction_ids else 'btn btn-primary')">
+                            <a role="button" data-bs-toggle="modal" data-bs-target="#modalaccept" href="#" t-att-class="'%s' % ('btn btn-light' if sale_order.transaction_ids else 'btn btn-primary')">
                                 <i class="fa fa-check"/> <t t-if="not sale_order.signature">Accept &amp; Pay</t><t t-else="">Pay Now</t>
-                            </a>-->
+                            </a>
                         </div>
                     </div>
 					

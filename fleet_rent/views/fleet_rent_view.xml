@@ -7,7 +7,7 @@
             <kanban default_group_by="state">
                 <field name="name" string="Rental Number" />
                 <field name="vehicle_id" />
-                <field name="duration" />
+                <field name="rent_type_id" />
                 <field name="tenant_id" />
                 <field name="date_start" />
                 <templates>
@@ -27,7 +27,7 @@
                             </tr>
                             <tr>
                                 <td><b>Rent Type : </b><field
-                                        name="duration"
+                                        name="rent_type_id"
                                     /></td>
                             </tr>
                              <tr>
@@ -51,10 +51,14 @@
                     placeholder="Rental Name.."
                     required="1"
                 />
-                <field name="date_start" />
-                <field name="date_end" />
-                <field name="duration" />
-                <field name="state" />
+                <field name="vehicle_id"/>
+                <field name="tenant_id"/>
+                <field name="date_start"/>
+                <field name="rent_from"/>
+                <field name="date_end"/>
+                <field name="return_location"/>
+                <field name="rent_type_id"/>
+                <field name="state"/>
             </tree>
         </field>
     </record>
@@ -75,7 +79,17 @@
                         class="oe_highlight"
                         groups="fleet.fleet_group_manager"
                     />
-
+                    
+                    <button 
+                        name="action_rentconfirmation_send" 
+                        string="Send by Email" 
+                        type="object" 
+                        states="draft,open" 
+                        class="btn-primary" 
+                        data-hotkey="g" 
+                        context="{'validate_analytic': True}"
+                    />
+                    
                     <button
                         name="create_rent_schedule"
                         string=" Schedule Rent"
@@ -192,7 +206,7 @@
                                     class="oe_inline"
                                 />
                         </h1>
-                        <label for="name" class="oe_edit_only" string="Reservation Number" />
+                        <label for="reservation_code" class="oe_edit_only" string="Reservation Number" />
                         <h1>
                             <field
                                     name="reservation_code"
@@ -203,6 +217,9 @@
                                 />
                         </h1>
                     </div>
+                    <div style="text-align:right">
+    					 <field name="qr_code" widget='image' class="oe_avatar"/>
+    				</div>
                         <group colspan="4" col="4">
                             <separator string="Vehicle Information" colspan="4"/>
                             <field name="web_car_request"/>
@@ -230,7 +247,7 @@
                             <label for="odometer"/>
                             <div>
                                 <field name="odometer" class="oe_inline"/>
-                                <field name="odometer_unit" class="oe_inline" readonly="1" required="1" string="Last Odometer"/>
+                                <field name="odometer_unit" class="oe_inline" readonly="0" required="1" string="Last Odometer"/>
 
                             </div>
                         </group>
@@ -256,7 +273,7 @@
                             <field name="allow_crossborder"/>
                             <field name="date_start" colspan="2" required="True" attrs="{'readonly':[('state','!=','draft')]}"/>
                             <field name="date_end" placeholder="End Date" colspan="2" string="Expiration Date" readonly="True" attrs="{'readonly':[('state','!=','draft')]}"/>
-                            <field name="duration"/>
+                            <field name="rent_type_id" required="True"/>
                             <field name="total_rent" widget="monetary" string="Total Rent"/>
                             <field name="rent_close_by" string="Rent Close By" readonly="1"/>
                             <field name="date_close" readonly="1"/>
