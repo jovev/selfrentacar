@@ -720,7 +720,8 @@ class FleetRent(models.Model):
                 seq = self.env["ir.sequence"].next_by_code("fleet.rent")
                 rent_vals.update({"name": seq})
             rent.write(rent_vals)
-        self.action_send_email()
+     #   self.action_send_email()
+        self.action_rentconfirmation_send()
         
 
     def action_send_email(self):
