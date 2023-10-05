@@ -58,6 +58,22 @@ class ControllerREST(http.Controller):
             pre_schema = pre_schema,
         )
     
+
+    @http.route('/api/rent_contract_count', methods=['GET'], type='http', auth='none')
+    @check_permissions
+    def api__model_name__GET(self, model_name, **kw):
+        model_available, schema, pre_schema, _ = self.define_schema_params(request, model_name, 'read_all')
+        if not model_available:
+            return error_response_501__model_not_available()
+        _logger.debug('schema == %s; pre_schema == %s' % (schema, pre_schema))
+        return wrap__resource__read_all(
+            modelname = model_name,
+            default_domain = [],
+            success_code = 200,
+            OUT_fields = schema,
+            pre_schema = pre_schema,
+        )
+    
     # Read one (with optional exclude_fields, include_fields):
     @http.route('/api/<string:model_name>/<id>', methods=['GET'], type='http', auth='none')
     @check_permissions

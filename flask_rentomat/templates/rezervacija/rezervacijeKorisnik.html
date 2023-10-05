@@ -46,7 +46,7 @@
 
     <div class="wrapper">
       <section class="content">
-      <div class="container-fluid">
+      <div class="container">
           <form action="/submit_form" id="form_details">
 
 
@@ -55,221 +55,250 @@
                 <h1>Rental Details </h1>
             </div>
         </div>
-        
 
+    <input type="hidden" name="location_from_id" value="{{carDetails['location_from_id']}}">
+    <input type="hidden" name="location_to_id" value="{{carDetails['location_to_id']}}">
+   <input type="hidden" name="location_from" value="{{carDetails['location_from']}}">
+   <input type="hidden" id="date_from" name="date_from" value="{{carDetails['date_from']}}">
+   <input type="hidden" name="location_to" value="{{carDetails['location_to']}}">
+   <input type="hidden" id="date_to" name="date_to" value="{{carDetails['date_to']}}">
 
         <input type="hidden" name="carid" value="{{carDetails['carId']}}">
         <input type="hidden" name="start_date_input" id="start_date_input">
         <input type="hidden" name="days_num_var" id="days_num_var">
+        <input type="hidden" name="all_days_price_input" id="all_days_price_input">
 
-        <div class="row">
+        
+
+      
+
+        <div class="row card-header rent_title">
+          <div class="col-md-5">
+            Rent From
+            </div>
+            <div class="col-md-5">
+              Return Location
+              </div>
+              <div class="col-md-2">
+                </div>
+        </div>
+
+        <div class="row rent_txt">
+          <div class="col-md-5">
+            {{carDetails['location_from']}}
+            </div>
+            <div class="col-md-5">
+              {{carDetails['location_to']}}
+              </div>
+              <div class="col-md-2">
+                </div>
+        </div>
+
+
+        <div class="row card-header rent_title">
+          <div class="col-md-5">
+            Pick-Up Date & Time	
+            </div>
+            <div class="col-md-5">
+              Return Date & Time	
+              </div>
+              <div class="col-md-2">
+                Period
+                </div>
+        </div>
+
+        <div class="row rent_txt">
+          <div class="col-md-5">
+            {{carDetails['date_from']}}
+            </div>
+            <div class="col-md-5">
+              {{carDetails['date_to']}}
+              </div>
+              <div class="col-md-2">
+                <span id="days_num">
+                        
+                </span>
+                </div>
+        </div>
+
+
+
+
+        <div class="row card-header rent_title">
+          <div class="col-md-5">
+            Selected car
+            </div>
+            <div class="col-md-5">
+              Price
+              </div>
+              <div class="col-md-2">
+                Total
+                </div>
+        </div>
+
+        <div class="row rent_txt">
+          <div class="col-md-5">
+            {{carDetails['brand']}} {{carDetails['name']}}, {{carDetails['transmission']}}, {{carDetails['category']}}
+            </div>
+            <div class="col-md-5">
+              € <span id="price_per_day">{{carDetails['price']}}</span>
+              </div>
+              <div class="col-md-2">
+                € <span id="all_days_price">0.00</span>
+                </div>
+        </div>
+
+
+
+
+
+        <div class="row card-header rent_title">
+          <div class="col-md-5">
+            Insurance
+            </div>
+            <div class="col-md-5">
+              
+              </div>
+              <div class="col-md-2">
+                
+                </div>
+        </div>
+
+
+        {% for option in allOptions %}
+                                  
+        {% if (option['id'] == 13 or option['id'] == 15): %}
+          <div class="row rent_txt">
+            <div class="col-md-5">
+              {{option['name']}}
+              <!--SCDW-Full Casco insurance without deposit
+              <br> <span id="insurance_id">Deposit: 600.00 EUR</span>-->
+              {% if option['id'] == 13: %}
+              <br> <span id="insurance_id">Deposit: 600.00 EUR</span>
+              {% endif %}
+              </div>
+              <div class="col-md-5">
+                <input type="checkbox" name="options" value="{{option['id']}}" id="{{option['id']}}"> € 12.00 
+                </div>
+                <div class="col-md-2">
+                  <span class="option_price">
+                    € 0.00  
+                  </span>
+                  </div>
+          </div>
+          {% endif %}
+        {% endfor %}
+      
+
+ 
+        <!--
+        <div class="row rent_txt">
+          <div class="col-md-5">
+            TP-Tyres Protection. Required without credit card.
+            </div>
+            <div class="col-md-5">
+              <input type="checkbox" name="options[]" id="tyres_checbox"> € 15
+              </div>
+              <div class="col-md-2">
+
+
+                <span id="tyres_price">
+            € 0.00  
+          </span>
+
+
+                </div>
+        </div>
+      -->
+
+
+
+        <div class="row card-header rent_title">
+          <div class="col-md-5">
+            Total
+            </div>
+            <div class="col-md-5">
+              
+              </div>
+              <div class="col-md-2">
+                
+                </div>
+        </div>
+
+
+        <div class="row rent_txt">
+          <div class="col-md-5">
+            Grand Total: 
+            </div>
+            <div class="col-md-5">
+
+            </div>
+            <div class="col-md-2">
+              € <span id="grand_total">0.00</span>
+              <input type="hidden" id="grand_total_value" name="grand_total_val">
+              </div>
+              
+        </div>
+
+
+        <div class="row rent_txt">
+          <div class="col-md-5">
+            Deposit:
+            </div>
+            <div class="col-md-5">
+
+            </div>
+            <div class="col-md-2">
+              <span id="deposit_id">
+                € 600.00
+    
+              </span>
+              </div>
+              
+        </div>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+        <!-- <div class="row">
+
+
+          
+
+
+
+
           <div class="col-md-12">
             <div class="card card-primary">
           
+
+
+
+
+
               <div class="card">
               <div class="card-body p-0">
                 <div class="table-responsive">
-                  <table class="table m-0">
-                    <thead>
-                      <tr class="card-header rent_title">
-                      <td>
-                         Rent From
-                      </td>
-                      <td>
-                        Return Location
-                      </td>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr class="rent_txt">
-                      <td>
-                        Podgorica Airport (TGD)-Montenegro<br>
-                        Podgorica, 81000, Montenegro
-                      </td>
-                      <td>
-                        <div class="row">
-                        <div class="col-sm-12">
-                          <!-- select -->
-                          <div class="form-group">
-                            <select class="form-control" name="location">
-                              <option disabled selected value> -- select location -- </option>
-                              {% for location in allLocations %}
-                              <option value="{{location['id']}}">{{location['name']}}</option>
-                              {% endfor %}
-                            </select>
-                          </div>
-                        </div>
-                      </div>
-                      </td>
-                    </tr>
-
-
-
-                    <tr class="card-header rent_title">
-                      <td>
-                        Pick-Up Date & Time 
-                      </td>
-                      <td>
-                        Return Date & Time  
-                      </td>
-                      <td>
-                        Period  
-                      </td>
-                    </tr>
-                    <tr class="rent_txt">
-                      <td id="start_date_id">
-                      </td>
-                      <td>
-                        <div class="row">
-                          <div class="col-md-12">
-
-                           
-
-
-
-
-                            <div class="input-group">
-
-
-
-                                 <div class="input-group">
-                                    <input autocomplete="off" name="return_date" type="text" id="inputId" class="form-control">
-                                    <!--<span class="input-group-addon"><i class="fa fa-calendar"></i</span>-->
-                                </div>
-
-
-                                <!-- <div class="input-group date" id="reservationdatetime" data-target-input="nearest">
-                                    <input type="text" id="inputId" name="return_date" class="form-control datetimepicker-input" data-target="#reservationdatetime"/ autocomplete="off">
-                                    <div class="input-group-append" data-target="#reservationdatetime" data-toggle="datetimepicker">
-                                        <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-                                    </div>
-                                </div> -->
-
-
-
-
-
-                            </div> 
+                  
 
 
 
 
 
 
-                        </div>
-                        </div>
 
-                      </td>
-                      <td id="days_num">
-                        
-                      </td>
-                    </tr>
-
-
-                    <tr class="card-header rent_title">
-                      <td>
-                        Selected Cars  
-                      </td>
-                      <td>
-                        Price 
-                      </td>
-                      <td>
-                        Total  
-                      </td>
-                    </tr>
-                    <tr class="rent_txt">
-                      <td>
-                        {{carDetails['brand']}} {{carDetails['name']}}, {{carDetails['transmission']}}, {{carDetails['category']}}
-                      </td>
-                      <td>
-                        € <span id="price_per_day">{{carDetails['price']}}</span>
-                      </td>
-                      <td>
-                        € <span id="all_days_price">0.00</span>
-                      </td>
-                    </tr>
-
-
-
-
-                     <tr class="card-header rent_title">
-                      <td>
-                        Insurance
- 
-                      </td>
-                      <td>
-                        
-                      </td>
-                      <td>
-                           
-                      </td>
-                    </tr>
-                    <tr class="rent_txt">
-                      <td>
-                        SCDW-Full Casco insurance without deposit
-                        <br> <span id="insurance_id">Deposit: 600.00 EUR</span>
-                      </td>
-                      <td>
-                    
-                            <input type="checkbox" name="casco_checkbox" id="casco_checkbox"> € 12.00 
-                      
-                      </td>
-                      <td id="casco_price">
-                        € 0.00  
-                      </td>
-                    </tr>
-                    <tr class="rent_txt">
-                      <td>
-                        TP-Tyres Protection. Required without credit card.
-                      </td>
-                      <td>
-                        <input type="checkbox" name="tyres_checbox" id="tyres_checbox"> € 15
-                      </td>
-                      <td id="tyres_price">
-                        € 0.00  
-                      </td>
-                    </tr>
-
-
-
-                    <tr class="card-header rent_title">
-                      <td>
-                        Total 
-                      </td>
-                      <td>
-                          
-                      </td>
-                      <td>
-                       </td>
-                    </tr>
-                    <tr  class="rent_txt">
-                      <td>
-                        Grand Total:  
-                      </td>
-                      <td>
-                       </td>
-                      <td>
-                        € <span id="grand_total">0.00</span>
-                        <input type="hidden" id="grand_total_value" name="grand_total_val">
-                      </td>
-                    </tr>
-                    <tr  class="rent_txt">
-                      <td>
-                        Deposit:   
-                      </td>
-                      <td>
-                       </td>
-                      <td id="deposit_id">
-                        € 600.00
-
-                      </td>
-                    </tr>
-
-
-
-
-                    </tbody>
-                  </table>
                 </div>
               </div>
             </div>
@@ -278,7 +307,7 @@
 
       
 
-        </div>
+        </div> -->
 
         
 
@@ -315,7 +344,7 @@
 
                         <div class="col-md-9">
                           <div class="form-group">
-                            <input type="text" class="form-control" name="first_name" placeholder="Insert first name">
+                            <input type="text" class="form-control" name="first_name" placeholder="Insert first name" autocomplete="off">
                           </div>
                         </div>
 
@@ -331,7 +360,7 @@
 
                         <div class="col-md-9">
                           <div class="form-group">
-                            <input type="text" class="form-control" name="last_name" placeholder="Insert last name">
+                            <input type="text" class="form-control" name="last_name" placeholder="Insert last name" autocomplete="off">
                           </div>
                         </div>
 
@@ -393,7 +422,7 @@
 
                         <div class="col-md-9">
                           <div class="form-group">
-                            <input type="text" class="form-control" name="address" placeholder="Insert adress">
+                            <input autocomplete="off" type="text" class="form-control" name="address" placeholder="Insert adress">
                           </div>
                         </div>
 
@@ -409,7 +438,7 @@
 
                         <div class="col-md-9">
                           <div class="form-group">
-                            <input type="text" class="form-control" name="city" placeholder="Insert city">
+                            <input autocomplete="off" type="text" class="form-control" name="city" placeholder="Insert city">
                           </div>
                         </div>
 
@@ -425,7 +454,7 @@
 
                         <div class="col-md-9">
                           <div class="form-group">
-                            <input type="text" class="form-control" name="country" placeholder="Insert country">
+                            <input autocomplete="off" type="text" class="form-control" name="country" placeholder="Insert country">
                           </div>
                         </div>
 
@@ -441,7 +470,7 @@
 
                         <div class="col-md-9">
                           <div class="form-group">
-                            <input type="text" class="form-control" name="phone" placeholder="Insert phone number">
+                            <input autocomplete="off" type="text" class="form-control" name="phone" placeholder="Insert phone number">
                           </div>
                         </div>
 
@@ -457,7 +486,7 @@
 
                         <div class="col-md-9">
                           <div class="form-group">
-                            <input type="email" class="form-control" name="email" placeholder="Email Adress">
+                            <input autocomplete="off" type="email" class="form-control" name="email" placeholder="Email Adress">
                           </div>
                         </div>
 
@@ -473,7 +502,7 @@
 
                         <div class="col-md-9">
                           <div class="form-group">
-                            <input type="text" class="form-control" name="comments" placeholder="Insert comments">
+                            <input autocomplete="off" type="text" class="form-control" name="comments" placeholder="Insert comments">
                           </div>
                         </div>
 
@@ -671,50 +700,88 @@ $(document).ready(function(){
 
   let tomorrow  = moment().add(1,'days');
 
+
+  var grand_total = parseFloat($("#grand_total").text());
+
+  var old_all_day_price = parseFloat($("#all_days_price").text());
+
+
+  var startDate = moment($("#date_from").val());
+  var endDate = moment($("#date_to").val());
+
+  var result = endDate.diff(startDate, 'days');
+  $('#days_num_var').val(result);
   
-    $("#inputId").datetimepicker({
-      onSelectTime:function(current_time,$input){
-
-        var grand_total = parseFloat($("#grand_total").text());
-
-        var old_all_day_price = parseFloat($("#all_days_price").text());
+  //$('#result').html(result);
 
 
-        var startDate = moment();
-        var endDate = moment($input.val());
+      console.log(result+1);
 
-        var result = endDate.diff(startDate, 'days');
-        $('#days_num_var').val(result);
+    if(result == 0) {
+      day_string = " day";
+    } else {
+      day_string = " days";
+    }
+
+
+
+      var price_per_day = parseFloat($("#price_per_day").html());
+
+
+      var all_day_price = (result+1)*price_per_day;
+
+      $('#days_num').html((result+1)+day_string);
+      $("#all_days_price").html(all_day_price);
+      $("#all_days_price_input").val(all_day_price);
+
+      $("#grand_total").text(grand_total-old_all_day_price+all_day_price);
+      $("#grand_total_value").val(grand_total-old_all_day_price+all_day_price);
+
+
+  
+    // $("#inputId").datetimepicker({
+    //   onSelectTime:function(current_time,$input){
+
+    //     var grand_total = parseFloat($("#grand_total").text());
+
+    //     var old_all_day_price = parseFloat($("#all_days_price").text());
+
+
+    //     var startDate = moment();
+    //     var endDate = moment($input.val());
+
+    //     var result = endDate.diff(startDate, 'days');
+    //     $('#days_num_var').val(result);
         
-        //$('#result').html(result);
+    //     //$('#result').html(result);
 
 
-            console.log(result+1);
+    //         console.log(result+1);
 
-          if(result == 0) {
-            day_string = " day";
-          } else {
-            day_string = " days";
-          }
-
-
-
-            var price_per_day = parseFloat($("#price_per_day").html());
+    //       if(result == 0) {
+    //         day_string = " day";
+    //       } else {
+    //         day_string = " days";
+    //       }
 
 
-            var all_day_price = (result+1)*price_per_day;
 
-            $('#days_num').html((result+1)+day_string);
-            $("#all_days_price").html(all_day_price);
+    //         var price_per_day = parseFloat($("#price_per_day").html());
 
-            $("#grand_total").text(grand_total-old_all_day_price+all_day_price);
-            $("#grand_total_value").val(grand_total-old_all_day_price+all_day_price);
+
+    //         var all_day_price = (result+1)*price_per_day;
+
+    //         $('#days_num').html((result+1)+day_string);
+    //         $("#all_days_price").html(all_day_price);
+
+    //         $("#grand_total").text(grand_total-old_all_day_price+all_day_price);
+    //         $("#grand_total_value").val(grand_total-old_all_day_price+all_day_price);
             
-        },
-        minDate : tomorrow,
-        dateFormat: 'MMMM D, YYYY H:m',
-        changeYear: true 
-    }).attr('readonly', 'readonly');
+    //     },
+    //     minDate : tomorrow,
+    //     dateFormat: 'MMMM D, YYYY H:m',
+    //     changeYear: true 
+    // }).attr('readonly', 'readonly');
     //$("#inputId").datetimepicker("setDate", currentDate);
 
 
@@ -778,7 +845,10 @@ $(document).ready(function(){
       year: "required",
       month: "required",
       day: "required",
-      email: "required",
+      email:  {
+      required: true,
+      email: true
+    },
       terms: "required"
     },
     messages: {
@@ -789,7 +859,10 @@ $(document).ready(function(){
       year: "Please choose birthday year",
       month: "Please choose birthday month",
       day: "Please choose birthday day",
-      email: "Please insert email address",
+      email: {
+      required: "We need your email address to contact you",
+      email: "Your email address must be in the format of name@domain.com"
+    },
       terms: "*",
     },
     submitHandler: function(form) {

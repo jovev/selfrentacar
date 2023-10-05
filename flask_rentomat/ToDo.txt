@@ -1,0 +1,30 @@
+REZERVACIJA PREKO RENTOMATA
+
+### Total rent da se proveri
+### depozit ne ubacuje
+- odometer unit
+### rent type - trajanje rezervacije ne upisuje u odoo
+- lista vozila - ucitava sporo
+- POS terminal i integracija placanja
+### dodatne usluge da se naprave dinamicki
+### razdvojiti ukupnu cenu i cenu dodatnih usluga
+- rent schedule da se ubacuje u odoo (rent_schedule_ids, option_ids)
+- token  za ugovor
+
+GENERALNO
+
+- prevod
+- stampanje ili slanje na email potvrde o vracenom kljucu
+- stampanje ugovora - bez print settings popup-a
+### autorun da se konfigurise za sve inicijalne funkcioje
+### homiranje
+
+RENTOMAT settings
+
+- videti sta jos od podesavanja je potrebno dodati
+
+
+
+
+
+

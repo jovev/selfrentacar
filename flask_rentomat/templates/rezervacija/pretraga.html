@@ -1,0 +1,501 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Rentomat</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link rel="stylesheet" href="../static/plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="../static/dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/themes/base/jquery-ui.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.css">
+
+    
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+
+
+<style type="text/css">
+  .error {
+    color:red;
+  }
+  .card {
+    margin-bottom: 0px;
+    
+  }
+  .card-header {
+    background-color: #ff6600;
+    color: white;
+  }
+
+  .rent_title {
+    font-size: 25px;
+  }
+
+  .rent_txt {
+    font-size: 20px;
+  }
+
+
+  .option_style {
+    font-size: 25px;
+  }
+
+</style>
+
+   
+  </head>
+  <body>
+
+
+    <div class="wrapper">
+      <section class="content">
+      <div class="container-fluid">
+          <form action="/listaVozila" id="form_details">
+
+
+        <div class="row">
+            <div class="col-md-12 " style="margin-bottom: 20px;">
+                <h1>Rental Details </h1>
+            </div>
+        </div>
+        
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card card-primary">
+          
+              <div class="card">
+              <div class="card-body p-0">
+                <div class="table-responsive">
+                  <table class="table m-0">
+                    <thead>
+                      <tr class="card-header rent_title">
+                      <td>
+                         Pick-up From
+                      </td>
+                      <td>
+                        Pick-Up Date & Time
+                        
+                      </td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="rent_txt">
+                      <td>
+                        <div class="row">
+                            <div class="col-sm-12">
+                              <!-- select -->
+                              <div class="form-group">
+                                <select class="form-control" name="location_from">
+                                  <option class="option_style" disabled selected value> -- select location -- </option>
+                                  {% for location in allLocations %}
+                                  <option class="option_style" {% if (location['id'] == 17) %} selected="selected" {% endif %} value="{{location['id']}}">{{location['name']}}</option>
+                                  {% endfor %}
+                                </select>
+                              </div>
+                            </div>
+                          </div>
+                      </td>
+                      <!--<td id="start_date_id">-->
+                        <td>
+                        
+                            <div class="row">
+                                <div class="col-md-12">
+                                  <div class="input-group">
+                                       <div class="input-group">
+                                          <input autocomplete="off" name="date_from" type="text" id="inputIdFrom" class="form-control">
+                                          <!--<span class="input-group-addon"><i class="fa fa-calendar"></i</span>-->
+                                      </div>
+                                  </div> 
+                              </div>
+                              </div>
+                        
+
+
+
+                        
+
+
+
+
+
+                      </td>
+                    </tr>
+
+
+
+                    <tr class="card-header rent_title">
+                      <td>
+                        Return from 
+                      </td>
+                      <td>
+                        Return Date & Time  
+                      </td>
+             
+                    </tr>
+                    <tr class="rent_txt">
+                      <td>
+                        <div class="row">
+                            <div class="col-sm-12">
+                              <!-- select -->
+                              <div class="form-group">
+                                <select class="form-control" name="location_to">
+                                  <option disabled selected value> -- select location -- </option>
+                                  {% for location in allLocations %}
+                                  <option {% if (location['id'] == 17) %} selected="selected" {% endif %} value="{{location['id']}}" class="option_style">{{location['name']}}</option>
+                                  {% endfor %}
+                                </select>
+                              </div>
+                            </div>
+                          </div>
+
+
+
+
+                      </td>
+                      <td>
+                        <div class="row">
+                          <div class="col-md-12">
+                            <div class="input-group">
+                                 <div class="input-group">
+                                    <input autocomplete="off" name="date_to" type="text" id="inputId" class="form-control">
+                                    <!--<span class="input-group-addon"><i class="fa fa-calendar"></i</span>-->
+                                </div>
+                            </div> 
+                        </div>
+                        </div>
+
+                      </td>
+                      <!--
+                      <td id="days_num">
+                        
+                      </td>
+                      -->
+                    </tr>
+
+
+
+
+
+
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            </div>
+          </div>
+
+      
+
+        </div>
+
+        
+
+
+
+
+
+
+
+
+
+        <div class="row">
+            <div class="col-md-12" style="text-align: center;">
+                
+                <button type="submit" class="btn btn-primary">Continue</button>
+            </div>
+        </div>
+
+
+      </form>
+
+
+
+
+
+
+        
+
+
+
+
+
+      
+        
+      </div>
+    </section>
+ 
+
+    </div>
+
+  
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.0/moment.min.js"></script>  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.js"></script>  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.js"></script>  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>  
+    
+
+  
+    <!-- AdminLTE for demo purposes -->
+
+<!-- <script src="../static/plugins/jquery/jquery.min.js"></script>
+<script src="../static/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="../static/plugins/jquery-ui/jquery-ui.min.js"></script> -->
+<script>
+
+
+$(document).ready(function(){   
+  $.datetimepicker.setDateFormatter('moment');
+  
+  var currentDate = moment().format("MMMM D, YYYY H:mm");
+  console.log(currentDate);
+
+  $("#start_date_id").text(currentDate);
+  $("#start_date_input").val(currentDate);
+
+
+  let today  = moment().format("dddd, MMMM Do YYYY, h:mm:ss a");
+  let tomorrow  = moment().add(1,'days');
+  var dateNow = new Date();
+
+
+
+  
+
+    $("#inputIdFrom").val(currentDate);
+  
+    $("#inputId").datetimepicker({
+    //   onSelectTime:function(current_time,$input){
+
+    //     var grand_total = parseFloat($("#grand_total").text());
+
+    //     var old_all_day_price = parseFloat($("#all_days_price").text());
+
+
+    //     var startDate = moment();
+    //     var endDate = moment($input.val());
+
+    //     var result = endDate.diff(startDate, 'days');
+    //     $('#days_num_var').val(result);
+        
+    //     //$('#result').html(result);
+
+
+    //         console.log(result+1);
+
+    //       if(result == 0) {
+    //         day_string = " day";
+    //       } else {
+    //         day_string = " days";
+    //       }
+
+
+
+    //         var price_per_day = parseFloat($("#price_per_day").html());
+
+
+    //         var all_day_price = (result+1)*price_per_day;
+
+    //         $('#days_num').html((result+1)+day_string);
+    //         $("#all_days_price").html(all_day_price);
+
+    //         $("#grand_total").text(grand_total-old_all_day_price+all_day_price);
+    //         $("#grand_total_value").val(grand_total-old_all_day_price+all_day_price);
+            
+    //     },
+        minDate : tomorrow,
+        dateFormat: 'MMMM D, YYYY H:m',
+        changeYear: true 
+    }).attr('readonly', 'readonly');
+
+
+     $("#inputIdFrom").datetimepicker({
+        defaultDate:dateNow,
+    //   onSelectTime:function(current_time,$input){
+
+    //     var grand_total = parseFloat($("#grand_total").text());
+
+    //     var old_all_day_price = parseFloat($("#all_days_price").text());
+
+
+    //     var startDate = moment();
+    //     var endDate = moment($input.val());
+
+    //     var result = endDate.diff(startDate, 'days');
+    //     $('#days_num_var').val(result);
+        
+    //     //$('#result').html(result);
+
+
+    //         console.log(result+1);
+
+    //       if(result == 0) {
+    //         day_string = " day";
+    //       } else {
+    //         day_string = " days";
+    //       }
+
+
+
+    //         var price_per_day = parseFloat($("#price_per_day").html());
+
+
+    //         var all_day_price = (result+1)*price_per_day;
+
+    //         $('#days_num').html((result+1)+day_string);
+    //         $("#all_days_price").html(all_day_price);
+
+    //         $("#grand_total").text(grand_total-old_all_day_price+all_day_price);
+    //         $("#grand_total_value").val(grand_total-old_all_day_price+all_day_price);
+            
+    //     },
+        minDate : today,
+        dateFormat: 'MMMM D, YYYY H:m',
+        changeYear: true 
+    }).attr('readonly', 'readonly');
+
+
+
+
+
+
+
+
+
+
+    //$("#inputId").datetimepicker("setDate", currentDate);
+
+
+
+    
+    // $('#casco_checkbox').change(function() {
+    //     if(this.checked) {
+    //       $("#casco_price").text("€ 12.00");
+    //       $("#deposit_id").text("€ 0.00");
+    //       var grand_total = parseFloat($("#grand_total").text());
+    //       var total_price = (Math.round(parseFloat(grand_total+12.00) * 100) / 100).toFixed(2);
+    //       $("#grand_total").text(total_price);
+    //       $("#grand_total_value").val(total_price);
+
+    //     } else {
+    //       $("#casco_price").text("€ 0.00");
+    //       $("#deposit_id").text("€ 600.00");
+    //       var grand_total = parseFloat($("#grand_total").text());
+    //       var total_price = (Math.round(parseFloat(grand_total-12.00) * 100) / 100).toFixed(2);
+    //       $("#grand_total").text(total_price);
+    //       $("#grand_total_value").val(total_price);
+    //     }
+    // });
+
+
+
+    // $('#tyres_checbox').change(function() {
+    //     if(this.checked) {
+    //       $("#tyres_price").text("€ 15.00");
+    //       var grand_total = parseFloat($("#grand_total").text());
+    //       var total_price = (Math.round(parseFloat(grand_total+15.00) * 100) / 100).toFixed(2);
+    //       $("#grand_total").text(total_price);
+    //       $("#grand_total_value").val(total_price);
+
+    //     } else {
+    //       $("#tyres_price").text("€ 0.00");
+    //       var grand_total = parseFloat($("#grand_total").text());
+
+    //       var total_price = (Math.round(parseFloat(grand_total-15.00) * 100) / 100).toFixed(2);
+
+    //       $("#grand_total").text(total_price);
+    //       $("#grand_total_value").val(total_price);
+    //     }
+    // });
+
+    
+
+    
+   
+   
+   
+   
+   
+
+    $("#form_details").validate({
+    rules: {
+      location_from: "required",
+      date_from: "required",
+      location_to: "required",
+      date_to: "required"
+    },
+    messages: {
+        location_from: "Please choose pick-up location",
+        date_from: "Please choose pick-up date",
+        location_to: "Please choose return location",
+        date_to: "Please choose return date"
+    },
+    submitHandler: function(form) {
+      form.submit();
+    }
+  });
+
+
+
+
+    // $("#fetxh_data").on("click", function() {
+    //     var userEmail = $("#userEmail").val();
+    //     console.log(userEmail);
+
+     
+
+
+
+    //     $.ajax({
+    //         url: 'http://23.88.98.237:8069/api/auth/get_tokens?username=odoo@irvas.rs&password=irvasadm',
+    //         type: 'GET',
+    //         dataType: 'json',
+    //         contentType: 'application/json; charset=utf-8',
+    //         headers: { 
+    //           "Access-Control-Allow-Origin" : "*",
+    //           "Access-Control-Allow-Methods" : "POST, GET, OPTIONS",
+    //           "Access-Control-Allow-Headers" : "Content-Type, Authorization, X-Requested-With"
+    //         },
+    //         complete: function(result) {
+    //             //called when complete
+    //             alert(result.uid);
+    //         },
+
+    //         success: function(result) {
+    //             //called when successful
+    //             alert(result.uid);
+    //         },
+
+    //         error: function(result) {
+    //             //called when there is an error
+    //             alert(result.uid);
+    //         },
+    //     });
+
+
+    // });
+
+    
+
+    
+
+
+
+});
+
+
+
+
+</script>
+
+
+ 
+  </body>
+</html>
+

@@ -1,5 +1,4 @@
 from flask import Flask, request, url_for
-from flask_babel import Babel
 import time
 import serial
 from flask import Blueprint, render_template, redirect
@@ -10,64 +9,27 @@ import json
 import pprint
 # from datetime import datetime
 from urllib.parse import urlencode
-from datetime import datetime, timedelta, date, time
-from flask_babel import Babel
-import ast
-from babel import numbers, dates
-from flask_babel import Babel, format_date, gettext
-
-
-import urllib.request
-from urllib.parse import urljoin
-babel = Babel()
-
-
-# LANGUAGES = {
-#     'en': 'English',
-#     'sr' : 'Srpski',
-#     'ru' : 'Russian'
-# }
-
-# def configure(app):
-#     babel.init_app(app)
-#     app.config['LANGUAGES'] = LANGUAGES
-
+from datetime import datetime, timedelta
 # from babel import configure
 # from babel import gettext
 
 # from flask_babel import Babel
 # from flask_babel import gettext, ngettext
+import ast
 
+
+import urllib.request
+from urllib.parse import urljoin
 
 
 
 
 app = Flask(__name__)
-app.config['BABEL_DEFAULT_LOCALE'] = 'en'
-babel = Babel(app)
+# babel = Babel(app)
 
+#configure(app)
 
-def get_locale():
-   return 'sr'
-
-babel.init_app(app, locale_selector=get_locale)
-
-
-@app.route('/lang')
-def lang():
-
-   irvas = gettext('Irvas')
-
-   us_num = numbers.format_decimal(1.23456, locale= 'en_US')
-   sv_num = numbers.format_decimal(1.23456, locale= 'sv_SE')
-   sr_num = numbers.format_decimal(1.23456, locale= 'sr_RS')
-   ru_num = numbers.format_decimal(1.23456, locale= 'ru_RU')
-
-
-   results = {'us_num' : us_num, 'sv_num' : sv_num, 'sr_num' : sr_num, 'ru_num' : ru_num}
-
-   return render_template('lang.html', results = results, irvas = irvas)
-
+         
       
 
 @app.route('/rentomat')
@@ -115,29 +77,7 @@ def root():
    # read_rentomat("root", "0")
    # text_test = gettext('Hello, world!')
    # print(text_test)
-
-
-   dropoff = gettext('DROP OFF')
-   reservation = gettext('RESERVATION')
-   pickup = gettext('PICK UP')
-   selectLang = gettext('Select language')
-   english = gettext('English')
-   serbian = gettext('Serbian')
-   russian = gettext('Russian')
-
-
-   translation = {
-      'dropoff' : dropoff,
-      'reservation' : reservation,
-      'pickup' : pickup,
-      'selectLang' : selectLang,
-      'english' : english,
-      'serbian' : serbian,
-      'russian' : russian
-   }
-   
-
-   return render_template('index.html', translation = translation)
+   return render_template('index.html')
 
 
 # redirect to reservation website
@@ -1801,11 +1741,14 @@ def preuzimanjeUgovor():
 
       response_data = json.loads(response.text)
 
+      #print(response.text)
 
 
       position = 3
       link_ugovora = ugovor_link
-
+      #link_ugovora = 'https://selfcar.naisrobotics.com/my/carrental_contract/47?access_token=0a23e16e-10da-47f5-9008-c239e8ae7cb6'
+      #link_ugovora = 'https://selfcar.naisrobotics.com/my/invoices/18?access_token=c4d293f1-7d45-433a-b6e0-ad17f779dc23'
+      
       return render_template('odoo.html', contract_id = contract_id, position = position, iframe= link_ugovora)
 
 
@@ -1835,7 +1778,9 @@ def preuzimanjeKljuc():
 
    contract_id = request.args.get('contract_id')
    
- 
+   # print("Broj ugovora")
+   # print(contract_id)
+
 
    try:
       rfid_num = get_rfid(contract_id)
@@ -1843,8 +1788,10 @@ def preuzimanjeKljuc():
        return render_template('/errors/non_exist_rfid_in_database.html')
 
 
+   # print("RFID num")
+   # print(rfid_num)
    key_rfid = rfid_num
-
+   # get_rfid(contract_id)
 
 
    try:
@@ -1855,13 +1802,18 @@ def preuzimanjeKljuc():
       
 
       key_position = ''
+      # print("pocinje FOR petlja")
       for key in data['key_positions']:
          if (data['key_positions'][key]['rfid'] == key_rfid):
          
             key_position = key
       rentomat_id = data['rentomat_id']
+      # print("**************************")
+      # print(rentomat_id)
+      # print("**************************")
+         
 
-
+      # print(key_position) 
       # Snimanje u komanda.txt fajlu
       
       if(key_position != ''):
@@ -1896,7 +1848,9 @@ def preuzimanjeKljuc():
 
      
          url = "http://23.88.98.237:8069/api/fleet.rent/"+contract_id
-
+         # print("Ugovor id je: "+contract_id)
+         # print("Acces token je: "+access_token)
+         # print("Url je"+url)
          data_update = json.dumps({'state': 'running',})
          response = requests.put(url, data=data_update, headers=header_data)
 
@@ -1924,6 +1878,9 @@ def update_contract_running(contract_id):
    header_data = {'Access-Token' : str(access_token)}
 
    url = "http://23.88.98.237:8069/api/fleet.rent/"+contract_id
+   # print("Ugovor id je: "+contract_id)
+   # print("Acces token je: "+access_token)
+   # print("Url je"+url)
    data_update = {'state': 'running'}
    requests.put(url, data=data_update, headers=header_data)
 
@@ -1939,6 +1896,9 @@ def get_rfid(contract_id):
 
    response_data = json.loads(response.text)
    access_token = response_data['access_token']
+   #return(access_token)
+
+   
 
    url = "http://23.88.98.237:8069/api/fleet.rent?filters=[('id','=','"+contract_id+"')]"
 
@@ -1969,7 +1929,42 @@ def home():
    with open('/home/pi/VSCProjects/selfrentacar/flask_rentomat/komanda.txt', 'w') as f:
             f.write("HOME")      
    return "u"
- 
+    # read_rentomat('HOME', '0')
+
+#     ser = serial.Serial('/dev/myUSB', 115200, timeout=25)
+#     data_in = ser.readline().decode("ascii")
+# #    while ser.in_waiting:
+#     while data_in[0:10] == start_r[0:10]:
+        
+#         print(data_in)
+#         if data_in[0:10] == start_r[0:10]:
+#             ser.write(komanda.encode())
+#             print(ser.exclusive)
+#             # red = ser.readline().decode("ascii")
+#             time.sleep(20)
+#             # print(red)
+#             # if ser.is_open:
+#             # ser.close()
+#             return 'Izdata naredba HOME'
+#         else:
+#             print(data_in)
+# #            ser.write('\n')
+#     # if ser.is_open:
+#      #   ser.close()
+
+    # while ser.in_waiting:
+    #     data_in = ser.readline().decode("ascii")
+
+
+    # if data_in[0:6] == emptied[0:6]:
+    #     print("*******   Vratio sa na pocetnu poziciju")
+    # ser.flush()
+    # data_in = ser.readline().decode("ascii")
+    # print(data_in)
+    
+    # else:
+    #     return 'nismo dobili odgovor da je homirat automat'
+
 @app.route('/EMPTY', methods=['GET'])
 def empty():
    
@@ -1982,6 +1977,23 @@ def empty():
 
 if __name__ == '__main__':
    app.run()
+   # read_rentomat("")
+   #  ser = serial.Serial('/dev/myUSB', 115200, timeout=20)
+   #  data_in = ser.readline().decode("ascii")
+   #  while data_in[0:4] == ready[0:4]:
+        
+   #      if data_in[0:4] == ready[0:4]:
+   #          ser.write(prazni.encode())
+   #          time.sleep(1)
+
+   #          ser.write(pozicija_kljuca.encode())
+
+   #          time.sleep(20)
+   #          ser.close()
+   #          return pozicija_kljuca
+   #  return "Odradjena komanda EMPTY"
+
+
 
     
 @app.route('/FILL')
