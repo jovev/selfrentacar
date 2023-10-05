@@ -7,7 +7,7 @@
             <kanban default_group_by="state">
                 <field name="name" string="Rental Number" />
                 <field name="vehicle_id" />
-                <field name="rent_type_id" />
+         <!--       <field name="rent_type_id" />  -->
                 <field name="tenant_id" />
                 <field name="date_start" />
                 <templates>
@@ -27,7 +27,7 @@
                             </tr>
                             <tr>
                                 <td><b>Rent Type : </b><field
-                                        name="rent_type_id"
+                                        name="duration"
                                     /></td>
                             </tr>
                              <tr>
@@ -57,7 +57,7 @@
                 <field name="rent_from"/>
                 <field name="date_end"/>
                 <field name="return_location"/>
-                <field name="rent_type_id"/>
+            <!--    <field name="rent_type_id"/>  -->
                 <field name="state"/>
             </tree>
         </field>
@@ -217,6 +217,9 @@
                                 />
                         </h1>
                     </div>
+                    <div style="text-align:right">
+    					 <field name="qr_code" widget='image' class="oe_avatar"/>
+    				</div>
                         <group colspan="4" col="4">
                             <separator string="Vehicle Information" colspan="4"/>
                             <field name="web_car_request"/>
@@ -270,7 +273,7 @@
                             <field name="allow_crossborder"/>
                             <field name="date_start" colspan="2" required="True" attrs="{'readonly':[('state','!=','draft')]}"/>
                             <field name="date_end" placeholder="End Date" colspan="2" string="Expiration Date" readonly="True" attrs="{'readonly':[('state','!=','draft')]}"/>
-                            <field name="rent_type_id" required="True"/>
+                            <field name="duration" required="True"/>
                             <field name="total_rent" widget="monetary" string="Total Rent"/>
                             <field name="rent_close_by" string="Rent Close By" readonly="1"/>
                             <field name="date_close" readonly="1"/>
