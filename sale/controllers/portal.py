@@ -13,7 +13,8 @@ from odoo.addons.payment import utils as payment_utils
 from odoo.addons.portal.controllers.mail import _message_post_helper
 from odoo.addons.portal.controllers import portal
 from odoo.addons.portal.controllers.portal import pager as portal_pager
-
+import logging
+_logger = logging.getLogger(__name__)
 
 class CustomerPortal(portal.CustomerPortal):
 
@@ -21,7 +22,7 @@ class CustomerPortal(portal.CustomerPortal):
         values = super()._prepare_home_portal_values(counters)
         partner = request.env.user.partner_id
 
-        SaleOrder = request.env['sale.order']
+        SaleOrder = request.env['fleet_rent']
         if 'quotation_count' in counters:
             values['quotation_count'] = SaleOrder.search_count(self._prepare_quotations_domain(partner)) \
                 if SaleOrder.check_access_rights('read', raise_exception=False) else 0
@@ -53,12 +54,12 @@ class CustomerPortal(portal.CustomerPortal):
     def _prepare_sale_portal_rendering_values(
         self, page=1, date_begin=None, date_end=None, sortby=None, quotation_page=False, **kwargs
     ):
-        SaleOrder = request.env['sale.order']
+        SaleOrder = request.env['fleet.rent']
 
         if not sortby:
             sortby = 'date'
 
-        partner = request.env.user.partner_id
+        partner = request.env.user.tenat_id
         values = self._prepare_portal_layout_values()
 
         if quotation_page:
@@ -112,7 +113,7 @@ class CustomerPortal(portal.CustomerPortal):
     @http.route(['/my/orders/<int:order_id>'], type='http', auth="public", website=True)
     def portal_order_page(self, order_id, report_type=None, access_token=None, message=False, download=False, **kw):
         try:
-            order_sudo = self._document_check_access('sale.order', order_id, access_token=access_token)
+            order_sudo = self._document_check_access('fleet_rent', order_id, access_token=access_token)
         except (AccessError, MissingError):
             return request.redirect('/my')
 
@@ -133,7 +134,7 @@ class CustomerPortal(portal.CustomerPortal):
                 msg = _('Quotation viewed by customer %s', order_sudo.partner_id.name)
                 del context
                 _message_post_helper(
-                    "sale.order",
+                    "fleet_rent",
                     order_sudo.id,
                     message=msg,
                     token=order_sudo.access_token,
@@ -171,7 +172,7 @@ class CustomerPortal(portal.CustomerPortal):
     def _get_payment_values(self, order_sudo):
         """ Return the payment-specific QWeb context values.
 
-        :param recordset order_sudo: The sales order being paid, as a `sale.order` record.
+        :param recordset order_sudo: The sales order being paid, as a `fleet_rent` record.
         :return: The payment-specific values.
         :rtype: dict
         """
@@ -220,7 +221,7 @@ class CustomerPortal(portal.CustomerPortal):
         # get from query string if not on json param
         access_token = access_token or request.httprequest.args.get('access_token')
         try:
-            order_sudo = self._document_check_access('sale.order', order_id, access_token=access_token)
+            order_sudo = self._document_check_access('fleet_rent', order_id, access_token=access_token)
         except (AccessError, MissingError):
             return {'error': _('Invalid order.')}
 
@@ -246,7 +247,7 @@ class CustomerPortal(portal.CustomerPortal):
         pdf = request.env['ir.actions.report'].sudo()._render_qweb_pdf('sale.action_report_saleorder', [order_sudo.id])[0]
 
         _message_post_helper(
-            'sale.order',
+            'fleet_rent',
             order_sudo.id,
             _('Order signed by %s', name),
             attachments=[('%s.pdf' % order_sudo.name, pdf)],
@@ -264,14 +265,14 @@ class CustomerPortal(portal.CustomerPortal):
     @http.route(['/my/orders/<int:order_id>/decline'], type='http', auth="public", methods=['POST'], website=True)
     def portal_quote_decline(self, order_id, access_token=None, decline_message=None, **kwargs):
         try:
-            order_sudo = self._document_check_access('sale.order', order_id, access_token=access_token)
+            order_sudo = self._document_check_access('fleet_rent', order_id, access_token=access_token)
         except (AccessError, MissingError):
             return request.redirect('/my')
 
         if order_sudo._has_to_be_signed() and decline_message:
             order_sudo._action_cancel()
             _message_post_helper(
-                'sale.order',
+                'fleet_rent',
                 order_sudo.id,
                 decline_message,
                 token=access_token,
@@ -289,7 +290,7 @@ class PaymentPortal(payment_portal.PaymentPortal):
     def portal_order_transaction(self, order_id, access_token, **kwargs):
         """ Create a draft transaction and return its processing values.
 
-        :param int order_id: The sales order to pay, as a `sale.order` id
+        :param int order_id: The sales order to pay, as a `fleet_rent` id
         :param str access_token: The access token used to authenticate the request
         :param dict kwargs: Locally unused data passed to `_create_transaction`
         :return: The mandatory values for the processing of the transaction
@@ -298,7 +299,7 @@ class PaymentPortal(payment_portal.PaymentPortal):
         """
         # Check the order id and the access token
         try:
-            order_sudo = self._document_check_access('sale.order', order_id, access_token)
+            order_sudo = self._document_check_access('fleet_rent', order_id, access_token)
         except MissingError as error:
             raise error
         except AccessError:
@@ -326,7 +327,7 @@ class PaymentPortal(payment_portal.PaymentPortal):
         need to match exactly that of the sale order.
 
         :param str amount: The (possibly partial) amount to pay used to check the access token
-        :param str sale_order_id: The sale order for which a payment id made, as a `sale.order` id
+        :param str sale_order_id: The sale order for which a payment id made, as a `fleet_rent` id
         :param str access_token: The access token used to authenticate the partner
         :return: The result of the parent method
         :rtype: str
@@ -336,7 +337,7 @@ class PaymentPortal(payment_portal.PaymentPortal):
         amount = self._cast_as_float(amount)
         sale_order_id = self._cast_as_int(sale_order_id)
         if sale_order_id:
-            order_sudo = request.env['sale.order'].sudo().browse(sale_order_id).exists()
+            order_sudo = request.env['fleet_rent'].sudo().browse(sale_order_id).exists()
             if not order_sudo:
                 raise ValidationError(_("The provided parameters are invalid."))
 
@@ -358,7 +359,7 @@ class PaymentPortal(payment_portal.PaymentPortal):
     def _get_custom_rendering_context_values(self, sale_order_id=None, **kwargs):
         """ Override of payment to add the sale order id in the custom rendering context values.
 
-        :param int sale_order_id: The sale order for which a payment id made, as a `sale.order` id
+        :param int sale_order_id: The sale order for which a payment id made, as a `fleet_rent` id
         :return: The extended rendering context values
         :rtype: dict
         """
@@ -367,7 +368,7 @@ class PaymentPortal(payment_portal.PaymentPortal):
             rendering_context_values['sale_order_id'] = sale_order_id
 
             # Interrupt the payment flow if the sales order has been canceled.
-            order_sudo = request.env['sale.order'].sudo().browse(sale_order_id)
+            order_sudo = request.env['fleet_rent'].sudo().browse(sale_order_id)
             if order_sudo.state == 'cancel':
                 rendering_context_values['amount'] = 0.0
         return rendering_context_values
@@ -375,7 +376,7 @@ class PaymentPortal(payment_portal.PaymentPortal):
     def _create_transaction(self, *args, sale_order_id=None, custom_create_values=None, **kwargs):
         """ Override of payment to add the sale order id in the custom create values.
 
-        :param int sale_order_id: The sale order for which a payment id made, as a `sale.order` id
+        :param int sale_order_id: The sale order for which a payment id made, as a `fleet_rent` id
         :param dict custom_create_values: Additional create values overwriting the default ones
         :return: The result of the parent method
         :rtype: recordset of `payment.transaction`
