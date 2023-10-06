@@ -22,24 +22,6 @@ from urllib.parse import urljoin
 babel = Babel()
 
 
-# LANGUAGES = {
-#     'en': 'English',
-#     'sr' : 'Srpski',
-#     'ru' : 'Russian'
-# }
-
-# def configure(app):
-#     babel.init_app(app)
-#     app.config['LANGUAGES'] = LANGUAGES
-
-# from babel import configure
-# from babel import gettext
-
-# from flask_babel import Babel
-# from flask_babel import gettext, ngettext
-
-
-
 
 
 app = Flask(__name__)
@@ -48,7 +30,7 @@ babel = Babel(app)
 
 
 def get_locale():
-   return 'sr'
+   return 'ru'
 
 babel.init_app(app, locale_selector=get_locale)
 
@@ -126,18 +108,18 @@ def root():
    russian = gettext('Russian')
 
 
-   translation = {
-      'dropoff' : dropoff,
-      'reservation' : reservation,
-      'pickup' : pickup,
-      'selectLang' : selectLang,
-      'english' : english,
-      'serbian' : serbian,
-      'russian' : russian
-   }
+   # translation = {
+   #    'dropoff' : dropoff,
+   #    'reservation' : reservation,
+   #    'pickup' : pickup,
+   #    'selectLang' : selectLang,
+   #    'english' : english,
+   #    'serbian' : serbian,
+   #    'russian' : russian
+   # }
    
 
-   return render_template('index.html', translation = translation)
+   return render_template('index.html', dropoff = dropoff, reservation = reservation, pickup = pickup)
 
 
 # redirect to reservation website
@@ -1024,6 +1006,11 @@ def create_contract(rent_details, user_details):
 
 
 
+
+   
+
+
+
    url = "http://23.88.98.237:8069/api/fleet.rent?filters=[('reservation_code', '=', '"+reservation_code+"')]"
 
    header_data = {'Access-Token' : str(access_token)}
@@ -1034,6 +1021,21 @@ def create_contract(rent_details, user_details):
 
 
    contract_id = str(response_data['results'][0]['id'])
+
+
+
+   data_odometer = {
+       'fleet_rent_id' : contract_id,
+       'vehicle_id' : carid,
+       'amount' : "11"
+   }
+
+   data_insert_final_odometer = json.dumps(data_odometer)
+   url = "http://23.88.98.237:8069/api/tenancy.rent.schedule"
+   response = requests.post(url, data=data_insert_final_odometer, headers=header_data)
+
+
+
 
    return contract_id
 
@@ -1411,7 +1413,7 @@ def api():
 
    response = requests.get(url, headers=header_data)
 
-   response_data = json.loads(response.text)
+   # response_data = json.loads(response.text)
    print(response.text)
 
 

@@ -7,56 +7,47 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2023-10-05 15:14+0200\n"
-"PO-Revision-Date: 2023-10-05 15:55+0200\n"
-"Last-Translator: \n"
-"Language-Team: sr <LL@li.org>\n"
+"POT-Creation-Date: 2023-10-06 13:37+0200\n"
+"PO-Revision-Date: 2023-10-06 13:37+0200\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: sr\n"
+"Language-Team: sr <LL@li.org>\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "Generated-By: Babel 2.12.1\n"
-"X-Generator: Poedit 3.4\n"
 
-#: app.py:59
+#: app.py:41
 msgid "Irvas"
 msgstr ""
 
-#: app.py:120
+#: app.py:102
 msgid "DROP OFF"
 msgstr ""
 
-#: app.py:121
+#: app.py:103
 msgid "RESERVATION"
-msgstr "Rezrvacija"
+msgstr ""
 
-#: app.py:122
+#: app.py:104
 msgid "PICK UP"
 msgstr ""
 
-#: app.py:123
+#: app.py:105
 msgid "Select language"
 msgstr ""
 
-#: app.py:124
+#: app.py:106
 msgid "English"
 msgstr ""
 
-#: app.py:125
+#: app.py:107
 msgid "Serbian"
 msgstr ""
 
-#: app.py:126
+#: app.py:108
 msgid "Russian"
 msgstr ""
 
-#: testic.py:41
-msgid "A simple string"
-msgstr ""
-
-#: testic.py:42
-#, python-format
-msgid "Value: %(value)s"
-msgstr ""
