@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- Fleet Rent Reports -->
+    <record id="report_key_return model="ir.actions.report">
+        <field name="name">Key Return</field>
+        <field name="model">fleet.rent</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">fleet_rent.key_return_report</field>
+        <field name="report_file">fleet_rent.key_return_report</field>
+        <field name="print_report_name">'Fleet Rent Key Return'</field>
+        <field name="binding_model_id" ref="fleet_rent.model_fleet_rent" />
+        <field name="binding_type">report</field>
+    </record>
+    <template id="report_fleet_rent_pdf">
+ <t t-call="web.html_container">
+            <t t-as="o" t-foreach="docs">
+            <t t-call="web.internal_layout">
+                <t t-set="data_report_margin_top" t-value="0"/>
+                <t t-set="data_report_header_spacing" t-value="0"/>
+                <t t-set="data_report_dpi" t-value="110"/>
+                <div class="page">
+<style>
+.table-borderless &gt; tbody  &gt; tr  &gt; td, .table-bordered &gt; tbody  &gt; tr  &gt; td {
+    padding-top: 0px;
+	padding-bottom: 1px;
+	padding-left: 5px;
+	padding-right: 9px;
+	font-size:10px;
+}
+td {
+    padding-top: 0px;
+	padding-bottom: 1px;
+	padding-left: 5px;
+	padding-right: 5px;
+	font-size:10px;
+}
+
+</style>			
+	<!-- LOGO I HEADER -->
+                    <table width="280" class="table table-borderless" style="width:280px;">
+                        <tbody>
+                            <tr>
+                              <td width="130"><img t-att-src="'/logo.png?company=%s' % res_company.id" t-att-alt="'Logo of %s' % res_company.name" t-att-title="res_company.name" style="width:120px;margin-bottom:5px;"/>
+                       <br/>
+					   www.cheapcarhire.rent<br/>
+					   Dečja 2D, Beograd, Palilula<br/><br/>
+					   Contact: + 382 68 840 480<br/>
+					   PIB: 111167096<br/>
+					   MB: 21435422<br/></td>
+                              <td colspan="150" align="center">
+							  <span style="font-size:12px;"><strong>RENTAL AGREEMENT</strong></span><br/>
+							  Date: <span t-field="sale_order.write_date"/><br/>
+							  Rental No: <span t-field="o.reservation_code"/><br/>
+							  Reservation No: <span t-field="o.name"/><br/>
+							  Account Manager:<br/><span t-field="o.user_id"/><br/>
+							  </td>
+                            </tr>
+						</tbody>
+					</table>
+					
+					<table width="280" class="table table-borderless" style="width:280px;margin-bottom:0!important">
+                        <tbody>
+							<tr>
+							  <td>	
+				<p style="font-size:10px; text-align: justify;">Dear <strong><span t-field="o.tenant_id"/></strong>
+				</p>
+
+				<p style="font-size:10px; text-align: justify;">You have returned the car key for the vehicle
+				<strong><span t-field="o.vehicle_id"/> - <span t-field="o.vehicle_id.transmission"/></strong>, licence plate <strong><span t-field="o.plate"/></strong>.			
+				</p>
+				<p style="font-size:10px; text-align: justify;">Thank you for using our services.
+				</p>
+							  </td>
+							</tr>
+						</tbody>
+                </table>
+			
+			</div>
+
+            </t>
+            </t>
+        </t>
+    </template>
+</odoo>
