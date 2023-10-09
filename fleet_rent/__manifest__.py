@@ -32,6 +32,7 @@
         "wizard/renew_tenancy_view.xml",
         "wizard/rent_close_reason_view.xml",
         "report/fleet_rent.xml",
+        "report/key_return_report.xml",
     ],
     "images": ["static/description/fleet_rental_vehicle_banner.png"],
     "assets": {
