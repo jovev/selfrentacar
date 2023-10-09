@@ -49,7 +49,7 @@ td {
 					   MB: 21435422<br/></td>
                               <td colspan="150" align="center">
 							  <span style="font-size:12px;"><strong>RENTAL AGREEMENT</strong></span><br/>
-							  Date: <span t-field="sale_order.write_date"/><br/>
+							  Date: <span t-field="o.write_date"/><br/>
 							  Rental No: <span t-field="o.reservation_code"/><br/>
 							  Reservation No: <span t-field="o.name"/><br/>
 							  Account Manager:<br/><span t-field="o.user_id"/><br/>
