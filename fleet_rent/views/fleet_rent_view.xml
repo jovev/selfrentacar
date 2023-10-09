@@ -220,65 +220,73 @@
                     <div style="text-align:right">
     					 <field name="qr_code" widget='image' class="oe_avatar"/>
     				</div>
-                        <group colspan="4" col="4">
-                            <separator string="Vehicle Information" colspan="4"/>
-                            <field name="web_car_request"/>
-
-                            <field name="vehicle_id" required="1" placeholder="Vehicle Name" context="{'remove_inprogeress':True}"/>
-                            <field name="tenant_id" context="{'default_is_tenant':True, 'tree_view_ref': 'fleet_rent.view_tenant_users_tree',                                    'form_view_ref': 'fleet_rent.view_tenant_users_form'}" placeholder="Tenant Name" required="1" domain="[('is_tenant','=',True)]" options="{'no_create': True, 'no_open': True}"/>
-                            <field name="driver_id1"/>
-                            <field name="driver_licence_id"/>
-                            <field name="driver1_driver_licence_no"/>
-                            <field name="driver_passport_id"/>
-                            <field name="driver1_passport_no"/>
-                            <field name="plate"/>
-                            <field name="x_bazna_lokacija"/>
-                            <field name="x_key_position"/>
-                            <field name="x_key_rfid"/>
-                            <field name="x_trenutna_lokacija"/>
-
-
-                            <field name="fleet_tenant_id" invisible="1" string="Fleet Tenant"/>
-                            <field name="user_id"/>
-                            <field name="vehicle_owner" required="1" string="Vehicle Owner"/>
-                            <field name="company_id" required="1"/>
-                            <field name="currency_id" required="1" string="Currency"/>
-
-                            <label for="odometer"/>
-                            <div>
-                                <field name="odometer" class="oe_inline"/>
-                                <field name="odometer_unit" class="oe_inline" readonly="0" required="1" string="Last Odometer"/>
-
-                            </div>
+	        <!-- VEHICLE INFORMATION -->
+                        <group colspan="4" col="2">
+                            <separator string="Vehicle Information"/>
+                            <group>
+    							<field name="web_car_request"/>
+                                <field name="tenant_id" context="{'default_is_tenant':True, 'tree_view_ref': 'fleet_rent.view_tenant_users_tree',                                    'form_view_ref': 'fleet_rent.view_tenant_users_form'}" placeholder="Tenant Name" required="1" domain="[('is_tenant','=',True)]" options="{'no_create': True, 'no_open': True}"/>
+    							<field name="vehicle_id" required="1" placeholder="Vehicle Name" context="{'remove_inprogeress':True}"/>
+                                <field name="driver_licence_id"/>
+                                <field name="driver_passport_id"/>
+                                <field name="plate"/>
+    							<field name="x_key_position"/>
+                                <field name="x_key_rfid"/>
+							</group>
+							<group>
+    							<field name="driver_id1" string="Driver 1"/>
+    							<field name="driver1_driver_licence_no"  string="Driver 1 Licence No"/>
+    							<field name="driver1_passport_no" string="Driver 1 Passport No"/>
+                                <field name="x_bazna_lokacija"/>
+                                <field name="x_trenutna_lokacija"/>
+                                <field name="fleet_tenant_id" invisible="1" string="Fleet Tenant"/>
+                                <field name="user_id"/>
+                                <field name="vehicle_owner" required="1" string="Vehicle Owner"/>
+                                <field name="company_id" required="1"/>
+                                <field name="currency_id" required="1" string="Currency"/>
+                                <label for="odometer"/>
+                                <div>
+                                    <field name="odometer" class="oe_inline"/>
+                                    <field name="odometer_unit" class="oe_inline" readonly="0" required="1" string="Last Odometer"/>
+                                </div>
+							</group>
                         </group>
-                        <group
-                            colspan="4"
-                            col="4"
-                            attrs="{'readonly':[('state','=','close')]}"
-                        >
-                            <separator string="Rental Vehicle Information" colspan="4"/>
-                            <field name="rent_from"/>
-                            <field name="return_location"/>
-                            <field name="rent_amt" widget="monetary" attrs="{'readonly':[('state','!=','draft')]}"/>
-                            <field name="contract_dt" required="1" readonly="1"/>
-                            <field name="deposit_amt" widget="monetary" string="Amount Deposit" attrs="{'readonly':[('deposit_received','=',True)]}"/>
-                            <field name="amount_return" widget="monetary" readonly="1"/>
-                            <field name="deposit_received" string="Deposit Received?"/>
-                            <field name="is_deposit_return" string="Deposit Returned?"/>
-                            <field name="contact_id"/>
-                            <field name="maintenance_cost" widget="monetary" readonly="1" string="Maintenance Cost"/>
-                        </group>
-                        <group colspan='4' col='4'>
-                            <separator string="Contract Information" colspan="4"/>
-                            <field name="allow_crossborder"/>
-                            <field name="date_start" colspan="2" required="True" attrs="{'readonly':[('state','!=','draft')]}"/>
-                            <field name="date_end" placeholder="End Date" colspan="2" string="Expiration Date" readonly="True" attrs="{'readonly':[('state','!=','draft')]}"/>
-                            <field name="duration" required="True"/>
-                            <field name="total_rent" widget="monetary" string="Total Rent"/>
-                            <field name="rent_close_by" string="Rent Close By" readonly="1"/>
-                            <field name="date_close" readonly="1"/>
+   	    	<!-- RENTAL VEHICLE INFORMATION -->
+                        <group colspan="4" col="2" attrs="{'readonly':[('state','=','close')]}">
+                            <separator string="Rental Vehicle Information"/>
+							
+                            <group>
+    							<field name="rent_from"/>
+                                <field name="rent_amt" widget="monetary" attrs="{'readonly':[('state','!=','draft')]}"/>
+                                <field name="contract_dt" required="1" readonly="1"/>
+                                <field name="deposit_amt" widget="monetary" string="Amount Deposit" attrs="{'readonly':[('deposit_received','=',True)]}"/>
+							</group>
+							<group>
+    							<field name="return_location"/>
+                                <field name="amount_return" widget="monetary" readonly="1" string="Amount Returned"/>
+                                <field name="deposit_received" string="Deposit Received?"/>
+                                <field name="is_deposit_return" string="Deposit Returned?"/>
+                                <field name="contact_id"/>
+                                <field name="maintenance_cost" widget="monetary" readonly="1" string="Maintenance Cost"/>
+							</group>
+						</group>
+            <!-- CONTRACT INFORMATION -->
+                        <group colspan="4" col="2">
+                            <separator string="Contract Information"/>
+                            <group>
+    							<field name="allow_crossborder"/>
+                                <field name="date_start" colspan="2" required="True" attrs="{'readonly':[('state','!=','draft')]}"/>
+                                <field name="date_end" placeholder="End Date" colspan="2" string="Expiration Date" readonly="True" attrs="{'readonly':[('state','!=','draft')]}"/>
+                                <field name="rent_type_id" required="True"/>
+							</group>
+							<group>
+                                <field name="total_rent" widget="monetary" string="Total Rent"/>
+                                <field name="rent_close_by" string="Rent Close By" readonly="1"/>
+                                <field name="date_close" readonly="1"/>
+							</group>
                         </group>
                     </group>
+             <!-- NOTEBOOK -->	
                     <notebook>
                         <page string="Rent Schedule" name="rent_schedule">
                             <separator string="Rent Schedule Details" colspan="4" />
