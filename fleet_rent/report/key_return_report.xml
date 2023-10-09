@@ -5,8 +5,8 @@
         <field name="name">Key Return</field>
         <field name="model">fleet.rent</field>
         <field name="report_type">qweb-pdf</field>
-        <field name="report_name">fleet_rent.key_return_report</field>
-        <field name="report_file">fleet_rent.key_return_report</field>
+        <field name="report_name">fleet_rent.key_return_report_pdf</field>
+        <field name="report_file">fleet_rent.key_return_report_pdf</field>
         <field name="print_report_name">'Fleet Rent Key Return'</field>
         <field name="binding_model_id" ref="fleet_rent.model_fleet_rent" />
         <field name="binding_type">report</field>
