@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <!-- Fleet Rent Reports -->
-    <record id="report_key_return" model="ir.actions.report">
+    <record id="key_return_report" model="ir.actions.report">
         <field name="name">Key Return</field>
         <field name="model">fleet.rent</field>
         <field name="report_type">qweb-pdf</field>
