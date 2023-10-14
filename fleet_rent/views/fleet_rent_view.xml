@@ -805,6 +805,6 @@
     </record>
 
     <!--Rent Schedule menu-->
-    <!-- <menuitem name="Tenancy Rent Schedule" id="menu_tenancy_rent"
-            parent="menu_property_sub" action="action_tenancy_rent" sequence="5"/> -->
+    <menuitem name="Tenancy Rent Schedule" id="menu_tenancy_rent"
+            parent="menu_property_sub" action="action_tenancy_rent" sequence="5"/>
 </odoo>
