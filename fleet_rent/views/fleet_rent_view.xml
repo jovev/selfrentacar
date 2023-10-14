@@ -806,5 +806,5 @@
 
     <!--Rent Schedule menu-->
     <menuitem name="Tenancy Rent Schedule" id="menu_tenancy_rent"
-            parent="menu_property_sub" action="action_tenancy_rent" sequence="5"/>
+            parent="fleet.menu_root" action="action_tenancy_rent" sequence="5"/>
 </odoo>
