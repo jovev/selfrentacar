@@ -292,6 +292,7 @@ class FleetRent(models.Model):
                             the moment of this log",
     )
     odometer_unit = fields.Selection(
+        [("kilometers", "Kilometers"), ("miles", "Miles")],
         related="vehicle_id.odometer_unit",
         help="Unit of the vehicle odometer.",
         store=True,
