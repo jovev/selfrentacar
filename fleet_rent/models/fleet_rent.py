@@ -40,9 +40,10 @@ class FleetRent(models.Model):
             if rent.vehicle_id:
                 # we added sudo in below code to fix the access issue with rent user.
                 rent.vehicle_owner = rent.vehicle_id.sudo().vehicle_owner.name
-
+ 
     @api.onchange("vehicle_id")
     def change_odometer(self):
+        _logger.info("***USAO u change odometer    self == %s" , self)
         """Method to display odometer value."""
         for rent in self:
             if rent.vehicle_id:
