@@ -91,6 +91,7 @@ class FleetRent(models.Model):
         return res
 
     def _compute_get_odometer(self):
+        _logger.info("!!!!!!!!!!!!!!!!!!!!!!!!!! USAO computer_get_odometer   self == %s", self)
         odometer_obj = self.env["fleet.vehicle.odometer"]
         for rent in self:
             if rent.vehicle_id:
@@ -103,6 +104,7 @@ class FleetRent(models.Model):
                     rent.odometer = odometer.value
 
     def _inverse_set_odometer(self):
+        _logger.info("$$$$$$$$$$$$$$$$$$$$$$$$$$$$ USAO incverse_set_odometer   self == %s", self)
         odometer_obj = self.env["fleet.vehicle.odometer"]
         for rent in self:
             if rent.vehicle_id:
