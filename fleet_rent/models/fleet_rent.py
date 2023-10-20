@@ -43,7 +43,7 @@ class FleetRent(models.Model):
  
     @api.onchange("vehicle_id")
     def change_odometer(self):
-        _logger.info("***USAO u change odometer    self == %s" , self)
+        _logger.info("--------------------------------USAO u change odometer    self == %s" , self)
         """Method to display odometer value."""
         for rent in self:
             if rent.vehicle_id:
