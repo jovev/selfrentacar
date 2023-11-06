@@ -321,6 +321,11 @@ class FleetRent(models.Model):
         copy=False,
         help="True if deposit amount received for " "current Rental Vehicle.",
     )
+    is_payment_received = fields.Boolean(
+
+        copy=False,
+        help="True if rent amount received for " "current Rental Vehicle.",
+    )
     contact_id = fields.Many2one("res.partner", "Contact", help="Contact person name.")
     contract_dt = fields.Datetime(
         "Contract Creation",
@@ -1403,7 +1408,7 @@ class CarRentalReservationOptions(models.Model):
   #  option = fields.Char(string="Optional service or equipment")
     price = fields.Float(string="Price for option")
     quantity = fields.Float(string='Qty')
-    total_price = fields.Float(compute="_compute_option_total_price", store=True, string="Total Price")
+    total_price = fields.Float(string="Total Price")
     fleet_rent_id = fields.Many2one('fleet.rent', string='Rental options')
 class CarRentalChecklist(models.Model):
     _name = 'car.fleet.rent.checklist'
