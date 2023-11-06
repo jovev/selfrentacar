@@ -322,9 +322,12 @@ class FleetRent(models.Model):
         help="True if deposit amount received for " "current Rental Vehicle.",
     )
     is_payment_received = fields.Boolean(
-
         copy=False,
         help="True if rent amount received for " "current Rental Vehicle.",
+    )
+    is_deposid_received = fields.Boolean(
+        copy=False,
+        help="True if deposid received for " "current Rental Vehicle.",
     )
     contact_id = fields.Many2one("res.partner", "Contact", help="Contact person name.")
     contract_dt = fields.Datetime(
