@@ -5,9 +5,21 @@
 <title>Preuzmi ključ - skeniraj QR kod</title>
 <link rel="stylesheet" type="text/css" href="../static/css/stylesheet.css" />
 <style>
+#rfid {
+    position: absolute;
+
+  }
+
 .outer {
   overflow: hidden;
   position: relative;
+}
+.inner {
+  position: absolute;
+  height: 100px;
+  width: 100px;
+  right: -50px;
+  top: 50px;
 }
 
 </style>
@@ -35,7 +47,7 @@
 <p>&nbsp;</p>
   <div class="alert" style="">
   <h2><br>
-  Scan QR code</h2>
+   Scan QR code</h2>
   <h2> Skeniraj QR kod</h2>
   <p>&nbsp;</p>
 </div>
@@ -48,7 +60,7 @@
 
   <div class="outer">
     <div class="inner">
-      <input name="ugovor_link" type="text" id="ugovor_link" onblur="this.focus()" autofocus>
+      <input name="ugovor_link" id="rfid" type="text" id="ugovor_link" onblur="this.focus()" autofocus>
     </div>
   </div>
 
@@ -64,7 +76,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript"></script>
 
 <script>
-
+$(document).ready(function(){
+ $('#rfid').focus();
+ 
+})
 </script>
 
 

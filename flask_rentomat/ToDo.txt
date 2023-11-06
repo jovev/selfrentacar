@@ -8,13 +8,16 @@ REZERVACIJA PREKO RENTOMATA
 - POS terminal i integracija placanja
 ### dodatne usluge da se naprave dinamicki
 ### razdvojiti ukupnu cenu i cenu dodatnih usluga
-- rent schedule da se ubacuje u odoo (rent_schedule_ids, option_ids)
-- token  za ugovor
+### rent schedule da se ubacuje u odoo (rent_schedule_ids, option_ids)
+### token  za ugovor
 
 GENERALNO
+### autorun.sh - na startu ubacuje "HOME" u komanda.txt ali dodaje i newline
+- ne pali browser
+- broj ugovora (sekvenca)
 
 - prevod
-- stampanje ili slanje na email potvrde o vracenom kljucu
+### - stampanje ili slanje na email potvrde o vracenom kljucu
 - stampanje ugovora - bez print settings popup-a
 ### autorun da se konfigurise za sve inicijalne funkcioje
 ### homiranje
@@ -22,6 +25,8 @@ GENERALNO
 RENTOMAT settings
 
 - videti sta jos od podesavanja je potrebno dodati
+
+
 
 
 

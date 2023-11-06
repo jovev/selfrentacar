@@ -1,4 +1,7 @@
-from flask import Flask, request, url_for
+from base64 import b64decode
+import binascii
+import os
+from flask import Flask, request, session, url_for
 from flask_babel import Babel
 import time
 import serial
@@ -15,6 +18,7 @@ from flask_babel import Babel
 import ast
 from babel import numbers, dates
 from flask_babel import Babel, format_date, gettext
+import socket
 
 
 import urllib.request
@@ -28,15 +32,43 @@ app = Flask(__name__)
 app.config['BABEL_DEFAULT_LOCALE'] = 'en'
 babel = Babel(app)
 
+app.secret_key = "super secret key"
+
+@app.route('/language=<language>')
+def set_language(language=None):
+    session['language'] = language
+    return redirect(url_for('root'))
+
+
+app.config['LANGUAGES'] =  {
+    'en': 'English',
+    'sr': 'Srpski',
+    'ru': 'Russian'
+}
+
 
 def get_locale():
-   return 'ru'
+    if request.args.get('language'):
+        session['language'] = request.args.get('language')
+    return session.get('language', 'en')
+
+
+# def get_locale():
+#    return 'sr'
 
 babel.init_app(app, locale_selector=get_locale)
 
 
+
+
+
+
 @app.route('/lang')
 def lang():
+
+
+   d = date(2017, 5,2)
+
 
    irvas = gettext('Irvas')
 
@@ -46,11 +78,15 @@ def lang():
    ru_num = numbers.format_decimal(1.23456, locale= 'ru_RU')
 
 
-   results = {'us_num' : us_num, 'sv_num' : sv_num, 'sr_num' : sr_num, 'ru_num' : ru_num}
+   de_date = format_date(d)
+
+
+   results = {'de_date' : de_date, 'us_num' : us_num, 'sv_num' : sv_num, 'sr_num' : sr_num, 'ru_num' : ru_num}
 
    return render_template('lang.html', results = results, irvas = irvas)
 
       
+
 
 @app.route('/rentomat')
 def rentomat():
@@ -59,6 +95,39 @@ def rentomat():
 
    # print(data)
 
+
+   response = requests.get("http://23.88.98.237:8069/api/auth/get_tokens",params={"username": "odoo@irvas.rs", "password": "irvasadm"})
+
+   response_data = json.loads(response.text)
+   access_token = response_data['access_token']
+
+
+   car_list = []
+
+
+   for i in range(12):
+      key_pos = i+1
+
+      current_rfid = data['key_positions'][str(key_pos)]['rfid']
+
+      url = "http://23.88.98.237:8069/api/fleet.vehicle?filters=[('x_key_rfid', '=', '"+current_rfid+"')]"
+      header_data = {'Access-Token' : str(access_token)}
+
+      response = requests.get(url, headers=header_data)
+
+      response_data = json.loads(response.text)
+      print(response_data)
+      # vehicle_id = str(response_data['results'][0]['id'])
+      if(response_data['count'] != 0):
+         vehicle_name = str(response_data['results'][0]['name'])
+      else:
+         vehicle_name = ""
+      # print(current_rfid)
+      # print(vehicle_name)
+
+      car_list.append(vehicle_name)
+
+   print(car_list)
 
    rent_data = {
        'rentomat_id' : data['rentomat_id'],
@@ -83,13 +152,127 @@ def rentomat():
    
 
 
-   return render_template('rentomat/rentomat_settings.html', rent_data = rent_data)
+   return render_template('rentomat/rentomat_settings.html', rent_data = rent_data, car_list = car_list)
+
+
+@app.route('/izbaci_kljuc',  methods=['GET', 'POST'])
+def izbaci_kljuc():
+   
+   
+   
+   position = request.args.get('position')
+
+
+   # UPDATE JSON
+
+   with open("/home/pi/VSCProjects/selfrentacar/flask_rentomat/settings.json", "r") as jsonFile:
+      data = json.load(jsonFile)
+   
+   rentomat_id = data['rentomat_id']
+
+   data["key_positions"][position]["rfid"] = ""
+
+   with open("/home/pi/VSCProjects/selfrentacar/flask_rentomat/settings.json", "w") as jsonFile:
+      json.dump(data, jsonFile)
+
+   # UPDATE ODOO RFID
+   
+   update_odoo_rfid(rentomat_id)
+
+
+
+   # IZBACI KLJUC
+
+   with open('/home/pi/VSCProjects/selfrentacar/flask_rentomat/komanda.txt', 'w') as f:
+               f.write("EMPTY,"+str(position))
 
 
 
 
 
+   # print(position)
+   # return position
  
+   return redirect(url_for('rentomat'))
+
+
+
+
+@app.route('/ubaci_kljuc_scan',  methods=['GET', 'POST'])
+def ubaci_kljuc_scan():
+
+   if request.method == 'POST':
+
+        position = request.form.get('position')
+        rfid = request.form.get('rfid')
+        return redirect(url_for('ubaci_kljuc', position=position, rfid=rfid))
+   
+
+   position = request.args.get('position')
+
+   return render_template('rentomat/ubaci_kljuc_scan.html', position = position)
+   
+
+
+
+@app.route('/ubaci_kljuc',  methods=['GET', 'POST'])
+def ubaci_kljuc():
+   
+   
+   position = request.args.get('position')
+   rfid = request.args.get('rfid')
+
+
+   # print("Position: "+position)
+   # print("RFID: "+rfid)
+   
+
+   
+   return render_template('rentomat/ubaci_kljuc_final.html', position = position, rfid = rfid), {"Refresh": "7; url=/ubaci_kljuc_final?position="+position+"&rfid="+rfid}
+
+
+
+@app.route('/ubaci_kljuc_final',  methods=['GET', 'POST'])
+def ubaci_kljuc_final():
+   
+   
+   position = request.args.get('position')
+   rfid = request.args.get('rfid')
+
+
+   print("Position: "+position)
+   print("RFID: "+rfid)
+   # UPDATE JSON
+
+   with open("/home/pi/VSCProjects/selfrentacar/flask_rentomat/settings.json", "r") as jsonFile:
+      data = json.load(jsonFile)
+   
+   rentomat_id = data['rentomat_id']
+
+   data["key_positions"][position]["rfid"] = rfid
+
+   with open("/home/pi/VSCProjects/selfrentacar/flask_rentomat/settings.json", "w") as jsonFile:
+      json.dump(data, jsonFile)
+
+   # UPDATE ODOO RFID
+   
+   update_odoo_rfid(rentomat_id)
+
+
+
+   # UBACI KLJUC
+
+   with open('/home/pi/VSCProjects/selfrentacar/flask_rentomat/komanda.txt', 'w') as f:
+               f.write("FILL,"+str(position))
+
+
+
+
+
+   # print(position)
+   # return position
+ 
+   return redirect(url_for('rentomat'))
 
 
 @app.route('/')
@@ -99,17 +282,17 @@ def root():
    # print(text_test)
 
 
-   dropoff = gettext('DROP OFF')
-   reservation = gettext('RESERVATION')
-   pickup = gettext('PICK UP')
-   selectLang = gettext('Select language')
-   english = gettext('English')
-   serbian = gettext('Serbian')
-   russian = gettext('Russian')
+   # dropoff = gettext('DROP OFF')
+   # reservation = gettext('RESERVATION')
+   # pickup = gettext('PICK UP')
+   # selectLang = gettext('Select language')
+   # english = gettext('English')
+   # serbian = gettext('Serbian')
+   # russian = gettext('Russian')
 
 
    # translation = {
-   #    'dropoff' : dropoff,
+   #    #'dropoff' : dropoff,
    #    'reservation' : reservation,
    #    'pickup' : pickup,
    #    'selectLang' : selectLang,
@@ -117,9 +300,11 @@ def root():
    #    'serbian' : serbian,
    #    'russian' : russian
    # }
+
+   
    
 
-   return render_template('index.html', dropoff = dropoff, reservation = reservation, pickup = pickup)
+   return render_template('index.html')
 
 
 # redirect to reservation website
@@ -249,9 +434,9 @@ def listaVozila():
          response = requests.get(url, headers=header_data)
 
          response_data = json.loads(response.text)
-         print("*************************")
-         print(response.text)
-         print("*************************")
+         # print("*************************")
+         # print(response.text)
+         # print("*************************")
          # print(response.text)
          # if(response_data['count'] != 0):
          #     available_cars.append(rfid)
@@ -298,7 +483,7 @@ def listaVozila():
             response = requests.get(url, headers=header_data)
 
             response_data = json.loads(response.text)
-            # print(response_data)
+            print(response.text)
 
             vehicle_id = str(response_data['id'])
             vehicle_name = str(response_data['name'])
@@ -495,7 +680,7 @@ def rezervacijeKorisnik():
 
    response_data = json.loads(response.text)
 
-   # print(response.text)
+   
 
    allOptions=[]
 
@@ -503,10 +688,35 @@ def rezervacijeKorisnik():
    if(response_data['count'] != 0):
 
       for key in response_data['results']:
-          
-         allOptions.append(key)
+         # print(key)
+         product_id = str(key['id'])
 
-   print(allOptions)
+
+
+         url = "http://23.88.98.237:8069/api/product.product/"+product_id
+
+         header_data = {'Access-Token' : str(access_token)}
+
+         response = requests.get(url, headers=header_data)
+
+         response_data = json.loads(response.text)
+
+         id = response_data['id']
+         name = response_data['name']
+         price = response_data['lst_price']
+
+         add_with_pricce = {
+            'id' : id,
+            'name' : name,
+            'price' : price
+         }
+
+         # print(key)
+
+         allOptions.append(add_with_pricce)
+   #print(allOptions)
+   # print("Id je: "+str(allOptions['id']))
+  
  
 
    car_url = "http://23.88.98.237:8069/api/fleet.vehicle/"+carId
@@ -517,7 +727,7 @@ def rezervacijeKorisnik():
 
    response_data_car = json.loads(response.text)
 
-   # print(response.text)   
+   print(response.text)   
 
    #print(vehicle_id)
    vehicle_brand = str(response_data_car['brand_id']['name'])
@@ -571,9 +781,17 @@ def submit_form():
    deposit_amt = 0
 
    for el in options:
-      if el == 13:
-            deposit_amt = 600
+      if el == "13":
+            deposit_amt = 0
+      else:
+         deposit_amt = 600
+   
+   if not options:
+      deposit_amt = 600
 
+   print("&&&&&&&&")
+   print(deposit_amt)
+   print("&&&&&&&&")
    carid = request.args.get('carid')
    grand_value = request.args.get('all_days_price_input')
 
@@ -605,7 +823,8 @@ def submit_form():
 
 
    
-
+   print("deposit amount je: ")
+   print(deposit_amt)
 
 
    # USER DETAILS
@@ -641,7 +860,7 @@ def submit_form():
        'deposit_amt' : deposit_amt
    }
 
-   print(rent_details)
+   # print(rent_details)
 
 
    user_details = {
@@ -656,35 +875,35 @@ def submit_form():
        'comments' : comments
    }
 
-   print(user_details)
+   # print(user_details)
 
    contract_id = create_contract(rent_details, user_details)
 
 
-   # response = requests.get(
-   #          "http://23.88.98.237:8069/api/auth/get_tokens",
-   #          params={"username": "odoo@irvas.rs", "password": "irvasadm"}
-   #     )
+   response = requests.get(
+            "http://23.88.98.237:8069/api/auth/get_tokens",
+            params={"username": "odoo@irvas.rs", "password": "irvasadm"}
+       )
 
-   # response_data = json.loads(response.text)
-   # access_token = response_data['access_token']
+   response_data = json.loads(response.text)
+   access_token = response_data['access_token']
 
 
-   # header_data = {'Content-Type': 'text/html; charset=utf-8', 'Access-Token' : str(access_token)}
+   header_data = {'Content-Type': 'text/html; charset=utf-8', 'Access-Token' : str(access_token)}
 
-   # url = "http://23.88.98.237:8069/api/fleet.rent/"+contract_id
+   url = "http://23.88.98.237:8069/api/fleet.rent/"+contract_id+"/change_odometer"
    
    
-   # response = requests.get(url, headers=header_data)
+   response_odo = requests.put(url, headers=header_data)
 
-   # response_data = json.loads(response.text)
-
-   # print(response_data)
-      
+   response_data_od = json.loads(response_odo.text)
+   print("**********************")
+   print(response_data_od)
+   print("**********************")
    # contract_id = str(response_data['results'][0]['id'])
 
 
-   return render_template('/rezervacija/submit_form_confirm.html', contract_id = contract_id)
+   return render_template('/rezervacija/submit_form_confirm.html', contract_id = contract_id), {"Refresh": "3; url=/go_contract?contract_id="+contract_id}
 
    
 
@@ -742,6 +961,11 @@ def go_contract():
 
    response_data = json.loads(response.text)
 
+
+   print("******************")
+   print(response.text)
+   print("******************")
+
    base_url = "https://selfcar.naisrobotics.com"
    access_url = response_data["access_url"]
    token = response_data["access_token"]
@@ -749,22 +973,132 @@ def go_contract():
    
 
 
-   print(response.text)
+   
 
 
 
-   print(base_url)
-   print(access_url)
-   print(token)
-   final_url = base_url + access_url + "?access_token=4" + token
-   print(final_url)
+   # print(base_url)
+   # print(access_url)
+   # print(token)
+   # final_url = base_url + access_url + "?access_token=" + token
+   # print(final_url)
    # contract_id = str(response_data['results'][0]['id'])
 
 
 
 
    # print(contract_id)
-   return render_template('/rezervacija/takekey.html', final_url = final_url)
+   return render_template('/rezervacija/takekey.html'), {"Refresh": "3; url=/paymentPage?contract_id="+contract_id}
+
+
+
+
+@app.route('/paymentPage', methods = ['GET', 'POST'])
+def paymentPage():
+
+   contract_id = request.args.get('contract_id')
+
+   response = requests.get(
+            "http://23.88.98.237:8069/api/auth/get_tokens",
+            params={"username": "odoo@irvas.rs", "password": "irvasadm"}
+       )
+
+   response_data = json.loads(response.text)
+   access_token = response_data['access_token']
+
+
+   header_data = {'Content-Type': 'text/html; charset=utf-8', 'Access-Token' : str(access_token)}
+
+   url = "http://23.88.98.237:8069/api/fleet.rent/"+contract_id
+   
+   
+   response = requests.get(url, headers=header_data)
+
+   response_data = json.loads(response.text)
+
+
+   print("******************")
+   print(response.text)
+   print("******************")
+
+
+   rent_amt = response_data['rent_amt']
+   rent_currency = response_data['currency_id']['name']
+   deposit_amt = response_data['deposit_amt']
+   is_payment_received = response_data['is_payment_received']
+   deposit_received = response_data['deposit_received']
+
+   
+
+   return render_template('/rezervacija/paymentPage.html', contract_id = contract_id, rent_amt = rent_amt, rent_currency = rent_currency, deposit_amt = deposit_amt, deposit_received = deposit_received, is_payment_received = is_payment_received)
+
+
+
+
+
+
+@app.route('/create_final_contract', methods = ['GET', 'POST'])
+def create_final_contract():
+
+   contract_id = request.args.get('contract_id')
+
+
+
+   
+
+   
+
+
+   response = requests.get(
+            "http://23.88.98.237:8069/api/auth/get_tokens",
+            params={"username": "odoo@irvas.rs", "password": "irvasadm"}
+       )
+
+   response_data = json.loads(response.text)
+   access_token = response_data['access_token']
+
+
+   header_data = {'Content-Type': 'text/html; charset=utf-8', 'Access-Token' : str(access_token)}
+
+   url = "http://23.88.98.237:8069/api/fleet.rent/"+contract_id
+   
+   
+   response = requests.get(url, headers=header_data)
+
+   response_data = json.loads(response.text)
+
+
+   print("******************")
+   print(response.text)
+   print("******************")
+
+   base_url = "https://selfcar.naisrobotics.com"
+   access_url = response_data["access_url"]
+   token = response_data["access_token"]
+   
+   
+
+
+   
+
+
+
+   # print(base_url)
+   # print(access_url)
+   # print(token)
+   final_url = base_url + access_url + "?access_token=" + token
+   # print(final_url)
+   # contract_id = str(response_data['results'][0]['id'])
+
+
+
+
+   # print(contract_id)
+   #return redirect(final_url)
+   position = 3
+   return render_template('odoo.html', contract_id = contract_id, position = position, iframe= final_url)
+   return render_template('/rezervacija/takekey.html', final_url = final_url), {"Refresh": "5; url=/create_final_contract?contract_id="+contract_id}
+
 
 @app.route('/create_contract', methods = ['GET', 'POST'])
 def create_contract(rent_details, user_details):
@@ -819,11 +1153,11 @@ def create_contract(rent_details, user_details):
    response_data = json.loads(response.text)
 
    if(response_data['count'] > 0):
-       print("User postoji")
+       # print("User postoji")
        user_id = response_data['results'][0]['id']
  
    else:
-       print("User NE postoji")
+       # print("User NE postoji")
 
 
        # CREATE USER
@@ -853,9 +1187,9 @@ def create_contract(rent_details, user_details):
        response_data = json.loads(response.text)
        user_id = response_data['results'][0]['id']
    
-   print("*************************")
-   print(user_id)
-   print("*************************")
+   # print("*************************")
+   # print(user_id)
+   # print("*************************")
 
    
 
@@ -901,6 +1235,7 @@ def create_contract(rent_details, user_details):
    date_start = date_start_value
    date_end = date_end_value
    reservation_code = rentomat_id + "_" + str(next_contract_id)
+   contract_name = "RNT/"+rentomat_id + "/" + str(next_contract_id)
    notes =""
    rent_from = rent_details['rent_from']
    return_location = rent_details['return_location']
@@ -915,9 +1250,9 @@ def create_contract(rent_details, user_details):
 
    options = rent_details['options']
 
-   print("*****************")
-   print(reservation_code)
-   print("*****************")
+   # print("*****************")
+   # print(reservation_code)
+   # print("*****************")
    # date_start = "2023-02-05 13:00:00"
    # date_end = "2023-02-07 13:00:00"
    # reservation_code = "Rtest01"
@@ -937,7 +1272,7 @@ def create_contract(rent_details, user_details):
 
    option_line_ids = []
    for selected_option in options:
-      print("ID opcije je"+selected_option)
+      # print("ID opcije je"+selected_option)
 
       response = requests.get("http://23.88.98.237:8069/api/auth/get_tokens",params={"username": "odoo@irvas.rs", "password": "irvasadm"})
 
@@ -964,7 +1299,7 @@ def create_contract(rent_details, user_details):
 
 
    data_insert={
-      "name": "Rent from rentomat",
+      "name": contract_name,
       "tenant_id" : user_id, ####
       "date_start" : date_start, ####
       "date_end" : date_end, ####
@@ -974,15 +1309,19 @@ def create_contract(rent_details, user_details):
       "return_location" : return_location,
       "web_car_request" : web_car_request,
       "total_rent" : total_rent,
-      "state" : "running", ####
+      "state" : "open", ####
       "rent_amt" : rent_amt, ####
       "deposit_amt": deposit_amt,
       "option_ids" : option_line_ids, ####
       "currency_id" : currency_id,
       "vehicle_id" : carid,
       "duration" : days_num_var,
-      "odometer": "321",
-      "odometer_unit" : "kilometers"
+      "odometer_unit" : "kilometers",
+      #"odometer_unit" : "kilometers",
+      # "odometer": {
+      #    "vehicle_id" : carid,
+      #    "value" : "5555"
+      # },
       }
 
 
@@ -994,15 +1333,18 @@ def create_contract(rent_details, user_details):
    # print(response.text)
    # print("****************")
 
-   data_odometer = {
-       'vehicle_id' : carid,
-       'value' : "126",
-       'unit' : "kilometers"
-   }
 
-   data_insert_final_odometer = json.dumps(data_odometer)
-   url = "http://23.88.98.237:8069/api/fleet.vehicle.odometer"
-   response = requests.post(url, data=data_insert_final_odometer, headers=header_data)
+   
+
+   # data_odometer = {
+   #     'vehicle_id' : carid,
+   #     'value' : "526",
+   #     'unit' : "kilometers"
+   # }
+
+   # data_insert_final_odometer = json.dumps(data_odometer)
+   # url = "http://23.88.98.237:8069/api/fleet.vehicle.odometer"
+   # response = requests.post(url, data=data_insert_final_odometer, headers=header_data)
 
 
 
@@ -1024,17 +1366,26 @@ def create_contract(rent_details, user_details):
 
 
 
-   data_odometer = {
-       'fleet_rent_id' : contract_id,
-       'vehicle_id' : carid,
-       'amount' : "11"
+   # create schedule payment 
+
+   rent_chedule = {
+      'start_date' : date_start,
+      'pen_amt' : '6',
+      'cheque_detail' : 'detalji ceka',
+      'paid' : True,
+      'move_check' : True,
+      'state' : 'open',
+      'note' : 'notescici',
+      'fleet_rent_id' : contract_id,
+      'vehicle_id' : carid,
+      'amount' : "12"
    }
 
-   data_insert_final_odometer = json.dumps(data_odometer)
+   data_insert_final_shedule = json.dumps(rent_chedule)
    url = "http://23.88.98.237:8069/api/tenancy.rent.schedule"
-   response = requests.post(url, data=data_insert_final_odometer, headers=header_data)
+   response = requests.post(url, data=data_insert_final_shedule, headers=header_data)
 
-
+   # print(response.text)
 
 
    return contract_id
@@ -1077,7 +1428,7 @@ def create_contract(rent_details, user_details):
    return reservation_code
 @app.route('/get_redirection', methods = ['GET', 'POST'])
 def get_redirection():
-   print("da")
+   # print("da")
    url = "http://23.88.98.237:8069/api/fleet.rent?filters=[('reservation_code', '=', 'RN01834_8')]"
 
    header_data = {'Access-Token' : str(access_token)}
@@ -1085,7 +1436,7 @@ def get_redirection():
    response = requests.get(url, headers=header_data)
 
    response_data = json.loads(response.text)
-   print(response.text)
+   # print(response.text)
 
    url_prefix = "https://selfcar.naisrobotics.com/"
    link = response_data['results'][0]['access_url']
@@ -1093,11 +1444,11 @@ def get_redirection():
 
    final_url = url_prefix+link+token
 
-   print(response_data)
-   print(token)
-   print(link)
+   # print(response_data)
+   # print(token)
+   # print(link)
 
-   print(final_url)
+   # print(final_url)
     
 
 
@@ -1117,10 +1468,70 @@ def vracanjeHome():
 def vracanjeStatus():
 
 
-   rfid_input = request.args.get('rfid_input')
-   # return(rfid_input)
-   return render_template('/vracanje/vracanjeStatus.html', rfid_input = rfid_input)
+   # PROVERA DA LI IMA SLOBODNE POZICIJE U RENTOMATU
 
+   with open("/home/pi/VSCProjects/selfrentacar/flask_rentomat/settings.json", "r") as jsonFile:
+      data = json.load(jsonFile)
+
+   first_empty_key_position = ''
+
+   for key in data['key_positions']:
+      if (data['key_positions'][key]['rfid'] == ""):
+         first_empty_key_position = key
+         break
+
+   rentomat_id = data['rentomat_id']
+
+
+
+
+   if(first_empty_key_position != ''):
+
+      rfid_input = request.args.get('rfid_input')
+
+
+
+      # PRoVERA DA POSTOJI UGOVOR VEZAN ZA OVAJ KLJUC/VOZILO
+
+
+      response = requests.get("http://23.88.98.237:8069/api/auth/get_tokens",params={"username": "odoo@irvas.rs", "password": "irvasadm"})
+
+      response_data = json.loads(response.text)
+      access_token = response_data['access_token']
+      #return(access_token)
+
+      rfid_num = str(rfid_input)
+      
+
+      url = "http://23.88.98.237:8069/api/fleet.rent?filters=[('x_key_rfid', '=', '"+rfid_num+"'), ('state', '=', 'running')]"
+
+      header_data = {'Access-Token' : str(access_token)}
+
+      response = requests.get(url, headers=header_data)
+
+      response_data = json.loads(response.text)
+
+      # print(response_data)
+      
+      
+      if(response_data['count'] == 0):
+
+         return render_template('/errors/no_contract.html')
+      else:
+      
+         return render_template('/vracanje/vracanjeStatus.html', rfid_input = rfid_input)
+
+
+
+
+
+
+
+      
+   
+   else:
+       
+       return render_template('/errors/no_empty_position.html')
 
 
 
@@ -1240,7 +1651,7 @@ def vracanjeOtvori():
 
       response_data = json.loads(response.text)
 
-
+      # print(response_data)
       
       contract_id = str(response_data['results'][0]['id'])
 
@@ -1266,7 +1677,7 @@ def vracanjeOtvori():
 
 
 
-      return render_template('/vracanje/vracanjeOtvori.html', rating=rating, rfid_input=rfid_input, status=status, comment=comment)
+      return render_template('/vracanje/vracanjeOtvori.html', rating=rating, rfid_input=rfid_input, status=status, comment=comment, contract_id = contract_id), {"Refresh": "5; url=/vracanjeHvala"}
     
    else:
        return render_template('/errors/no_empty_position.html')
@@ -1281,16 +1692,103 @@ def vracanjeOtvori():
     
  
  
-@app.route('/vracanjeHvala')
+@app.route('/vracanjeHvala',  methods=['GET', 'POST'])
 def vracanjeHvala():
 
 
+   contract_id = request.args.get('contract_id')
 
 
-   return render_template('/vracanje/vracanjeHvala.html')
+
+    ##################################
+   # STAMPANJE POTVRDE O VRACENOM KLJUCU
+   ##################################
 
 
+
+   response = requests.get("http://23.88.98.237:8069/api/auth/get_tokens",params={"username": "odoo@irvas.rs", "password": "irvasadm"})
+
+   response_data = json.loads(response.text)
+   access_token = response_data['access_token']
+
+
+   response_pdf = requests.get(
+      'http://23.88.98.237:8069/api/report/get_pdf',
+      headers = {
+         'Content-Type': 'text/html; charset=utf-8',
+         'Access-Token': access_token
+      },
+      data = json.dumps({
+         "report_name":  "fleet_rent.key_return_report_pdf",
+         "ids": [contract_id],
+      }),
+   )
+
+   pdf_file = str(response_pdf.text[1: len(response_pdf.text)-1])
+
+
+
+   stripped = pdf_file.replace('\\n', '')
+   bytes = b64decode(stripped, validate=True)
+
+   f = open("temp.pdf", "wb")
+   f.write(bytes)
+   f.close()
+   os.system("lp temp.pdf")
    
+
+   ##################################
+
+
+
+
+
+   return render_template('/vracanje/vracanjeHvala.html'), {"Refresh": "5; url=/"}
+
+
+
+@app.route('/stampanje_test', methods = ['GET', 'POST', 'PUT'])
+def stampanje_test():
+   
+
+   contract_id = 251
+
+   response = requests.get("http://23.88.98.237:8069/api/auth/get_tokens",params={"username": "odoo@irvas.rs", "password": "irvasadm"})
+
+   response_data = json.loads(response.text)
+   access_token = response_data['access_token']
+   print("Token: "+access_token)
+
+   response_pdf = requests.get(
+      'http://23.88.98.237:8069/api/report/get_pdf',
+      headers = {
+         'Content-Type': 'text/html; charset=utf-8',
+         'Access-Token': access_token
+      },
+      data = json.dumps({
+         "report_name":  "fleet_rent.key_return_report_pdf",
+         "ids": [contract_id],
+      }),
+   )
+
+   print("-----------")
+   print(response_pdf.text)
+   print("-----------")
+   pdf_file = str(response_pdf.text[1: len(response_pdf.text)-1])
+
+
+
+   stripped = pdf_file.replace('\\n', '')
+   bytes = b64decode(stripped, validate=True)
+
+   f = open("temp.pdf", "wb")
+   f.write(bytes)
+   f.close()
+   os.system("lp temp.pdf")
+
+   return "odstampano"
+
+
 
 
 def get_prazna_pozicija():
@@ -1396,25 +1894,32 @@ def get_rfid_num(id_ugovora):
 @app.route('/api', methods = ['GET', 'POST', 'PUT'])
 def api():
 
+   params={}
 
-   response = requests.get(
-            "http://23.88.98.237:8069/api/auth/get_tokens",
-            params={"username": "odoo@irvas.rs", "password": "irvasadm"}
-      )
+   response = requests.get("http://192.168.1.113", params)
 
    response_data = json.loads(response.text)
-   access_token = response_data['access_token']
 
+   return(response_data)
 
-
-   url = "http://23.88.98.237:8069/api/fleet.rent?filters=[('reservation_code', '=', 'RN01834_8')]"
-
-   header_data = {'Access-Token' : str(access_token)}
-
-   response = requests.get(url, headers=header_data)
+   # response = requests.get(
+   #          "http://23.88.98.237:8069/api/auth/get_tokens",
+   #          params={"username": "odoo@irvas.rs", "password": "irvasadm"}
+   #    )
 
    # response_data = json.loads(response.text)
-   print(response.text)
+   # access_token = response_data['access_token']
+
+
+
+   # url = "http://23.88.98.237:8069/api/fleet.rent?filters=[('reservation_code', '=', 'RN01834_8')]"
+
+   # header_data = {'Access-Token' : str(access_token)}
+
+   # response = requests.get(url, headers=header_data)
+
+   # response_data = json.loads(response.text)
+   # print(response.text)
 
 
    # redirect_baseUrl = 'https://www.google.com' 
@@ -1804,9 +2309,57 @@ def preuzimanjeUgovor():
       response_data = json.loads(response.text)
 
 
+ 
+
+
+
+
+
+
+      ##################################
+      # STAMPANJE POTVRDE O VRACENOM KLJUCU
+      ##################################
+
+
+      # response_pdf = requests.get(
+      #    'http://23.88.98.237:8069/api/report/get_pdf',
+      #    headers = {
+      #       'Content-Type': 'text/html; charset=utf-8',
+      #       'Access-Token': access_token
+      #    },
+      #    data = json.dumps({
+      #       "report_name":  "fleet_rent.key_return_report_pdf",
+      #       "ids": [169],
+      #    }),
+      # )
+
+      # pdf_file = str(response_pdf.text[1: len(response_pdf.text)-1])
+ 
+
+
+      # stripped = pdf_file.replace('\\n', '')
+      # bytes = b64decode(stripped, validate=True)
+
+      # f = open("temp.pdf", "wb")
+      # f.write(bytes)
+      # f.close()
+      # # os.system("lp temp.pdf")
+     
+
+      ##################################
+
+
+
+
 
       position = 3
       link_ugovora = ugovor_link
+
+
+
+
+
+
 
       return render_template('odoo.html', contract_id = contract_id, position = position, iframe= link_ugovora)
 
@@ -1824,6 +2377,485 @@ def preuzimanjeUgovor():
 @app.route('/preuzimanjeUgovorStampa')
 def preuzimanjeUgovorStampa():
    return render_template('preuzimanjeUgovorStampa.html')
+
+
+
+
+@app.route('/payNow', methods = ['GET', 'POST', 'PUT'])
+def payNow():
+   contract_id = request.args.get('contract_id')
+   payment_type = request.args.get('contract_id')
+
+   return render_template('/preuzimanje/payNow.html'), {"Refresh": "1; url=/paymentProcess?contract_id="+contract_id+"&payment_type="+payment_type}
+
+
+
+@app.route('/paymentProcess', methods = ['GET', 'POST', 'PUT'])
+def paymentProcess():
+
+   contract_id = request.args.get('contract_id')
+   payment_type = request.args.get('payment_type')
+   
+
+   response = requests.get(
+            "http://23.88.98.237:8069/api/auth/get_tokens",
+            params={"username": "odoo@irvas.rs", "password": "irvasadm"}
+       )
+
+   response_data = json.loads(response.text)
+   access_token = response_data['access_token']
+
+   url = "http://23.88.98.237:8069/api/fleet.rent/"+contract_id
+
+   header_data = {'Access-Token' : str(access_token)}
+
+   response = requests.get(url, headers=header_data)
+
+   response_data = json.loads(response.text)
+
+   rent_amt = response_data['rent_amt']*100
+   deposit_amt = response_data['deposit_amt']*100
+
+   
+   
+
+   final_deposit = binascii.hexlify(bytes(str(int(response_data['deposit_amt'])), encoding='utf-8')).decode()
+   
+   
+   print(response_data['currency_id']['name'])
+
+   if response_data['currency_id']['name'] == "EUR":
+      amountCurrency = "393431"
+      # amountCurrency = "393738" # EUR
+   else:
+      amountCurrency = "393431" # RSD
+
+   if payment_type == "1":
+      transactionType = "3031"
+      final_val = binascii.hexlify(bytes(str(int(rent_amt)), encoding='utf-8')).decode()
+   else:
+      transactionType = "3032"
+      final_val = binascii.hexlify(bytes(str(int(deposit_amt)), encoding='utf-8')).decode()
+
+
+   send_dict = { "identifier" : "3030",
+      "terminalID" : "3030",
+      "sourceID" : "3030",
+      "sequentialNumber" : "30303030",
+      "transactionType" : transactionType,
+      "printerFlag" : "30",
+      "cashierID" : "3030",
+      "transactionNumber" : "",
+      "fieldSeparator1" : "1C",
+      "transactionAmount1" : final_val,
+      "fieldSeparator2" : "1C",
+      "fieldSeparator3" : "1C",
+      "amountExponent" : "2B30",
+      "fieldSeparator4" : "1C",
+      "amountCurrency" : amountCurrency,
+      "fieldSeparator5" : "1C",
+      "fieldSeparator6" : "1C",
+      "fieldSeparator7" : "1C",
+      "fieldSeparator8" : "1C",
+      "authorizationCode" : "",
+      "fieldSeparator9" : "1C",
+      "fieldSeparator10" : "1C",
+      "fieldSeparator11" : "1C",
+      "inputLabel" : "",
+      "fieldSeparator12" : "1C",
+      "insurancePolicyNumber" : "",
+      "fieldSeparator13" : "1C",
+      "installmentsNumber" : "",
+      "fieldSeparator14" : "1C",
+      "minimumInputLenght" : "",
+      "maximumInputLenght" :"",
+      "maskInputData" : "",
+      "fieldSeparator15" : "1C",
+      "languageID" : "3030",
+      "fieldSeparator16" : "1C",
+      "printData" : "",
+      "fieldSeparator17" : "1C",
+      "cashierID2" : "",
+      "fieldSeparator18" : "1C",
+      "transactionAmount2" : "",
+      "fieldSeparator19" : "1C",
+      "payservicesData" : "",
+      "fieldSeparator20" : "1C",
+      "transactionActivationCode" : "",
+      "fieldSeparator21" : "1C",
+      "instantPaymentReference" : "",
+      "fieldSeparator22" : "1C",
+      "qrCodeData" : "",
+      "fieldSeparator23" : "1C",
+      "specificProcessingFlag" : "",
+      "fieldSeparator24" : "1C",
+      "random_transportationSpecificData" : ""
+   }
+
+   STX = "02"
+   ETX = "03"
+   EOT = "04"
+   ACK = "06"
+   NACK = "15"
+
+
+   message_data = ""
+
+
+   for key in send_dict:
+      message_data = str(message_data) + str(send_dict[key])
+
+   message_data = message_data + str(ETX)
+   ack_message_data_tmp = ACK + ETX
+   nack_message_data_tmp = NACK + ETX
+
+   lrc = xor_sum(message_data)
+
+   message_data = STX+STX+message_data+str(lrc)
+
+
+
+   TCP_IP = '192.168.1.113'    
+   TCP_PORT = 3000   
+
+   sock_payten = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+   status = sock_payten.connect((TCP_IP, TCP_PORT))
+
+
+
+
+   dobar_format = bytearray.fromhex(message_data).decode()
+
+
+   i = 1
+
+   try:
+      
+      
+      for i in range(1):
+
+
+
+         sent = sock_payten.sendto(bytes(dobar_format, encoding='iso-8859-2'),(TCP_IP,TCP_PORT))
+
+         data = sock_payten.recv(1024)
+         print("prvi prijem")
+         print(data)
+         if data.hex() == ACK:
+               data = sock_payten.recv(1024)
+               sent = sock_payten.sendto(bytes(ACK, encoding='iso-8859-2'),(TCP_IP,TCP_PORT))
+               hold = True
+               print("drugi prijem")
+               print(data)
+
+
+
+
+               while hold == True:
+                  print("uso u hold")
+                  data = sock_payten.recv(1024)
+                  print(data)
+                  print("data je primljen")
+                  message_identifier = data.hex()
+                  print("treci prijem")
+                  print(data)
+                  if message_identifier[2:6] == "3130":   # kod 10
+                     print("uso u dobio 10")
+                     transaction_data = data
+                     hold = False
+               
+               sent = sock_payten.sendto(bytes(ACK, encoding='iso-8859-2'),(TCP_IP,TCP_PORT))
+
+   except:
+      print("Except error")
+
+
+
+   # update payment status
+   response = requests.get(
+            "http://23.88.98.237:8069/api/auth/get_tokens",
+            params={"username": "odoo@irvas.rs", "password": "irvasadm"}
+      )
+
+   response_data = json.loads(response.text)
+   access_token = response_data['access_token']
+
+   header_data = {'Content-Type': 'text/html; charset=utf-8', 'Access-Token' : str(access_token)}
+
+
+   url = "http://23.88.98.237:8069/api/fleet.rent/"+contract_id
+
+
+   if payment_type == "1":
+      data_update = json.dumps({'is_payment_received': 'True',})
+   else:
+      data_update = json.dumps({'deposit_received': 'True',})
+
+
+   
+
+
+
+   response = requests.put(url, data=data_update, headers=header_data)
+
+   return redirect(url_for("paymentProcess?contract_id="+contract_id))
+
+   transaction_data = b'\x02100000000001020000260006031123132541\x1c000000005200\x1c\x1c+0\x1c941\x1cC\x1c5351529999999999999\x1c99\x1c\x1c\x1c225048\x1cUPTTEST19\x1c11111111\x1cMASTERCARD\x1c\x1c\x1c\x1c\x1c\x1c\x1cODOBRENO                 \x1c\x1c\x1c8407A0000000041010950500000080019F12104465626974204D6173746572636172649F26085455AD1ABEEF589F9F2701809F34031F0302\x1c1\x1c\x1c0\x1c\x1c00\x1cC1\x1c\x1c\x1c\x1c\x1c444411534444\x1c0\x1c\x1c\x1c\x1c\x1c\x1c\x1c\x1c\x1c\x1c\x1c\x1c000000000000\x1c\x1c\x1c\x1c\x1c\x1c\x1c\x1c\x1c\x1c01\x1c\x1c\x1c\x1c\x1c\x03\x12'
+
+
+   dict_example = {}
+
+   for k in range(0,63,1):
+      
+      left_text = transaction_data.split(b'\x1c')[k]
+      string = left_text.decode()
+      # print(string)
+
+      if k == 0:
+         #print(string)
+         dict_example['identifier'] = string[1:3]
+         dict_example['terminalID'] = string[3:5]
+         dict_example['sourceID'] = string[5:7]
+         dict_example['sequentialNumber'] = string[7:11]
+         dict_example['transactionType'] = string[11:13]
+         dict_example['transactionFlag'] = string[13:15]
+         dict_example['transactionNumber'] = string[15:21]
+         dict_example['batchNumber'] = string[21:25]
+         dict_example['transactionDate'] = str(string[25:27])+"."+str(string[27:29])+".20"+str(string[29:31])+"."
+         dict_example['transactionTime'] = string[31:33]+":"+string[33:35]+"h"
+      if k == 1:
+         # print(string)
+         dict_example['transactionAmount1'] = "{:.2f}".format(float(string)/100).replace('.', ',')
+      if k == 3:
+         # print(string)
+         dict_example['amountExponent'] = string
+      if k == 4:
+         # print(string)
+
+
+         if string == "941":
+             cur = "RSD"
+         else:
+             cur = "€"
+
+         dict_example['amountCurrency'] = cur
+      if k == 5:
+         # print(string)
+         dict_example['cardDataSource'] = string
+      if k == 6:
+         # print(string)
+         dict_example['cardNumber'] = string[0:4]+"*********"
+      if k == 7:
+         # print(string)
+         dict_example['expirationDate'] = string
+      if k == 10:
+         # print(string)
+         dict_example['authorizationCode'] = string
+      if k == 11:
+         # print(string)
+         dict_example['tidNumber'] = string
+      if k == 12:
+         # print(string)
+         dict_example['midNumber'] = string
+      if k == 13:
+         # print(string)
+         dict_example['companyName'] = string
+      if k == 20:
+         # print(string)
+         dict_example['displayMessage'] = string
+      
+      
+
+
+
+   #pretty = json.dumps(dict_example)
+   
+
+   return render_template('/preuzimanje/paymentDetails.html', data = dict_example)
+
+
+
+
+@app.route('/transaction_success', methods = ['GET', 'POST', 'PUT'])
+def transaction_success():
+
+
+   transaction_data = request.args.get('transaction_data')
+
+
+   print(transaction_data)
+
+   return render_template('/preuzimanje/transaction_success.html', transaction_data = transaction_data)
+
+
+
+
+
+def xor_sum(message):
+    lrc = 0
+
+    for i in range(0, len(message)-1, 2):
+        
+        b = message[i:i+2]
+        lrc ^= int(b, 16)
+
+    return hex(lrc)[2:4]
+
+
+
+
+
+
+
+@app.route('/pos_client', methods = ['GET', 'POST', 'PUT'])
+def pos_client():
+    
+
+   send_dict = { "identifier" : "3030",
+      "terminalID" : "3030",
+      "sourceID" : "3030",
+      "sequentialNumber" : "30303030",
+      "transactionType" : "3031",
+      "printerFlag" : "30",
+      "cashierID" : "3030",
+      "transactionNumber" : "",
+      "fieldSeparator1" : "1C",
+      "transactionAmount1" : "32",
+      "fieldSeparator2" : "1C",
+      "fieldSeparator3" : "1C",
+      "amountExponent" : "2B30",
+      "fieldSeparator4" : "1C",
+      "amountCurrency" : "393431",
+      "fieldSeparator5" : "1C",
+      "fieldSeparator6" : "1C",
+      "fieldSeparator7" : "1C",
+      "fieldSeparator8" : "1C",
+      "authorizationCode" : "",
+      "fieldSeparator9" : "1C",
+      "fieldSeparator10" : "1C",
+      "fieldSeparator11" : "1C",
+      "inputLabel" : "",
+      "fieldSeparator12" : "1C",
+      "insurancePolicyNumber" : "",
+      "fieldSeparator13" : "1C",
+      "installmentsNumber" : "",
+      "fieldSeparator14" : "1C",
+      "minimumInputLenght" : "",
+      "maximumInputLenght" :"",
+      "maskInputData" : "",
+      "fieldSeparator15" : "1C",
+      "languageID" : "3030",
+      "fieldSeparator16" : "1C",
+      "printData" : "",
+      "fieldSeparator17" : "1C",
+      "cashierID2" : "",
+      "fieldSeparator18" : "1C",
+      "transactionAmount2" : "",
+      "fieldSeparator19" : "1C",
+      "payservicesData" : "",
+      "fieldSeparator20" : "1C",
+      "transactionActivationCode" : "",
+      "fieldSeparator21" : "1C",
+      "instantPaymentReference" : "",
+      "fieldSeparator22" : "1C",
+      "qrCodeData" : "",
+      "fieldSeparator23" : "1C",
+      "specificProcessingFlag" : "",
+      "fieldSeparator24" : "1C",
+      "random_transportationSpecificData" : ""
+   }
+
+   STX = "02"
+   ETX = "03"
+   EOT = "04"
+   ACK = "06"
+   NACK = "15"
+
+
+   message_data = ""
+
+
+   for key in send_dict:
+      message_data = str(message_data) + str(send_dict[key])
+
+   message_data = message_data + str(ETX)
+   ack_message_data_tmp = ACK + ETX
+   nack_message_data_tmp = NACK + ETX
+
+   lrc = xor_sum(message_data)
+   # print("*******")
+
+   # print(lrc)
+   # print("*******")
+   # lrc_ack = xor_sum(ack_message_data_tmp)
+   # lrc_nack = xor_sum(nack_message_data_tmp)
+
+
+   message_data = STX+STX+message_data+str(lrc)
+
+
+
+
+   S_TCP_IP = '192.168.1.101'  
+   S_TCP_PORT = 3000
+
+
+
+   TCP_IP = '192.168.1.113'    
+   TCP_PORT = 3000   
+
+   sock_payten = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+   status = sock_payten.connect((TCP_IP, TCP_PORT))
+
+
+
+
+   dobar_format = bytearray.fromhex(message_data).decode()
+
+
+   i = 1
+
+   try:
+      
+      
+      for i in range(1):
+
+
+
+         sent = sock_payten.sendto(bytes(dobar_format, encoding='iso-8859-2'),(TCP_IP,TCP_PORT))
+
+         data = sock_payten.recv(1024)
+     
+
+         if data.hex() == ACK:
+               data = sock_payten.recv(1024)
+               sent = sock_payten.sendto(bytes(ACK, encoding='iso-8859-2'),(TCP_IP,TCP_PORT))
+               hold = True
+               while hold == True:
+               
+                  data = sock_payten.recv(1024)
+                  time.sleep(3)
+
+                  message_identifier = data.hex()
+                  # print(message_identifier[2:6])
+                  if message_identifier[2:6] == "3130":   # kod 10
+                     hold = False
+               
+               sent = sock_payten.sendto(bytes(ACK, encoding='iso-8859-2'),(TCP_IP,TCP_PORT))
+               # print("Transakcija uspesno realizovana")
+               return "Transakcija uspesno realizovana"
+               
+         
+
+
+   
+   except:
+      return "Ode na except"
+
+
+
+
+
 
 
 
@@ -1903,12 +2935,85 @@ def preuzimanjeKljuc():
          response = requests.put(url, data=data_update, headers=header_data)
 
 
-         return render_template('/preuzimanje/preuzimanjeKljuc.html')
+
+
+         ########################
+
+         # STAMPANJE UGOVORA
+
+         ########################
+
+
+         
+
+
+
+
+
+
+
+
+
+
+
+         return render_template('/preuzimanje/preuzimanjeKljuc.html'), {"Refresh": "10; url=/print_final_contract?contract_id="+contract_id}
       else:
          
          return render_template('/errors/non_exist_rfid.html')
    except:
        return render_template('/errors/general_except.html')
+
+
+
+
+@app.route('/print_final_contract', methods = ['GET', 'POST'])
+def print_final_contract():
+
+   contract_id = int(request.args.get('contract_id'))
+   print(contract_id)
+  
+
+   response = requests.get("http://23.88.98.237:8069/api/auth/get_tokens",params={"username": "odoo@irvas.rs", "password": "irvasadm"})
+
+   response_data = json.loads(response.text)
+   access_token = response_data['access_token']
+
+
+   print("Token: "+access_token)
+
+   response_pdf = requests.get(
+      'http://23.88.98.237:8069/api/report/get_pdf',
+      headers = {
+         'Content-Type': 'text/html; charset=utf-8',
+         'Access-Token': access_token
+      },
+      data = json.dumps({
+         "report_name":  "fleet_rent.report_fleet_rent_pdf",
+         "ids": [contract_id],
+      }),
+   )
+
+   print("_________________")
+   print(response_pdf.text)
+   print("_________________")
+
+   pdf_file = str(response_pdf.text[1: len(response_pdf.text)-1])
+
+
+
+   stripped = pdf_file.replace('\\n', '')
+   bytes = b64decode(stripped, validate=True)
+
+   f = open("temp.pdf", "wb")
+   f.write(bytes)
+   f.close()
+   os.system("lp temp.pdf")
+
+
+
+
+   return render_template('/rezervacija/print_contract.html'), {"Refresh": "5; url=/"}
+
 
 
 

@@ -487,7 +487,7 @@ def wrap__report__call_method(method, success_code):
     # Try call method of report
     _logger.info("Try call method of report: method == %s; len(jdata) == %s" % (method, len(jdata)))
     _logger.info("jdata == %s" % jdata)
-    _logger.info("rname  == %s" % jdata['report_name'])
+    # _logger.info("rname  == %s" % jdata['report_name'])
     cr, uid = request.cr, request.session.uid
     cr._cnx.set_isolation_level(ISOLATION_LEVEL_READ_COMMITTED)
     # Attention! Current implemented report methods: 'get_pdf'.

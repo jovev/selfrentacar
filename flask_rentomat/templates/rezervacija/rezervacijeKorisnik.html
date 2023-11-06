@@ -178,10 +178,10 @@
               {% endif %}
               </div>
               <div class="col-md-5">
-                <input type="checkbox" name="options" value="{{option['id']}}" id="{{option['id']}}"> € 12.00 
+                <input type="checkbox" name="options" class="options" value="{{option['id']}}" data-valce="{{option['price']}}" id="{{option['id']}}"> € {{option['price']}}
                 </div>
                 <div class="col-md-2">
-                  <span class="option_price">
+                  <span class="option_price_{{option['id']}}">
                     € 0.00  
                   </span>
                   </div>
@@ -787,40 +787,60 @@ $(document).ready(function(){
 
 
     
-    $('#casco_checkbox').change(function() {
+    // $('#casco_checkbox').change(function() {
+    //     if(this.checked) {
+    //       $("#casco_price").text("€ 12.00");
+    //       $("#deposit_id").text("€ 0.00");
+    //       var grand_total = parseFloat($("#grand_total").text());
+    //       var total_price = (Math.round(parseFloat(grand_total+12.00) * 100) / 100).toFixed(2);
+    //       $("#grand_total").text(total_price);
+    //       $("#grand_total_value").val(total_price);
+
+    //     } else {
+    //       $("#casco_price").text("€ 0.00");
+    //       $("#deposit_id").text("€ 600.00");
+    //       var grand_total = parseFloat($("#grand_total").text());
+    //       var total_price = (Math.round(parseFloat(grand_total-12.00) * 100) / 100).toFixed(2);
+    //       $("#grand_total").text(total_price);
+    //       $("#grand_total_value").val(total_price);
+    //     }
+    // });
+
+
+
+    $('.options').change(function() {
+
+      var curr_price = parseFloat($(this).data('valce'));
+      var curr_valce = $(this).val();
+      console.log(curr_valce);
+
         if(this.checked) {
-          $("#casco_price").text("€ 12.00");
-          $("#deposit_id").text("€ 0.00");
-          var grand_total = parseFloat($("#grand_total").text());
-          var total_price = (Math.round(parseFloat(grand_total+12.00) * 100) / 100).toFixed(2);
-          $("#grand_total").text(total_price);
-          $("#grand_total_value").val(total_price);
-
-        } else {
-          $("#casco_price").text("€ 0.00");
-          $("#deposit_id").text("€ 600.00");
-          var grand_total = parseFloat($("#grand_total").text());
-          var total_price = (Math.round(parseFloat(grand_total-12.00) * 100) / 100).toFixed(2);
-          $("#grand_total").text(total_price);
-          $("#grand_total_value").val(total_price);
-        }
-    });
+          
+          
 
 
+          $(".option_price_"+curr_valce).text("€ "+parseFloat(curr_price).toFixed(2));
 
-    $('#tyres_checbox').change(function() {
-        if(this.checked) {
+          if(curr_valce == 13) {
+            $("#deposit_id").text("€ 0.00");
+          }
+
+
           $("#tyres_price").text("€ 15.00");
           var grand_total = parseFloat($("#grand_total").text());
-          var total_price = (Math.round(parseFloat(grand_total+15.00) * 100) / 100).toFixed(2);
+          var total_price = (Math.round(parseFloat(grand_total+curr_price) * 100) / 100).toFixed(2);
           $("#grand_total").text(total_price);
           $("#grand_total_value").val(total_price);
 
         } else {
+          $(".option_price_"+curr_valce).text("€ 0.00");
+          if(curr_valce == 13) {
+            $("#deposit_id").text("€ 600.00");
+          }
           $("#tyres_price").text("€ 0.00");
           var grand_total = parseFloat($("#grand_total").text());
 
-          var total_price = (Math.round(parseFloat(grand_total-15.00) * 100) / 100).toFixed(2);
+          var total_price = (Math.round(parseFloat(grand_total-curr_price) * 100) / 100).toFixed(2);
 
           $("#grand_total").text(total_price);
           $("#grand_total_value").val(total_price);
