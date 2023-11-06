@@ -266,7 +266,7 @@
                                 <field name="amount_return" widget="monetary" readonly="1" string="Amount Returned"/>
                                 <field name="deposit_received" string="Deposit Received?"/>
                                 <field name="is_deposit_return" string="Deposit Returned?"/>
-                                <field name="is_payment_received" string="received?"/>
+                                <field name="is_payment_received" string="Payment received?" readonly="1"/>
                                 <field name="contact_id"/>
                                 <field name="maintenance_cost" widget="monetary" readonly="1" string="Maintenance Cost"/>
 							</group>
