@@ -273,6 +273,7 @@
 						</group>
             <!-- CONTRACT INFORMATION -->
                         <group colspan="4" col="2">
+
                             <separator string="Contract Information"/>
                             <group>
     							<field name="allow_crossborder"/>
