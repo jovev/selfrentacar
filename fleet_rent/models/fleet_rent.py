@@ -298,6 +298,7 @@ class FleetRent(models.Model):
         [("kilometers", "Kilometers"), ("miles", "Miles")],
         related="vehicle_id.odometer_unit",
         help="Unit of the vehicle odometer.",
+        default="kilometers",
         store=True,
     )
     company_id = fields.Many2one(
