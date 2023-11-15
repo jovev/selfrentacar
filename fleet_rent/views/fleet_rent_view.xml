@@ -247,7 +247,7 @@
                                 <label for="odometer"/>
                                 <div>
                                     <field name="odometer" class="oe_inline"/>
-                                    <field name="odometer_unit" class="oe_inline" readonly="0" required="1" string="Last Odometer"/>
+                                    <field name="odometer_unit" class="oe_inline" readonly="0" required="0" string="Last Odometer"/>
                                 </div>
 							</group>
                         </group>
@@ -266,18 +266,20 @@
                                 <field name="amount_return" widget="monetary" readonly="1" string="Amount Returned"/>
                                 <field name="deposit_received" string="Deposit Received?"/>
                                 <field name="is_deposit_return" string="Deposit Returned?"/>
+                                <field name="is_payment_received" string="Payment received?" readonly="1"/>
                                 <field name="contact_id"/>
                                 <field name="maintenance_cost" widget="monetary" readonly="1" string="Maintenance Cost"/>
 							</group>
 						</group>
             <!-- CONTRACT INFORMATION -->
                         <group colspan="4" col="2">
+
                             <separator string="Contract Information"/>
                             <group>
     							<field name="allow_crossborder"/>
                                 <field name="date_start" colspan="2" required="True" attrs="{'readonly':[('state','!=','draft')]}"/>
                                 <field name="date_end" placeholder="End Date" colspan="2" string="Expiration Date" readonly="True" attrs="{'readonly':[('state','!=','draft')]}"/>
-                                <field name="rent_type_id" required="True"/>
+                                <field name="rent_type_id" required="False"/>
 							</group>
 							<group>
                                 <field name="total_rent" widget="monetary" string="Total Rent"/>
