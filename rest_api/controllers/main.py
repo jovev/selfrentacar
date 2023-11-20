@@ -361,6 +361,8 @@ def wrap__resource__update_one(modelname, id, success_code):
     # Get request parameters from body
     try:
         body = json.loads(request.httprequest.data)
+        _logger.info("body = %s object_id=%s", body, obj_id)
+        
     except:
         body = {}
     # Merge all parameters with body priority
