@@ -28,7 +28,7 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='name']" position="after">
 
-                   <field name="web_site_cat_id" string="Rent" />
+                   <field name="web_site_cat_id" string="WebCat ID" />
 
             </xpath>
         </field>
