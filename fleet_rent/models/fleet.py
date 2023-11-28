@@ -22,3 +22,9 @@ class FleetVehicleExtend(models.Model):
             )
 
     rent_count = fields.Integer(compute="_compute_count_rent", string="Rents")
+
+class FleetVehicleCategoryExtend(models.Model):
+    """Fleet Category Vehicle Extend."""
+
+    _inherit = "fleet.vehicle.model.category"
+    web_site_cat_id = fields.Integer("Web Category ID")
