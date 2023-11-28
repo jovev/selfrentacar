@@ -30,14 +30,18 @@
         z-index: 999999;
         position: absolute;
     }
+
+
+    
 </Style>
 </head>
 
 <body>
-    <a href="/preuzimanjeKljuc?contract_id={{contract_id}}"><button class="button_style" >{{contract_id}}Back</button></a>
+    <a href="/payNow?contract_id={{contract_id}}"><button class="button_style" >Pay Now</button></a>
+    <!--<a href="/preuzimanjeKljuc?contract_id={{contract_id}}"><button class="button_style" >Take a Key</button></a>-->
     <iframe frameborder='0' noresize='noresize' style='position: absolute; background: transparent; width: 100%; height:100%; left:0' src="{{ iframe }}" frameborder="0"></iframe>
 
 
 
 </body>
-</html>
+

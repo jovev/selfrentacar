@@ -174,124 +174,45 @@
    
                    <div class="card-body">
    
-                     <div class="row row_custom">
-                       <div class="col-md-4">
-                     
-                        Position 1:
+
+                    {%for i in range(1, 13)%}
                     
-                        <span class="rfid_style">{{rent_data['key_pos_1']}}</span>
-                       </div>
 
-                       <div class="col-md-4">
-                     
-                        Position 2:
-                   
-                        <span class="rfid_style">{{rent_data['key_pos_2']}}</span>
-                       </div>
+                    {% set new_var = 'key_pos_'~i %}
 
-                       <div class="col-md-4">
-                     
-                        Position 3:
-                
-                        
-                     
-                        <span class="rfid_style">{{rent_data['key_pos_3']}}</span>
-                       </div>
+                    <div class="row row_custom">
+                      <div class="col-md-2">
+                        Position {{i}}:
+                      </div>
+                      <div class="col-md-2">
+                      
+                        <span class="rfid_style">{{rent_data[new_var]}}</span>
+                      </div>
 
-          
-   
-                   </div>
-   
-   
-                    
-                   <div class="row row_custom">
-                    <div class="col-md-4">
-                  
-                     Position 4:
-                 
-                     <span class="rfid_style">{{rent_data['key_pos_4']}}</span>
+                      <div class="col-md-4">
+                        <span class="rfid_style">{{car_list[i-1]}}</span>
+                      </div>
+
+                      <div class="col-md-2">
+                        {% if(rent_data) %}
+                        <a href="/ubaci_kljuc_scan?position={{i}}" onclick="return alert('Are you sure?');">FILL</a>
+                        {%endif%}
+                      </div>
+
+                      <div class="col-md-2">
+                        <a href="/izbaci_kljuc?position={{i}}" onclick="return alert('Are you sure?');">EMPTY</a>
+                      </div>
                     </div>
 
-                    <div class="col-md-4">
-                  
-                     Position 5:
-                
-                     <span class="rfid_style">{{rent_data['key_pos_5']}}</span>
-                    </div>
-
-                    <div class="col-md-4">
-                  
-                     Position 6:
-             
-                     
-                  
-                     <span class="rfid_style">{{rent_data['key_pos_6']}}</span>
-                    </div>
-
-       
-
-                </div>
-
-
-
-                <div class="row row_custom">
-                    <div class="col-md-4">
-                  
-                     Position 7:
-                 
-                     <span class="rfid_style">{{rent_data['key_pos_7']}}</span>
-                    </div>
-
-                    <div class="col-md-4">
-                  
-                     Position 8:
-                
-                     <span class="rfid_style">{{rent_data['key_pos_8']}}</span>
-                    </div>
-
-                    <div class="col-md-4">
-                  
-                     Position 9:
-             
-                     
-                  
-                     <span class="rfid_style">{{rent_data['key_pos_9']}}</span>
-                    </div>
-
-       
-
-                </div>
+                    {%endfor%}
 
 
 
 
-                <div class="row row_custom">
-                    <div class="col-md-4">
-                  
-                     Position 10:
-                 
-                     <span class="rfid_style">{{rent_data['key_pos_10']}}</span>
-                    </div>
 
-                    <div class="col-md-4">
-                  
-                     Position 11:
-                
-                     <span class="rfid_style">{{rent_data['key_pos_11']}}</span>
-                    </div>
 
-                    <div class="col-md-4">
-                  
-                     Position 12:
-             
-                     
-                  
-                     <span class="rfid_style">{{rent_data['key_pos_12']}}</span>
-                    </div>
 
-       
 
-                </div>
    
                     
    

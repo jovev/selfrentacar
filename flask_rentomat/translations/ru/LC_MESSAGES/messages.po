@@ -25,15 +25,15 @@ msgstr "IrvasRU"
 
 #: app.py:102
 msgid "DROP OFF"
-msgstr ""
+msgstr "ВЫСАДКА"
 
 #: app.py:103
 msgid "RESERVATION"
-msgstr ""
+msgstr "РЕЗЕРВИРОВАНИЕ"
 
 #: app.py:104
 msgid "PICK UP"
-msgstr ""
+msgstr "ПОДБИРАТЬ"
 
 #: app.py:105
 msgid "Select language"
