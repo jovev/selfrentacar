@@ -22,6 +22,8 @@ class FleetVehicleExtend(models.Model):
             )
 
     rent_count = fields.Integer(compute="_compute_count_rent", string="Rents")
+    web_car_id = fields.Integer("Web Car ID")    # Koristi se za uskladjivanje sa ID u WP za dodatne opcije pri rentiranju
+    web_price_group_id = fields.Integer("Web Car ID")    # Koristi se za uskladjivanje sa ID u WP za dodatne opcije pri rentiranju
 
 class FleetVehicleCategoryExtend(models.Model):
     """Fleet Category Vehicle Extend."""

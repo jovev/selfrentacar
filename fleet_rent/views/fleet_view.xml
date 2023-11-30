@@ -16,6 +16,10 @@
                    <field name="rent_count" widget="statinfo" string="Rent" />
                 </button>
             </xpath>
+            <xpath expr="//field[@name='description']" position="before">
+               <field name = "web_car_id" />
+                <field name = "web_price_group_id"/>
+            </xpath>
         </field>
     </record>
 
