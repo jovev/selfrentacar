@@ -473,7 +473,7 @@ class FleetRent(models.Model):
     x_key_rfid = fields.Char(related='vehicle_id.x_key_rfid', string='Key RFID number')
     x_total_rent =fields.Monetary(
          currency_field="currency_id",
-         string="Total Rent"
+         string="Total Rent",
          help="Total rent of this Rental Vehicle.",
     )
     notes = fields.Char(string = "Additional notes")
