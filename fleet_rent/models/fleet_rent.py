@@ -471,6 +471,11 @@ class FleetRent(models.Model):
     x_trenutna_lokacija = fields.Many2one(related='vehicle_id.x_trenutna_lokacija', string='Current Location')
     x_key_position = fields.Char(related='vehicle_id.x_key_position', string = 'Key position in KeyBox')
     x_key_rfid = fields.Char(related='vehicle_id.x_key_rfid', string='Key RFID number')
+    x_total_rent =fields.Monetary(
+         currency_field="currency_id",
+         string="Total Rent"
+         help="Total rent of this Rental Vehicle.",
+    )
     notes = fields.Char(string = "Additional notes")
 
 
