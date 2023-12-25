@@ -282,7 +282,7 @@
                                 <field name="rent_type_id" required="False"/>
 							</group>
 							<group>
-                                <field name="total_rent" widget="monetary" string="Total Rent"/>
+                                <field name="x_total_rent" widget="monetary" string="Total Rent"/>
                                 <field name="rent_close_by" string="Rent Close By" readonly="1"/>
                                 <field name="date_close" readonly="1"/>
 							</group>
