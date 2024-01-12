@@ -1,0 +1,40 @@
+
+
+
+
+
+
+
+
+
+
+
+============ FISKALNI RAUN ============
+              RS110441595              
+            Inova Tech doo            
+            Inova Tech doo            
+          Ratka Mitrovi 130          
+                Beograd                
+Kasir:                           Aparat
+ESIR broj:                      398/1.0
+------------PROMET PRODAJA------------
+                Artikli                
+======================================
+Naziv   Cena         Kol.      Ukupno
+eton kom (N)
+       100,00          1       100,00
+----------------------------------------
+Ukupan iznos:                    100,00
+Gotovina:                        100,00
+Povraaj:                          0,00
+======================================
+Oznaka     Ime     Stopa       Porez
+N        N-TAX     0,00%          0,00
+--------------------------------------
+Ukupan iznos poreza:               0,00
+======================================
+PFR vreme:         25.12.2023. 13:00:54
+PFR broj rauna:HU3SHCBR-HU3SHCBR-188230
+Broja rauna:          187959/188230PP
+======================================
+======== KRAJ FISKALNOG RAUNA ========

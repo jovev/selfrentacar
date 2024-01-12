@@ -1,0 +1,35 @@
+1. PLACEN KASKO
+- korisnik placa ceo iznos i dobija kljuc
+
+2. BEZ KASKA (POTREBAN DEPOZIT)
+
+2.A. odbijeno placanje depozita
+- info: 
+	- promeni karticu
+	- uzmi kasko
+	- odustani
+
+
+
+
+
+ADHOK
+
+1. pretraga
+- biranje datuma i vremena
+- prikaz 'rezervacija/pretraga.html'
+
+2. listaVozila
+- biranje vozila
+- prikaz 'rezervacija/listaVozila.html'
+
+3. rezervacijeKorisnik
+- dodatne opcije i podaci o klijentu
+- prikaz '/rezervacija/rezervacijeKorisnik.html'
+
+4. submit_form
+- pravljenje ugovora
+- prikaz '/rezervacija/submit_form_confirm.html' i redirekcija na /paymentPage?contract_id="+contract_id
+
+5. paymentPage
+- prikaz '/rezervacija/paymentPage.html'

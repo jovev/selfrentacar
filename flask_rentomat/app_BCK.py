@@ -35,19 +35,6 @@ import subprocess
 import math
 
 
-from functions_prices import getpriceextrastyresfromid, isWinter
-from functions_prices import getpriceinsurancefromid
-from functions_prices import getpricesnowchains
-from functions_prices import carDepositData
-from functions_prices import pricesExtrasWebAll
-
-from functions_apis import getAccesToken
-from functions_apis import getCarData
-from functions_apis import getAllOptions
-from functions_apis import getLocationNameFromId
-# from functions_apis import getContractData
-
-from functions_apis import *
 
 
 
@@ -55,7 +42,22 @@ from functions_apis import *
 
 
 
-
+def lights():
+   # Use physical pin numbers
+   GPIO.setmode(GPIO.BOARD)
+   # Set up header pin 11 (GPIO17) as an output
+   print("Setup Pin 11")
+   GPIO.setup(11, GPIO.OUT)
+   
+   var=1
+   print("Start loop")
+   while var==1:
+      print("Set Output False")
+      GPIO.output(11, False)
+      time.sleep(1)
+      print("Set Output True")
+      GPIO.output(11, True)
+      time.sleep(1)
 
 app = Flask(__name__)
 app.config['BABEL_DEFAULT_LOCALE'] = 'en'
@@ -89,6 +91,35 @@ babel.init_app(app, locale_selector=get_locale)
 
 
 
+
+@app.route('/getData')
+def getData():
+
+  
+
+
+
+
+  
+  
+   headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'}
+
+   URL = "https://cheapcarhire.rent/wp-json/my/price/getprice?date_from=11&date_to=51&from=1&to=522"
+
+   r = requests.get(url = URL, headers = headers, data='')
+
+
+   # print(r)
+   # print(r.text)
+   print(r.status_code)
+
+
+
+
+   data_insert_final = json.dumps(r.text)
+   print(data_insert_final)
+
+   return "1"
 @app.route('/lang')
 def lang():
 
@@ -126,7 +157,7 @@ def invoice():
       "buyerId":"123456789"
    }
 
-   response = requests.get("http://192.168.1.119:8080/esir/westapi/newInvoice",json = JSONBody)
+   response = requests.get("http://79.101.159.196:8099/esir/westapi/newInvoice",json = JSONBody)
 
 
    response_data = json.loads(response.text)
@@ -208,8 +239,10 @@ def rentomat():
    # print(data)
 
 
- 
-   access_token = getAccesToken()
+   response = requests.get("http://23.88.98.237:8069/api/auth/get_tokens",params={"username": "odoo@irvas.rs", "password": "irvasadm"})
+
+   response_data = json.loads(response.text)
+   access_token = response_data['access_token']
 
 
    car_list = []
@@ -470,7 +503,10 @@ def pretraga():
 
 
 
-   access_token = getAccesToken()
+   response = requests.get("http://23.88.98.237:8069/api/auth/get_tokens",params={"username": "odoo@irvas.rs", "password": "irvasadm"})
+
+   response_data = json.loads(response.text)
+   access_token = response_data['access_token']
 
    
    url = "http://23.88.98.237:8069/api/stock.location"
@@ -528,24 +564,6 @@ def listaVozila():
 
 
 
-   day_num = math.ceil((to_timestamp - from_timestamp)/86400)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
    available_cars=[]
 
 
@@ -556,7 +574,10 @@ def listaVozila():
          
 
 
-         access_token = getAccesToken()
+         response = requests.get("http://23.88.98.237:8069/api/auth/get_tokens",params={"username": "odoo@irvas.rs", "password": "irvasadm"})
+
+         response_data = json.loads(response.text)
+         access_token = response_data['access_token']
  
 
          
@@ -593,7 +614,7 @@ def listaVozila():
             response_data = json.loads(response.text)
             vehicle_category_id = response_data['web_price_group_id']
             web_car_id = response_data['web_car_id']
-            # print(response_data)
+            print(response_data)
 
 
             # get prices 
@@ -604,7 +625,7 @@ def listaVozila():
             # print(to_timestamp)
 
 
-            
+            day_num = math.ceil((to_timestamp - from_timestamp)/86400)
 
 
             headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'}
@@ -652,26 +673,16 @@ def listaVozila():
                URL = "https://cheapcarhire.rent/wp-json/my/price/getprice?selected_day="+str(key_day)+"&current_day="+str(current_day)+"&date_from="+str(from_timestamp)+"&date_to="+str(to_timestamp)+"&from=1&to=522&vehicle_category_id="+str(vehicle_category_id)
                prices = requests.get(url = URL, headers = headers, data='')
                json_object = json.loads(prices.text)
-               # print("Price text")
-               # print(prices.text)
-               # print(type(json_object))
-               # print("Price text end")
+               print(prices.text)
+               day_price = json_object[0][key_day]
 
-               if not json_object:
-                  day_price = 1
-                  current_discount = 0
+
+               if not json_object[0]['discount_percentage']:
+                  print("popust 1")
+                  current_discount = default_discount
                else:
-                  day_price = json_object[0][key_day]
-                  if not json_object[0]['discount_percentage']:
-                     print("popust 1")
-                     current_discount = default_discount
-                  else:
-                     print("popust 2")
-                     current_discount = json_object[0]['discount_percentage']
-                  
-
-
-               
+                  print("popust 2")
+                  current_discount = json_object[0]['discount_percentage']
 
                dayprice_with_discount = float(day_price) * (100 - float(current_discount))/100
 
@@ -683,24 +694,57 @@ def listaVozila():
                
 
 
-            #    print("discount je: ")
-            #    print(current_discount)
-            # print("total price: ")
-            # print(total_price)
-            # print("****************")
-            # print("car id: ")
-            # print(web_car_id)
+               print("discount je: ")
+               print(current_discount)
+            print("total price: ")
+            print(total_price)
+            print("****************")
+
             # DEPOZIT
             
             URL = "https://cheapcarhire.rent/wp-json/my/price/cardeposit?car_id="+str(web_car_id)
             deposit_data = requests.get(url = URL, headers = headers, data='')
-            print(deposit_data.text)
-            if not json.loads(deposit_data.text):
-               deposit = 0
-            else:
-               deposit = float(json.loads(deposit_data.text)[0]['fixed_rental_deposit'])
+            deposit = float(json.loads(deposit_data.text)[0]['fixed_rental_deposit'])
+            print("depozit: ")
+            print(deposit)
+
+            
+
+            # return 1
+            # total_price = 0
+            # price_per_day = 0
+
+            # now = datetime.now()
+            # dt_string = now.strftime("%a").lower()
+            # print("date and time =", dt_string)
+            
+
+
+            # for itemce in json_object:
+            #    print(itemce["price_plan_id"])
                
-   
+               
+            #    print("total price: ", total_price)
+
+
+            #    if itemce["discount_percentage"] != None:
+             
+
+                  
+            #       price_per_day = float(float(itemce[key_day])*(100 - float(itemce["discount_percentage"]))/100)
+            #       total_price = float(day_num*price_per_day*(100 - float(itemce["discount_percentage"]))/100)
+            #    else:
+                  
+            #       price_per_day = float(itemce[key_day])
+            #       total_price = float(day_num*price_per_day)
+
+
+
+
+
+
+
+
             vehicle_id = str(response_data['id'])
             vehicle_name = str(response_data['name'])
             vehicle_plate = str(response_data['license_plate'])
@@ -728,10 +772,6 @@ def listaVozila():
             }
 
             available_cars.append(toAdd)
-
-
-
-
             # print(available_cars)
 
 
@@ -743,7 +783,7 @@ def listaVozila():
  
 
 
-   return render_template('rezervacija/listaVozila.html', day_num=day_num, cars = available_cars, location_from = location_from, location_to = location_to, date_from = date_from, date_to = date_to)
+   return render_template('rezervacija/listaVozila.html', cars = available_cars, location_from = location_from, date_from = date_from, location_to = location_to, date_to = date_to)
 
 
 @app.route('/rezervacijeKorisnik', methods = ['GET', 'POST'])
@@ -762,7 +802,6 @@ def rezervacijeKorisnik():
 
 
       location = request.form.get('location')
-      return_date = request.form.get('return_date')
       return_date = request.form.get('return_date')
       pricePerDay = request.form.get('pricePerDay')
 
@@ -783,21 +822,6 @@ def rezervacijeKorisnik():
    carId = request.args.get('carId')
    dayPrice = request.args.get('pricePerDay')
 
-
-      ##############    CAR DATA    ##################
-
-   response_data_car = getCarData(carId)
-
-   vehicle_brand = str(response_data_car['brand_id']['name'])
-   vehicle_name = str(response_data_car['model_id']['name'])
-
-   transmission = str(response_data_car['transmission'])
-   category = str(response_data_car['category_id']['name'])
-   vehicle_category_id = response_data_car['driver_identification_no']
-   web_car_id = response_data_car['web_car_id']
-
-   ################################################
-
    # print("price per day 2:")
    # print(dayPrice)
    # print("car ID:")
@@ -813,17 +837,219 @@ def rezervacijeKorisnik():
    dt_to = datetime.strptime(date_to, "%Y/%m/%d %H:%M")
    to_timestamp =(int(dt_to.timestamp()))
 
-   day_num = math.ceil((to_timestamp - from_timestamp)/86400)
+
+
+
+
+
+   # CHECK IF WINTER SEASON
+
+
+   is_winter = False
+
+   currentYear = datetime.now().year
+   snowchain_date_from = datetime.strptime(str(currentYear)+"/11/1", "%Y/%m/%d")
+   timestamp_snow_chain_from =(int(snowchain_date_from.timestamp()))
+
+   snowchain_date_to = datetime.strptime(str(currentYear+1)+"/04/1", "%Y/%m/%d")
+   timestamp_snow_chain_to =(int(snowchain_date_to.timestamp()))
+
+
+   today = date.today()
+   current_date = datetime.strptime(str(today), "%Y-%m-%d")
+   today_timestamp = (int(current_date.timestamp()))
+   
+   # current_date = datetime.strptime(str(now_date), "%Y/%m/%d")
+   # timestamp_current_date =(int(current_date.timestamp()))
+
+   print(today_timestamp)
+
+   if today_timestamp > timestamp_snow_chain_from and today_timestamp < timestamp_snow_chain_to:
+      is_winter = True
+
+   
+
+   response = requests.get("http://23.88.98.237:8069/api/auth/get_tokens",params={"username": "odoo@irvas.rs", "password": "irvasadm"})
+
+   response_data = json.loads(response.text)
+   access_token = response_data['access_token']
+
+   url = "http://23.88.98.237:8069/api/stock.location/"+location_from
+
+   header_data = {'Access-Token' : str(access_token)}
+
+   response_locationFrom = requests.get(url, headers=header_data)
+
+   response_data_locationFrom = json.loads(response_locationFrom.text)
+   location_from_name = response_data_locationFrom['name']
+
+
+   url = "http://23.88.98.237:8069/api/stock.location/"+location_to
+   response_locationTo = requests.get(url, headers=header_data)
+
+   response_data_locationTo = json.loads(response_locationTo.text)
+   location_to_name = response_data_locationTo['name']
+
 
 
 
    
+   url = "http://23.88.98.237:8069/api/stock.location"
+
+   header_data = {'Access-Token' : str(access_token)}
+
+   response = requests.get(url, headers=header_data)
+
+   response_data = json.loads(response.text)
+
+   # print(response.text)
+
+   allLocations=[]
+
+
+   if(response_data['count'] != 0):
+
+      for key in response_data['results']:
+          
+         allLocations.append(key)
+   
+
+
+   url = "http://23.88.98.237:8069/api/product.product"
+
+   header_data = {'Access-Token' : str(access_token)}
+
+   response = requests.get(url, headers=header_data)
+
+   response_data = json.loads(response.text)
+
+   
+
+   allOptions=[]
+
+
+   if(response_data['count'] != 0):
+
+      for key in response_data['results']:
+         # print(key)
+         product_id = str(key['id'])
+
+
+
+         url = "http://23.88.98.237:8069/api/product.product/"+product_id
+
+         header_data = {'Access-Token' : str(access_token)}
+
+         response = requests.get(url, headers=header_data)
+
+         response_data = json.loads(response.text)
+
+         id = response_data['id']
+         name = response_data['name']
+         price = response_data['lst_price']
+
+         add_with_pricce = {
+            'id' : id,
+            'name' : name,
+            'price' : price
+         }
+
+         # print(key)
+
+         allOptions.append(add_with_pricce)
+   #print(allOptions)
+   # print("Id je: "+str(allOptions['id']))
+  
+
+   # if is_winter:
+   #    add_with_pricce = {
+   #          'id' : '22',
+   #          'name' : 'Snow Chains. Required from 01.11.2023-01.04.2024. Price Per Rental:',
+   #          'price' : '25'
+   #       }
+
+   #       # print(key)
+
+   #    allOptions.append(add_with_pricce)
+   # else:
+   #    print("Nije zima")
+
+   day_num = math.ceil((to_timestamp - from_timestamp)/86400)
+
+   car_url = "http://23.88.98.237:8069/api/fleet.vehicle/"+carId
+
+   header_data = {'Access-Token' : str(access_token)}
+
+   response = requests.get(car_url, headers=header_data)
+
+   response_data_car = json.loads(response.text)
+
+   # print("Car data")
+   # print(response.text)   
+   # print("car data end")
+
+   #print(vehicle_id)
+   vehicle_brand = str(response_data_car['brand_id']['name'])
+   vehicle_name = str(response_data_car['model_id']['name'])
+
+   transmission = str(response_data_car['transmission'])
+   category = str(response_data_car['category_id']['name'])
+   vehicle_category_id = response_data_car['driver_identification_no']
+   web_car_id = response_data_car['web_car_id']
+
+   print("Webcar id:")
+   print(web_car_id)
+
+
+
+   # DEPOZIT
+   headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'}
+   URL = "https://cheapcarhire.rent/wp-json/my/price/cardeposit?car_id="+str(web_car_id)
+   deposit_data = requests.get(url = URL, headers = headers, data='')
+   deposit = json.loads(deposit_data.text)[0]['fixed_rental_deposit']
+   deposit_price = float(json.loads(deposit_data.text)[0]['price'])*float(day_num)
+   # print("depozit: ")
+   # print(deposit_data.text)
+   # print(deposit)
 
 
 
 
 
-####################       cena najma KADA SU CENE RAZLICITE PO DANIMA        PROVERIRI      ###################
+
+
+
+
+   # EXTRAS
+   headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'}
+   URL = "https://cheapcarhire.rent/wp-json/my/price/extras"
+   extras_data = requests.get(url = URL, headers = headers, data='')
+   extras_web = json.loads(extras_data.text)
+
+
+   # print("Extras")
+   # print(extras_data.text)
+   # print("Extras end")
+
+   
+   # get prices 
+
+
+   # print(from_timestamp)
+
+   # print(to_timestamp)
+
+   duration_time = to_timestamp - from_timestamp
+
+
+
+
+
+
+   # print("time stamp duration: ")
+   # print(duration_time)
+
+
    
 
 
@@ -834,8 +1060,8 @@ def rezervacijeKorisnik():
    prices = requests.get(url = URL, headers = headers, data='')
 
 
-   print("Days: ", day_num)
-   print(prices.text)
+   # print("Days: ", day_num)
+   # print(prices.text)
    json_object = json.loads(prices.text)
 
 
@@ -859,49 +1085,34 @@ def rezervacijeKorisnik():
          price_per_day = float(itemce[key_day])
          total_price = float(day_num*price_per_day)
 
-################################################################################################################
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+   
 
 
    # EXTRAS PRICES
 
-   # headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'}
+   headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'}
 
-   # URL = "https://cheapcarhire.rent/wp-json/my/price/getpriceextras?date_from="+str(from_timestamp)+"&date_to="+str(to_timestamp)+"&from=1&to=522&vehicle_category_id="+str(web_car_id)
+   URL = "https://cheapcarhire.rent/wp-json/my/price/getpriceextras?date_from="+str(from_timestamp)+"&date_to="+str(to_timestamp)+"&from=1&to=522&vehicle_category_id="+str(web_car_id)
 
-   # prices_extras = requests.get(url = URL, headers = headers, data='')
+   prices_extras = requests.get(url = URL, headers = headers, data='')
 
 
    # print("Price Extras: ")
    # print(prices_extras.text)
-   # json_object = json.loads(prices_extras.text)
+   json_object = json.loads(prices_extras.text)
 
-   # price_per_day_extra = 0
-   # total_price_extra = 0
-   # for itemce in json_object:
+
+
+   for itemce in json_object:
       # print(itemce["price_plan_id"])
       # print("total price: ", total_price)
 
-      # if itemce["discount_percentage"] != None:
-      #    price_per_day_extra = float(float(itemce["price"])*(100 - float(itemce["discount_percentage"]))/100)
-         # total_price_extra = float(day_num*price_per_day*(100 - float(itemce["discount_percentage"]))/100)
-      # else:
-      #    price_per_day_extra = float(itemce["price"])
-         # total_price_extra = float(day_num*price_per_day_extra)
+      if itemce["discount_percentage"] != None:
+         price_per_day_extra = float(float(itemce["price"])*(100 - float(itemce["discount_percentage"]))/100)
+         total_price_extra = float(day_num*price_per_day*(100 - float(itemce["discount_percentage"]))/100)
+      else:
+         price_per_day_extra = float(itemce["price"])
+         total_price_extra = float(day_num*price_per_day_extra)
 
 
 
@@ -910,84 +1121,63 @@ def rezervacijeKorisnik():
 
  # EXTRAS PRICES TYRES
 
-   # headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'}
+   headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'}
 
-   # URL = "https://cheapcarhire.rent/wp-json/my/price/getpriceextrastyres?date_from="+str(from_timestamp)+"&date_to="+str(to_timestamp)+"&from=1&to=522&vehicle_category_id="+str(web_car_id)
+   URL = "https://cheapcarhire.rent/wp-json/my/price/getpriceextrastyres?date_from="+str(from_timestamp)+"&date_to="+str(to_timestamp)+"&from=1&to=522&vehicle_category_id="+str(web_car_id)
 
-   # prices_extras_tyres = requests.get(url = URL, headers = headers, data='')
-
-
-   # # print("Price Extras: ")
-   # # print(prices_extras_tyres.text)
-   # json_object_tyres = json.loads(prices_extras_tyres.text)
+   prices_extras_tyres = requests.get(url = URL, headers = headers, data='')
 
 
-   # tyres_price = json_object_tyres[0]['price']
-   # tyres_price_discount = json_object_tyres[0]['discount_percentage']
-   # extra_name_tyres = json_object_tyres[0]['extra_name']
+   print("Price Extras: ")
+   print(prices_extras_tyres.text)
+   json_object_tyres = json.loads(prices_extras_tyres.text)
 
 
-   # if tyres_price_discount != None:
-   #    total_price_extra_tyres = float(day_num*float(tyres_price)*(100 - float(tyres_price_discount))/100)
-   # else:
-   #    total_price_extra_tyres = float(day_num*tyres_price)
+   tyres_price = json_object_tyres[0]['price']
+   tyres_price_discount = json_object_tyres[0]['discount_percentage']
+   extra_name_tyres = json_object_tyres[0]['extra_name']
+
+
+   if tyres_price_discount != None:
+      total_price_extra_tyres = float(day_num*float(tyres_price)*(100 - float(tyres_price_discount))/100)
+   else:
+      total_price_extra_tyres = float(day_num*tyres_price)
 
    
    
-   # tyres = {
-   #    'extra_name_tyres' : extra_name_tyres,
-   #    'total_price_extra_tyres' : total_price_extra_tyres
+   tyres = {
+      'extra_name_tyres' : extra_name_tyres,
+      'total_price_extra_tyres' : total_price_extra_tyres
 
-   # }
-   # print("Tyres from page")
-   # print(tyres)
-
+   }
+   print(tyres)
 
 
+   # fuel_type = str(response_data_car['results'][0]['vehicle_id']['fuel_type'])
+   # seats = str(response_data_car['results'][0]['vehicle_id']['seats'])
+   # doors = str(response_data_car['results'][0]['vehicle_id']['doors'])
+   # # vehicle_plate = str(response_data['results'][0]['vehicle_id']['license_plate'])
+   # image = str(response_data_car['results'][0]['vehicle_id']['image_128'])
 
-
-
-
-
-
-
-
-   ##############    CAR DEPOSIT    ##################
-
-   depositData = carDepositData(web_car_id)
-
-   deposit = depositData[0]['fixed_rental_deposit']
-   deposit_price = float(depositData[0]['price'])*float(day_num)
-
-   ###################################################
-
-
-
-
-   ##############    GET LOCATION NAMES   ############
-
-   location_from_name = getLocationNameFromId(location_from)
-   location_to_name = getLocationNameFromId(location_to)
-
-   ###################################################
+   
 
 
    toAdd = {
-      'location_from_id' : location_from,
-      'location_to_id' : location_to,
-      'location_from': location_from_name,
-      'date_from': date_from,
-      'location_to': location_to_name,
-      'date_to': date_to,
-      'carId' : carId,
+       'location_from_id' : location_from,
+       'location_to_id' : location_to,
+       'location_from': location_from_name,
+       'date_from': date_from,
+       'location_to': location_to_name,
+       'date_to': date_to,
+       'carId' : carId,
       'brand' : vehicle_brand,
       'name' : vehicle_name,
       'transmission': transmission,
       'category': category,
       'price': float(dayPrice),
       'day_num' : int(day_num),
-      # 'price_per_day_extra' : price_per_day_extra,
-      # 'total_price_extra' : total_price_extra,
+      'price_per_day_extra' : price_per_day_extra,
+      'total_price_extra' : total_price_extra,
       'deposit' : float(deposit),
       'deposit_price' : float(deposit_price)
    }
@@ -1001,31 +1191,8 @@ def rezervacijeKorisnik():
    # print(allOptions)
    # print("ALL OPTIONS END")
 
-   allOptions = getAllOptions()
-   extras_web = pricesExtrasWebAll()
 
-   is_winter = isWinter(from_timestamp, to_timestamp)
-   casco_price = getpriceinsurancefromid(from_timestamp, to_timestamp, web_car_id)
-   tyres_price = getpriceextrastyresfromid(from_timestamp, to_timestamp)
-   snowchain_price = getpricesnowchains()
-
-   extra_prices = {
-      'casco_price' : casco_price,
-      'tyres_price' : tyres_price,
-      'snowchain_price' : snowchain_price
-   }
-
-
-   return render_template('/rezervacija/rezervacijeKorisnik.html',
-                           extra_prices=extra_prices, 
-                           is_winter=is_winter, 
-                           extras_web=extras_web,
-                           days_range=days_range, 
-                           months_range=months_range, 
-                           years_range=years_range,
-                           carDetails = toAdd, 
-                           allOptions = allOptions
-                           )
+   return render_template('/rezervacija/rezervacijeKorisnik.html',tyres=tyres, is_winter=is_winter, extras_web=extras_web, days_range=days_range, months_range=months_range, years_range=years_range,carDetails = toAdd, allLocations = allLocations, allOptions = allOptions)
 
 
 
@@ -1063,16 +1230,9 @@ def submit_form():
 
    location = request.args.get('location')
    return_date = request.args.get('date_to')
-   start_date = request.args.get('date_from')
    start_date_input = request.args.get('start_date_input')
 
 
-
-   print("start date")
-   print(start_date)
-
-   print("end date")
-   print(return_date)
    
 
    # casco_checkbox = request.args.get('casco_checkbox')
@@ -1121,7 +1281,7 @@ def submit_form():
        'carId': carid,
        'grand_value' : grand_value,
        # 'location': location_to_id,
-       'start_date' : start_date,
+       'start_date' : start_date_input,
        'rent_from' : location_from_id,
        'return_location' : location_to_id,
        'return_date': return_date,
@@ -1154,11 +1314,13 @@ def submit_form():
    contract_id = create_contract(rent_details, user_details)
 
 
+   response = requests.get(
+            "http://23.88.98.237:8069/api/auth/get_tokens",
+            params={"username": "odoo@irvas.rs", "password": "irvasadm"}
+       )
 
-
-
-
-   access_token = getAccesToken()
+   response_data = json.loads(response.text)
+   access_token = response_data['access_token']
 
 
    header_data = {'Content-Type': 'text/html; charset=utf-8', 'Access-Token' : str(access_token)}
@@ -1213,13 +1375,17 @@ def submit_form():
 @app.route('/paymentPage', methods = ['GET', 'POST'])
 def paymentPage():
 
-   errors = request.args.get('errors')
-
    contract_id = request.args.get('contract_id')
    payment_succes = request.args.get('payment_succes')
    payment_type = request.args.get('payment_type')
    # print(payment_succes)
-   access_token = getAccesToken()
+   response = requests.get(
+            "http://23.88.98.237:8069/api/auth/get_tokens",
+            params={"username": "odoo@irvas.rs", "password": "irvasadm"}
+       )
+
+   response_data = json.loads(response.text)
+   access_token = response_data['access_token']
 
 
    header_data = {'Content-Type': 'text/html; charset=utf-8', 'Access-Token' : str(access_token)}
@@ -1237,7 +1403,7 @@ def paymentPage():
    print("******************")
 
 
-   rent_amt = response_data['x_total_rent']
+   rent_amt = response_data['total_rent']
    rent_currency = response_data['currency_id']
    deposit_amt = response_data['deposit_amt']
    is_payment_received = response_data['is_payment_received']
@@ -1245,7 +1411,7 @@ def paymentPage():
    deposit_received = response_data['deposit_received']
 
 
-   options = response_data['option_ids'][0]['option']['id']
+   options = response_data['option_ids']['option']
    print(options)
    
    casco_id = 13
@@ -1262,11 +1428,18 @@ def paymentPage():
    print("sa casco?")
    print(is_casco)
 
+   # print(type(options))
 
+   # print(len(options))
+
+   # if 13 in options:
+   #    print("ima")
+   # else:
+   #    print("nema")
 
    
 
-   return render_template('/rezervacija/paymentPage.html', errors=errors, is_casco = is_casco, payment_type = payment_type, payment_succes = payment_succes, contract_id = contract_id, rent_amt = rent_amt, rent_currency = rent_currency, deposit_amt = deposit_amt, deposit_received = deposit_received, is_payment_received = is_payment_received, is_deposid_received = is_deposid_received)
+   return render_template('/rezervacija/paymentPage.html', is_casco = is_casco, payment_type = payment_type, payment_succes = payment_succes, contract_id = contract_id, rent_amt = rent_amt, rent_currency = rent_currency, deposit_amt = deposit_amt, deposit_received = deposit_received, is_payment_received = is_payment_received, is_deposid_received = is_deposid_received)
 
 
 
@@ -1290,64 +1463,27 @@ def paymentProcess():
  
    contract_id = request.args.get('contract_id')
    payment_type = request.args.get('payment_type')
-
-   # Payment type = 0 ----- Rent price
-   # Payment type = 1 ----- Depozit
-   # Payment type = 2 ----- Doplata kasko osiguranja
    
 
-   access_token = getAccesToken()
+   response = requests.get(
+            "http://23.88.98.237:8069/api/auth/get_tokens",
+            params={"username": "odoo@irvas.rs", "password": "irvasadm"}
+       )
 
-   # url = "http://23.88.98.237:8069/api/fleet.rent/"+contract_id
+   response_data = json.loads(response.text)
+   access_token = response_data['access_token']
 
-   # header_data = {'Access-Token' : str(access_token)}
+   url = "http://23.88.98.237:8069/api/fleet.rent/"+contract_id
 
-   # response = requests.get(url, headers=header_data)
+   header_data = {'Access-Token' : str(access_token)}
 
-   response_data = getContractData(contract_id)
+   response = requests.get(url, headers=header_data)
 
+   response_data = json.loads(response.text)
 
-   # print("*****************")
-   # print("PAYMENT PROCES")
-   # print("detalji ugovora")
-   # print(response_data)
-   # print("detalji ugovora end")
-
-   rent_amt = float(response_data['x_total_rent'])*100
+   rent_amt = response_data['rent_amt']*100
    deposit_amt = response_data['deposit_amt']*100
 
-
-
-
-   # day nums
-
-   date_from = response_data['date_start']
-
-   date_to = response_data['date_end']
-
-   dt_from = datetime.strptime(date_from, "%Y-%m-%d %H:%M:%S")
-   from_timestamp =(int(dt_from.timestamp()))
-
-
-   dt_to = datetime.strptime(date_to, "%Y-%m-%d %H:%M:%S")
-   to_timestamp =(int(dt_to.timestamp()))
-
-
-   day_num = math.ceil((to_timestamp - from_timestamp)/86400)
-
-
-
-   web_car_id = response_data['vehicle_id']['web_car_id']
-
-
-   print("web_car_id")
-   print(web_car_id)
-
-   print("day nums")
-   print(day_num)
-
-   print("konacna vrednost najma")
-   print(rent_amt)
 
    # print("Payment type: ")
    # print(payment_type)
@@ -1372,57 +1508,10 @@ def paymentProcess():
       final_val = binascii.hexlify(bytes(str(int(deposit_amt)), encoding='utf-8')).decode()
    elif payment_type == "2":
       transactionType = "3031"
-   
-      vehicle_category_id = "1"
-      # web_car_id
-      day_num_timestamp = "1"
 
+      casco_price = 25*100
 
-      headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'}
-
-      URL = "https://cheapcarhire.rent/wp-json/my/price/getpriceinsurance?date_from="+str(from_timestamp)+"&date_to="+str(to_timestamp)+"&from=1&to=522&vehicle_category_id="+str(vehicle_category_id)+"&vehicle_id="+str(web_car_id)+"&duration="+str(day_num_timestamp)
-
-      prices = requests.get(url = URL, headers = headers, data='')
-
-
-      print("Kasko extras prices: ")
-      print(prices.text)
-      json_object_insurance = json.loads(prices.text)
-
-
-
-      casco_price = json_object_insurance[0]['price']
-      casco_discount = json_object_insurance[0]['discount_percentage']
-      extra_id = json_object_insurance[0]['extra_id']
-
-
-      total_casco_price = int(day_num)*float(casco_price)*(100-float(casco_discount))
-
-
-      print("total_casco_price")
-      print(total_casco_price*100)
-
-
-      # DEPOZIT SA WEBSAJTA
-      headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'}
-      URL = "https://cheapcarhire.rent/wp-json/my/price/cardeposit?car_id="+str(web_car_id)
-      deposit_data = requests.get(url = URL, headers = headers, data='')
-      deposit = json.loads(deposit_data.text)[0]['fixed_rental_deposit']
-      deposit_price_web = float(json.loads(deposit_data.text)[0]['price'])*float(day_num)
-
-
-      deposit_price_web_from_function = carDepositData(web_car_id)
-
-      print("deposit_price_web")
-      print(deposit_price_web)
-
-      print("deposit_price_web_from_function")
-      print(deposit_price_web_from_function)
-
-      casco_price = deposit_price_web*day_num*100
-      print("casco total price")
-      print(casco_price)
-      final_val = binascii.hexlify(bytes(str(int(total_casco_price)), encoding='utf-8')).decode()
+      final_val = binascii.hexlify(bytes(str(int(casco_price)), encoding='utf-8')).decode()
 
 
 
@@ -1503,23 +1592,11 @@ def paymentProcess():
 
 
 
-   TCP_IP = '192.168.1.112'
+   TCP_IP = '192.168.1.113'    
    TCP_PORT = 3000   
 
    sock_payten = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-
-
-   connection_error = False
-
-   try:
-      status = sock_payten.connect((TCP_IP, TCP_PORT))
-      print("Konekcija uspostavljena")
-   except Exception as e: 
-      connection_error = True
-      print("something's wrong with %s:%d. Exception is %s" % (TCP_IP, TCP_PORT, e))
-
-
-
+   status = sock_payten.connect((TCP_IP, TCP_PORT))
 
 
    payment_succes = False
@@ -1530,15 +1607,14 @@ def paymentProcess():
    i = 1
 
    try:
-      print("uso u try")
+      
       
       for i in range(1):
 
 
-         print("Salje sentTo")
+
          sent = sock_payten.sendto(bytes(dobar_format, encoding='iso-8859-2'),(TCP_IP,TCP_PORT))
-         print(sent)
-         print("poslao")
+
          data = sock_payten.recv(1024)
          print("prvi prijem")
          print(data)
@@ -1572,12 +1648,18 @@ def paymentProcess():
                sent = sock_payten.sendto(bytes(ACK, encoding='iso-8859-2'),(TCP_IP,TCP_PORT))
 
    except:
-      print("POS error")
+      print("Except error")
 
 
    if payment_succes:
       # update payment status
-      access_token = getAccesToken()
+      response = requests.get(
+               "http://23.88.98.237:8069/api/auth/get_tokens",
+               params={"username": "odoo@irvas.rs", "password": "irvasadm"}
+         )
+
+      response_data = json.loads(response.text)
+      access_token = response_data['access_token']
 
       header_data = {'Content-Type': 'text/html; charset=utf-8', 'Access-Token' : str(access_token)}
 
@@ -1587,78 +1669,8 @@ def paymentProcess():
 
       if payment_type == "0":
          data_update = json.dumps({'is_payment_received': 'True',})
-      elif payment_type == "1":
-         data_update = json.dumps({'is_deposid_received': 'True',})
       else:
-
-         
-         
-
-         # cena kasko osiguranja
-
-         # kasko osiguranje
-
-         # from_timestamp
-         # to_timestamp
-         vehicle_category_id = "1"
-         # web_car_id
-         day_num_timestamp = "1"
-
-
-         headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'}
-
-         URL = "https://cheapcarhire.rent/wp-json/my/price/getpriceinsurance?date_from="+str(from_timestamp)+"&date_to="+str(to_timestamp)+"&from=1&to=522&vehicle_category_id="+str(vehicle_category_id)+"&vehicle_id="+str(web_car_id)+"&duration="+str(day_num_timestamp)
-
-         prices = requests.get(url = URL, headers = headers, data='')
-
-
-         print("Kasko extras prices: ")
-         print(prices.text)
-         json_object_insurance = json.loads(prices.text)
-
-
-
-         casco_price = json_object_insurance[0]['price']
-         casco_discount = json_object_insurance[0]['discount_percentage']
-         extra_id = json_object_insurance[0]['extra_id']
-
-
-         total_casco_price = int(day_num)*float(casco_price)*(100-float(casco_discount))/100
-
-
-         print("total_casco_price")
-         print(total_casco_price)
-
-
-         option_line_ids = []
-
-         # price = str(response_data['list_price'])
-         selected_option = "13"
-         # price = float(casco_price)*(100-float(casco_discount))/100
-         # total_price = total_casco_price
-         dic_string = "{'option':"+selected_option+", 'price':"+str(total_casco_price)+", 'quantity':1, 'total_price': "+str(total_casco_price)+"}"
-
-
-         option_line_ids.append(dict(ast.literal_eval(dic_string)))
-
-   
-
-         
-
-
-
-         
-         
-         # ukupna cena najma sa kasko cenom
-         rent_amt_final = rent_amt/100 + total_casco_price
-         
-         data_update = json.dumps({'x_total_rent': rent_amt_final, 'option_ids' : option_line_ids})
-         
-         # update ukupne cene najma
-         
-         
-         
-         # dodavanje dodatne opcije
+         data_update = json.dumps({'is_deposid_received': 'True',})
 
 
       
@@ -1666,12 +1678,8 @@ def paymentProcess():
 
 
       response = requests.put(url, data=data_update, headers=header_data)
-   
-   errors = {
-      'connection_error' : connection_error
-   }
 
-   return redirect(url_for('paymentPage', errors=errors, contract_id=contract_id, payment_succes = payment_succes, payment_type = payment_type))
+   return redirect(url_for('paymentPage', contract_id=contract_id, payment_succes = payment_succes, payment_type = payment_type))
 
    #  return render_template('/preuzimanje/paymentDetails.html', data = dict_example)
    transaction_data = b'\x02100000000001020000260006031123132541\x1c000000005200\x1c\x1c+0\x1c941\x1cC\x1c5351529999999999999\x1c99\x1c\x1c\x1c225048\x1cUPTTEST19\x1c11111111\x1cMASTERCARD\x1c\x1c\x1c\x1c\x1c\x1c\x1cODOBRENO                 \x1c\x1c\x1c8407A0000000041010950500000080019F12104465626974204D6173746572636172649F26085455AD1ABEEF589F9F2701809F34031F0302\x1c1\x1c\x1c0\x1c\x1c00\x1cC1\x1c\x1c\x1c\x1c\x1c444411534444\x1c0\x1c\x1c\x1c\x1c\x1c\x1c\x1c\x1c\x1c\x1c\x1c\x1c000000000000\x1c\x1c\x1c\x1c\x1c\x1c\x1c\x1c\x1c\x1c01\x1c\x1c\x1c\x1c\x1c\x03\x12'
@@ -1762,7 +1770,13 @@ def create_final_contract():
    
 
 
-   access_token = getAccesToken()
+   response = requests.get(
+            "http://23.88.98.237:8069/api/auth/get_tokens",
+            params={"username": "odoo@irvas.rs", "password": "irvasadm"}
+       )
+
+   response_data = json.loads(response.text)
+   access_token = response_data['access_token']
 
 
    header_data = {'Content-Type': 'text/html; charset=utf-8', 'Access-Token' : str(access_token)}
@@ -1790,13 +1804,10 @@ def create_final_contract():
 
 
 
-   print(base_url)
-   print(access_url)
-   print(token)
-   try:
-      final_url = base_url + access_url + "?access_token=" + token
-   except:
-      return "Access token not available"
+   # print(base_url)
+   # print(access_url)
+   # print(token)
+   final_url = base_url + access_url + "?access_token=" + token
    # print(final_url)
    # contract_id = str(response_data['results'][0]['id'])
 
@@ -1876,7 +1887,13 @@ def preuzmiKljuc():
 
       # update contract to RUNNING
 
-         access_token = getAccesToken()
+         response = requests.get(
+                  "http://23.88.98.237:8069/api/auth/get_tokens",
+                  params={"username": "odoo@irvas.rs", "password": "irvasadm"}
+            )
+
+         response_data = json.loads(response.text)
+         access_token = response_data['access_token']
 
          header_data = {'Content-Type': 'text/html; charset=utf-8', 'Access-Token' : str(access_token)}
 
@@ -1982,7 +1999,10 @@ def print_final_contract():
    # print(contract_id)
   
 
-   access_token = getAccesToken()
+   response = requests.get("http://23.88.98.237:8069/api/auth/get_tokens",params={"username": "odoo@irvas.rs", "password": "irvasadm"})
+
+   response_data = json.loads(response.text)
+   access_token = response_data['access_token']
 
 
    # print("Token: "+access_token)
@@ -2096,7 +2116,10 @@ def vracanjeStatus():
       # PRoVERA DA POSTOJI UGOVOR VEZAN ZA OVAJ KLJUC/VOZILO
 
 
-      access_token = getAccesToken()
+      response = requests.get("http://23.88.98.237:8069/api/auth/get_tokens",params={"username": "odoo@irvas.rs", "password": "irvasadm"})
+
+      response_data = json.loads(response.text)
+      access_token = response_data['access_token']
       #return(access_token)
 
       rfid_num = str(rfid_input)
@@ -2115,8 +2138,7 @@ def vracanjeStatus():
       
       if(response_data['count'] == 0):
 
-
-         return render_template('/errors/no_contract.html'), {"Refresh": "15; url=/"}
+         return render_template('/errors/no_contract.html')
       else:
       
          return render_template('/vracanje/vracanjeStatus.html', rfid_input = rfid_input)
@@ -2281,7 +2303,10 @@ def vracanjeOtvori():
       # preko API-ja da se dobije BROJ UGOVORA (STATUS, pozcija kljuca za vozilo)
 
 
-      access_token = getAccesToken()
+      response = requests.get("http://23.88.98.237:8069/api/auth/get_tokens",params={"username": "odoo@irvas.rs", "password": "irvasadm"})
+
+      response_data = json.loads(response.text)
+      access_token = response_data['access_token']
       #return(access_token)
 
       rfid_num = str(rfid_input)
@@ -2460,7 +2485,10 @@ def vracanjeHvala():
 
 
 
-   access_token = getAccesToken()
+   response = requests.get("http://23.88.98.237:8069/api/auth/get_tokens",params={"username": "odoo@irvas.rs", "password": "irvasadm"})
+
+   response_data = json.loads(response.text)
+   access_token = response_data['access_token']
 
 
    response_pdf = requests.get(
@@ -2581,7 +2609,13 @@ def preuzimanjeUgovor():
  
 
 
-      access_token = getAccesToken()
+      response = requests.get(
+               "http://23.88.98.237:8069/api/auth/get_tokens",
+               params={"username": "odoo@irvas.rs", "password": "irvasadm"}
+         )
+
+      response_data = json.loads(response.text)
+      access_token = response_data['access_token']
 
       header_data = {'Content-Type': 'text/html; charset=utf-8', 'Access-Token' : str(access_token)}
 
@@ -2904,24 +2938,8 @@ def preuzimanjeUgovor():
 
 
 
-@app.route('/updatewp/', methods = ['GET', 'POST'])
-def updatewp():
-
-
-
-   data_send = {'item_id': 61, 'enabled': 1}
-
-   headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'}
-   URL = "https://cheapcarhire.rent/wp-json/my/price/updatedata"
-   deposit_data = requests.post(url = URL, headers = headers, data= data_send)
-   print(deposit_data)
-   return "deposit_data"
-
 @app.route('/preuzimanjeUgovorEdit/', methods = ['GET', 'POST'])
 def preuzimanjeUgovorEdit():
-
-
-   
 
 
    ugovor_link = request.args.get('ugovor_link')
@@ -2940,8 +2958,13 @@ def preuzimanjeUgovorEdit():
  
 
 
-   
-      access_token = getAccesToken()
+      response = requests.get(
+               "http://23.88.98.237:8069/api/auth/get_tokens",
+               params={"username": "odoo@irvas.rs", "password": "irvasadm"}
+         )
+
+      response_data = json.loads(response.text)
+      access_token = response_data['access_token']
 
       header_data = {'Content-Type': 'text/html; charset=utf-8', 'Access-Token' : str(access_token)}
 
@@ -2949,43 +2972,24 @@ def preuzimanjeUgovorEdit():
       url = "http://23.88.98.237:8069/api/fleet.rent/"+contract_id
 
       response = requests.get(url, headers=header_data)
-      
-      # print("ugovor")
-      # print(response.text)
-      # print("ugovor kraj")
-
 
       response_data = json.loads(response.text)
 
-      # print(contract_id)
-  
-      
-      option_ids_data = response_data['option_ids']
-
-
-      print("options ID datas")
-      print(option_ids_data)
+      print(contract_id)
+      print("ugovor")
+      print(response.text)
+      print("ugovor kraj")
 
 
 
-      options_total_price = 0
-
-      extras_odoo_ids = []
-
-      for options in option_ids_data:
-         options_total_price = options_total_price + options['price']
-         extras_odoo_ids.append(options['option']['id'])
-
-      print('options_total_price')
-      print(options_total_price)
-
-      print("extras_odoo_ids")
-      print(extras_odoo_ids)
 
 
-      is_winter = False
 
-      winterMonths = [11,12,1,2,3]
+
+
+
+
+
 
 
 
@@ -2998,30 +3002,13 @@ def preuzimanjeUgovorEdit():
       carId = response_data['vehicle_id']['id']
       carName = response_data['vehicle_id']['name']
       tenant = response_data['tenant_id']['name']
-      currentOptions = response_data['option_ids']
-      odooprice = response_data['rent_amt']
-      odooprice_total = response_data['total_rent']
-
-
-      start_date_object = datetime.strptime(date_from, '%Y-%m-%d %H:%M:%S')
-      start_month = start_date_object.month
-
-      end_date_object = datetime.strptime(date_to, '%Y-%m-%d %H:%M:%S')
-      end_month = end_date_object.month
-
-      if start_month in winterMonths or end_month in winterMonths:
-         is_winter = True
-
-
- 
- 
-
+      currentOptions = response_data['option_ids']['option']
 
       web_car_id = response_data['vehicle_id']['web_car_id']
       web_price_group_id = response_data['vehicle_id']['web_price_group_id']
 
       
-      deposit_amt = response_data['deposit_amt']
+
 
 
       # RENT PRICE
@@ -3034,135 +3021,102 @@ def preuzimanjeUgovorEdit():
       dt_to = datetime.strptime(date_to, "%Y-%m-%d %H:%M:%S")
       to_timestamp =(int(dt_to.timestamp()))
 
+      # print("from_timestamp")
+      # print(from_timestamp)
+
+      
+      # print("to_timestamp")
+      # print(to_timestamp)
+
 
       day_num = math.ceil((to_timestamp - from_timestamp)/86400)
 
-      odooprice_x_total_rent_price = response_data['x_total_rent']
-      odooprice_x_day_rent_price = (odooprice_x_total_rent_price-options_total_price)/day_num
-
-
-
-
-
-
-
-      # CENOVNIK SA VEBSAJTA
 
       total_price = 0
 
       for x in range(day_num):
+         # print("--------------------")
+         # print(x)
          current_day = from_timestamp + x*86400
+         # print("Current day")
+         # print(current_day)
+
+         # print("Duration: ")
+         # print(to_timestamp - from_timestamp)
+
          dt_object = datetime.fromtimestamp(current_day)
          dt_string = dt_object.strftime("%a").lower()
+         # print(dt_string)
          key_day = "daily_rate_"+dt_string
 
+
+
+         # print("key_day")
+         # print(key_day)
+         # print("current_day")
+         # print(current_day)
+         # print("from_timestamp")
+         # print(from_timestamp)
+         # print("to_timestamp")
+         # print(to_timestamp)
+         # print("web_price_group_id")
+         # print(web_price_group_id)
 
          headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'}
          URL = "https://cheapcarhire.rent/wp-json/my/price/getprice?selected_day="+str(key_day)+"&current_day="+str(current_day)+"&date_from="+str(from_timestamp)+"&date_to="+str(to_timestamp)+"&from=1&to=522&vehicle_category_id="+str(web_price_group_id)
          # print(URL)
          prices = requests.get(url = URL, headers = headers, data='')
          json_object = json.loads(prices.text)
-         # print("Website prices")
          # print(prices.text)
-         # print("Website prices end")
          day_price = json_object[0][key_day]
 
 
          default_discount = 0
 
          if day_num == 1 or day_num == 2:
-            # print("Popust 20")
+            print("Popust 20")
             default_discount = 20;
          elif day_num >= 3 and day_num <= 7:
-            # print("Popust 45")
+            print("Popust 45")
             default_discount = 45;
          elif day_num >= 8:
-            # print("Popust 50")
+            print("Popust 50")
             default_discount = 50;
 
 
          if not json_object[0]['discount_percentage']:
-            # print("popust 1")
+            print("popust 1")
             current_discount = default_discount
          else:
-            # print("popust 2")
+            print("popust 2")
             current_discount = json_object[0]['discount_percentage']
 
          dayprice_with_discount = float(day_price) * (100 - float(current_discount))/100
 
-         
-         
-         
-         
-         # total_price = total_price + float(dayprice_with_discount)
-         # price_per_day = float(dayprice_with_discount)
+         total_price = total_price + float(dayprice_with_discount)
+         price_per_day = float(dayprice_with_discount)
 
 
 
-
-         # CENE IZ ODOO-A
-
-         price_per_day = float(odooprice)
-         total_price = float(odooprice_total)
-
-
-      # print("----------------------")
-      # print("price per day")
-      # print(dayprice_with_discount)
-      # print("----------------------")
-
-
-      # print("************************")
-      # print("total_price")
-      # print(total_price)
-      # print("************************")
-
-
-
-
-      #  --------------------- D E P O Z I T   -------------------------
          
 
+
+      #    print("discount je: ")
+      #    print(current_discount)
+      # print("price_per_day: ")
+      # print(price_per_day)
+      # print("****************")
       
 
-      
-
-
-
-
-
-      
-
-      # DEPOZIT SA WEBSAJTA
+      # DEPOZIT
       headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'}
       URL = "https://cheapcarhire.rent/wp-json/my/price/cardeposit?car_id="+str(web_car_id)
       deposit_data = requests.get(url = URL, headers = headers, data='')
-      deposit = json.loads(deposit_data.text)[0]['fixed_rental_deposit']
-      deposit_price_web = float(json.loads(deposit_data.text)[0]['price'])*float(day_num)
+      deposit = float(json.loads(deposit_data.text)[0]['fixed_rental_deposit'])
+      
 
-
-
-
-      # print("deposit_data.text")
-      # print(deposit_data.text)
-      # print("deposit_data.text end")
-
-
-
-
-      # DEPOZIT IZ ODOO-A
-
-      deposit_price_odoo = float(deposit_amt)
-
-
-
-
-
-
-
-
-
-      # DODATNE OPCIJE IZ ODOO-A
+      print(type(currentOptions))
+      print(currentOptions)
 
       if currentOptions:
          if isinstance(currentOptions, int):
@@ -3175,14 +3129,9 @@ def preuzimanjeUgovorEdit():
 
 
 
-      # print("Ppcije")
-      # print(currentOptionsItems)
+      print("Izabrane opcije")
+      print(currentOptionsItems)
 
-
-
-
-
-      # DEPOZIT IZ ODOO-A
 
       deposit_required = True
       pay_deposit = True
@@ -3191,22 +3140,7 @@ def preuzimanjeUgovorEdit():
 
       if 13 in currentOptionsItems:
          deposit_required = False
-         deposit_price = deposit_price_web
-
-      # ----   CENA DEPOZITA SE UZIMA SA SAJTA
-
-
-      else:
-
-         # deposit_price = deposit_price_odoo
-         deposit_price = deposit_price_web
-
-      # ----   CENA DEPOZITA SE UZIMA IZ ODOOA
-
-      # print("deposit_price_web")
-      # print(deposit_price_web)
-      # print("deposit_price_web end")
-
+         print("ima ga 13 u nizu")
 
 
       is_payment_received = response_data['is_payment_received']
@@ -3234,22 +3168,37 @@ def preuzimanjeUgovorEdit():
          print("Plati payment NE TREBA")
 
 
+      # print(location_from)
+      # print(date_from)
+      # print(location_to)
+      # print(date_to)
+      # print(carId)
+
+      
+      
+
+      # url = "http://23.88.98.237:8069/api/stock.location/"+location_from
+
+      # header_data = {'Access-Token' : str(access_token)}
+
+      # response_locationFrom = requests.get(url, headers=header_data)
+      # print(response_locationFrom.text)
+    
+      # response_data_locationFrom = json.loads(response_locationFrom.text)
 
 
-      deposit_data = {
-         'deposit_required' : deposit_required,
-         'deposit_price' : deposit_price
-      }
+      # location_from_name = response_data_locationFrom['name']
+      # print(location_from_name)
+      
+
+      # url = "http://23.88.98.237:8069/api/stock.location/"+location_to
+      # response_locationTo = requests.get(url, headers=header_data)
+
+      # response_data_locationTo = json.loads(response_locationTo.text)
+      # location_to_name = response_data_locationTo['name']
 
 
-
-     
-     
-
-
-
-
-      # SPISAK LOKACIJA IZ ODOO-A
+      
 
       
       url = "http://23.88.98.237:8069/api/stock.location"
@@ -3259,6 +3208,13 @@ def preuzimanjeUgovorEdit():
       response = requests.get(url, headers=header_data)
 
       response_data = json.loads(response.text)
+
+
+      # print("stock locations")
+      # print(response.text)
+      # print("stock locations kraj")
+
+      # print(response.text)
 
       allLocations=[]
 
@@ -3271,10 +3227,6 @@ def preuzimanjeUgovorEdit():
       
 
 
-
-
-      # SPISAK DODATNIH OPCIJA IZ ODOO-A
-
       url = "http://23.88.98.237:8069/api/product.product"
 
       header_data = {'Access-Token' : str(access_token)}
@@ -3282,8 +3234,9 @@ def preuzimanjeUgovorEdit():
       response = requests.get(url, headers=header_data)
 
       response_data = json.loads(response.text)
-
-
+      # print("products")
+      # print(response.text)
+      # print("products kraj")
       
 
       allOptions=[]
@@ -3292,11 +3245,12 @@ def preuzimanjeUgovorEdit():
       if(response_data['count'] != 0):
 
          for key in response_data['results']:
-
+            # print(key)
             product_id = str(key['id'])
 
-
-
+            # print("product id")
+            # print(product_id)
+            # print(key['name'])
 
             url = "http://23.88.98.237:8069/api/product.product/"+product_id
 
@@ -3316,183 +3270,41 @@ def preuzimanjeUgovorEdit():
                'price' : price
             }
 
-
-
-
-
-            # DODAVANJE OPCIJA IZ ODOO-A U LISTU (KASKO I OSIGURANJE GUMA)
-
+            # print(key)
             if response_data['id'] == 13 or response_data['id'] == 15:
                allOptions.append(add_with_pricce)
-
-
-
-
-
-
-
+      # print(allOptions)
+      # print("Id je: "+str(allOptions['id']))
+      # print("car id je")
+      # print(type(carId))
 
 
 
       
-
-
-
-      # -------------------    T Y R E S    ---------------------
-
-
-
-      # EXTRAS PRICES TYRES
-
-      headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'}
-
-      URL = "https://cheapcarhire.rent/wp-json/my/price/getpriceextrastyres?date_from="+str(from_timestamp)+"&date_to="+str(to_timestamp)+"&from=1&to=522&vehicle_category_id="+str(web_car_id)
-
-      prices_extras_tyres = requests.get(url = URL, headers = headers, data='')
-
-
-      # print("Price Extras: ")
-      # print(prices_extras_tyres.text)
-      json_object_tyres = json.loads(prices_extras_tyres.text)
-
-
-      tyres_price = json_object_tyres[0]['price']
-      tyres_price_discount = json_object_tyres[0]['discount_percentage']
-      extra_name_tyres = json_object_tyres[0]['extra_name']
-      extra_id = json_object_tyres[0]['extra_id']
-
-      if tyres_price_discount != None:
-         total_price_extra_tyres = float(day_num*float(tyres_price)*(100 - float(tyres_price_discount))/100)
-      else:
-         total_price_extra_tyres = float(day_num*tyres_price)
-
-      
-      
       
 
+      # car_url = "http://23.88.98.237:8069/api/fleet.vehicle/"+carId
 
+      # header_data = {'Access-Token' : str(access_token)}
 
+      # response = requests.get(car_url, headers=header_data)
 
-      # TYRES PRICE ODOO
+      # response_data_car = json.loads(response.text)
 
-
-      url = "http://23.88.98.237:8069/api/product.product/"
-
-      header_data = {'Access-Token' : str(access_token)}
-
-      response = requests.get(url, headers=header_data)
-
-      response_data = json.loads(response.text)
-
-      lst_price_odoo = 0
-
-      if(response_data['count'] != 0):
-
-         for key in response_data['results']:
-            product_id = str(key['id'])
-            default_code = str(key['default_code'])
-
-            if default_code == extra_id:
-               extra_name_odoo = str(key['name'])
-               lst_price_odoo = str(key['lst_price'])
-               extras_id_odoo = int(key['id'])
-
-
+      # print(response.text)   
       
+      #print(vehicle_id)
+      # vehicle_brand = str(response_data_car['brand_id']['name'])
+      # vehicle_name = str(response_data_car['model_id']['name'])
 
-      # print("currentOptions")
-      # print(currentOptions)
+      # transmission = str(response_data_car['transmission'])
+      # category = str(response_data_car['category_id']['name'])
+      # fuel_type = str(response_data_car['results'][0]['vehicle_id']['fuel_type'])
+      # seats = str(response_data_car['results'][0]['vehicle_id']['seats'])
+      # doors = str(response_data_car['results'][0]['vehicle_id']['doors'])
+      # # vehicle_plate = str(response_data['results'][0]['vehicle_id']['license_plate'])
+      # image = str(response_data_car['results'][0]['vehicle_id']['image_128'])
 
-
-      # print("extras_id_odoo")
-      # print(extras_id_odoo)
-
-      # print("lst_price_odoo")
-      # print(lst_price_odoo)
-
-
-      # print("total_price_extra_tyres")
-      # print(total_price_extra_tyres)
-
-      tyres_ckecked = False
-
-      if isinstance(currentOptions, list):
-
-         if extras_id_odoo in currentOptions:
-            # print("cena iz odooa")
-            total_price_extra_tyres = lst_price_odoo
-            tyres_ckecked = True
-         else:
-            # print("cena sa sajta")
-            total_price_extra_tyres = total_price_extra_tyres
-      else:
-         if extras_id_odoo == currentOptions:
-            # print("cena iz odooa")
-            total_price_extra_tyres = lst_price_odoo
-            tyres_ckecked = True
-         else:
-            # print("cena sa sajta")
-            total_price_extra_tyres = total_price_extra_tyres
-
-
-      tyres = {
-         'extra_name_tyres' : extra_name_tyres,
-         'total_price_extra_tyres' : total_price_extra_tyres,
-         'tyres_ckecked' : tyres_ckecked
-
-      }
-
-
-      print(tyres_ckecked)
-
-      # ----------------------------------------------------------------
-
-
-
-
-
-
-
-
-
-      # CHECK IF WINTER SEASON
-
-
-      # is_winter = False
-
-      # winterMonths = [11,12,1,2,3]
-
-      # currentMonth = datetime.now().month
-
-      # if currentMonth in winterMonths:
-      #    is_winter = True
-
-      currentYear = datetime.now().year
-      snowchain_date_from = datetime.strptime(str(currentYear)+"/11/1", "%Y/%m/%d")
-      timestamp_snow_chain_from =(int(snowchain_date_from.timestamp()))
-
-      snowchain_date_to = datetime.strptime(str(currentYear+1)+"/04/1", "%Y/%m/%d")
-      timestamp_snow_chain_to =(int(snowchain_date_to.timestamp()))
-
-
-      today = date.today()
-      current_date = datetime.strptime(str(today), "%Y-%m-%d")
-      today_timestamp = (int(current_date.timestamp()))
-      
-      # current_date = datetime.strptime(str(now_date), "%Y/%m/%d")
-      # timestamp_current_date =(int(current_date.timestamp()))
-
-      print(today_timestamp)
-
-      # if today_timestamp > timestamp_snow_chain_from and today_timestamp < timestamp_snow_chain_to:
-      #    is_winter = True
-
-
-      winter_tyres_data = {
-         'is_winter' : is_winter
-      }
-      
-    
       
 
 
@@ -3510,9 +3322,7 @@ def preuzimanjeUgovorEdit():
          # 'category': category,
          'price': 26,
          'tenant': tenant,
-         'currentOptions': currentOptionsItems,
-         'deposit' : deposit,
-         'deposit_price' : deposit_price
+         'currentOptions': currentOptionsItems
       }
 
       years_range = list(range(1943, 2013))
@@ -3520,12 +3330,6 @@ def preuzimanjeUgovorEdit():
       days_range = list(range(1, 32))
 
       
-
-      # EXTRAS
-      headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'}
-      URL = "https://cheapcarhire.rent/wp-json/my/price/extras"
-      extras_data = requests.get(url = URL, headers = headers, data='')
-      extras_web = json.loads(extras_data.text)
 
 
 
@@ -3576,49 +3380,18 @@ def preuzimanjeUgovorEdit():
       position = 3
       link_ugovora = ugovor_link
 
-
-      # print("Sve opcije")
-      # print(allOptions)
-
       
-
-
-
-
-
-
-      # extras_web=extras_web, 
-      # is_winter=is_winter, 
-      # tyres=tyres, 
-      # total_price=total_price, 
-      # price_per_day=price_per_day, 
-      # day_num=day_num, deposit=deposit, 
-      # contract_id = contract_id, 
-      # days_range=days_range, 
-      # months_range=months_range, 
-      # years_range=years_range,
-      # carDetails = toAdd, 
-      # allLocations = allLocations, 
-      # allOptions = allOptions
-
-      print("Deposit data")
-      print(deposit_data)
-      print("Deposit data end")
-
-      print("odooprice_x_day_rent_price")
-      print(odooprice_x_day_rent_price)
-
       
 
 
       # return ("dasdsa")
-      return render_template('/preuzimanje/preuzimanjeDodatneUsluge.html', odooprice_x_day_rent_price=odooprice_x_day_rent_price, deposit_data=deposit_data, tyres_ckecked=tyres_ckecked, extras_web=extras_web, is_winter=is_winter, tyres=tyres, total_price=total_price, price_per_day=price_per_day, day_num=day_num, deposit=deposit, contract_id = contract_id, days_range=days_range, months_range=months_range, years_range=years_range,carDetails = toAdd, allLocations = allLocations, allOptions = allOptions)
+      return render_template('/preuzimanje/preuzimanjeDodatneUsluge.html',total_price=total_price, price_per_day=price_per_day, day_num=day_num, deposit=deposit, contract_id = contract_id, days_range=days_range, months_range=months_range, years_range=years_range,carDetails = toAdd, allLocations = allLocations, allOptions = allOptions)
 
       return render_template('odoo.html', contract_id = contract_id, position = position, iframe= link_ugovora)
 
 
    except:
-      print("Еrror parsing web page")
+      print("varibale not a number")
 
 
 
@@ -3626,119 +3399,6 @@ def preuzimanjeUgovorEdit():
 
 @app.route('/submit_form_preuzimanje',  methods=['GET', 'POST'])
 def submit_form_preuzimanje():
-
-   contract_id = request.args.get('contract_id')
-   currentOptions = request.args.getlist('options')
-   grand_total_val = request.args.get('grand_total_val')
-   all_days_price_value = request.args.get('all_days_price_value')
-   deposit_val  = request.args.get('deposit_val')
-   
-   if '13' in currentOptions:
-      deposit_required = False
-      deposit_val  = 0
-   else:
-      deposit_required = True
-      deposit_val  = request.args.get('deposit_val')
-      
-   
-   print("Deposit required: ")
-   print(deposit_required)
-
-
-   access_token = getAccesToken()
-
-   header_data = {'Content-Type': 'text/html; charset=utf-8', 'Access-Token' : str(access_token)}
-
-
-   url = "http://23.88.98.237:8069/api/fleet.rent/"+contract_id
-
-   response = requests.get(url, headers=header_data)
-
-
-   # print(response.text)
-
-   response_data = json.loads(response.text)
-
-   is_deposid_received = response_data['is_deposid_received']
-   is_payment_received = response_data['is_payment_received']
-   options = response_data['option_ids']
-   deposit_amt = response_data['deposit_amt']
-
-
-  
-  
-   
-   print("selected_option")
-   print(options)
-   print("selected_option_end")
-
-   option_line_ids = []
-   for selected_option in currentOptions:
-      
-      access_token = getAccesToken()
-
-
-      url = "http://23.88.98.237:8069/api/product.product/"+selected_option
-
-      header_data = {'Access-Token' : str(access_token)}
-
-      response = requests.get(url, headers=header_data)
-
-      response_data = json.loads(response.text)
-
-      # print(response.text)
-
-      price = str(response_data['list_price'])
-
-      dic_string = "{'option':"+selected_option+", 'price':"+price+", 'quantity':1, 'total_price': "+price+"}"
-
-
-      option_line_ids.append(dict(ast.literal_eval(dic_string)))
-
-
-   access_token = getAccesToken()
-
-
-   header_data = {'Access-Token' : str(access_token)}
-   
-
-
-
-
-
-
-   data_update={
-      "total_rent" : grand_total_val,
-      "rent_amt" : all_days_price_value,
-      "deposit_amt": deposit_val,
-      "option_ids" : option_line_ids,
-
-      }
-
-
-   print("data update")
-   print(data_update)
-   print("data update end")
-
-
-   # data_insert_final = json.dumps(data_insert)
-   # url = "http://23.88.98.237:8069/api/fleet.rent"
-   # response = requests.post(url, data=data_insert_final, headers=header_data)
-
-   data_update_final = json.dumps(data_update)
-   url = "http://23.88.98.237:8069/api/fleet.rent/"+contract_id
-   # data_update = {'state': 'running'}
-   response = requests.put(url, data=data_update_final, headers=header_data)
-   
-
-   print(response)
-   print(contract_id)
-
-
-   return render_template('/rezervacija/submit_form_confirm.html', contract_id = contract_id), {"Refresh": "3; url=/paymentPage?contract_id="+contract_id+"&errors="+errors}
-
-   return "1"
-
    payment_succes = request.args.get('payment_succes')
    payment_type = request.args.get('payment_type')
    
@@ -3764,7 +3424,13 @@ def submit_form_preuzimanje():
 
 
 
-   access_token = getAccesToken()
+   response = requests.get(
+            "http://23.88.98.237:8069/api/auth/get_tokens",
+            params={"username": "odoo@irvas.rs", "password": "irvasadm"}
+      )
+
+   response_data = json.loads(response.text)
+   access_token = response_data['access_token']
 
    header_data = {'Content-Type': 'text/html; charset=utf-8', 'Access-Token' : str(access_token)}
 
@@ -3868,7 +3534,10 @@ def submit_form_preuzimanje():
    for selected_option in final_options:
       # print("ID opcije je"+selected_option)
 
-      access_token = getAccesToken()
+      response = requests.get("http://23.88.98.237:8069/api/auth/get_tokens",params={"username": "odoo@irvas.rs", "password": "irvasadm"})
+
+      response_data = json.loads(response.text)
+      access_token = response_data['access_token']
 
 
       url = "http://23.88.98.237:8069/api/product.product/"+str(selected_option)
@@ -4048,7 +3717,13 @@ def submit_form_preuzimanje():
    contract_id = create_contract(rent_details, user_details)
 
 
-   access_token = getAccesToken()
+   response = requests.get(
+            "http://23.88.98.237:8069/api/auth/get_tokens",
+            params={"username": "odoo@irvas.rs", "password": "irvasadm"}
+       )
+
+   response_data = json.loads(response.text)
+   access_token = response_data['access_token']
 
 
    header_data = {'Content-Type': 'text/html; charset=utf-8', 'Access-Token' : str(access_token)}
@@ -4075,11 +3750,16 @@ def submit_form_preuzimanje():
 def paymentPagePreuzimanje():
 
    contract_id = request.args.get('contract_id')
-   errors = request.args.get('errors')
    payment_succes = request.args.get('payment_succes')
    payment_type = request.args.get('payment_type')
    # print(payment_succes)
-   access_token = getAccesToken()
+   response = requests.get(
+            "http://23.88.98.237:8069/api/auth/get_tokens",
+            params={"username": "odoo@irvas.rs", "password": "irvasadm"}
+       )
+
+   response_data = json.loads(response.text)
+   access_token = response_data['access_token']
 
 
    header_data = {'Content-Type': 'text/html; charset=utf-8', 'Access-Token' : str(access_token)}
@@ -4130,12 +3810,10 @@ def paymentPagePreuzimanje():
    #    print("ima")
    # else:
    #    print("nema")
-   print("Errors payment page")
-   print(errors)
-   print("Errors end")
+
    
 
-   return render_template('/rezervacija/paymentPage.html', errors=errors, is_casco = is_casco, payment_type = payment_type, payment_succes = payment_succes, contract_id = contract_id, rent_amt = rent_amt, rent_currency = rent_currency, deposit_amt = deposit_amt, deposit_received = deposit_received, is_payment_received = is_payment_received, is_deposid_received = is_deposid_received)
+   return render_template('/rezervacija/paymentPage.html', is_casco = is_casco, payment_type = payment_type, payment_succes = payment_succes, contract_id = contract_id, rent_amt = rent_amt, rent_currency = rent_currency, deposit_amt = deposit_amt, deposit_received = deposit_received, is_payment_received = is_payment_received, is_deposid_received = is_deposid_received)
   
    
 
@@ -4176,7 +3854,10 @@ def vozilo():
 
 
 
-   access_token = getAccesToken()
+   response = requests.get("http://23.88.98.237:8069/api/auth/get_tokens",params={"username": "odoo@irvas.rs", "password": "irvasadm"})
+
+   response_data = json.loads(response.text)
+   access_token = response_data['access_token']
 
    
    url = "http://23.88.98.237:8069/api/fleet.vehicle/"+vehicle_id
@@ -4242,7 +3923,13 @@ def go_contract():
    contract_id = request.args.get('contract_id')
 
 
-   access_token = getAccesToken()
+   response = requests.get(
+            "http://23.88.98.237:8069/api/auth/get_tokens",
+            params={"username": "odoo@irvas.rs", "password": "irvasadm"}
+       )
+
+   response_data = json.loads(response.text)
+   access_token = response_data['access_token']
 
 
    header_data = {'Content-Type': 'text/html; charset=utf-8', 'Access-Token' : str(access_token)}
@@ -4314,7 +4001,13 @@ def contract_test():
       'rent_type_id' : 1
       }
 
-   access_token = getAccesToken()
+   response = requests.get(
+            "http://23.88.98.237:8069/api/auth/get_tokens",
+            params={"username": "odoo@irvas.rs", "password": "irvasadm"}
+       )
+
+   response_data = json.loads(response.text)
+   access_token = response_data['access_token']
    #return(access_token)
    header_data = {'Content-Type': 'text/html; charset=utf-8', 'Access-Token' : str(access_token)}
 
@@ -4354,7 +4047,13 @@ def create_contract(rent_details, user_details):
 
 
 
-   access_token = getAccesToken()
+   response = requests.get(
+            "http://23.88.98.237:8069/api/auth/get_tokens",
+            params={"username": "odoo@irvas.rs", "password": "irvasadm"}
+       )
+
+   response_data = json.loads(response.text)
+   access_token = response_data['access_token']
    #return(access_token)
    header_data = {'Content-Type': 'text/html; charset=utf-8', 'Access-Token' : str(access_token)}
    
@@ -4415,7 +4114,7 @@ def create_contract(rent_details, user_details):
    
 
 
-   date_object = datetime.strptime(rent_details['start_date'], '%Y/%m/%d %H:%M')
+   date_object = datetime.strptime(rent_details['start_date'], '%B %d, %Y %H:%M')
    date_start_value =date_object.strftime('%Y-%m-%d %H:%M:%S')
 
    date_object = datetime.strptime(rent_details['return_date'], '%Y/%m/%d %H:%M')
@@ -4471,10 +4170,6 @@ def create_contract(rent_details, user_details):
 
    options = rent_details['options']
 
-
-   print("rent amount")
-   print(rent_amt)
-
    # print("*****************")
    # print(reservation_code)
    # print("*****************")
@@ -4493,34 +4188,16 @@ def create_contract(rent_details, user_details):
    # CREATE CONTRACT
 
 
-   date_from = rent_details['start_date']
-   date_to = rent_details['return_date']
-
-
-
-
-   dt_from = datetime.strptime(date_from, "%Y/%m/%d %H:%M")
-   from_timestamp =(int(dt_from.timestamp()))
-
-   dt_to = datetime.strptime(date_to, "%Y/%m/%d %H:%M")
-   to_timestamp =(int(dt_to.timestamp()))
-
-
-
-
-   duration = to_timestamp - from_timestamp
-   day_num = math.ceil((to_timestamp - from_timestamp)/86400)
-
-   print("Duration")
-   print(duration)
-
    option_lines = []
 
    option_line_ids = []
    for selected_option in options:
-      print("ID opcije je"+selected_option)
+      # print("ID opcije je"+selected_option)
 
-      access_token = getAccesToken()
+      response = requests.get("http://23.88.98.237:8069/api/auth/get_tokens",params={"username": "odoo@irvas.rs", "password": "irvasadm"})
+
+      response_data = json.loads(response.text)
+      access_token = response_data['access_token']
 
 
       url = "http://23.88.98.237:8069/api/product.product/"+selected_option
@@ -4529,59 +4206,7 @@ def create_contract(rent_details, user_details):
 
       response = requests.get(url, headers=header_data)
 
-      print("options pricesssss")
-      print(response.text)
-
       response_data = json.loads(response.text)
-
-
-      web_id = str(response_data['default_code'])
-      name = str(response_data['name'])
-
-      if name == "TP-Tyres Protection. Required without credit card.":
-         # get price for tyres
-
-         headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'}
-
-         URL = "https://cheapcarhire.rent/wp-json/my/price/getpriceextrastyresfromid?date_from="+str(from_timestamp)+"&date_to="+str(to_timestamp)+"&web_id="+str(web_id)
-
-         prices_extras_tyres = requests.get(url = URL, headers = headers, data='')
-
-
-         print("Price Extras: ")
-         print(prices_extras_tyres.text)
-         json_object_tyres = json.loads(prices_extras_tyres.text)
-
-
-         tyres_price = json_object_tyres[0]['price']
-         tyres_price_discount = json_object_tyres[0]['discount_percentage']
-         extra_name_tyres = json_object_tyres[0]['extra_name']
-
-
-         if tyres_price_discount != None:
-            total_price_extra_tyres = float(day_num*float(tyres_price)*(100 - float(tyres_price_discount))/100)
-         else:
-            total_price_extra_tyres = float(day_num*tyres_price)
-
-         
-         
-         tyres = {
-            'extra_name_tyres' : extra_name_tyres,
-            'total_price_extra_tyres' : total_price_extra_tyres
-
-         }
-         print("//////////////////////////")
-         print(tyres)
-         print("//////////////////////////")
-
-      print("Web ID")
-      print(web_id)
-      print("Name")
-      print(name)
-
-
-
-
 
       price = str(response_data['list_price'])
 
@@ -4603,7 +4228,7 @@ def create_contract(rent_details, user_details):
       "rent_from" : rent_from,
       "return_location" : return_location,
       "web_car_request" : web_car_request,
-      "x_total_rent" : total_rent,
+      "total_rent" : total_rent,
       "state" : "open", ####
       "rent_amt" : rent_amt, ####
       "deposit_amt": deposit_amt,
@@ -4760,7 +4385,10 @@ def stampanje_test():
 
    contract_id = 433
 
-   access_token = getAccesToken()
+   response = requests.get("http://23.88.98.237:8069/api/auth/get_tokens",params={"username": "odoo@irvas.rs", "password": "irvasadm"})
+
+   response_data = json.loads(response.text)
+   access_token = response_data['access_token']
    print("Token: "+access_token)
 
    response_pdf = requests.get(
@@ -4807,7 +4435,13 @@ def get_prazna_pozicija():
 
 
 def update_odoo_rfid(rentomatId):
-   access_token = getAccesToken()
+   response = requests.get(
+         "http://23.88.98.237:8069/api/auth/get_tokens",
+         params={"username": "odoo@irvas.rs", "password": "irvasadm"}
+      )
+
+   response_data = json.loads(response.text)
+   access_token = response_data['access_token']
 
    
    url = "http://23.88.98.237:8069/api/rentomat.configurator?filters=[('rentomat_id','=','"+rentomatId+"')]"
@@ -4864,7 +4498,13 @@ def update_odoo_rfid(rentomatId):
 
 
 def get_rfid_num(id_ugovora):
-   access_token = getAccesToken()
+   response = requests.get(
+            "http://23.88.98.237:8069/api/auth/get_tokens",
+            params={"username": "odoo@irvas.rs", "password": "irvasadm"}
+       )
+
+   response_data = json.loads(response.text)
+   access_token = response_data['access_token']
    #return(access_token)
 
    
@@ -5458,7 +5098,13 @@ def pos_client():
 
 
 def update_contract_running(contract_id):
-   access_token = getAccesToken()
+   response = requests.get(
+            "http://23.88.98.237:8069/api/auth/get_tokens",
+            params={"username": "odoo@irvas.rs", "password": "irvasadm"}
+       )
+
+   response_data = json.loads(response.text)
+   access_token = response_data['access_token']
 
 
    header_data = {'Access-Token' : str(access_token)}
@@ -5472,7 +5118,13 @@ def update_contract_running(contract_id):
 
 
 def get_rfid(contract_id):
-   access_token = getAccesToken()
+   response = requests.get(
+            "http://23.88.98.237:8069/api/auth/get_tokens",
+            params={"username": "odoo@irvas.rs", "password": "irvasadm"}
+       )
+
+   response_data = json.loads(response.text)
+   access_token = response_data['access_token']
 
    url = "http://23.88.98.237:8069/api/fleet.rent?filters=[('id','=','"+contract_id+"')]"
 
@@ -5489,36 +5141,6 @@ def get_rfid(contract_id):
 
 
 
-
-
-
-########      GET PRICES      ########
-@app.route('/testprice')
-
-###    CASCO WEB
-
-# 1705143600, 1705316400, 57
-
-###    CASCO ODOO
-
-
-###    TYRES WEB
-
-def testprice():
-
-   getprice = getpricesnowchains()
-
-   print(getprice)
-   return "1"
-###    TYRES ODOO
-
-
-
-###    SNOWCHAIN WEB
-
-
-
-###    SNOWCHAIN ODOO
 
 
 

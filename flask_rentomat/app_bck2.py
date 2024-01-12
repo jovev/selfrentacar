@@ -35,19 +35,11 @@ import subprocess
 import math
 
 
-from functions_prices import getpriceextrastyresfromid, isWinter
+from functions_prices import getpriceextrastyresfromid
 from functions_prices import getpriceinsurancefromid
 from functions_prices import getpricesnowchains
-from functions_prices import carDepositData
-from functions_prices import pricesExtrasWebAll
 
 from functions_apis import getAccesToken
-from functions_apis import getCarData
-from functions_apis import getAllOptions
-from functions_apis import getLocationNameFromId
-# from functions_apis import getContractData
-
-from functions_apis import *
 
 
 
@@ -56,6 +48,23 @@ from functions_apis import *
 
 
 
+
+def lights():
+   # Use physical pin numbers
+   GPIO.setmode(GPIO.BOARD)
+   # Set up header pin 11 (GPIO17) as an output
+   print("Setup Pin 11")
+   GPIO.setup(11, GPIO.OUT)
+   
+   var=1
+   print("Start loop")
+   while var==1:
+      print("Set Output False")
+      GPIO.output(11, False)
+      time.sleep(1)
+      print("Set Output True")
+      GPIO.output(11, True)
+      time.sleep(1)
 
 app = Flask(__name__)
 app.config['BABEL_DEFAULT_LOCALE'] = 'en'
@@ -89,6 +98,35 @@ babel.init_app(app, locale_selector=get_locale)
 
 
 
+
+@app.route('/getData')
+def getData():
+
+  
+
+
+
+
+  
+  
+   headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'}
+
+   URL = "https://cheapcarhire.rent/wp-json/my/price/getprice?date_from=11&date_to=51&from=1&to=522"
+
+   r = requests.get(url = URL, headers = headers, data='')
+
+
+   # print(r)
+   # print(r.text)
+   print(r.status_code)
+
+
+
+
+   data_insert_final = json.dumps(r.text)
+   print(data_insert_final)
+
+   return "1"
 @app.route('/lang')
 def lang():
 
@@ -528,24 +566,6 @@ def listaVozila():
 
 
 
-   day_num = math.ceil((to_timestamp - from_timestamp)/86400)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
    available_cars=[]
 
 
@@ -593,7 +613,7 @@ def listaVozila():
             response_data = json.loads(response.text)
             vehicle_category_id = response_data['web_price_group_id']
             web_car_id = response_data['web_car_id']
-            # print(response_data)
+            print(response_data)
 
 
             # get prices 
@@ -604,7 +624,7 @@ def listaVozila():
             # print(to_timestamp)
 
 
-            
+            day_num = math.ceil((to_timestamp - from_timestamp)/86400)
 
 
             headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'}
@@ -652,10 +672,10 @@ def listaVozila():
                URL = "https://cheapcarhire.rent/wp-json/my/price/getprice?selected_day="+str(key_day)+"&current_day="+str(current_day)+"&date_from="+str(from_timestamp)+"&date_to="+str(to_timestamp)+"&from=1&to=522&vehicle_category_id="+str(vehicle_category_id)
                prices = requests.get(url = URL, headers = headers, data='')
                json_object = json.loads(prices.text)
-               # print("Price text")
-               # print(prices.text)
-               # print(type(json_object))
-               # print("Price text end")
+               print("Price text")
+               print(prices.text)
+               print(type(json_object))
+               print("Price text end")
 
                if not json_object:
                   day_price = 1
@@ -683,13 +703,13 @@ def listaVozila():
                
 
 
-            #    print("discount je: ")
-            #    print(current_discount)
-            # print("total price: ")
-            # print(total_price)
-            # print("****************")
-            # print("car id: ")
-            # print(web_car_id)
+               print("discount je: ")
+               print(current_discount)
+            print("total price: ")
+            print(total_price)
+            print("****************")
+            print("car id: ")
+            print(web_car_id)
             # DEPOZIT
             
             URL = "https://cheapcarhire.rent/wp-json/my/price/cardeposit?car_id="+str(web_car_id)
@@ -700,7 +720,47 @@ def listaVozila():
             else:
                deposit = float(json.loads(deposit_data.text)[0]['fixed_rental_deposit'])
                
-   
+            print("depozit: ")
+            
+            print(deposit)
+
+            
+
+            # return 1
+            # total_price = 0
+            # price_per_day = 0
+
+            # now = datetime.now()
+            # dt_string = now.strftime("%a").lower()
+            # print("date and time =", dt_string)
+            
+
+
+            # for itemce in json_object:
+            #    print(itemce["price_plan_id"])
+               
+               
+            #    print("total price: ", total_price)
+
+
+            #    if itemce["discount_percentage"] != None:
+             
+
+                  
+            #       price_per_day = float(float(itemce[key_day])*(100 - float(itemce["discount_percentage"]))/100)
+            #       total_price = float(day_num*price_per_day*(100 - float(itemce["discount_percentage"]))/100)
+            #    else:
+                  
+            #       price_per_day = float(itemce[key_day])
+            #       total_price = float(day_num*price_per_day)
+
+
+
+
+
+
+
+
             vehicle_id = str(response_data['id'])
             vehicle_name = str(response_data['name'])
             vehicle_plate = str(response_data['license_plate'])
@@ -728,10 +788,6 @@ def listaVozila():
             }
 
             available_cars.append(toAdd)
-
-
-
-
             # print(available_cars)
 
 
@@ -743,7 +799,7 @@ def listaVozila():
  
 
 
-   return render_template('rezervacija/listaVozila.html', day_num=day_num, cars = available_cars, location_from = location_from, location_to = location_to, date_from = date_from, date_to = date_to)
+   return render_template('rezervacija/listaVozila.html', day_num=day_num, cars = available_cars, location_from = location_from, date_from = date_from, location_to = location_to, date_to = date_to)
 
 
 @app.route('/rezervacijeKorisnik', methods = ['GET', 'POST'])
@@ -783,21 +839,6 @@ def rezervacijeKorisnik():
    carId = request.args.get('carId')
    dayPrice = request.args.get('pricePerDay')
 
-
-      ##############    CAR DATA    ##################
-
-   response_data_car = getCarData(carId)
-
-   vehicle_brand = str(response_data_car['brand_id']['name'])
-   vehicle_name = str(response_data_car['model_id']['name'])
-
-   transmission = str(response_data_car['transmission'])
-   category = str(response_data_car['category_id']['name'])
-   vehicle_category_id = response_data_car['driver_identification_no']
-   web_car_id = response_data_car['web_car_id']
-
-   ################################################
-
    # print("price per day 2:")
    # print(dayPrice)
    # print("car ID:")
@@ -813,17 +854,307 @@ def rezervacijeKorisnik():
    dt_to = datetime.strptime(date_to, "%Y/%m/%d %H:%M")
    to_timestamp =(int(dt_to.timestamp()))
 
-   day_num = math.ceil((to_timestamp - from_timestamp)/86400)
+
+
+
+
+
+   # CHECK IF WINTER SEASON
+
+
+   is_winter = False
+
+
+   winterMonths = [11,12,1,2,3]
+
+
+   currentYear = datetime.now().year
+
+   currentMonth = datetime.now().month
+
+
+   # print("current month")
+   # print(type(currentMonth))
+
+
+   snowchain_date_from = datetime.strptime(str(currentYear-1)+"/11/1", "%Y/%m/%d")
+   timestamp_snow_chain_from =(int(snowchain_date_from.timestamp()))
+
+   snowchain_date_to = datetime.strptime(str(currentYear+1)+"/04/1", "%Y/%m/%d")
+   timestamp_snow_chain_to =(int(snowchain_date_to.timestamp()))
+
+
+   today = date.today()
+   current_date = datetime.strptime(str(today), "%Y-%m-%d")
+   today_timestamp = (int(current_date.timestamp()))
+   
+   # current_date = datetime.strptime(str(now_date), "%Y/%m/%d")
+   # timestamp_current_date =(int(current_date.timestamp()))
+   # print("today timestamp")
+   # print(today_timestamp)
+
+   # print("timestamp_snow_chain_from")
+   # print(timestamp_snow_chain_from)
+
+   # print("timestamp_snow_chain_to")
+   # print(timestamp_snow_chain_to)
+
+   if currentMonth in winterMonths:
+   # if today_timestamp > timestamp_snow_chain_from and today_timestamp < timestamp_snow_chain_to:
+      is_winter = True
+
+   # print("Is winter?")
+   # print(is_winter)
+   
+
+   access_token = getAccesToken()
+
+   url = "http://23.88.98.237:8069/api/stock.location/"+location_from
+
+   header_data = {'Access-Token' : str(access_token)}
+
+   response_locationFrom = requests.get(url, headers=header_data)
+
+   response_data_locationFrom = json.loads(response_locationFrom.text)
+   location_from_name = response_data_locationFrom['name']
+
+
+   url = "http://23.88.98.237:8069/api/stock.location/"+location_to
+   response_locationTo = requests.get(url, headers=header_data)
+
+   response_data_locationTo = json.loads(response_locationTo.text)
+   location_to_name = response_data_locationTo['name']
+
 
 
 
    
+   url = "http://23.88.98.237:8069/api/stock.location"
+
+   header_data = {'Access-Token' : str(access_token)}
+
+   response = requests.get(url, headers=header_data)
+
+   response_data = json.loads(response.text)
+
+   # print(response.text)
+
+   allLocations=[]
+
+
+   if(response_data['count'] != 0):
+
+      for key in response_data['results']:
+          
+         allLocations.append(key)
+   
+
+
+   url = "http://23.88.98.237:8069/api/product.product"
+
+   header_data = {'Access-Token' : str(access_token)}
+
+   response = requests.get(url, headers=header_data)
+
+   response_data = json.loads(response.text)
+
+   
+
+   allOptions=[]
+
+
+   if(response_data['count'] != 0):
+
+      for key in response_data['results']:
+         # print(key)
+         product_id = str(key['id'])
+
+
+
+         url = "http://23.88.98.237:8069/api/product.product/"+product_id
+
+         header_data = {'Access-Token' : str(access_token)}
+
+         response = requests.get(url, headers=header_data)
+
+         response_data = json.loads(response.text)
+
+
+         # print("Options from odoo")
+         # print(response.text)
+
+         id = response_data['id']
+         name = response_data['name']
+         price = response_data['lst_price']
+
+         add_with_pricce = {
+            'id' : id,
+            'name' : name,
+            'price' : price
+         }
+
+         # print(key)
+
+         allOptions.append(add_with_pricce)
+   #print(allOptions)
+   # print("Id je: "+str(allOptions['id']))
+  
+
+   # if is_winter:
+   #    add_with_pricce = {
+   #          'id' : '22',
+   #          'name' : 'Snow Chains. Required from 01.11.2023-01.04.2024. Price Per Rental:',
+   #          'price' : '25'
+   #       }
+
+   #       # print(key)
+
+   #    allOptions.append(add_with_pricce)
+   # else:
+   #    print("Nije zima")
+
+   day_num = math.ceil((to_timestamp - from_timestamp)/86400)
+
+
+
+   day_num_timestamp = day_num*24*3600
+
+   car_url = "http://23.88.98.237:8069/api/fleet.vehicle/"+carId
+
+   header_data = {'Access-Token' : str(access_token)}
+
+   response = requests.get(car_url, headers=header_data)
+
+   response_data_car = json.loads(response.text)
+
+   # print("Car data")
+   # print(response.text)   
+   # print("car data end")
+
+   #print(vehicle_id)
+   vehicle_brand = str(response_data_car['brand_id']['name'])
+   vehicle_name = str(response_data_car['model_id']['name'])
+
+   transmission = str(response_data_car['transmission'])
+   category = str(response_data_car['category_id']['name'])
+   vehicle_category_id = response_data_car['driver_identification_no']
+   web_car_id = response_data_car['web_car_id']
+
+   print("Webcar id:")
+   print(web_car_id)
+
+
+
+   # DEPOZIT
+
+   deposit_discount = 1
+   # if day_num == 1 or day_num == 2:
+   #    deposit_discount = 1
+   # elif day_num == 3 or day_num == 4:
+   #    deposit_discount = 0.75
+   # elif day_num == 5 or day_num == 6 or day_num == 7:
+   #    deposit_discount = 0.6
+   # else:
+   #    deposit_discount = 0.5
+
+   print("deposit_discount")
+   print(deposit_discount)
+
+   headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'}
+   URL = "https://cheapcarhire.rent/wp-json/my/price/cardeposit?car_id="+str(web_car_id)
+   deposit_data = requests.get(url = URL, headers = headers, data='')
+   deposit = json.loads(deposit_data.text)[0]['fixed_rental_deposit']
+   deposit_price = float(json.loads(deposit_data.text)[0]['price'])*float(day_num)*deposit_discount
+   print("depozit: ")
+   print(deposit_data.text)
+   # print(deposit)
 
 
 
 
 
-####################       cena najma KADA SU CENE RAZLICITE PO DANIMA        PROVERIRI      ###################
+
+   # kasko osiguranje
+
+   # headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'}
+
+   # URL = "https://cheapcarhire.rent/wp-json/my/price/getpriceinsurance?date_from="+str(from_timestamp)+"&date_to="+str(to_timestamp)+"&from=1&to=522&vehicle_category_id="+str(vehicle_category_id)+"&vehicle_id="+str(web_car_id)+"&duration="+str(day_num_timestamp)
+
+   # prices = requests.get(url = URL, headers = headers, data='')
+
+
+   # print("Kasko extras prices: ")
+   # print(prices.text)
+   # json_object_insurance = json.loads(prices.text)
+
+
+
+   # casco_price = json_object_insurance[0]['price']
+   # casco_discount = json_object_insurance[0]['discount_percentage']
+   # extra_id = json_object_insurance[0]['extra_id']
+
+
+   total_casco_price = getpriceinsurancefromid(from_timestamp, to_timestamp, web_car_id)
+
+
+   print("total_casco_price")
+   print(total_casco_price)
+
+
+   print("total_casco_price from function ")
+   print(getpriceinsurancefromid(from_timestamp, to_timestamp, web_car_id))
+
+# SELECT 
+# wp_car_rental_extras.price, 
+# wp_car_rental_discounts.discount_percentage, 
+# wp_car_rental_extras.extra_id, 
+# wp_car_rental_discounts.period_from, 
+# wp_car_rental_discounts.period_till 
+
+# FROM wp_car_rental_extras LEFT JOIN wp_car_rental_discounts ON wp_car_rental_discounts.extra_id = wp_car_rental_extras.extra_id 
+
+# WHERE 
+
+# wp_car_rental_extras.item_id = $vehicle_category_id  
+# AND 
+# ($duration_timestamp BETWEEN wp_car_rental_discounts.period_from AND wp_car_rental_discounts.period_till OR wp_car_rental_discounts.period_till IS NULL) 
+# AND 
+# wp_car_rental_extras.extra_name LIKE 'SCDW%'
+
+
+
+
+
+   # EXTRAS
+   headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'}
+   URL = "https://cheapcarhire.rent/wp-json/my/price/extras"
+   extras_data = requests.get(url = URL, headers = headers, data='')
+   extras_web = json.loads(extras_data.text)
+
+
+   # print("Extras from web")
+   # print(extras_data.text)
+   # print("Extras extras from web end")
+
+   
+   # get prices 
+
+
+   # print(from_timestamp)
+
+   # print(to_timestamp)
+
+   duration_time = to_timestamp - from_timestamp
+
+
+
+
+
+
+   # print("time stamp duration: ")
+   # print(duration_time)
+
+
    
 
 
@@ -834,8 +1165,8 @@ def rezervacijeKorisnik():
    prices = requests.get(url = URL, headers = headers, data='')
 
 
-   print("Days: ", day_num)
-   print(prices.text)
+   # print("Days: ", day_num)
+   # print(prices.text)
    json_object = json.loads(prices.text)
 
 
@@ -859,49 +1190,34 @@ def rezervacijeKorisnik():
          price_per_day = float(itemce[key_day])
          total_price = float(day_num*price_per_day)
 
-################################################################################################################
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+   
 
 
    # EXTRAS PRICES
 
-   # headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'}
+   headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'}
 
-   # URL = "https://cheapcarhire.rent/wp-json/my/price/getpriceextras?date_from="+str(from_timestamp)+"&date_to="+str(to_timestamp)+"&from=1&to=522&vehicle_category_id="+str(web_car_id)
+   URL = "https://cheapcarhire.rent/wp-json/my/price/getpriceextras?date_from="+str(from_timestamp)+"&date_to="+str(to_timestamp)+"&from=1&to=522&vehicle_category_id="+str(web_car_id)
 
-   # prices_extras = requests.get(url = URL, headers = headers, data='')
+   prices_extras = requests.get(url = URL, headers = headers, data='')
 
 
-   # print("Price Extras: ")
-   # print(prices_extras.text)
-   # json_object = json.loads(prices_extras.text)
+   print("Price Extras: ")
+   print(prices_extras.text)
+   json_object = json.loads(prices_extras.text)
 
-   # price_per_day_extra = 0
-   # total_price_extra = 0
-   # for itemce in json_object:
+   price_per_day_extra = 0
+   total_price_extra = 0
+   for itemce in json_object:
       # print(itemce["price_plan_id"])
       # print("total price: ", total_price)
 
-      # if itemce["discount_percentage"] != None:
-      #    price_per_day_extra = float(float(itemce["price"])*(100 - float(itemce["discount_percentage"]))/100)
-         # total_price_extra = float(day_num*price_per_day*(100 - float(itemce["discount_percentage"]))/100)
-      # else:
-      #    price_per_day_extra = float(itemce["price"])
-         # total_price_extra = float(day_num*price_per_day_extra)
+      if itemce["discount_percentage"] != None:
+         price_per_day_extra = float(float(itemce["price"])*(100 - float(itemce["discount_percentage"]))/100)
+         total_price_extra = float(day_num*price_per_day*(100 - float(itemce["discount_percentage"]))/100)
+      else:
+         price_per_day_extra = float(itemce["price"])
+         total_price_extra = float(day_num*price_per_day_extra)
 
 
 
@@ -910,84 +1226,63 @@ def rezervacijeKorisnik():
 
  # EXTRAS PRICES TYRES
 
-   # headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'}
+   headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'}
 
-   # URL = "https://cheapcarhire.rent/wp-json/my/price/getpriceextrastyres?date_from="+str(from_timestamp)+"&date_to="+str(to_timestamp)+"&from=1&to=522&vehicle_category_id="+str(web_car_id)
+   URL = "https://cheapcarhire.rent/wp-json/my/price/getpriceextrastyres?date_from="+str(from_timestamp)+"&date_to="+str(to_timestamp)+"&from=1&to=522&vehicle_category_id="+str(web_car_id)
 
-   # prices_extras_tyres = requests.get(url = URL, headers = headers, data='')
-
-
-   # # print("Price Extras: ")
-   # # print(prices_extras_tyres.text)
-   # json_object_tyres = json.loads(prices_extras_tyres.text)
+   prices_extras_tyres = requests.get(url = URL, headers = headers, data='')
 
 
-   # tyres_price = json_object_tyres[0]['price']
-   # tyres_price_discount = json_object_tyres[0]['discount_percentage']
-   # extra_name_tyres = json_object_tyres[0]['extra_name']
+   print("Price Extras: ")
+   print(prices_extras_tyres.text)
+   json_object_tyres = json.loads(prices_extras_tyres.text)
 
 
-   # if tyres_price_discount != None:
-   #    total_price_extra_tyres = float(day_num*float(tyres_price)*(100 - float(tyres_price_discount))/100)
-   # else:
-   #    total_price_extra_tyres = float(day_num*tyres_price)
+   tyres_price = json_object_tyres[0]['price']
+   tyres_price_discount = json_object_tyres[0]['discount_percentage']
+   extra_name_tyres = json_object_tyres[0]['extra_name']
+
+
+   if tyres_price_discount != None:
+      total_price_extra_tyres = float(day_num*float(tyres_price)*(100 - float(tyres_price_discount))/100)
+   else:
+      total_price_extra_tyres = float(day_num*tyres_price)
 
    
    
-   # tyres = {
-   #    'extra_name_tyres' : extra_name_tyres,
-   #    'total_price_extra_tyres' : total_price_extra_tyres
+   tyres = {
+      'extra_name_tyres' : extra_name_tyres,
+      'total_price_extra_tyres' : total_price_extra_tyres
 
-   # }
-   # print("Tyres from page")
-   # print(tyres)
-
+   }
+   print(tyres)
 
 
+   # fuel_type = str(response_data_car['results'][0]['vehicle_id']['fuel_type'])
+   # seats = str(response_data_car['results'][0]['vehicle_id']['seats'])
+   # doors = str(response_data_car['results'][0]['vehicle_id']['doors'])
+   # # vehicle_plate = str(response_data['results'][0]['vehicle_id']['license_plate'])
+   # image = str(response_data_car['results'][0]['vehicle_id']['image_128'])
 
-
-
-
-
-
-
-
-   ##############    CAR DEPOSIT    ##################
-
-   depositData = carDepositData(web_car_id)
-
-   deposit = depositData[0]['fixed_rental_deposit']
-   deposit_price = float(depositData[0]['price'])*float(day_num)
-
-   ###################################################
-
-
-
-
-   ##############    GET LOCATION NAMES   ############
-
-   location_from_name = getLocationNameFromId(location_from)
-   location_to_name = getLocationNameFromId(location_to)
-
-   ###################################################
+   
 
 
    toAdd = {
-      'location_from_id' : location_from,
-      'location_to_id' : location_to,
-      'location_from': location_from_name,
-      'date_from': date_from,
-      'location_to': location_to_name,
-      'date_to': date_to,
-      'carId' : carId,
+       'location_from_id' : location_from,
+       'location_to_id' : location_to,
+       'location_from': location_from_name,
+       'date_from': date_from,
+       'location_to': location_to_name,
+       'date_to': date_to,
+       'carId' : carId,
       'brand' : vehicle_brand,
       'name' : vehicle_name,
       'transmission': transmission,
       'category': category,
       'price': float(dayPrice),
       'day_num' : int(day_num),
-      # 'price_per_day_extra' : price_per_day_extra,
-      # 'total_price_extra' : total_price_extra,
+      'price_per_day_extra' : price_per_day_extra,
+      'total_price_extra' : total_price_extra,
       'deposit' : float(deposit),
       'deposit_price' : float(deposit_price)
    }
@@ -1001,31 +1296,8 @@ def rezervacijeKorisnik():
    # print(allOptions)
    # print("ALL OPTIONS END")
 
-   allOptions = getAllOptions()
-   extras_web = pricesExtrasWebAll()
 
-   is_winter = isWinter(from_timestamp, to_timestamp)
-   casco_price = getpriceinsurancefromid(from_timestamp, to_timestamp, web_car_id)
-   tyres_price = getpriceextrastyresfromid(from_timestamp, to_timestamp)
-   snowchain_price = getpricesnowchains()
-
-   extra_prices = {
-      'casco_price' : casco_price,
-      'tyres_price' : tyres_price,
-      'snowchain_price' : snowchain_price
-   }
-
-
-   return render_template('/rezervacija/rezervacijeKorisnik.html',
-                           extra_prices=extra_prices, 
-                           is_winter=is_winter, 
-                           extras_web=extras_web,
-                           days_range=days_range, 
-                           months_range=months_range, 
-                           years_range=years_range,
-                           carDetails = toAdd, 
-                           allOptions = allOptions
-                           )
+   return render_template('/rezervacija/rezervacijeKorisnik.html',total_casco_price=total_casco_price, tyres=tyres, is_winter=is_winter, extras_web=extras_web, days_range=days_range, months_range=months_range, years_range=years_range,carDetails = toAdd, allLocations = allLocations, allOptions = allOptions)
 
 
 
@@ -1154,10 +1426,6 @@ def submit_form():
    contract_id = create_contract(rent_details, user_details)
 
 
-
-
-
-
    access_token = getAccesToken()
 
 
@@ -1212,9 +1480,7 @@ def submit_form():
 
 @app.route('/paymentPage', methods = ['GET', 'POST'])
 def paymentPage():
-
    errors = request.args.get('errors')
-
    contract_id = request.args.get('contract_id')
    payment_succes = request.args.get('payment_succes')
    payment_type = request.args.get('payment_type')
@@ -1245,7 +1511,7 @@ def paymentPage():
    deposit_received = response_data['deposit_received']
 
 
-   options = response_data['option_ids'][0]['option']['id']
+   options = response_data['option_ids']['option']
    print(options)
    
    casco_id = 13
@@ -1262,7 +1528,14 @@ def paymentPage():
    print("sa casco?")
    print(is_casco)
 
+   # print(type(options))
 
+   # print(len(options))
+
+   # if 13 in options:
+   #    print("ima")
+   # else:
+   #    print("nema")
 
    
 
@@ -1298,20 +1571,17 @@ def paymentProcess():
 
    access_token = getAccesToken()
 
-   # url = "http://23.88.98.237:8069/api/fleet.rent/"+contract_id
+   url = "http://23.88.98.237:8069/api/fleet.rent/"+contract_id
 
-   # header_data = {'Access-Token' : str(access_token)}
+   header_data = {'Access-Token' : str(access_token)}
 
-   # response = requests.get(url, headers=header_data)
+   response = requests.get(url, headers=header_data)
 
-   response_data = getContractData(contract_id)
+   response_data = json.loads(response.text)
 
-
-   # print("*****************")
-   # print("PAYMENT PROCES")
-   # print("detalji ugovora")
-   # print(response_data)
-   # print("detalji ugovora end")
+   print("detalji ugovora")
+   print(response_data)
+   print("detalji ugovora end")
 
    rent_amt = float(response_data['x_total_rent'])*100
    deposit_amt = response_data['deposit_amt']*100
@@ -1410,14 +1680,8 @@ def paymentProcess():
       deposit = json.loads(deposit_data.text)[0]['fixed_rental_deposit']
       deposit_price_web = float(json.loads(deposit_data.text)[0]['price'])*float(day_num)
 
-
-      deposit_price_web_from_function = carDepositData(web_car_id)
-
       print("deposit_price_web")
       print(deposit_price_web)
-
-      print("deposit_price_web_from_function")
-      print(deposit_price_web_from_function)
 
       casco_price = deposit_price_web*day_num*100
       print("casco total price")

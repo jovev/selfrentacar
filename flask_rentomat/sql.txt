@@ -1,0 +1,33 @@
+SELECT 
+    wp_car_rental_price_plans.price_plan_id, 
+    wp_car_rental_price_plans.start_timestamp,
+    wp_car_rental_price_plans.end_timestamp,
+    wp_car_rental_price_plans.daily_rate_mon,
+    wp_car_rental_price_plans.daily_rate_tue,
+    wp_car_rental_price_plans.daily_rate_wed,
+    wp_car_rental_price_plans.daily_rate_thu,
+    wp_car_rental_price_plans.daily_rate_fri,
+    wp_car_rental_price_plans.daily_rate_sat,
+    wp_car_rental_price_plans.daily_rate_sun, 
+    wp_car_rental_discounts.discount_percentage, 
+    wp_car_rental_discounts.discount_type, 
+    wp_car_rental_discounts.period_from, 
+    wp_car_rental_discounts.period_till 
+
+FROM 
+    wp_car_rental_price_plans 
+LEFT JOIN 
+    wp_car_rental_discounts 
+ON 
+    wp_car_rental_price_plans.price_plan_id = wp_car_rental_discounts.price_plan_id 
+WHERE 
+    wp_car_rental_price_plans.price_group_id = 23 
+AND 
+    ($date_from BETWEEN wp_car_rental_price_plans.start_timestamp AND wp_car_rental_price_plans.end_timestamp)
+AND 
+($duration_timestamp BETWEEN wp_car_rental_discounts.period_from AND wp_car_rental_discounts.period_till OR wp_car_rental_discounts.period_till IS NULL)
+
+
+
+
+SELECT wp_car_rental_price_plans.price_plan_id, wp_car_rental_price_plans.start_timestamp, wp_car_rental_price_plans.end_timestamp, wp_car_rental_price_plans.daily_rate_mon, wp_car_rental_price_plans.daily_rate_tue, wp_car_rental_price_plans.daily_rate_wed, wp_car_rental_price_plans.daily_rate_thu, wp_car_rental_price_plans.daily_rate_fri, wp_car_rental_price_plans.daily_rate_sat, wp_car_rental_price_plans.daily_rate_sun, wp_car_rental_discounts.discount_percentage, wp_car_rental_discounts.discount_type, wp_car_rental_discounts.period_from, wp_car_rental_discounts.period_till FROM wp_car_rental_price_plans LEFT JOIN wp_car_rental_discounts ON wp_car_rental_price_plans.price_plan_id = wp_car_rental_discounts.price_plan_id WHERE wp_car_rental_price_plans.price_group_id = 23 AND (1701946800 BETWEEN wp_car_rental_price_plans.start_timestamp AND wp_car_rental_price_plans.end_timestamp) AND ((172800 BETWEEN wp_car_rental_discounts.period_from AND wp_car_rental_discounts.period_till) OR wp_car_rental_discounts.period_till IS NULL)

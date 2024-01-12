@@ -1,5 +1,13 @@
 REZERVACIJA PREKO RENTOMATA
 
+
+- ACCESS TOKEN ne pravi
+
+
+
+
+
+
 ### Total rent da se proveri
 ### depozit ne ubacuje
 - odometer unit

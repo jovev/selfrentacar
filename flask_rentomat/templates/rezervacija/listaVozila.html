@@ -166,20 +166,20 @@ a {
   <div class="col-md-3" style="margin-top: 20px;">
     <div class="row">
       <div class="col-md-6" style="float: left; padding-top: 10px">Price/day</div>
-      <div class="col-md-6 price_per_day" style="float: right; text-align: right;">€ 15.29</div>
+      <div class="col-md-6 price_per_day" style="float: right; text-align: right;">€ {{ "%.2f"|format(car['price_per_day']) }}</div>
     </div>
 
 
-    <!--
+    
     <div class="row" style="margin-top: 10px;">
       <div class="col-md-6" style="float: left;">Total</div>
-      <div class="col-md-6" style="float: right; text-align: right;">€ 214.00</div>
+      <div class="col-md-6" style="float: right; text-align: right;">€ {{ "%.2f"|format(car['total_price']) }}</div>
     </div>
-    -->
+  
     
     <div class="row" style="margin-top: 10px;">
       <div class="col-md-6" style="float: left;">Deposit</div>
-      <div class="col-md-6" style="float: right; text-align: right;">€ 600,00</div>
+      <div class="col-md-6" style="float: right; text-align: right;">€ {{ "%.2f"|format(car['deposit']) }}</div>
     </div>
 
     <div class="row" style="margin-top: 10px;">
@@ -203,6 +203,7 @@ a {
         <input type="hidden" name="location_to" value="{{location_to}}">
         <input type="hidden" name="date_to" value="{{date_to}}">
         <input type="hidden" name="carId" value="{{car['id']}}">
+        <input type="hidden" name="pricePerDay" value="{{car['price_per_day']}}">
 
         <div class="col-md-12">
           <button style="width: 100%;" class="btn btn-primary button_orange" type="submit">

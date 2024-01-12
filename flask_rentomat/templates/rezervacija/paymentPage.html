@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Rentomat</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link rel="stylesheet" href="../static/plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="../static/dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/themes/base/jquery-ui.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.css">
+
+    
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+
+
+<style type="text/css">
+ 
+</style>
+
+   
+  </head>
+  <body>
+
+
+<div class="wrapper">
+    <section class="content">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 " style="margin-bottom: 20px;">
+                    <h1>Payment page </h1>
+                   
+                    <!--
+                    {% if errors['connection_error'] %}
+                        ima gresaka
+                    {% else %}
+                        nema gresaka
+                    {% endif %}
+                    -->
+
+                </div>
+            </div>
+
+            <div class="row card-header rent_title">
+                <div class="col-md-5">
+                    Total rent price: {{rent_amt}} {{rent_currency['name']}}
+                    <br>
+                    
+                </div>
+                <div class="col-md-5">
+                    {% if not is_payment_received %}
+                    Status: <span style="color: red;">PENDING</span>
+                    {% else %}
+                    Status: <span style="color: green;">PAIED</span>
+                    {% endif %}
+                </div>
+                <div class="col-md-2">
+                    {% if not is_payment_received %}
+                    <a href="/payNow?contract_id={{contract_id}}&payment_type=0"><button class="btn btn-warning" >Pay Now</button></a>
+                    
+                    {% else %}
+                    <button type="button" class="btn btn-light" disabled="disabled">Pay now!</button>
+                    {% endif %}
+                </div>
+            </div>
+
+            
+            {% if is_casco == 0 %}
+            <div class="row card-header rent_title">
+                <div class="col-md-5">
+                    Deposit: {{deposit_amt}} {{rent_currency['name']}}
+                </div>
+                <div class="col-md-5">
+                    {% if not is_deposid_received %}
+                    Status: <span style="color: red;">PENDING</span>
+                    {% else %}
+                    Status: <span style="color: green;">PAIED</span>
+                    {% endif %}
+                </div>
+                <div class="col-md-2">
+                    {% if not is_deposid_received %}
+                    <a href="/payNow?contract_id={{contract_id}}&payment_type=1"><button class="btn btn-warning" >Pay Now</button></a>
+                    
+                    {% else %}
+                    <button type="button" class="btn btn-light" disabled="disabled">Pay now!</button>
+                    {% endif %}
+                </div>
+            </div>
+            {% endif %}
+
+
+            {% if payment_succes == "False" %}
+                <div style="color: red;">Vasa transakcija je odbijena</div>
+                
+                {% if payment_type == "0" %}
+                        Pokusajte ponovo drugom karticom<br><br>
+                        Kontaktirajte podrsku<br><br>
+                        <a href="/" class="btn btn-warning">Odustani od najma</a>
+                        
+                    {% else %}
+                        Pokusajte ponovo drugom karticom<br><br>
+                        <a href="/payNow?contract_id={{contract_id}}&payment_type=2" class="btn btn-warning">Dokupite</a> kasko osiguranje ukoliko nemate dovoljno sredstava za depozit<br><br>
+                        Kontaktirajte podrsku
+                    {% endif %}
+
+            {% endif %}
+
+
+            <div class="row">
+                <div class="col-md-12" style="text-align: center; margin-top: 50px;">
+                    
+                    {% if is_payment_received and (is_deposid_received or is_casco == 1) %}
+                    <a href="/create_final_contract?contract_id={{contract_id}}"><button class="btn btn-warning" >View contract</button></a>
+                    {% else %}
+                    <button type="button" class="btn btn-light" disabled="disabled">View contract</button>
+                    {% endif %}
+                </div>
+            </div>
+
+
+         
+        </div>
+    </section>
+</div>
+
+  
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.0/moment.min.js"></script>  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.js"></script>  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.js"></script>  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>  
+    
+
+
+  
+<script>
+
+
+$(document).ready(function(){   
+  
+  
+
+});
+
+
+
+
+</script>
+
+
+ 
+  </body>
+</html>
+

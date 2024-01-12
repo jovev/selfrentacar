@@ -116,7 +116,7 @@
               </div>
               <div class="col-md-2">
                 <span id="days_num">
-                        
+                  {{carDetails['day_num']}}
                 </span>
                 </div>
         </div>
@@ -141,7 +141,7 @@
             {{carDetails['brand']}} {{carDetails['name']}}, {{carDetails['transmission']}}, {{carDetails['category']}}
             </div>
             <div class="col-md-5">
-              € <span id="price_per_day">{{carDetails['price']}}</span>
+              € <span id="price_per_day">{{ "%.2f"|format(carDetails['price']) }}</span>
               </div>
               <div class="col-md-2">
                 € <span id="all_days_price">0.00</span>
@@ -151,10 +151,9 @@
 
 
 
-
         <div class="row card-header rent_title">
           <div class="col-md-5">
-            Insurance
+            Extras
             </div>
             <div class="col-md-5">
               
@@ -165,20 +164,98 @@
         </div>
 
 
+
+
+        <!-- CASO INSURANCE -->
+
         {% for option in allOptions %}
-                                  
-        {% if (option['id'] == 13 or option['id'] == 15): %}
+          {% if (option['id'] == 13): %}   
+
+
+        <div class="row rent_txt">
+          <div class="col-md-5">
+            SCDW - full casco insurance whitout deposit
+            <br> <span id="insurance_id">Deposit: {{ "%.2f"|format(carDetails['deposit']) }} EUR</span>
+            </div>
+            <div class="col-md-5">
+              <input type="checkbox" name="options" class="options" value="13" data-valce_deposi="{{ '%.2f'|format(carDetails['deposit']) }}" data-valce="{{extra_prices['casco_price']}}" id="insurance_ckecbox"> € {{ "%.2f"|format(extra_prices['casco_price']) }}
+                  
+              <input type="hidden" name="deposit_val" value="{{carDetails['deposit']}}">
+
+              
+              
+              </div>
+              <div class="col-md-2">
+                <span class="option_price_13">
+                  € 0.00  
+                </span>
+                </div>
+        </div>
+
+          {% endif %}
+        {% endfor %}
+
+        
+
+        <!-- SNOW CHAINS -->
+        
+        {% if is_winter: %} 
+          {% for option in extras_web %}
+            {% if (option['extra_id'] == "22"): %}                     
+            <hr>
+            
+              {% if is_winter: %} 
+              <input type="hidden" name="options" value="14" checked>
+              <input type="hidden" id="snow_{{option['extra_id']}}" value="{{extra_prices['snowchain_price']}}">
+              {% else: %} 
+              <input type="hidden" id="snow_22" value="0">
+              {% endif %}
+
+          <div class="row rent_txt">
+            <div class="col-md-5">
+              {{option['extra_name']}}
+            </div>
+              <div class="col-md-5">
+                <input type="checkbox" checked="checked" disabled name="options" class="options" value="{{option['extra_id']}}" data-valce="{{extra_prices['snowchain_price']}}" id="{{option['extra_id']}}"> € 
+                  
+                  {{extra_prices['snowchain_price']}}
+
+
+                </div>
+                <div class="col-md-2">
+                  <span class="option_price_{{option['extra_id']}}">
+                    € {{extra_prices['snowchain_price']}} 
+                  </span>
+                  </div>
+          </div>
+            {% endif %}
+          {% endfor %}
+        {% endif %}
+        
+        <hr>
+        
+
+
+
+
+        <!-- TYRES -->
+
+        {% for option in allOptions %}
+          {% if (option['id'] == 15): %}                     
+        
           <div class="row rent_txt">
             <div class="col-md-5">
               {{option['name']}}
-              <!--SCDW-Full Casco insurance without deposit
-              <br> <span id="insurance_id">Deposit: 600.00 EUR</span>-->
-              {% if option['id'] == 13: %}
-              <br> <span id="insurance_id">Deposit: 600.00 EUR</span>
-              {% endif %}
-              </div>
+            </div>
               <div class="col-md-5">
-                <input type="checkbox" name="options" class="options" value="{{option['id']}}" data-valce="{{option['price']}}" id="{{option['id']}}"> € {{option['price']}}
+
+                <input type="hidden" value="{{extra_prices['tyres_price']}}" name="option_{{option['id']}}">
+
+                <input type="checkbox" name="options" class="options" value="{{option['id']}}" data-valce="{{extra_prices['tyres_price']}}" id="{{option['id']}}"> € 
+                  
+                  {{extra_prices['tyres_price']}}
+
+
                 </div>
                 <div class="col-md-2">
                   <span class="option_price_{{option['id']}}">
@@ -188,7 +265,7 @@
           </div>
           {% endif %}
         {% endfor %}
-      
+    
 
  
         <!--
@@ -250,7 +327,7 @@
             </div>
             <div class="col-md-2">
               <span id="deposit_id">
-                € 600.00
+                € {{ "%.2f"|format(carDetails['deposit']) }} 
     
               </span>
               </div>
@@ -689,7 +766,8 @@
 <script>
 
 
-$(document).ready(function(){   
+$(document).ready(function(){
+
   $.datetimepicker.setDateFormatter('moment');
   
   var currentDate = moment().format("MMMM D, YYYY H:mm");
@@ -725,92 +803,46 @@ $(document).ready(function(){
 
 
 
+    var snow_chain_price = parseFloat($("#snow_22").val());
+    console.log(snow_chain_price)
+
+    if(snow_chain_price !== snow_chain_price) {
+      snow_chain_price_final = 0;
+      console.log("Jeste NAN")
+    } else {
+      snow_chain_price_final = snow_chain_price;
+      console.log("Nije NAN")
+    }
+
+
+      console.log("Snow: " + snow_chain_price);
+
       var price_per_day = parseFloat($("#price_per_day").html());
 
 
-      var all_day_price = (result+1)*price_per_day;
+      var all_day_price = (result)*price_per_day;
 
-      $('#days_num').html((result+1)+day_string);
+      $('#days_num').html((result)+day_string);
       $("#all_days_price").html(all_day_price);
       $("#all_days_price_input").val(all_day_price);
 
-      $("#grand_total").text(grand_total-old_all_day_price+all_day_price);
-      $("#grand_total_value").val(grand_total-old_all_day_price+all_day_price);
 
+      console.log("1"+grand_total);
+      console.log("2"+old_all_day_price);
+      console.log("3"+all_day_price);
+      console.log("4"+snow_chain_price_final);
 
-  
-    // $("#inputId").datetimepicker({
-    //   onSelectTime:function(current_time,$input){
-
-    //     var grand_total = parseFloat($("#grand_total").text());
-
-    //     var old_all_day_price = parseFloat($("#all_days_price").text());
-
-
-    //     var startDate = moment();
-    //     var endDate = moment($input.val());
-
-    //     var result = endDate.diff(startDate, 'days');
-    //     $('#days_num_var').val(result);
-        
-    //     //$('#result').html(result);
-
-
-    //         console.log(result+1);
-
-    //       if(result == 0) {
-    //         day_string = " day";
-    //       } else {
-    //         day_string = " days";
-    //       }
-
-
-
-    //         var price_per_day = parseFloat($("#price_per_day").html());
-
-
-    //         var all_day_price = (result+1)*price_per_day;
-
-    //         $('#days_num').html((result+1)+day_string);
-    //         $("#all_days_price").html(all_day_price);
-
-    //         $("#grand_total").text(grand_total-old_all_day_price+all_day_price);
-    //         $("#grand_total_value").val(grand_total-old_all_day_price+all_day_price);
-            
-    //     },
-    //     minDate : tomorrow,
-    //     dateFormat: 'MMMM D, YYYY H:m',
-    //     changeYear: true 
-    // }).attr('readonly', 'readonly');
-    //$("#inputId").datetimepicker("setDate", currentDate);
-
-
-
-    
-    // $('#casco_checkbox').change(function() {
-    //     if(this.checked) {
-    //       $("#casco_price").text("€ 12.00");
-    //       $("#deposit_id").text("€ 0.00");
-    //       var grand_total = parseFloat($("#grand_total").text());
-    //       var total_price = (Math.round(parseFloat(grand_total+12.00) * 100) / 100).toFixed(2);
-    //       $("#grand_total").text(total_price);
-    //       $("#grand_total_value").val(total_price);
-
-    //     } else {
-    //       $("#casco_price").text("€ 0.00");
-    //       $("#deposit_id").text("€ 600.00");
-    //       var grand_total = parseFloat($("#grand_total").text());
-    //       var total_price = (Math.round(parseFloat(grand_total-12.00) * 100) / 100).toFixed(2);
-    //       $("#grand_total").text(total_price);
-    //       $("#grand_total_value").val(total_price);
-    //     }
-    // });
+      $("#grand_total").text(grand_total-old_all_day_price+all_day_price+snow_chain_price_final);
+      $("#grand_total_value").val(grand_total-old_all_day_price+all_day_price+snow_chain_price_final);
 
 
 
     $('.options').change(function() {
 
       var curr_price = parseFloat($(this).data('valce'));
+      var curr_price_deposit = $(this).data('valce_deposi');
+      
+
       var curr_valce = $(this).val();
       console.log(curr_valce);
 
@@ -835,7 +867,7 @@ $(document).ready(function(){
         } else {
           $(".option_price_"+curr_valce).text("€ 0.00");
           if(curr_valce == 13) {
-            $("#deposit_id").text("€ 600.00");
+            $("#deposit_id").text("€ "+curr_price_deposit);
           }
           $("#tyres_price").text("€ 0.00");
           var grand_total = parseFloat($("#grand_total").text());
@@ -891,46 +923,6 @@ $(document).ready(function(){
   });
 
 
-
-
-    // $("#fetxh_data").on("click", function() {
-    //     var userEmail = $("#userEmail").val();
-    //     console.log(userEmail);
-
-     
-
-
-
-    //     $.ajax({
-    //         url: 'http://23.88.98.237:8069/api/auth/get_tokens?username=odoo@irvas.rs&password=irvasadm',
-    //         type: 'GET',
-    //         dataType: 'json',
-    //         contentType: 'application/json; charset=utf-8',
-    //         headers: { 
-    //           "Access-Control-Allow-Origin" : "*",
-    //           "Access-Control-Allow-Methods" : "POST, GET, OPTIONS",
-    //           "Access-Control-Allow-Headers" : "Content-Type, Authorization, X-Requested-With"
-    //         },
-    //         complete: function(result) {
-    //             //called when complete
-    //             alert(result.uid);
-    //         },
-
-    //         success: function(result) {
-    //             //called when successful
-    //             alert(result.uid);
-    //         },
-
-    //         error: function(result) {
-    //             //called when there is an error
-    //             alert(result.uid);
-    //         },
-    //     });
-
-
-    // });
-
-    
 
     
 

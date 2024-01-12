@@ -1,0 +1,2 @@
+ps -ef | grep flask
+sudo kill -9 810

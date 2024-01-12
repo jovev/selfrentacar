@@ -1,0 +1,612 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Rentomat</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link rel="stylesheet" href="../static/plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="../static/dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/themes/base/jquery-ui.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.css">
+
+    
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+
+
+<style type="text/css">
+  .error {
+    color:red;
+  }
+  .card {
+    margin-bottom: 0px;
+    
+  }
+  .card-header {
+    background-color: #ff6600;
+    color: white;
+  }
+
+  .rent_title {
+    font-size: 25px;
+  }
+
+  .rent_txt {
+    font-size: 20px;
+  }
+  .boxes {
+    background-color: #ff6600;
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    color: white;
+    display: block;
+  }
+</style>
+
+   
+  </head>
+  <body>
+
+
+    <div class="wrapper">
+      <section class="content">
+      <div class="container">
+
+
+        <div class="row">
+            <div class="col-md-6" >
+              <span class="boxes">
+                <h1>Continue without<br>changing reservation</h1>
+              </span>
+            </div>
+
+            <div class="col-md-6">
+              <span class="boxes">
+                <h1>Change the reservation</h1>
+              </span>
+            </div>
+
+
+        </div>
+
+
+
+
+
+
+          <form action="/submit_form_preuzimanje" id="form_details">
+
+
+            <div class="row">
+                <div class="col-md-12" style="margin-top: 20px; margin-bottom: 20px;">
+                    <h1>User Details</h1>
+                </div>
+            </div>
+
+
+
+            <div class="row card-header rent_title">
+                <div class="col-md-2">
+                  Client
+                  </div>
+                  <div class="col-md-10">
+                    {{carDetails['tenant']}}
+                    </div>
+            
+              </div>
+
+      
+      
+
+
+
+
+        <div class="row">
+            <div class="col-md-12 " style="margin-bottom: 20px;">
+                <h1>Rental Details</h1>
+            </div>
+        </div>
+
+
+
+        <input type="hidden" name="contract_id" value="{{contract_id}}">
+
+
+      
+
+        <div class="row card-header rent_title">
+          <div class="col-md-5">
+            Rent From
+            </div>
+            <div class="col-md-5">
+              Return Location
+              </div>
+              <div class="col-md-2">
+                </div>
+        </div>
+
+        <div class="row rent_txt">
+          <div class="col-md-5">
+            {{carDetails['location_from']}}
+            </div>
+            <div class="col-md-5">
+              {{carDetails['location_to']}}
+              </div>
+              <div class="col-md-2">
+                </div>
+        </div>
+
+
+        <div class="row card-header rent_title">
+          <div class="col-md-5">
+            Pick-Up Date & Time	
+            </div>
+            <div class="col-md-5">
+              Return Date & Time	
+              </div>
+              <div class="col-md-2">
+                Period
+                </div>
+        </div>
+
+        <div class="row rent_txt">
+          <div class="col-md-5">
+            {{carDetails['date_from']}}
+            </div>
+            <div class="col-md-5">
+              {{carDetails['date_to']}}
+              </div>
+              <div class="col-md-2">
+                <span id="days_num">
+                        {{day_num}} days
+                </span>
+
+                <input type="hidden" id="days_num_var" value="{{day_num}}"> 
+
+                </div>
+        </div>
+
+
+
+
+        <div class="row card-header rent_title">
+          <div class="col-md-5">
+            Selected car
+            </div>
+            <div class="col-md-5">
+              Price
+              </div>
+              <div class="col-md-2">
+                Total
+                </div>
+        </div>
+
+        <div class="row rent_txt">
+          <div class="col-md-5">
+            {{carDetails['brand']}} {{carDetails['name']}}
+            </div>
+            <div class="col-md-5">
+              € <span id="price_per_day">{{ "%.2f"|format(odooprice_x_day_rent_price) }} </span>
+              </div>
+              <div class="col-md-2">
+                € <span id="all_days_price">0.00</span>
+
+                <input type="hidden" name="all_days_price_value" id="all_days_price_value">
+                </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-12 " style="margin-bottom: 20px;">
+                <h1>Rental options </h1>
+            </div>
+        </div>
+
+
+        <div class="row card-header rent_title">
+          <div class="col-md-5">
+            Insurance
+            </div>
+            <div class="col-md-5">
+              
+              </div>
+              <div class="col-md-2">
+                
+                </div>
+        </div>
+ 
+
+
+
+
+        <!--   KASKO OSIGURANJE    -->
+
+        {% for option in allOptions %}
+          {% if (option['id'] == 13): %}   
+
+
+        <div class="row rent_txt">
+          <div class="col-md-5">
+            SCDW - full casco insurance whitout deposit {{ deposit_data['deposit_required'] }}
+            <br> <span id="insurance_id">Deposit: {{ carDetails['deposit'] }} EUR</span>
+            </div>
+            <div class="col-md-5">
+              <input type="checkbox" name="options" class="options" value="13" data-valce_deposi="{{ carDetails['deposit'] }}" data-valce="{{carDetails['deposit_price']}}" id="insurance_ckecbox"> € {{ carDetails['deposit_price'] }}
+                  
+              <input type="hidden" name="deposit_val" value="{{carDetails['deposit']}}">
+
+              
+              
+              </div>
+              <div class="col-md-2">
+                <span class="option_price_13">
+                  € 0.00  
+                </span>
+                </div>
+        </div>
+
+          {% endif %}
+        {% endfor %}
+
+
+
+
+
+        <!-- SNOW CHAINS -->
+        
+        {% if is_winter: %} 
+        
+          {% for option in extras_web %}
+            {% if (option['extra_id'] == "22"): %}                     
+            <hr>
+            
+              {% if is_winter: %} 
+              <input type="hidden" id="snow_{{option['extra_id']}}" value="{{option['price']}}">
+              {% else: %} 
+              <input type="hidden" id="snow_22" value="0">
+              {% endif %}
+
+          <div class="row rent_txt">
+            <div class="col-md-5">
+              {{option['extra_name']}}
+            </div>
+              <div class="col-md-5">
+                <input type="checkbox" checked="checked" disabled name="options1" class="options" > € 
+                <input type="checkbox" checked="checked" name="options" value="{{option['extra_id']}}" data-valce="{{option['price']}}" style="left: -1000px; display: block; position: absolute;">
+                  {{option['price']}}
+
+
+                </div>
+                <div class="col-md-2">
+                  <span class="option_price_{{option['extra_id']}}">
+                    € {{option['price']}} 
+                  </span>
+                  </div>
+          </div>
+            {% endif %}
+          {% endfor %}
+        {% endif %}
+        
+        <hr>
+
+        
+
+
+
+        <!-- TYRES -->
+
+        {% for option in allOptions %}
+          {% if (option['id'] == 15): %}                     
+        
+          <div class="row rent_txt">
+            <div class="col-md-5">
+              {{option['name']}}
+            </div>
+              <div class="col-md-5">
+                <input type="checkbox" {% if tyres_ckecked %} checked="checked" {% endif %} name="options" class="options" value="{{option['id']}}" data-valce="{{tyres['total_price_extra_tyres']}}" id="{{option['id']}}"> € 
+                  
+                  {{tyres['total_price_extra_tyres']}}
+
+
+                </div>
+                <div class="col-md-2">
+                  <span class="option_price_{{option['id']}}">
+                    € 0.00  
+                  </span>
+                  </div>
+          </div>
+          {% endif %}
+        {% endfor %}
+
+ 
+
+        <div class="row card-header rent_title">
+          <div class="col-md-5">
+            Total
+            </div>
+            <div class="col-md-5">
+              
+              </div>
+              <div class="col-md-2">
+                
+                </div>
+        </div>
+
+
+        <div class="row rent_txt">
+          <div class="col-md-5">
+            Grand Total: 
+            </div>
+            <div class="col-md-5">
+
+            </div>
+            <div class="col-md-2">
+              € <span id="grand_total">0.00</span>
+              <input type="hidden" id="grand_total_value" name="grand_total_val">
+              </div>
+              
+        </div>
+
+
+        <div class="row rent_txt">
+          <div class="col-md-5">
+            Deposit:
+            </div>
+            <div class="col-md-5">
+
+            </div>
+            <div class="col-md-2">
+              <span id="deposit_id">
+                € {{ carDetails['deposit'] }} 
+    
+              </span>
+              </div>
+              
+        </div>
+
+
+  
+
+
+
+
+        
+
+
+
+
+
+
+
+        <div class="row" style="margin-top: 20px; margin-bottom: 20px;">
+          <div class="col-md-12"style="text-align: center;">
+            <div class="form-group">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="terms"> 
+                    <label class="form-check-label"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I agree with the <a href="/terms">terms & conditions*</a></label>
+                  </div>
+              </div>
+
+              </a> 
+          </div>
+      </div>
+
+
+
+
+
+
+        <div class="row">
+            <div class="col-md-12" style="text-align: center;">
+                
+                <button type="submit" class="btn btn-primary">Continue</button>
+            </div>
+        </div>
+
+
+      </form>
+
+
+        
+      </div>
+    </section>
+ 
+
+    </div>
+
+  
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.0/moment.min.js"></script>  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.js"></script>  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.js"></script>  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>  
+    
+
+
+  
+<script>
+
+
+$(document).ready(function(){  
+
+  $.datetimepicker.setDateFormatter('moment');
+  
+  var currentDate = moment().format("MMMM D, YYYY H:mm");
+  console.log(currentDate);
+
+  $("#start_date_id").text(currentDate);
+  $("#start_date_input").val(currentDate);
+
+  let tomorrow  = moment().add(1,'days');
+
+
+  var grand_total = parseFloat($("#grand_total").text());
+
+  var old_all_day_price = parseFloat($("#all_days_price").text());
+
+
+  var startDate = moment($("#date_from").val());
+  var endDate = moment($("#date_to").val());
+
+  var result = endDate.diff(startDate, 'days');
+  var final_total_days = $('#days_num_var').val();
+  
+
+
+
+
+    if(result == 0) {
+      day_string = " day";
+    } else {
+      day_string = " days";
+    }
+
+
+
+    var snow_chain_price = parseFloat($("#snow_22").val());
+    //console.log(snow_chain_price)
+
+    if(snow_chain_price !== snow_chain_price) {
+      snow_chain_price_final = 0;
+      //console.log("Jeste NAN")
+    } else {
+      snow_chain_price_final = snow_chain_price;
+      //console.log("Nije NAN")
+    }
+
+
+      //console.log("Snow: " + snow_chain_price);
+
+      var price_per_day = parseFloat($("#price_per_day").html());
+
+
+      var all_day_price = final_total_days*price_per_day;
+      console.log("All day price: "+all_day_price)
+
+      // $('#days_num').html((result)+day_string);
+      $("#all_days_price").html(all_day_price);
+      $("#all_days_price_value").val(all_day_price);
+      $("#all_days_price_input").val(all_day_price);
+
+
+      console.log("1"+grand_total);
+      console.log("2"+old_all_day_price);
+      console.log("3"+all_day_price);
+      console.log("4"+snow_chain_price_final);
+
+
+
+
+      $("#grand_total").text(grand_total-old_all_day_price+all_day_price+snow_chain_price_final);
+      $("#grand_total_value").val(grand_total-old_all_day_price+all_day_price+snow_chain_price_final);
+
+
+
+    $('.options').change(function() {
+
+      var curr_price = parseFloat($(this).data('valce'));
+      var curr_price_deposit = $(this).data('valce_deposi');
+      
+
+      var curr_valce = $(this).val();
+      console.log(curr_valce);
+
+        if(this.checked) {
+          
+          
+
+
+          $(".option_price_"+curr_valce).text("€ "+parseFloat(curr_price).toFixed(2));
+
+          if(curr_valce == 13) {
+            $("#deposit_id").text("€ 0.00");
+          }
+
+
+          $("#tyres_price").text("€ 15.00");
+          var grand_total = parseFloat($("#grand_total").text());
+          var total_price = (Math.round(parseFloat(grand_total+curr_price) * 100) / 100).toFixed(2);
+          $("#grand_total").text(total_price);
+          $("#grand_total_value").val(total_price);
+
+        } else {
+          $(".option_price_"+curr_valce).text("€ 0.00");
+          if(curr_valce == 13) {
+            $("#deposit_id").text("€ "+curr_price_deposit);
+          }
+          $("#tyres_price").text("€ 0.00");
+          var grand_total = parseFloat($("#grand_total").text());
+
+          var total_price = (Math.round(parseFloat(grand_total-curr_price) * 100) / 100).toFixed(2);
+
+          $("#grand_total").text(total_price);
+          $("#grand_total_value").val(total_price);
+        }
+    });
+
+    
+
+    
+   
+   
+   
+   
+   
+
+    $("#form_details").validate({
+    rules: {
+      location: "required",
+      return_date: "required",
+      first_name: "required",
+      last_name: "required",
+      year: "required",
+      month: "required",
+      day: "required",
+      email:  {
+      required: true,
+      email: true
+    },
+      terms: "required"
+    },
+    messages: {
+      location: "Please choose return location",
+      return_date: "Please choose return date",
+      first_name: "Please insert first name",
+      last_name: "Please insert last name",
+      year: "Please choose birthday year",
+      month: "Please choose birthday month",
+      day: "Please choose birthday day",
+      email: {
+      required: "We need your email address to contact you",
+      email: "Your email address must be in the format of name@domain.com"
+    },
+      terms: "*",
+    },
+    submitHandler: function(form) {
+      form.submit();
+    }
+  });
+
+
+
+    
+
+
+
+});
+
+
+
+
+</script>
+
+
+ 
+  </body>
+</html>
+

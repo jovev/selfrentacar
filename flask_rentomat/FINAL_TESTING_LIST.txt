@@ -1,0 +1,96 @@
+**********************************
+        A D      H O C K
+**********************************
+
+
+- Biranje termina rezervacije (od - do vreme i datum)
+- Dostupna vozila 
+    - cena po danu
+    - cena total
+    - cena depozit
+
+** cene se prikazuju sa websajta cheapcar-a
+
+- Detalji rentiranja
+    - Datum, mesto i vreme rentiranja (od - do)
+    - odabrani auto
+    - broj dana rentiranja
+    - cena po danu i totalna cena za rentiranje
+    - dodatne usluge
+        - kasko osiguranje
+        - osiguranje guma
+        - ako je zima (od novembra do aprila), sistem automatski dodaje lance sa sneg i cenu uracunava u ukupnu cenu
+    - totalna cena (cena rentiranja + cena dodatnih usluga)
+
+    *******************
+    - ukupna cena sa dodacima PROVERITI
+    - cena deposita PROVERITI
+    *******************
+    ** cene se prikazuju sa websajta cheapcar-a
+
+    - Popunjavanje detalja klijenta
+        - Ime, prezime, datum rodjenja, email adresa - OBAVEZNA POLJA
+        - Adresa, broj telefona - OPCIONI PODACI
+
+    ** Ukoliko u nasem sistemu postoji korisnik sa ovom email adresom, rezervacija se povezuje sa tim korisnikom
+    ** Ukoliko u nasem sistemu NE postoji korisnik sa ovom email adresom, kreira se novi korisnik
+
+
+Provera se vrsi BEZ kasko osiguranja
+Provera se vrsi SA kasko osiguranjem
+
+- Payment page
+    - Uplata totalne cene (rentiranje + dodatne usluge)
+    - Uplata depozita (ukoliko nije uzeto kasko osiguranje)
+
+
+Proveriti:
+- stampanje ugovora
+- stampanje potvrde
+- stampanje fiskalnog racuna
+
+
+- ACCES TOKEN
+- CENA NIJE TACNA NA PDF-u
+- PDF da se dotera
+
+**********************************
+P R E U Z I M A NJ E    K LJ U C A
+**********************************
+
+
+
+
+
+**********************************
+  V R A C A NJ E       K LJ U C A
+**********************************
+
+
+Skeniranje RFID-ja
+- error ukoliko ne postoji aktivan ugovor sa ovim kljucem (vracanje na pocetnu stranu za 15 sekundi)
+
+
+
+
+**********************************
+EXTERNE FUNKCIJE
+**********************************
+
+getpriceextrastyresfromid
+getpricesnowchains
+getpriceinsurancefromid
+isWinter
+
+getAccesToken
+getCarData
+getContractData
+getOdooLocations
+printContract
+printKeyReturnConfirmation
+getCarList
+update_odoo_rfid
+
+
+
+- ACCESS TOKEN NE POSTOJI

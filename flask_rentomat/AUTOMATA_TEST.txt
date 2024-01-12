@@ -1,0 +1,43 @@
+TESTIRANJE RENTOMATA
+
+
+- stampac ne sece papir - potvrda za vracanje kljuca
+- proveriti dizajn svih stranica
+    - preuzimanje_kljuc
+    - stampanje_ugovor
+
+
+
+
+
+
+
+
+
+
+ODRADJENE PROVERE:
+
+PREUZIMANJE KLJUCA
+- update lokalnog json fajla
+- update odoo settings sa kljucevima
+- update statusa ugovora (checked out)
+- stampanje ugovora
+
+VRACANJE KLJUCA
+- update lokalnog json fajla
+- update odoo settings sa kljucevima
+- update statusa ugovora (done)
+- preuzimanje potvrde
+- redirekcija kad se odstampa potvrda
+
+REZERVACIJA
+
+
+
+
+
+
+
+PRIPREMITI ZA PREZENTACIJU
+- napraviti ugovore
+- postaviti kljuceve na prave pozicije
