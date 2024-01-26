@@ -184,15 +184,22 @@ td {
 							  <td class="" style="width:220px;"><span style="font-size:11px; line-height:1.6; padding-left: 6px;"><strong>Rental Options</strong></span></td>
 							  <td class="text-right" align="right" style=""><span style="font-size:11px; line-height:1.6;">Price</span></td>
                             </tr>
+							
+							<t t-set="options_sum" t-value="0"/>
 							<t t-foreach="o.option_ids" t-as="line">
+							<t t-set="options_sum" t-value="options_sum + line.total_price"/>
+							
+							
+							
 							<tr>
 							  <td style="border-right:1px solid;"><i><span t-field="line.option"/></i></td>
 							  <td class="text-right" align="right"><span t-field="line.total_price"/></td>
                             </tr>
+							
 							</t>
-					<tr style="border-top:1px solid; border-bottom:1px solid;">
-						<td colspan="2"/>
-					 </tr>
+					        <tr style="border-top:1px solid; border-bottom:1px solid;">
+					      	  <td colspan="2"/>
+					        </tr>
 						</tbody>
                     </table>
 					
@@ -206,19 +213,21 @@ td {
                             </tr>
 							<tr>
 							  <td style="border-right:1px solid;" align="right"><i>1. Basic Rental Price</i></td>
-							  <td class="text-right" align="right"><strong>60 €</strong></td>
+							  <td class="text-right" align="right"><strong>
+							  <span t-set="total" t-value="o.x_total_rent - options_sum"/>
+							  <span t-esc="total" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/></strong></td>
                             </tr>
 							<tr>
 							  <td style="border-right:1px solid;" align="right"><i>2. Rental Options</i></td>
-							  <td class="text-right" align="right"><strong>30 €</strong></td>
+							  <td class="text-right" align="right"><strong><span t-esc="options_sum" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/></strong></td>
                             </tr>
 							<tr>
 							  <td style="border-right:1px solid;" align="right"><i>TOTAL RENT</i></td>
-							  <td class="text-right" align="right"><strong>90 €</strong></td>
+							  <td class="text-right" align="right"><strong><span t-field="o.x_total_rent"/></strong></td>
                             </tr>
-					<tr style="border-top:1px solid; border-bottom:1px solid;">
-						<td colspan="2"/>
-					 </tr>
+					        <tr style="border-top:1px solid; border-bottom:1px solid;">
+						      <td colspan="2"/>
+					        </tr>
 						</tbody>
                     </table>	
 					
