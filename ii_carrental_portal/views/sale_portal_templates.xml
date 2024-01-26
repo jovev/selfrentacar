@@ -444,7 +444,7 @@ td {
 							<t t-set="options_sum" t-value="options_sum + line.total_price"/>					 
 							<tr>
 							  <td align="right" style="border-right:1px solid;"><i><span t-field="line.option"/></i></td>
-							  <td class="text-right" align="right"><span t-field="line.total_price"  t-options="{'widget': 'monetary', 'display_currency': sale_order.currency_id}"/></td>
+							  <td class="text-right" align="right"><span t-field="line.total_price" t-options="{'widget': 'monetary', 'display_currency': sale_order.currency_id}"/></td>
                             </tr>
 							</t>
 					<tr style="border-top:1px solid; border-bottom:1px solid;">
