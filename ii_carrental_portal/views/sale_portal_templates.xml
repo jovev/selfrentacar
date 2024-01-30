@@ -88,8 +88,26 @@
                 </t>
             </t>
 <style>
-.o_portal_sidebar #sidebar_content.card > div.card-footer {
+header#top {
+    display: none;
+}
+.o_portal_sidebar #sidebar_content.card &gt; div.card-footer {
     display: none!important;
+}
+.o_portal .breadcrumb, .o_portal_wrap .o_portal_navbar .breadcrumb {
+    display: none;
+}
+.alert-info {
+    display: none;
+}
+#invoice_communication {
+    display: none;
+}
+#footer {
+    display: none;
+}
+.o_footer .o_footer_copyright {
+    display: none;
 }
 .table-borderless &gt; tbody  &gt; tr  &gt; td, .table-bordered &gt; tbody  &gt; tr  &gt; td {
     padding-top: 0px;
