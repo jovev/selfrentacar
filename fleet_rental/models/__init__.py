@@ -24,3 +24,4 @@
 from . import fleet
 from . import car_rental
 from . import stock_geo_location
+from . import res_users
