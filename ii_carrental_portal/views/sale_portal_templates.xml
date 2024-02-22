@@ -122,7 +122,7 @@ td {
 	padding-right: 15px;
 }
 </style>
-			<div class="row mt16 o_portal_invoice_sidebar">
+			<div class="row mt16">
                 <!-- Sidebar -->
                 <t t-call="portal.portal_record_sidebar">
                     <t t-set="classes" t-value="'col-lg-auto d-print-none'"/>
