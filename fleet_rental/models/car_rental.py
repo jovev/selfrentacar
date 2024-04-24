@@ -406,7 +406,7 @@ class CarRentalReservation(models.Model):
                          'rent_from': location_start_id,
                          'return_location': location_end_id ,
                          'web_car_request': self.selected_cars,
-                         'total_rent': Decimal(sub(r'[^\d.]', '', self.grand_price)),
+                         'x_total_rent': Decimal(sub(r'[^\d.]', '', self.grand_price)),
                         'state':'draft',
                         'rent_amt':Decimal(sub(r'[^\d.]', '', self.rent_price)),
                         'option_ids': option_line_ids,
