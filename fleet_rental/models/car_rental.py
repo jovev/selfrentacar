@@ -84,6 +84,10 @@ def pars_html_table(data):
             if kolona1 == "Rent from" or kolona1 == "Lokacija preuzimanja":
                 kolona2 = columns[0].text.strip()
                 continue
+        # linija sa ukupnom cenom
+            if kolona1 == "Grand Total:" or kolona1 == "Grand Total:":
+                kolona2 = columns[0].text.strip()
+                continue
             if kolona1 == "Pick-up Date & Time" or kolona1 == "Datum i vrijeme preuzimanja":
                 kolona1 = columns[0].text.strip()
                 continue
@@ -107,6 +111,13 @@ def pars_html_table(data):
                 kolona2 = columns[1].text.strip()
                 my_dic['Rent from'] = kolona1
                 my_dic['Return location'] = kolona2
+
+            # ukupan iznos
+            if last_col_name == "Grand Total:" or last_col_name == "Grand Total:":
+                kolona1 = columns[0].text.strip()
+                kolona2 = columns[1].text.strip()
+
+                my_dic['Grand Price'] = kolona2
 
             if last_col_name == "Pick-up Date & Time" or last_col_name == "Datum i vrijeme preuzimanja":
                 kolona1 = columns[0].text.strip()
@@ -216,7 +227,7 @@ class CarRentalReservation(models.Model):
                              'selected_cars': reserv_parameters['Selected Cars'],
                              'rent_price': reserv_parameters['Rent Price'],
 
-                             #    'grand_price': reserv_parameters['Grand Price'],
+                             'grand_price': reserv_parameters['Grand Price'],
                              'option_lines': option_line_ids,
 
 

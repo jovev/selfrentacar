@@ -249,8 +249,8 @@
 
         <menuitem name="Fleet Rental" id="fleet.menu_root" sequence="115" groups="fleet.fleet_group_user"
                   web_icon="fleet,static/description/icon.png"/>
-        <menuitem id="menu_car_parent" sequence="1" name="Rental Management" parent="fleet.menu_root"/>
-      <!--  <menuitem id="menu_car_rental_contract" parent="menu_car_parent" name="Rental Contract"
+     <!--   <menuitem id="menu_car_parent" sequence="1" name="Rental Management" parent="fleet.menu_root"/>
+        <menuitem id="menu_car_rental_contract" parent="menu_car_parent" name="Rental Contract"
                   action="action_car_rental_contract" sequence="1"/>   -->
     </data>
 </odoo>
