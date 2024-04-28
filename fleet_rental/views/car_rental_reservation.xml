@@ -116,7 +116,7 @@
                                 <field name="rent_price" attrs="{'readonly': [('state','!=','draft')]}"/>
 							</group>
                             <group>
-                                <field name="rent_price" attrs="{'readonly': [('state','!=','draft')]}"/>
+                                <field name="grand_price" attrs="{'readonly': [('state','!=','draft')]}"/>
 							</group>
                             
      <!--                       <group>
