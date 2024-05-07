@@ -87,6 +87,7 @@ def pars_html_table(data):
         # linija sa ukupnom cenom
             if kolona1 == "Grand Total:" or kolona1 == "Grand Total:":
                 kolona2 = columns[0].text.strip()
+                my_dic['Grand Price'] = kolona2
                 continue
             if kolona1 == "Pick-up Date & Time" or kolona1 == "Datum i vrijeme preuzimanja":
                 kolona1 = columns[0].text.strip()
@@ -173,6 +174,7 @@ class CarRentalReservation(models.Model):
     selected_cars = fields.Char(string="Selected Cars")     # Ovo je u stvari spisak vozila u odredjenoj
     rent_price = fields.Char(string="Rent price for car")
     grand_price = fields.Char(string="Total price for car rent and options")
+    deposit = fields.Char(string="Deposit")
 
     state = fields.Selection(
         [('draft', 'Draft'), ('reserved', 'Reserved'), ('running', 'Running'), ('cancel', 'Cancel'),
@@ -204,7 +206,7 @@ class CarRentalReservation(models.Model):
         create_context['default_user_ids'] = False
 # priprema podataka za opcije koje su izabrane
         option_line_ids = []
-        for i in range(1, len(my_dic_opt)):
+        for i in range(1, len(my_dic_opt) + 1):
             option = "option" + str(i)
             option_line_ids.append(Command.create(dict(literal_eval(my_dic_opt[option]))))
 
@@ -228,6 +230,7 @@ class CarRentalReservation(models.Model):
                              'rent_price': reserv_parameters['Rent Price'],
 
                              'grand_price': reserv_parameters['Grand Price'],
+                             'deposit': reserv_parameters['Deposit'],
                              'option_lines': option_line_ids,
 
 
@@ -250,6 +253,7 @@ class CarRentalReservation(models.Model):
                              'selected_cars': "VW Golf 7-Automatic, Wagon-New Car, Station Wagon, New Renault Megan - Automatic- Vagon",
                               'rent_price': "1.0",
                              'grand_price': "1.0",
+                             'deposit': "1.0",
 
                             'option_lines': [],
 

@@ -12,3 +12,5 @@ class ResPartner(models.Model):
     d_id = fields.Char()
     is_driver = fields.Boolean()
     insurance = fields.Boolean()
+
+
