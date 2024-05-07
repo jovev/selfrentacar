@@ -114,12 +114,12 @@ def pars_html_table(data):
                 my_dic['Return location'] = kolona2
 
             # ukupan iznos
-            if last_col_name == "Grand Total:" or last_col_name == "Grand Total:":
+            if last_col_name == "Grand Total:" or last_col_name == "Ukupna cijena:":
                 kolona1 = columns[0].text.strip()
                 kolona2 = columns[1].text.strip()
 
                 my_dic['Grand Price'] = kolona2
-            if last_col_name == "Deposit:" or last_col_name == "Deposit:":
+            if last_col_name == "Deposit:" or last_col_name == "Depozit:":
                 kolona1 = columns[0].text.strip()
                 kolona2 = columns[1].text.strip()
 
