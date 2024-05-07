@@ -235,12 +235,9 @@ class CarRentalReservation(models.Model):
                          #    'rent_end_date': reserv_parameters['Return Date & Time'],
                              'selected_cars': reserv_parameters['Selected Cars'],
                              'rent_price': reserv_parameters['Rent Price'],
-
                              'grand_price': reserv_parameters['Grand Price'],
-                             'deposit': reserv_parameters['Deposit'],
+                             'deposit': reserv_parameters['Deposit'] or "0.0",
                              'option_lines': option_line_ids,
-
-
                              }
         defaults = {
             'name': msg.get('subject') or _("No Subject"),
@@ -346,6 +343,7 @@ class CarRentalReservation(models.Model):
                          'return_location': location_end_id ,
                          'web_car_request': self.selected_cars,
                          'total': self.grand_price,
+                         'deposit': self.deposit,
                         'state':'draft',
                         'cost':self.rent_price,
                         'first_payment':'0.0',
