@@ -124,6 +124,8 @@ def pars_html_table(data):
                 kolona2 = columns[1].text.strip()
 
                 my_dic['Deposit'] = kolona2
+            else:
+                my_dic['Deposit'] = "0.0"
 
             if last_col_name == "Pick-up Date & Time" or last_col_name == "Datum i vrijeme preuzimanja":
                 kolona1 = columns[0].text.strip()
