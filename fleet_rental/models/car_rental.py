@@ -86,7 +86,7 @@ def pars_html_table(data):
                 continue
         # linija sa ukupnom cenom
             if kolona1 == "Grand Total:" or kolona1 == "Ukupna cijena:":
-                kolona2 = columns[0].text.strip()
+                kolona2 = columns[1].text.strip()
                 my_dic['Grand Price'] = kolona2
                 my_dic['Deposit'] = "0.0"
                 continue
