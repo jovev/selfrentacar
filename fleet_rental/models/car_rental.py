@@ -234,9 +234,9 @@ class CarRentalReservation(models.Model):
                          #    'rent_start_date': reserv_parameters['Pick-up Date & Time'],
                          #    'rent_end_date': reserv_parameters['Return Date & Time'],
                              'selected_cars': reserv_parameters['Selected Cars'],
-                             'rent_price': reserv_parameters['Rent Price'],
-                             'grand_price': reserv_parameters['Grand Price'],
-                             'deposit': reserv_parameters['Deposit'] or "0.0",
+                             'rent_price': reserv_parameters['Rent Price'].replace(",", "."),
+                             'grand_price': reserv_parameters['Grand Price'].replace(",", "."),
+                             'deposit': reserv_parameters['Deposit'].replace(",", ".") or "0.0",
                              'option_lines': option_line_ids,
                              }
         defaults = {
