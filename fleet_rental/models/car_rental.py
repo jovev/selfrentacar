@@ -130,7 +130,7 @@ def pars_html_table(data):
             #     _logger.info('****PARS KOLONA2 ****128****** kolona2 = %s', kolona2_gp)
             #     continue
 
-            if last_col_name == "Deposit:" or last_col_name == "Depozit:":
+            if kolona1 == "Deposit:" or kolona1 == "Depozit:":
                 kolona1 = columns[0].text.strip()
                 kolona2_d = columns[1].text.strip()
                 my_dic['Deposit'] = kolona2_d
