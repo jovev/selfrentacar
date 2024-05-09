@@ -89,6 +89,7 @@ def pars_html_table(data):
                 kolona1 = columns[0].text.strip()
                 kolona2 = columns[1].text.strip()
                 my_dic['Grand Price'] = kolona2
+                kolona1 = last_col_name
                 _logger.info('****PARS KOLONA2 *****92***** kolona2 = %s', kolona2)
                 continue
 
@@ -111,6 +112,7 @@ def pars_html_table(data):
             if kolona1 == "Total":
                 kolona1 = columns[0].text.strip()
                 kolona2 = "BLANK"
+
                 continue
 
             if kolona1 == "Rent from" or last_col_name == "Lokacija preuzimanja":
@@ -128,7 +130,7 @@ def pars_html_table(data):
             #     _logger.info('****PARS KOLONA2 ****128****** kolona2 = %s', kolona2_gp)
             #     continue
 
-            if kolona1 == "Deposit:" or last_col_name == "Depozit:":
+            if last_col_name == "Deposit:" or last_col_name == "Depozit:":
                 kolona1 = columns[0].text.strip()
                 kolona2_d = columns[1].text.strip()
                 my_dic['Deposit'] = kolona2_d
