@@ -70,7 +70,7 @@ def pars_html_table(data):
 
     # Collecting Ddata
     row_no = 0
-
+    my_dic['Deposit'] = "0.0"
     for row in table.find_all('tr'):
         # Find all data for each column
         columns = row.find_all('td')
@@ -88,21 +88,24 @@ def pars_html_table(data):
             if kolona1 == "Grand Total:" or kolona1 == "Ukupna cijena:":
                 kolona2 = columns[0].text.strip()
                 my_dic['Grand Price'] = kolona2
-
                 continue
+
             if kolona1 == "Pick-up Date & Time" or kolona1 == "Datum i vrijeme preuzimanja":
                 kolona1 = columns[0].text.strip()
                 continue
+
             if kolona1 == "Selected Cars" or kolona1 == "Izaberi vozila":
                 kolona1 = columns[0].text.strip()
                 kolona2 = columns[1].text.strip()
                 kolona3 = columns[2].text.strip()
                 continue
+
             if kolona1 == "Rental Options" or kolona1 == "Opcije najma":
                 kolona1 = columns[0].text.strip()
                 kolona2 = "BLANK"
                 redni_broj_opcije = 1    # pocinemo da brojimo opcije
                 continue
+
             if kolona1 == "Total":
                 kolona1 = columns[0].text.strip()
                 kolona2 = "BLANK"
@@ -113,12 +116,14 @@ def pars_html_table(data):
                 kolona2 = columns[1].text.strip()
                 my_dic['Rent from'] = kolona1
                 my_dic['Return location'] = kolona2
+                continue
 
             # ukupan iznos
             if last_col_name == "Grand Total:" or last_col_name == "Ukupna cijena:":
                 kolona1 = columns[0].text.strip()
                 kolona2_gp = columns[1].text.strip()
                 my_dic['Grand Price'] = kolona2_gp
+                continue
 
             if last_col_name == "Deposit:" or last_col_name == "Depozit:":
                 kolona1 = columns[0].text.strip()
