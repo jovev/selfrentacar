@@ -77,7 +77,7 @@ def pars_html_table(data):
         last_col_name = kolona1
         if (columns != []):
             kolona1 = columns[0].text.strip()
-            _logger.info('****PARS HTML-TABLE ********** kolona1 = %s vale=%s', kolona1, columns[1].text.strip())
+            _logger.info('****PARS HTML-TABLE ********** kolona1 = %s', kolona1)
             if kolona1 == "Rental Details" or kolona1 == "Detalji najma":
                 kolona2 = "BLANK"
                 continue
@@ -86,6 +86,7 @@ def pars_html_table(data):
                 continue
         # linija sa ukupnom cenom
             if kolona1 == "Grand Total:" or kolona1 == "Ukupna cijena:":
+                kolona1 = columns[0].text.strip()
                 kolona2 = columns[1].text.strip()
                 my_dic['Grand Price'] = kolona2
                 continue
