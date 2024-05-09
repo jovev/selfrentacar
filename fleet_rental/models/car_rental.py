@@ -89,6 +89,7 @@ def pars_html_table(data):
                 kolona1 = columns[0].text.strip()
                 kolona2 = columns[1].text.strip()
                 my_dic['Grand Price'] = kolona2
+                _logger.info('****PARS KOLONA2 ********** kolona2 = %s', kolona2)
                 continue
 
             if kolona1 == "Pick-up Date & Time" or kolona1 == "Datum i vrijeme preuzimanja":
@@ -124,6 +125,7 @@ def pars_html_table(data):
                 kolona1 = columns[0].text.strip()
                 kolona2_gp = columns[1].text.strip()
                 my_dic['Grand Price'] = kolona2_gp
+                _logger.info('****PARS KOLONA2 ********** kolona2 = %s', kolona2_gp)
                 continue
 
             # if kolona1 == "Deposit:" or last_col_name == "Depozit:":
