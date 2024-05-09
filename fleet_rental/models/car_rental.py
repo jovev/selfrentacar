@@ -441,7 +441,7 @@ class CarRentalReservation(models.Model):
                         'state':'draft',
                         'rent_amt':Decimal(sub(r'[^\d.]', '', self.rent_price)),
                         'option_ids': option_line_ids,
-                        'deposit_amt': self.deposit,
+                        'deposit_amt': Decimal(sub(r'[^\d.]', '', self.deposit)),
                         'currency_id': 1,
                          }
         self.env['fleet.rent'].create(values)
