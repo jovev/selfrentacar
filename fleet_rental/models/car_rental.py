@@ -121,17 +121,18 @@ def pars_html_table(data):
                 continue
 
             # ukupan iznos
-            if kolona1 == "Grand Total:" or last_col_name == "Ukupna cijena:":
-                kolona1 = columns[0].text.strip()
-                kolona2_gp = columns[1].text.strip()
-                my_dic['Grand Price'] = kolona2_gp
-                _logger.info('****PARS KOLONA2 ****128****** kolona2 = %s', kolona2_gp)
-                continue
-
-            # if kolona1 == "Deposit:" or last_col_name == "Depozit:":
+            # if kolona1 == "Grand Total:" or last_col_name == "Ukupna cijena:":
             #     kolona1 = columns[0].text.strip()
-            #     kolona2_d = columns[1].text.strip()
-            #     my_dic['Deposit'] = kolona2_d
+            #     kolona2_gp = columns[1].text.strip()
+            #     my_dic['Grand Price'] = kolona2_gp
+            #     _logger.info('****PARS KOLONA2 ****128****** kolona2 = %s', kolona2_gp)
+            #     continue
+
+            if kolona1 == "Deposit:" or last_col_name == "Depozit:":
+                kolona1 = columns[0].text.strip()
+                kolona2_d = columns[1].text.strip()
+                my_dic['Deposit'] = kolona2_d
+                _logger.info('****PARS KOLONA2 ****135****** kolona2 = %s', kolona2_d)
             # else:
             #     my_dic['Deposit'] = "0.0"
 
