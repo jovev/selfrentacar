@@ -81,9 +81,9 @@ def pars_html_table(data):
             if kolona1 == "Rental Details" or kolona1 == "Detalji najma":
                 kolona2 = "BLANK"
                 continue
-            if kolona1 == "Rent from" or kolona1 == "Lokacija preuzimanja":
-                kolona2 = columns[0].text.strip()
-                continue
+            # if kolona1 == "Rent from" or kolona1 == "Lokacija preuzimanja":
+            #     kolona2 = columns[0].text.strip()
+            #     continue
         # linija sa ukupnom cenom
             if kolona1 == "Grand Total:" or kolona1 == "Ukupna cijena:":
                 kolona1 = columns[0].text.strip()
