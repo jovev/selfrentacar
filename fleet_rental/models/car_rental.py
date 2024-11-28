@@ -122,7 +122,7 @@ def pars_html_table(data):
                 _logger.info('Lokacija vracanja = %s', kolona2)
                 my_dic['Rent from'] = kolona1
                 my_dic['Return location'] = kolona2
-
+                continue
 
             # ukupan iznos
             # if kolona1 == "Grand Total:" or last_col_name == "Ukupna cijena:":
