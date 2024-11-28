@@ -118,6 +118,8 @@ def pars_html_table(data):
             if kolona1 == "Rent from" or last_col_name == "Lokacija preuzimanja":
                 kolona1 = columns[0].text.strip()
                 kolona2 = columns[1].text.strip()
+                _logger.info('Lokacija Preuzimanja = %s', kolona1)
+                _logger.info('Lokacija vracanja = %s', kolona2)
                 my_dic['Rent from'] = kolona1
                 my_dic['Return location'] = kolona2
 
@@ -263,8 +265,8 @@ class CarRentalReservation(models.Model):
                              'additional_comments': "No additional comments",
                              'rent_from': "Belgrade",
                              'return_location': "Belgrade",
-                             'rent_start_date': "2023-01-01",
-                             'rent_end_date': "2023-01-02",
+                             'rent_start_date': "2024-01-01",
+                             'rent_end_date': "2024-01-02",
                              'selected_cars': "VW Golf 7-Automatic, Wagon-New Car, Station Wagon, New Renault Megan - Automatic- Vagon",
                               'rent_price': "1.0",
                              'grand_price': "1.0",
