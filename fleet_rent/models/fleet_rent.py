@@ -1416,7 +1416,7 @@ class CarRentalReservationOptions(models.Model):
     option = fields.Many2one('product.product', string='Rental options')
   #  option = fields.Char(string="Optional service or equipment")
     price = fields.Float(string="Price for option")
-    quantity = fields.Float(string='Qty')
+    quantity = fields.Float(string='Qty', default=1)
     total_price = fields.Float(string="Total Price")
     fleet_rent_id = fields.Many2one('fleet.rent', string='Rental options')
 class CarRentalChecklist(models.Model):
