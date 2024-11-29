@@ -95,6 +95,7 @@ def pars_html_table(data):
 
             if kolona1 == "Pick-up Date & Time" or kolona1 == "Datum i vrijeme preuzimanja":
                 kolona1 = columns[0].text.strip()
+                kolona2 = columns[1].text.strip()
                 continue
 
             if kolona1 == "Selected Cars" or kolona1 == "Izaberi vozila":
@@ -115,7 +116,7 @@ def pars_html_table(data):
 
                 continue
 
-            if kolona1 == "Rent from" or last_col_name == "Lokacija preuzimanja":
+            if last_col_name == "Rent from" or last_col_name == "Lokacija preuzimanja":
                 kolona1 = columns[0].text.strip()
                 kolona2 = columns[1].text.strip()
                 _logger.info('Lokacija Preuzimanja = %s', kolona1)
