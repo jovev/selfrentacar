@@ -230,7 +230,7 @@ class CarRentalReservation(models.Model):
         for i in range(1, len(my_dic_opt) + 1):
             option = "option" + str(i)
             option_line_ids.append(Command.create(dict(literal_eval(my_dic_opt[option]))))
-        _logger.info('****KREIRANAOPTION LINES = %s %s', option_line_ids[0], option_line_ids[1])
+        # _logger.info('****KREIRANAOPTION LINES = %s %s', option_line_ids[0], option_line_ids[1])
 
         if custom_values is None:
             custom_values = {'name': msg.get('subject') or _("No Subject"),
