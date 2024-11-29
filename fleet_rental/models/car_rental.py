@@ -230,6 +230,7 @@ class CarRentalReservation(models.Model):
         for i in range(1, len(my_dic_opt) + 1):
             option = "option" + str(i)
             option_line_ids.append(Command.create(dict(literal_eval(my_dic_opt[option]))))
+        _logger.info('****KREIRANAOPTION LINES = %s %s', option_line_ids[0], option_line_ids[1])
 
         if custom_values is None:
             custom_values = {'name': msg.get('subject') or _("No Subject"),
@@ -245,13 +246,13 @@ class CarRentalReservation(models.Model):
                              'additional_comments': reserv_parameters['Additional Comments'],
                              'rent_from': reserv_parameters['Rent from'],
                              'return_location': reserv_parameters['Return location'],
-                         #    'rent_start_date': reserv_parameters['Pick-up Date & Time'],
-                         #    'rent_end_date': reserv_parameters['Return Date & Time'],
+                             'rent_start_date': datetime.strptime(reserv_parameters['Pick-up Date & Time'], '%B %d, %Y %H:%M'),
+                             'rent_end_date': datetime.strptime(reserv_parameters['Return Date & Time'], '%B %d, %Y %H:%M'),
                              'selected_cars': reserv_parameters['Selected Cars'],
                              'rent_price': reserv_parameters['Rent Price'].replace(",", "."),
                              'grand_price': reserv_parameters['Grand Price'].replace(",", "."),
                              'deposit': reserv_parameters['Deposit'].replace(",", ".") or "0.0",
-                             'option_lines': option_line_ids,
+                             'option_lines': option_line_ids.replace(",", "."),
                              }
         defaults = {
             'name': msg.get('subject') or _("No Subject"),
