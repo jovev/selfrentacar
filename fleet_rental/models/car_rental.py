@@ -251,7 +251,7 @@ class CarRentalReservation(models.Model):
                              'rent_price': reserv_parameters['Rent Price'].replace(",", "."),
                              'grand_price': reserv_parameters['Grand Price'].replace(",", "."),
                              'deposit': reserv_parameters['Deposit'].replace(",", ".") or "0.0",
-                             'option_lines': option_line_ids.replace(",", "."),
+                             'option_lines': option_line_ids,
                              }
         defaults = {
             'name': msg.get('subject') or _("No Subject"),
