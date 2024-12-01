@@ -37,7 +37,8 @@ _logger = logging.getLogger(__name__)
 def remove_html(string):
     return regex.sub('', string)
 def pars_html_table(data):
-    soup = BeautifulSoup(data, 'html.parser')
+    soup = BeautifulSoup(data, 'html.parser').get_text(strip=True)
+#    clean_text = BeautifulSoup(raw_html, "lxml").get_text(strip=True)
 # ova metoda partsiloa body emal poruke i formira nekoliko dictionary struktur na osnovu kojih se generise odgovarajuci zapis u bazi #
  #####   Obrada prve tabele   ############################3
     table = soup.find_all('table')[0]  # Grab the first table
@@ -245,8 +246,9 @@ class CarRentalReservation(models.Model):
                              'additional_comments': reserv_parameters['Additional Comments'],
                              'rent_from': reserv_parameters['Rent from'],
                              'return_location': reserv_parameters['Return location'],
-                             'rent_start_date': datetime.strptime(reserv_parameters['Pick-up Date & Time'], '%B %d, %Y %H:%M'),
-                             'rent_end_date': datetime.strptime(reserv_parameters['Return Date & Time'], '%B %d, %Y %H:%M'),
+
+                             'rent_start_date': datetime.strptime((reserv_parameters['Pick-up Date & Time']).strip('\xa0'), '%B %d, %Y %H:%M'),
+                             'rent_end_date': datetime.strptime((reserv_parameters['Return Date & Time']).strip('\xa0'), '%B %d, %Y %H:%M'),
                              'selected_cars': reserv_parameters['Selected Cars'],
                              'rent_price': reserv_parameters['Rent Price'].replace(",", "."),
                              'grand_price': reserv_parameters['Grand Price'].replace(",", "."),
