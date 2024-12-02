@@ -167,6 +167,9 @@ def pars_html_table(data):
             row_no = row_no + 1
     #    Kraj obrade druge tabele   ###################
     _logger.info('***************  Dictionart TABELE 2 = %s', my_dic)
+    table = soup.find_all('table')[2]  # Grab the thred table
+    _logger.info('****PARS HTML 3.-TABLE ********** selektovana = %s', table)
+
     return my_dic, my_dic_opt
 
 
