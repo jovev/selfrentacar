@@ -323,6 +323,7 @@ class CarRentalReservation(models.Model):
         _logger.info('!!!!!!! DEFAULTS Pre upisa ubazu= %s   Custom value =%s', defaults, custom_values)
 
         rent = super(CarRentalReservation, self.with_context(create_context)).message_new(msg, custom_values=defaults)
+        rent.action_confirm()
         return rent
 
     def action_confirm(self):
@@ -367,14 +368,14 @@ class CarRentalReservation(models.Model):
             for start_location in start_locations:
                 location_start_id = start_location.id
         else:
-            location_start_id = '18'
+            location_start_id = '18'   ### ovaj hard core treba promeniti
 
         end_locations = self.env['stock.location'].search([('name', '=', self.return_location)])
         if end_locations:
             for end_location in end_locations:
                 location_end_id = end_location.id
         else:
-            location_end_id = '18'
+            location_end_id = '18'  ### ovaj hard core treba promeniti
         self.state = "checking"
 
         car_categories = self.env['fleet.vehicle.model.category'].search([('name', '=', self.selected_cars)])
@@ -387,7 +388,9 @@ class CarRentalReservation(models.Model):
         for selected_option in self.option_lines:
             name = selected_option.option
             recurring_amount = selected_option.price
-            dic_string = "{'name':'" + name + "','recurring_amount':'" + recurring_amount + "'}"
+            total_price = selected_option.total_price
+
+            dic_string = "{'name':'" + name + "','recurring_amount':'" + recurring_amount + "','total_price':'" + total_price + " }"
             option_line_ids.append(Command.create(dict(literal_eval(dic_string))))
 
         values = {
@@ -404,7 +407,9 @@ class CarRentalReservation(models.Model):
                         'state':'draft',
                         'cost':self.rent_price,
                         'first_payment':'0.0',
+                        'is_payment_received': self.is_payment_received,
                         'recurring_line': option_line_ids,
+
                          }
         self.env['car.rental.contract'].create(values)
 
