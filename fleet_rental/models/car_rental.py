@@ -40,6 +40,7 @@ def pars_html_table(data):
     soup = BeautifulSoup(data, 'html.parser')
 # ova metoda partsiloa body emal poruke i formira nekoliko dictionary struktur na osnovu kojih se generise odgovarajuci zapis u bazi #
  #####   Obrada prve tabele   ############################3
+
     table = soup.find_all('table')[0]  # Grab the first table
     _logger.info('****PARS HTML-TABLE ********** selektovana = %s', table)
     my_dic = {}
@@ -199,6 +200,7 @@ class CarRentalReservation(models.Model):
     _description = 'Fleet Rental Management Reservation'
     _inherit = 'mail.thread'
     # customer details
+
     name = fields.Char(string="Name", default="Draft Reservation", readonly=True, copy=False)
     customer_name = fields.Char(required=True, string='Customer', help="Customer")
     reservation_code = fields.Char(string="Reservation Code", copy=False)
@@ -240,6 +242,9 @@ class CarRentalReservation(models.Model):
         # want the gateway user to be responsible if no other responsible is
         # found.
         #_logger.info('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! self= %s, msg %s, custom_values= %s', self, msg, custom_values)
+        meseci_dic = {"јануар": "January", "фебруар": "February", "март": "March", "април": "April", "мај": "May",
+                      "јун": "June", "јул": "July", "август": "August", "септембар": "September", "октобар": "October",
+                      "новембар": "November", "децембар": "December"}
         email_body = msg['body'] # vadimo body iz emaila
 
         reserv_parameters, my_dic_opt, my_dic_pay = pars_html_table(email_body) # poziv metode za parsiranje Body e-malia. Vracaju se 2 dic, za dve tabele
@@ -258,6 +263,15 @@ class CarRentalReservation(models.Model):
             option = "option" + str(i)
             option_line_ids.append(Command.create(dict(literal_eval(my_dic_opt[option]))))
         #    _logger.info('****KREIRANAOPTION LINES = %s', option_line_ids[i])
+        pozicija = reserv_parameters['Pick-up Date & Time'].find(" ")
+        naziv_meseca = reserv_parameters['Pick-up Date & Time'][:pozicija]
+        pocetni_datum = reserv_parameters['Pick-up Date & Time'].replace(naziv_meseca, meseci_dic[naziv_meseca])
+
+
+        pozicija = reserv_parameters['Return Date & Time'].find(" ")
+        naziv_meseca = reserv_parameters['Return Date & Time'][:pozicija]
+        krajnji_datum = reserv_parameters['Return Date & Time'].replace(naziv_meseca, meseci_dic[naziv_meseca])
+
 
         if custom_values is None:
             custom_values = {'name': msg.get('subject') or _("No Subject"),
@@ -273,8 +287,8 @@ class CarRentalReservation(models.Model):
                              'additional_comments': reserv_parameters['Additional Comments'],
                              'rent_from': reserv_parameters['Rent from'],
                              'return_location': reserv_parameters['Return location'],
-                             'rent_start_date': datetime.strptime((reserv_parameters['Pick-up Date & Time']).strip('\xa0'), '%B %d, %Y %H:%M'),
-                             'rent_end_date': datetime.strptime((reserv_parameters['Return Date & Time']).strip('\xa0'), '%B %d, %Y %H:%M'),
+                             'rent_start_date': datetime.strptime(pocetni_datum.strip('\xa0'), '%B %d, %Y %H:%M'),
+                             'rent_end_date': datetime.strptime(krajnji_datum.strip('\xa0'), '%B %d, %Y %H:%M'),
                              'selected_cars': reserv_parameters['Selected Cars'],
                              'rent_price': reserv_parameters['Rent Price'].replace(",", "."),
                              'grand_price': reserv_parameters['Grand Price'].replace(",", "."),
