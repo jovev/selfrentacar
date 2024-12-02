@@ -323,7 +323,7 @@ class CarRentalReservation(models.Model):
         _logger.info('!!!!!!! DEFAULTS Pre upisa ubazu= %s   Custom value =%s', defaults, custom_values)
 
         rent = super(CarRentalReservation, self.with_context(create_context)).message_new(msg, custom_values=defaults)
-        rent.action_confirm()
+        rent.action_create_rent()
         return rent
 
     def action_confirm(self):
@@ -407,7 +407,7 @@ class CarRentalReservation(models.Model):
                         'state':'draft',
                         'cost':self.rent_price,
                         'first_payment':'0.0',
-                        'is_payment_received': self.is_payment_received,
+
                         'recurring_line': option_line_ids,
 
                          }
@@ -474,7 +474,8 @@ class CarRentalReservation(models.Model):
             unit_price = str(Decimal(sub(r'[^\d.]', '', selected_option.price)))
         #    unit_price = Decimal(selected_option.price)
             total_price = str(unit_price * 1)
-            dic_string = "{'option':'" + id_rent_option + "', 'price':'" + unit_price + "' }"
+            dic_string = "{'option':'" + id_rent_option + "', 'price':'" + unit_price + "','total_price':'" + total_price + "' }"
+
 
         #    dic_string = "{'option':" + "'" + id_rent_option + "'," + "'price':" + "'" + unit_price + "'," + "'quantity':" + "'1'" }
             option_line_ids.append(Command.create(dict(literal_eval(dic_string))))
@@ -493,6 +494,7 @@ class CarRentalReservation(models.Model):
                         'rent_amt':Decimal(sub(r'[^\d.]', '', self.rent_price)),
                         'option_ids': option_line_ids,
                         'deposit_amt': Decimal(sub(r'[^\d.]', '', self.deposit)),
+                        'is_payment_received': self.is_payment_received,
                         'currency_id': 1,
                          }
         self.env['fleet.rent'].create(values)
