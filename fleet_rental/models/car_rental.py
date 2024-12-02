@@ -44,9 +44,10 @@ def pars_html_table(data):
     _logger.info('****PARS HTML-TABLE ********** selektovana = %s', table)
     my_dic = {}
     my_dic_opt = {}
+    my_dic_pay = {}
     option_lines = []
     t1_col_name = ['Customer Details','Reservation code', 'Customer', 'Date of Birth', 'Street Address', 'City', 'Flight number','Country', 'Phone', 'Email', 'Additional Comments' ]
-
+    t3_col_payment = ['Pay at Pick-up']
     # Collecting Ddata
     row_no = 0
     for row in table.find_all('tr'):
@@ -155,7 +156,9 @@ def pars_html_table(data):
             if last_col_name == "Rental Options" or last_col_name == "Opcije najma":
                 kolona1 = columns[0].text.strip()
                 kolona2 = columns[1].text.strip()
+                kolona2 = kolona2.replace(',', '.')
                 kolona3 = columns[2].text.strip()
+                kolona3 = kolona3.replace(',', '.')
                 option = "option" + str(redni_broj_opcije)
                 option_content = "{'option':'" + str(kolona1) + "','price':'" + str(kolona2) + "','total_price':'" + str(kolona3) +"'}"
                 option_lines.append(Command.create(option_content))
@@ -167,10 +170,28 @@ def pars_html_table(data):
             row_no = row_no + 1
     #    Kraj obrade druge tabele   ###################
     _logger.info('***************  Dictionart TABELE 2 = %s', my_dic)
+
     table = soup.find_all('table')[2]  # Grab the thred table
+    row_no = 0
+    for row in table.find_all('tr'):
+        # Find all data for each column
+        columns = row.find_all('td')
+        #    print (columns)
+        if (columns != []):
+            kolona1 = columns[0].text.strip()
+            _logger.info('****PARS HTML-TABLE 3 ********** kolona1 = %s', kolona1)
+            if kolona1 == "Payment Details" or kolona1 == "Detalji plaćanja":
+                kolona2 = "BLANK"
+            else:
+                kolona2 = columns[1].text.strip()
+            _logger.info('****PARS HTML-TABLE3 ********** kolona2 = %s', kolona2)
+            my_dic_pay[t3_col_payment[row_no]] = kolona2
+            row_no = row_no + 1
+    #    Kraj obrade trece tabele   ###################
+
     _logger.info('****PARS HTML 3.-TABLE ********** selektovana = %s', table)
 
-    return my_dic, my_dic_opt
+    return my_dic, my_dic_opt, my_dic_pay
 
 
 class CarRentalReservation(models.Model):
@@ -198,6 +219,7 @@ class CarRentalReservation(models.Model):
     rent_price = fields.Char(string="Rent price for car")
     grand_price = fields.Char(string="Total price for car rent and options")
     deposit = fields.Char(string="Deposit")
+    is_payment_received = fields.Boolean("Is Payment Received")
 
     state = fields.Selection(
         [('draft', 'Draft'), ('reserved', 'Reserved'), ('running', 'Running'), ('cancel', 'Cancel'),
@@ -220,11 +242,14 @@ class CarRentalReservation(models.Model):
         #_logger.info('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! self= %s, msg %s, custom_values= %s', self, msg, custom_values)
         email_body = msg['body'] # vadimo body iz emaila
 
-        reserv_parameters, my_dic_opt = pars_html_table(email_body) # poziv metode za parsiranje Body e-malia. Vracaju se 2 dic, za dve tabele
+        reserv_parameters, my_dic_opt, my_dic_pay = pars_html_table(email_body) # poziv metode za parsiranje Body e-malia. Vracaju se 2 dic, za dve tabele
 
         _logger.info('***************  Parametri Posle Parsiranja = %s', reserv_parameters)
         _logger.info('***************  Opcije Posle Parsiranja = %s', my_dic_opt)
-
+        if my_dic_pay['Pay at Pick-up'] == 'Pay at Pick-up':
+            is_payment_received = True
+        else:
+            is_payment_received = False
         create_context = dict(self.env.context or {})
         create_context['default_user_ids'] = False
 # priprema podataka za opcije koje su izabrane
@@ -254,6 +279,7 @@ class CarRentalReservation(models.Model):
                              'rent_price': reserv_parameters['Rent Price'].replace(",", "."),
                              'grand_price': reserv_parameters['Grand Price'].replace(",", "."),
                              'deposit': reserv_parameters['Deposit'].replace(",", ".") or "0.0",
+                             'is_payment_received': payment_received,
                              'option_lines': option_line_ids,
                              }
         defaults = {
