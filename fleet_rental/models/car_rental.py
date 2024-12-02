@@ -117,13 +117,13 @@ def pars_html_table(data):
 
                 continue
 
-            if kolona1 == "Rent from" or last_col_name == "Lokacija preuzimanja":
+            if kolona1 == "Rent from" or last_col_name == "Lokacija preuzimanja" or last_col_name == "Rent from":
                 kolona1 = columns[0].text.strip()
                 kolona2 = columns[1].text.strip()
                 _logger.info('Lokacija Preuzimanja = %s', kolona1)
                 _logger.info('Lokacija vracanja = %s', kolona2)
                 my_dic['Rent from'] = kolona1
-            #    my_dic['Return location'] = kolona2
+                my_dic['Return location'] = kolona2
                 continue
 
             # ukupan iznos
