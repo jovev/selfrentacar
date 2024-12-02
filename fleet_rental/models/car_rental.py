@@ -47,7 +47,7 @@ def pars_html_table(data):
     my_dic_pay = {}
     option_lines = []
     t1_col_name = ['Customer Details','Reservation code', 'Customer', 'Date of Birth', 'Street Address', 'City', 'Flight number','Country', 'Phone', 'Email', 'Additional Comments' ]
-    t3_col_payment = ['Pay at Pick-up']
+    t3_col_payment = ['Payment Details', 'Pay By']
     # Collecting Ddata
     row_no = 0
     for row in table.find_all('tr'):
@@ -246,10 +246,10 @@ class CarRentalReservation(models.Model):
 
         _logger.info('***************  Parametri Posle Parsiranja = %s', reserv_parameters)
         _logger.info('***************  Opcije Posle Parsiranja = %s', my_dic_opt)
-        if my_dic_pay['Pay at Pick-up'] == 'Pay at Pick-up':
-            is_payment_received = True
-        else:
+        if my_dic_pay['Pay By'] == 'Pay at Pick-up':
             is_payment_received = False
+        else:
+            is_payment_received = True
         create_context = dict(self.env.context or {})
         create_context['default_user_ids'] = False
 # priprema podataka za opcije koje su izabrane
@@ -279,7 +279,7 @@ class CarRentalReservation(models.Model):
                              'rent_price': reserv_parameters['Rent Price'].replace(",", "."),
                              'grand_price': reserv_parameters['Grand Price'].replace(",", "."),
                              'deposit': reserv_parameters['Deposit'].replace(",", ".") or "0.0",
-                             'is_payment_received': payment_received,
+                             'is_payment_received': is_payment_received,
                              'option_lines': option_line_ids,
                              }
         defaults = {
