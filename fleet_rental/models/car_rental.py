@@ -244,7 +244,9 @@ class CarRentalReservation(models.Model):
         #_logger.info('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! self= %s, msg %s, custom_values= %s', self, msg, custom_values)
         meseci_dic = {"јануар": "January", "фебруар": "February", "март": "March", "април": "April", "мај": "May",
                       "јун": "June", "јул": "July", "август": "August", "септембар": "September", "октобар": "October",
-                      "новембар": "November", "децембар": "December"}
+                      "новембар": "November", "децембар": "December", "January": "January", "February": "February", "March": "March", "April": "April", "May": "May",
+                      "June": "June", "July": "July", "August": "August", "September": "September", "October": "October",
+                      "November": "November", "December": "December"}
         email_body = msg['body'] # vadimo body iz emaila
 
         reserv_parameters, my_dic_opt, my_dic_pay = pars_html_table(email_body) # poziv metode za parsiranje Body e-malia. Vracaju se 2 dic, za dve tabele
