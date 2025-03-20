@@ -230,6 +230,7 @@ class FleetRent(models.Model):
         [
             ("draft", "New"),
             ("open", "Reserved"),
+            ('assigned', 'Assigned'),
             ("pending", "To Renew"),
             ("close", "Closed"),
             ("running", "Checked Out"),
