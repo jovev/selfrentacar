@@ -224,7 +224,7 @@ class CarRentalReservation(models.Model):
     is_payment_received = fields.Boolean("Is Payment Received")
 
     state = fields.Selection(
-        [('draft', 'Draft'), ('reserved', 'Reserved'), ('running', 'Running'), ('cancel', 'Cancel'),
+        [('draft', 'Draft'), ('reserved', 'Reserved'),  ('assigned', 'Assigned'), ('running', 'Running'), ('cancel', 'Cancel'),
          ('checking', 'Checking'), ('invoice', 'Invoice'), ('done', 'Done')], string="State",
         default="draft", copy=False, track_visibility='onchange')
     option_lines = fields.One2many('car.rental.reservation.options', 'rental_options', readonly=False, help="Selected Rental options",
