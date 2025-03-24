@@ -231,6 +231,7 @@ class FleetRent(models.Model):
             ("draft", "New"),
             ("open", "Reserved"),
             ('assigned', 'Assigned'),
+          ('assigned_return', 'Assigned for Return'),
             ("pending", "To Renew"),
             ("close", "Closed"),
             ("running", "Checked Out"),
