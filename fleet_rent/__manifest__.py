@@ -26,6 +26,7 @@
         "views/fleet_res_partner_view.xml",
         "views/fleet_res_users_view.xml",
         "views/res_users_view.xml",
+        "views/res_users_stock_view.xml",
         "views/fleet_view.xml",
         "views/rent_confirmation_mail_template.xml",
      #   "views/signature.xml"
