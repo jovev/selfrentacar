@@ -51,5 +51,11 @@ class ResUsers(models.Model):
     maintanance_ids = fields.One2many(
         "maintenance.cost", "tenant_id", "Maintenance Details"
     )
-
+    stock_location_ids = fields.Many2many(
+        'stock.location',
+        'res_users_stock_location_rel',  # Custom relation table name
+        'user_id',  # Column for res.users
+        'location_id',  # Column for stock.location
+        string="Allowed Parking Locations"
+    )
 
