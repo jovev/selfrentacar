@@ -260,7 +260,8 @@
                                 <field name="rent_amt" widget="monetary" attrs="{'readonly':[('state','!=','draft')]}"/>
                                 <field name="contract_dt" required="1" readonly="1"/>
                                 <field name="deposit_amt" widget="monetary" string="Amount Deposit" attrs="{'readonly':[('deposit_received','=',True)]}"/>
-							</group>
+                                <field name="nacin_placanja" widget="radio"/>
+                            </group>
 							<group>
     							<field name="return_location"/>
                                 <field name="amount_return" widget="monetary" readonly="1" string="Amount Returned"/>
@@ -269,9 +270,7 @@
                                 <field name="is_payment_received" string="Payment received?" readonly="1"/>
                                 <field name="contact_id"/>
                                 <field name="maintenance_cost" widget="monetary" readonly="1" string="Maintenance Cost"/>
-                                <group>
-                                        <field name="nacin_placanja" widget="radio"/>
-                                    </group>
+                                
 							</group>
 						</group>
             <!-- CONTRACT INFORMATION -->
