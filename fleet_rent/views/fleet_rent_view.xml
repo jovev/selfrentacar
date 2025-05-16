@@ -269,6 +269,9 @@
                                 <field name="is_payment_received" string="Payment received?" readonly="1"/>
                                 <field name="contact_id"/>
                                 <field name="maintenance_cost" widget="monetary" readonly="1" string="Maintenance Cost"/>
+                                <group>
+                                        <field name="nacin_placanja" widget="radio"/>
+                                    </group>
 							</group>
 						</group>
             <!-- CONTRACT INFORMATION -->
@@ -485,6 +488,18 @@
                             <separator
                                 string="Terms and Conditions"
                                 name="description"
+                            />
+                            <field
+                                name="description"
+                                string="Description"
+                                placeholder="Enter Terms and Conditions..."
+                            />
+                        </page>
+                        <!-- dodatak ya podatke o kreditnoj kartici koja je pridruzena ovom ugovoru -->
+                        <page string="CreditCard Info" name="creditcard_page">
+                            <separator
+                                string="Credit Card Info"
+                                name="credit_card_info"
                             />
                             <field
                                 name="description"
