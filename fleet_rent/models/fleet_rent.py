@@ -469,10 +469,10 @@ class FleetRent(models.Model):
     amount_pay_deposit = fields.Float(string="Amount pay deposit", copy=False)
     nacin_placanja = fields.Selection([('card', 'Karticom'), ('cashe', 'Keš')], string="Način plaćanja",
                                    help='Feel level at pickup', required=False)
-    pickup_fuel = fields.Selection([('e', 'Empty'), ('14', '1/4'), ('12', '1/2'), ('34', '3/d'),
+    pickup_fuel = fields.Selection([('e', 'Empty'), ('14', '1/4'), ('12', '1/2'), ('34', '3/4'),
                                     ('f', 'Full')], string="Pickup fuel",
                                    help='Feel level at pickup', required=False)
-    dropoff_fuel = fields.Selection([('e', 'Empty'), ('14', '1/4'), ('12', '1/2'), ('34', '3/d'),
+    dropoff_fuel = fields.Selection([('e', 'Empty'), ('14', '1/4'), ('12', '1/2'), ('34', '3/4'),
                                      ('f', 'Full')], string="Dropoff fuel",
                                     help='Feel level at dropoff', required=False)
     x_bazna_lokacija = fields.Many2one(related='vehicle_id.x_bazna_lokacija', string = 'Base Location')

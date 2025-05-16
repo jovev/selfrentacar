@@ -501,7 +501,7 @@
                                 name="credit_card_info"
                             />
                             <field
-                                name="description"
+                                name="credit_card_info"
                                 string="Description"
                                 placeholder="Enter Terms and Conditions..."
                             />
