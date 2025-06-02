@@ -479,7 +479,7 @@ class FleetRent(models.Model):
     pickup_tools = fields.Selection([('pt1', 'Kljuc - kartica'), ('pt2', 'Saobracajna'), ('pt3', 'Zeleno karton'), ('pt4', 'Polisa osigiranja'),
                                      ('pt5', 'Uze za vucu'), ('pt6', 'Prva pomoc'), ('pt7', 'Sijalice'), ('pt8', 'Prsluk'),
                                      ('pt9', 'Trokut'), ('pt10', 'Pp aparat'), ('pt11', 'Sprej za gume'), ('pt12', 'Rezervi tocak'),
-                                     ('pt13', 'Dizalica'), ('pt14', 'Kljuc za tockove'), ('pt15', 'Kompresor'),
+                                     ('pt13', 'Dizalica'), ('pt14', 'Kljuc za tockove'), ('pt15', 'Kompresor')
                                      ],
                                     string="Pickup tools",
                                     help='tools at pickup', required=False)
@@ -487,7 +487,7 @@ class FleetRent(models.Model):
         [('pt1', 'Kljuc - kartica'), ('pt2', 'Saobracajna'), ('pt3', 'Zeleno karton'), ('pt4', 'Polisa osigiranja'),
          ('pt5', 'Uze za vucu'), ('pt6', 'Prva pomoc'), ('pt7', 'Sijalice'), ('pt8', 'Prsluk'),
          ('pt9', 'Trokut'), ('pt10', 'Pp aparat'), ('pt11', 'Sprej za gume'), ('pt12', 'Rezervi tocak'),
-         ('pt13', 'Dizalica'), ('pt14', 'Kljuc za tockove'), ('pt15', 'Kompresor'),
+         ('pt13', 'Dizalica'), ('pt14', 'Kljuc za tockove'), ('pt15', 'Kompresor')
          ],
         string="Dropoff tools",
         help='tools at dropoff', required=False)
