@@ -476,13 +476,13 @@ class FleetRent(models.Model):
                                      ('f', 'Full')], string="Dropoff fuel",
                                     help='Feel level at dropoff', required=False)
 
-    pickup_tools1 = fields.Selection([('pt1', 'Kljuc - kartica')], string="Kljuc - kartica", help='tools at pickup', required=True)
-    pickup_tools2 = fields.Selection([('pt2', 'Saobracajna')], string="Saobra'ajma", help='tools at pickup', required=True)
-    pickup_tools3 = fields.Selection([('pt3', 'Zeleno karton')], string="Zeleni karton", help='tools at pickup',
+    pickup_tools1 = fields.Boolean([('pt1', 'Kljuc - kartica')], string="Kljuc - kartica", help='tools at pickup', required=True)
+    pickup_tools2 = fields.Boolean([('pt2', 'Saobracajna')], string="Saobra'ajma", help='tools at pickup', required=True)
+    pickup_tools3 = fields.Boolean([('pt3', 'Zeleno karton')], string="Zeleni karton", help='tools at pickup',
                                      required=True)
-    pickup_tools4 = fields.Selection([('pt4', 'Polisa osigiranja')], string="Polisa osigiranja", help='tools at pickup',
+    pickup_tools4 = fields.Boolean([('pt4', 'Polisa osigiranja')], string="Polisa osigiranja", help='tools at pickup',
                                      required=True)
-    pickup_tools5 = fields.Selection([('pt5', 'Uze za vucu')], string="Uze za vucu", help='tools at pickup',
+    pickup_tools5 = fields.Boolean([('pt5', 'Uze za vucu')], string="Uze za vucu", help='tools at pickup',
                                      required=True)
     #
     #
