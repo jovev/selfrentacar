@@ -374,6 +374,54 @@
                                 </group>
                             </page>
 
+                <!-- end Lubi    dodatak -->
+
+                        <page string="Tools">
+                                <group>
+                                    <group>
+                                        <separator colspan="4" string="At pickup" />
+                                        <field name="pickup_tools1" widget="ckeckbox"/>
+                                        <field name="pickup_tools2" widget="ckeckbox"/>
+                                        <field name="pickup_tools3" widget="ckeckbox"/>
+                                        <field name="pickup_tools4" widget="ckeckbox"/>
+                                        <field name="pickup_tools5" widget="ckeckbox"/>
+                                        <field name="pickup_tools6" widget="ckeckbox"/>
+                                        <field name="pickup_tools7" widget="ckeckbox"/>
+                                        <field name="pickup_tools8" widget="ckeckbox"/>
+                                        <field name="pickup_tools9" widget="ckeckbox"/>
+                                        <field name="pickup_tools10" widget="ckeckbox"/>
+                                        <field name="pickup_tools11" widget="ckeckbox"/>
+                                        <field name="pickup_tools12" widget="ckeckbox"/>
+                                        <field name="pickup_tools13" widget="ckeckbox"/>
+                                        <field name="pickup_tools14" widget="ckeckbox"/>
+                                        <field name="pickup_tools15" widget="ckeckbox"/>
+                                        <field name="pickup_patosnice"/>
+                                        <field name="pickup_ratkapne"/>
+
+                                    </group>
+                                    <group>
+                                        <separator colspan="4" string="At dropoff" />
+                                        <field name="dropoff_tools1" widget="radio"/>
+                                        <field name="dropoff_tools2" widget="radio"/>
+                                        <field name="dropoff_tools3" widget="radio"/>
+                                        <field name="dropoff_tools4" widget="radio"/>
+                                        <field name="dropoff_tools5" widget="radio"/>
+                                        <field name="dropoff_tools6" widget="radio"/>
+                                        <field name="dropoff_tools7" widget="radio"/>
+                                        <field name="dropoff_tools8" widget="radio"/>
+                                        <field name="dropoff_tools9" widget="radio"/>
+                                        <field name="dropoff_tools10" widget="radio"/>
+                                        <field name="dropoff_tools11" widget="radio"/>
+                                        <field name="dropoff_tools12" widget="radio"/>
+                                        <field name="dropoff_tools13" widget="radio"/>
+                                        <field name="dropoff_tools14" widget="radio"/>
+                                        <field name="dropoff_tools15" widget="radio"/>
+                                        <field name="dropoff_patosnice"/>
+                                        <field name="dropoff_ratkapne"/>
+                                    </group>
+                                </group>
+                            </page>
+
 
                 <!--   Lubi dodatak za check Lists     -->
 
