@@ -469,12 +469,33 @@ class FleetRent(models.Model):
     amount_pay_deposit = fields.Float(string="Amount pay deposit", copy=False)
     nacin_placanja = fields.Selection([('card', 'Karticom'), ('cashe', 'Keš')], string="Način plaćanja",
                                    help='Feel level at pickup', required=False)
-    pickup_fuel = fields.Selection([('e', 'Empty'), ('14', '1/4'), ('12', '1/2'), ('34', '3/4'),
+    pickup_fuel = fields.Selection([('e', 'Kljuc - kartica'), ('14', 'Saobracajna'), ('12', '1/2'), ('34', '3/4'),
                                     ('f', 'Full')], string="Pickup fuel",
                                    help='Feel level at pickup', required=False)
     dropoff_fuel = fields.Selection([('e', 'Empty'), ('14', '1/4'), ('12', '1/2'), ('34', '3/4'),
                                      ('f', 'Full')], string="Dropoff fuel",
                                     help='Feel level at dropoff', required=False)
+
+    pickup_tools = fields.Selection([('pt1', 'Kljuc - kartica'), ('pt2', 'Saobracajna'), ('pt3', 'Zeleno karton'), ('pt4', 'Polisa osigiranja'),
+                                     ('pt5', 'Uze za vucu'), ('pt6', 'Prva pomoc'), ('pt7', 'Sijalice'), ('pt8', 'Prsluk'),
+                                     ('pt9', 'Trokut'), ('pt10', 'Pp aparat'), ('pt11', 'Sprej za gume'), ('pt12', 'Rezervi tocak'),
+                                     ('pt13', 'Dizalica'), ('pt14', 'Kljuc za tockove'), ('pt15', 'Kompresor'),
+                                     ],
+                                    string="Pickup tools",
+                                    help='tools at pickup', required=False)
+    dropoff_tools = fields.Selection(
+        [('pt1', 'Kljuc - kartica'), ('pt2', 'Saobracajna'), ('pt3', 'Zeleno karton'), ('pt4', 'Polisa osigiranja'),
+         ('pt5', 'Uze za vucu'), ('pt6', 'Prva pomoc'), ('pt7', 'Sijalice'), ('pt8', 'Prsluk'),
+         ('pt9', 'Trokut'), ('pt10', 'Pp aparat'), ('pt11', 'Sprej za gume'), ('pt12', 'Rezervi tocak'),
+         ('pt13', 'Dizalica'), ('pt14', 'Kljuc za tockove'), ('pt15', 'Kompresor'),
+         ],
+        string="Dropoff tools",
+        help='tools at dropoff', required=False)
+    pickup_patosnice = fields.Integer(string="Patosnice pri zaduzenju")
+    dropoff_patosnice = fields.Integer(string="Patosnice pri vracanju")
+    pickup_ratkapne = fields.Integer(string="Ratkapne pri zaduzenju")
+    dropoff_ratkapne = fields.Integer(string="Ratkapne pri vracanju")
+
     x_bazna_lokacija = fields.Many2one(related='vehicle_id.x_bazna_lokacija', string = 'Base Location')
     x_trenutna_lokacija = fields.Many2one(related='vehicle_id.x_trenutna_lokacija', string='Current Location')
     x_key_position = fields.Char(related='vehicle_id.x_key_position', string = 'Key position in KeyBox')
