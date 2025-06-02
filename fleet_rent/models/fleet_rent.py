@@ -469,28 +469,37 @@ class FleetRent(models.Model):
     amount_pay_deposit = fields.Float(string="Amount pay deposit", copy=False)
     nacin_placanja = fields.Selection([('card', 'Karticom'), ('cashe', 'Keš')], string="Način plaćanja",
                                    help='Feel level at pickup', required=False)
-    pickup_fuel = fields.Selection([('e', 'Kljuc - kartica'), ('14', 'Saobracajna'), ('12', '1/2'), ('34', '3/4'),
+    pickup_fuel = fields.Selection([('e', 'Empty'), ('14', '1/4'), ('12', '1/2'), ('34', '3/4'),
                                     ('f', 'Full')], string="Pickup fuel",
                                    help='Feel level at pickup', required=False)
     dropoff_fuel = fields.Selection([('e', 'Empty'), ('14', '1/4'), ('12', '1/2'), ('34', '3/4'),
                                      ('f', 'Full')], string="Dropoff fuel",
                                     help='Feel level at dropoff', required=False)
 
-    pickup_tools = fields.Selection([('pt1', 'Kljuc - kartica'), ('pt2', 'Saobracajna'), ('pt3', 'Zeleno karton'), ('pt4', 'Polisa osigiranja'),
-                                     ('pt5', 'Uze za vucu'), ('pt6', 'Prva pomoc'), ('pt7', 'Sijalice'), ('pt8', 'Prsluk'),
-                                     ('pt9', 'Trokut'), ('pt10', 'Pp aparat'), ('pt11', 'Sprej za gume'), ('pt12', 'Rezervi tocak'),
-                                     ('pt13', 'Dizalica'), ('pt14', 'Kljuc za tockove'), ('pt15', 'Kompresor')
-                                     ],
-                                    string="Pickup tools",
-                                    help='tools at pickup', required=False)
-    dropoff_tools = fields.Selection(
-        [('pt1', 'Kljuc - kartica'), ('pt2', 'Saobracajna'), ('pt3', 'Zeleno karton'), ('pt4', 'Polisa osigiranja'),
-         ('pt5', 'Uze za vucu'), ('pt6', 'Prva pomoc'), ('pt7', 'Sijalice'), ('pt8', 'Prsluk'),
-         ('pt9', 'Trokut'), ('pt10', 'Pp aparat'), ('pt11', 'Sprej za gume'), ('pt12', 'Rezervi tocak'),
-         ('pt13', 'Dizalica'), ('pt14', 'Kljuc za tockove'), ('pt15', 'Kompresor')
-         ],
-        string="Dropoff tools",
-        help='tools at dropoff', required=False)
+    pickup_tools1 = fields.Selection([('pt1', 'Kljuc - kartica')], string="Kljuc - kartica", help='tools at pickup', required=True)
+    pickup_tools2 = fields.Selection([('pt2', 'Saobracajna')], string="Saobra'ajma", help='tools at pickup', required=True)
+    pickup_tools3 = fields.Selection([('pt3', 'Zeleno karton')], string="Zeleni karton", help='tools at pickup',
+                                     required=True)
+    pickup_tools4 = fields.Selection([('pt4', 'Polisa osigiranja')], string="Polisa osigiranja", help='tools at pickup',
+                                     required=True)
+    pickup_tools5 = fields.Selection([('pt5', 'Uze za vucu')], string="Uze za vucu", help='tools at pickup',
+                                     required=True)
+    #
+    #
+    #                                  ('pt5', 'Uze za vucu'), ('pt6', 'Prva pomoc'), ('pt7', 'Sijalice'), ('pt8', 'Prsluk'),
+    #                                  ('pt9', 'Trokut'), ('pt10', 'Pp aparat'), ('pt11', 'Sprej za gume'), ('pt12', 'Rezervi tocak'),
+    #                                  ('pt13', 'Dizalica'), ('pt14', 'Kljuc za tockove'), ('pt15', 'Kompresor')
+    #                                  ],
+    #                                 string="Pickup tools",
+    #                                 help='tools at pickup', required=False)
+    # dropoff_tools = fields.Selection(
+    #     [('pt1', 'Kljuc - kartica'), ('pt2', 'Saobracajna'), ('pt3', 'Zeleno karton'), ('pt4', 'Polisa osigiranja'),
+    #      ('pt5', 'Uze za vucu'), ('pt6', 'Prva pomoc'), ('pt7', 'Sijalice'), ('pt8', 'Prsluk'),
+    #      ('pt9', 'Trokut'), ('pt10', 'Pp aparat'), ('pt11', 'Sprej za gume'), ('pt12', 'Rezervi tocak'),
+    #      ('pt13', 'Dizalica'), ('pt14', 'Kljuc za tockove'), ('pt15', 'Kompresor')
+    #      ],
+    #     string="Dropoff tools",
+    #     help='tools at dropoff', required=False)
     pickup_patosnice = fields.Integer(string="Patosnice pri zaduzenju")
     dropoff_patosnice = fields.Integer(string="Patosnice pri vracanju")
     pickup_ratkapne = fields.Integer(string="Ratkapne pri zaduzenju")
