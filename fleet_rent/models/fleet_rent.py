@@ -476,15 +476,15 @@ class FleetRent(models.Model):
                                      ('f', 'Full')], string="Dropoff fuel",
                                     help='Feel level at dropoff', required=False)
 
-    pickup_tools1 = fields.Boolean(string="Kljuc - kartica", help='tools at pickup', required=True)
-    pickup_tools2 = fields.Boolean(string="Saobra'ajma", help='tools at pickup', required=True)
-    pickup_tools3 = fields.Boolean(string="Zeleni karton", help='tools at pickup',
-                                     required=True)
-    pickup_tools4 = fields.Boolean(string="Polisa osigiranja", help='tools at pickup',
-                                     required=True)
-    pickup_tools5 = fields.Boolean(string="Uze za vucu", help='tools at pickup',
-                                     required=True)
-    #
+    # pickup_tools1 = fields.Boolean(string="Kljuc - kartica", help='tools at pickup', required=True)
+    # pickup_tools2 = fields.Boolean(string="Saobra'ajma", help='tools at pickup', required=True)
+    # pickup_tools3 = fields.Boolean(string="Zeleni karton", help='tools at pickup',
+    #                                  required=True)
+    # pickup_tools4 = fields.Boolean(string="Polisa osigiranja", help='tools at pickup',
+    #                                  required=True)
+    # pickup_tools5 = fields.Boolean(string="Uze za vucu", help='tools at pickup',
+    #                                  required=True)
+    # #
     #
     #                                  ('pt5', 'Uze za vucu'), ('pt6', 'Prva pomoc'), ('pt7', 'Sijalice'), ('pt8', 'Prsluk'),
     #                                  ('pt9', 'Trokut'), ('pt10', 'Pp aparat'), ('pt11', 'Sprej za gume'), ('pt12', 'Rezervi tocak'),
