@@ -502,7 +502,7 @@ class FleetRent(models.Model):
                                    required=True)
     pickup_tools14 = fields.Boolean(string="Kljuc za tockove", help='tools at pickup',
                                     required=True)
-    pickup_tools14 = fields.Boolean(string="Kompresor", help='tools at pickup',
+    pickup_tools15 = fields.Boolean(string="Kompresor", help='tools at pickup',
                                     required=True)
 
     dropoff_tools1 = fields.Boolean(string="Kljuc - kartica", help='tools at dropoff', required=True)
@@ -531,7 +531,7 @@ class FleetRent(models.Model):
                                     required=True)
     dropoff_tools14 = fields.Boolean(string="Kljuc za tockove", help='tools at dropoff',
                                     required=True)
-    dropoff_tools14 = fields.Boolean(string="Kompresor", help='tools at dropoff',
+    dropoff_tools15 = fields.Boolean(string="Kompresor", help='tools at dropoff',
                                     required=True)
 
     pickup_patosnice = fields.Integer(string="Patosnice pri zaduzenju")
