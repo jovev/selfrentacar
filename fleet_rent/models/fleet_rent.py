@@ -760,7 +760,9 @@ class FleetRent(models.Model):
             # Render the PDF contract
             #aaa = self.env.ref('fleet.rent.report_fleet_rent')
             #_logger.info("****** aaaaaa  == %s", aaa)
-            pdf, _ = self.env.ref('fleet_rent.report_fleet_rent_pdf')._render_qweb_pdf(res_ids=[651])
+            report = self.env['ir.actions.report'].sudo()._get_report_from_name(
+                'fleet_rent.report_fleet_rent')
+            pdf, _ = report._render_qweb_pdf(res_ids=[651])
 
             # Create attachment
             attachment = self.env['ir.attachment'].create({
