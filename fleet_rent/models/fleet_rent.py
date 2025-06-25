@@ -762,7 +762,7 @@ class FleetRent(models.Model):
             #_logger.info("****** aaaaaa  == %s", aaa)
             report = self.env['ir.actions.report'].sudo()._get_report_from_name(
                 'fleet_rent.report_fleet_rent')
-            pdf, _ = report._render_qweb_pdf(res_ids=[651])
+            pdf, _ = report._render_qweb_pdf('fleet_rent.report_fleet_rent_pdf', res_ids=record.id)
 
             # Create attachment
             attachment = self.env['ir.attachment'].create({
