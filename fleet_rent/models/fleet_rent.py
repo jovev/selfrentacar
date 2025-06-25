@@ -383,6 +383,10 @@ class FleetRent(models.Model):
         "maintenance.cost", "fleet_rent_id", "Maintenance Costs"
     )
     description = fields.Text()
+    credit_card_info = fields.Text(
+        "Credit Card Info",
+        help="Credit card information of the customer.",
+    )
     account_move_line_ids = fields.One2many(
         "account.move.line", "fleet_rent_id", "Account Move"
     )
@@ -463,12 +467,78 @@ class FleetRent(models.Model):
     reservation_code = fields.Char(string="Reservation Code", copy=False)
     allow_crossborder = fields.Boolean(string="Cross Border")
     amount_pay_deposit = fields.Float(string="Amount pay deposit", copy=False)
-    pickup_fuel = fields.Selection([('e', 'Empty'), ('14', '1/4'), ('12', '1/2'), ('34', '3/d'),
+    nacin_placanja = fields.Selection([('card', 'Karticom'), ('cashe', 'Keš')], string="Način plaćanja",
+                                   help='Feel level at pickup', required=False)
+    pickup_fuel = fields.Selection([('e', 'Empty'), ('14', '1/4'), ('12', '1/2'), ('34', '3/4'),
                                     ('f', 'Full')], string="Pickup fuel",
                                    help='Feel level at pickup', required=False)
-    dropoff_fuel = fields.Selection([('e', 'Empty'), ('14', '1/4'), ('12', '1/2'), ('34', '3/d'),
+    dropoff_fuel = fields.Selection([('e', 'Empty'), ('14', '1/4'), ('12', '1/2'), ('34', '3/4'),
                                      ('f', 'Full')], string="Dropoff fuel",
                                     help='Feel level at dropoff', required=False)
+
+    pickup_tools1 = fields.Boolean(string="Kljuc - kartica", help='tools at pickup', required=True)
+    pickup_tools2 = fields.Boolean(string="Saobra'ajma", help='tools at pickup', required=True)
+    pickup_tools3 = fields.Boolean(string="Zeleni karton", help='tools at pickup',
+                                     required=True)
+    pickup_tools4 = fields.Boolean(string="Polisa osigiranja", help='tools at pickup',
+                                     required=True)
+    pickup_tools5 = fields.Boolean(string="Uze za vucu", help='tools at pickup',
+                                     required=True)
+    pickup_tools6 = fields.Boolean(string="prva pomoc", help='tools at pickup',
+                                   required=True)
+    pickup_tools7 = fields.Boolean(string="Sijalice", help='tools at pickup',
+                                   required=True)
+    pickup_tools8 = fields.Boolean(string="Prsluk", help='tools at pickup',
+                                   required=True)
+    pickup_tools9 = fields.Boolean(string="Trokut", help='tools at pickup',
+                                   required=True)
+    pickup_tools10 = fields.Boolean(string="Pp aparat", help='tools at pickup',
+                                   required=True)
+    pickup_tools11 = fields.Boolean(string="Sprej za gume", help='tools at pickup',
+                                   required=True)
+    pickup_tools12 = fields.Boolean(string="Rezervi tocak", help='tools at pickup',
+                                   required=True)
+    pickup_tools13 = fields.Boolean(string="Dizalica", help='tools at pickup',
+                                   required=True)
+    pickup_tools14 = fields.Boolean(string="Kljuc za tockove", help='tools at pickup',
+                                    required=True)
+    pickup_tools15 = fields.Boolean(string="Kompresor", help='tools at pickup',
+                                    required=True)
+
+    dropoff_tools1 = fields.Boolean(string="Kljuc - kartica", help='tools at dropoff', required=True)
+    dropoff_tools2 = fields.Boolean(string="Saobra'ajma", help='tools at dropoff', required=True)
+    dropoff_tools3 = fields.Boolean(string="Zeleni karton", help='tools at dropoff',
+                                   required=True)
+    dropoff_tools4 = fields.Boolean(string="Polisa osigiranja", help='tools at dropoff',
+                                   required=True)
+    dropoff_tools5 = fields.Boolean(string="Uze za vucu", help='tools at dropoff',
+                                   required=True)
+    dropoff_tools6 = fields.Boolean(string="prva pomoc", help='tools at dropoff',
+                                   required=True)
+    dropoff_tools7 = fields.Boolean(string="Sijalice", help='tools at dropoff',
+                                   required=True)
+    dropoff_tools8 = fields.Boolean(string="Prsluk", help='tools at dropoff',
+                                   required=True)
+    dropoff_tools9 = fields.Boolean(string="Trokut", help='tools at dropoff',
+                                   required=True)
+    dropoff_tools10 = fields.Boolean(string="Pp aparat", help='tools at dropoff',
+                                    required=True)
+    dropoff_tools11 = fields.Boolean(string="Sprej za gume", help='tools at dropoff',
+                                    required=True)
+    dropoff_tools12 = fields.Boolean(string="Rezervi tocak", help='tools at dropoff',
+                                    required=True)
+    dropoff_tools13 = fields.Boolean(string="Dizalica", help='tools at dropoff',
+                                    required=True)
+    dropoff_tools14 = fields.Boolean(string="Kljuc za tockove", help='tools at dropoff',
+                                    required=True)
+    dropoff_tools15 = fields.Boolean(string="Kompresor", help='tools at dropoff',
+                                    required=True)
+
+    pickup_patosnice = fields.Integer(string="Patosnice pri zaduzenju")
+    dropoff_patosnice = fields.Integer(string="Patosnice pri vracanju")
+    pickup_ratkapne = fields.Integer(string="Ratkapne pri zaduzenju")
+    dropoff_ratkapne = fields.Integer(string="Ratkapne pri vracanju")
+
     x_bazna_lokacija = fields.Many2one(related='vehicle_id.x_bazna_lokacija', string = 'Base Location')
     x_trenutna_lokacija = fields.Many2one(related='vehicle_id.x_trenutna_lokacija', string='Current Location')
     x_key_position = fields.Char(related='vehicle_id.x_key_position', string = 'Key position in KeyBox')

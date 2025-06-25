@@ -260,7 +260,8 @@
                                 <field name="rent_amt" widget="monetary" attrs="{'readonly':[('state','!=','draft')]}"/>
                                 <field name="contract_dt" required="1" readonly="1"/>
                                 <field name="deposit_amt" widget="monetary" string="Amount Deposit" attrs="{'readonly':[('deposit_received','=',True)]}"/>
-							</group>
+                                <field name="nacin_placanja" widget="radio"/>
+                            </group>
 							<group>
     							<field name="return_location"/>
                                 <field name="amount_return" widget="monetary" readonly="1" string="Amount Returned"/>
@@ -269,6 +270,7 @@
                                 <field name="is_payment_received" string="Payment received?" readonly="1"/>
                                 <field name="contact_id"/>
                                 <field name="maintenance_cost" widget="monetary" readonly="1" string="Maintenance Cost"/>
+                                
 							</group>
 						</group>
             <!-- CONTRACT INFORMATION -->
@@ -368,6 +370,54 @@
                                     </group>
                                     <group>
                                         <field name="dropoff_fuel" widget="radio"/>
+                                    </group>
+                                </group>
+                            </page>
+
+                <!-- end Lubi    dodatak -->
+
+                        <page string="Tools">
+                                <group>
+                                    <group>
+                                        <separator colspan="4" string="At pickup" />
+                                        <field name="pickup_tools1" widget="ckeckbox"/>
+                                        <field name="pickup_tools2" widget="ckeckbox"/>
+                                        <field name="pickup_tools3" widget="ckeckbox"/>
+                                        <field name="pickup_tools4" widget="ckeckbox"/>
+                                        <field name="pickup_tools5" widget="ckeckbox"/>
+                                        <field name="pickup_tools6" widget="ckeckbox"/>
+                                        <field name="pickup_tools7" widget="ckeckbox"/>
+                                        <field name="pickup_tools8" widget="ckeckbox"/>
+                                        <field name="pickup_tools9" widget="ckeckbox"/>
+                                        <field name="pickup_tools10" widget="ckeckbox"/>
+                                        <field name="pickup_tools11" widget="ckeckbox"/>
+                                        <field name="pickup_tools12" widget="ckeckbox"/>
+                                        <field name="pickup_tools13" widget="ckeckbox"/>
+                                        <field name="pickup_tools14" widget="ckeckbox"/>
+                                        <field name="pickup_tools15" widget="ckeckbox"/>
+                                        <field name="pickup_patosnice"/>
+                                        <field name="pickup_ratkapne"/>
+
+                                    </group>
+                                    <group>
+                                        <separator colspan="4" string="At dropoff" />
+                                        <field name="dropoff_tools1" widget="ckeckbox"/>
+                                        <field name="dropoff_tools2" widget="ckeckbox"/>
+                                        <field name="dropoff_tools3" widget="ckeckbox"/>
+                                        <field name="dropoff_tools4" widget="ckeckbox"/>
+                                        <field name="dropoff_tools5" widget="ckeckbox"/>
+                                        <field name="dropoff_tools6" widget="ckeckbox"/>
+                                        <field name="dropoff_tools7" widget="ckeckbox"/>
+                                        <field name="dropoff_tools8" widget="ckeckbox"/>
+                                        <field name="dropoff_tools9" widget="ckeckbox"/>
+                                        <field name="dropoff_tools10" widget="ckeckbox"/>
+                                        <field name="dropoff_tools11" widget="ckeckbox"/>
+                                        <field name="dropoff_tools12" widget="ckeckbox"/>
+                                        <field name="dropoff_tools13" widget="ckeckbox"/>
+                                        <field name="dropoff_tools14" widget="ckeckbox"/>
+                                        <field name="dropoff_tools15" widget="ckeckbox"/>
+                                        <field name="dropoff_patosnice"/>
+                                        <field name="dropoff_ratkapne"/>
                                     </group>
                                 </group>
                             </page>
@@ -488,6 +538,18 @@
                             />
                             <field
                                 name="description"
+                                string="Description"
+                                placeholder="Enter Terms and Conditions..."
+                            />
+                        </page>
+                        <!-- dodatak ya podatke o kreditnoj kartici koja je pridruzena ovom ugovoru -->
+                        <page string="CreditCard Info" name="creditcard_page">
+                            <separator
+                                string="Credit Card Info"
+                                name="credit_card_info"
+                            />
+                            <field
+                                name="credit_card_info"
                                 string="Description"
                                 placeholder="Enter Terms and Conditions..."
                             />
