@@ -680,6 +680,34 @@ class FleetRent(models.Model):
             )
 
     # ovo je preuzeto iz Sales Order
+    def action_send_contract_email(self):
+        for record in self:
+            # Get the override email from context, fallback to partner email
+            custom_email = self.env.context.get('custom_email') or record.partner_id.email
+
+            # Render the PDF contract
+            #pdf, _ = self.env.ref('your_module.action_rent_contract')._render_qweb_pdf(record.id)
+
+            # Create attachment
+            attachment = self.env['ir.attachment'].create({
+                'name': f'Rent_Contract_{record.name}.pdf',
+                'type': 'binary',
+                'datas': base64.b64encode(pdf),
+                'res_model': 'fleet.rent',
+                'res_id': record.id,
+                'mimetype': 'application/pdf',
+            })
+
+            # Clone the mail template and set custom recipient
+            template = self.env.ref('mail.template.fleet_email_template').copy({
+                'email_to': custom_email,
+            })
+
+            # Send email
+            template.with_context(default_attachment_ids=[(6, 0, [attachment.id])]).send_mail(record.id,force_send=True)
+
+        return True
+
     def action_rentconfirmation_send(self):
         """ Opens a wizard to compose an email, with relevant mail template loaded by default """
         _logger.info("***USAO u action_rentconfirmation_send    self == %s", self)
@@ -761,7 +789,7 @@ class FleetRent(models.Model):
         }
         _logger.info("***IZABRAO MAIL TEMPLATE    self = %s   dragan = %s  ", self, self._context)
         self.action_send_email()
-        
+
 
     def action_send_email(self):
         mail_template = self.env.ref('fleet_rent.fleet_email_template')
