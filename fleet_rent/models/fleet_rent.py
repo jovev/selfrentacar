@@ -755,7 +755,7 @@ class FleetRent(models.Model):
         _logger.info("***USAO u action_send_contract_email    _self == %s", self._context)
         for record in self:
             # Get the override email from context, fallback to partner email
-            custom_email = self.env.context.get('custom_email') or record.tenant_id.email
+            custom_email = record.tenant_id.login
             _logger.info("****** custom email  == %s", custom_email)
             # Render the PDF contract
             #pdf, _ = self.env.ref('your_module.action_rent_contract')._render_qweb_pdf(record.id)
