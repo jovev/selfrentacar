@@ -775,7 +775,7 @@ class FleetRent(models.Model):
             })
 
             # Clone the mail template and set custom recipient
-            template = self.env.ref('mail_template.fleet_email_template').copy({
+            template = self.env.ref('fleet_rent.fleet_email_template').copy({
                 'email_to': custom_email,
             })
 
