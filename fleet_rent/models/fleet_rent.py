@@ -758,7 +758,7 @@ class FleetRent(models.Model):
             custom_email = record.tenant_id.login
             _logger.info("****** custom email  == %s", custom_email)
             # Render the PDF contract
-            #pdf, _ = self.env.ref('your_module.action_rent_contract')._render_qweb_pdf(record.id)
+            pdf, _ = self.env.ref('fleet.rent.report_fleet_rent')._render_qweb_pdf(record.id)
 
             # Create attachment
             attachment = self.env['ir.attachment'].create({
